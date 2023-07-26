@@ -1,0 +1,10 @@
+root:
+  base: inline-flex mb-5
+  size:
+    xs: -space-x-2
+    sm: -space-x-3
+    base: -space-x-4
+    lg: -space-x-8
+    xl: -space-x-16
+avatar:
+  base: p-0 z-0
