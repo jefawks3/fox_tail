@@ -1,0 +1,24 @@
+root:
+  base: inline-block w-3.5 h-3.5 rounded-full
+  color:
+    neutral: &default bg-gray-400
+    dark: bg-gray-700
+    light: bg-gray-200
+    red: bg-red-400
+    blue: bg-blue-400
+    green: bg-green-400
+    yellow: bg-yellow-400
+    indigo: bg-indigo-400
+    purple: bg-purple-400
+    pink: bg-pink-400
+    info: bg-blue-700
+    success: bg-green-700
+    error: bg-red-700
+    warning: bg-yellow-700
+    default: *default
+container:
+  base: relative flex
+animated:
+  base: absolute animate-ping opacity-75 w-full h-full
+  dot: w-full h-full
+
