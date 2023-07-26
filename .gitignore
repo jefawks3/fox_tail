@@ -5,6 +5,7 @@
 /log/*.log
 /pkg/
 /tmp/
+/test/dummy/app/assets/builds/
 /test/dummy/db/*.sqlite3
 /test/dummy/db/*.sqlite3-*
 /test/dummy/log/*.log
