@@ -1,0 +1,23 @@
+root:
+  size:
+    xs: w-4 h-4
+    sm: w-6 h-6
+    base: w-8 h-8
+    lg: w-10 h-10
+    xl: w-20 h-20
+  color:
+    neutral: &default text-gray-500 dark:text-gray-400
+    dark: text-gray-800 dark:text-gray-900
+    light: text-gray-300 dark:text-gray-500
+    info: text-blue-800 dark:text-blue-200
+    success: text-green-800 dark:text-green-200
+    warning: text-yellow-800 dark:text-yellow-200
+    error: text-red-800 dark:text-red-200
+    blue: text-blue-500 dark:text-blue-700
+    red: text-red-500 dark:text-red-700
+    yellow: text-yellow-500 dark:text-yellow-700
+    green: text-green-500 dark:text-green-700
+    indigo: text-indigo-500 dark:text-indigo-700
+    purple: text-purple-500 dark:text-purple-700
+    pink: text-pink-500 dark:text-pink-700
+    default: *default

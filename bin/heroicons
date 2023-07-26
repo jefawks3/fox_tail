@@ -1,0 +1,64 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'faraday'
+require 'tempfile'
+require 'zip'
+require 'fileutils'
+require "nokogiri"
+
+ROOT_DIR = File.expand_path "..", __dir__
+DESTINATION_DIR = File.join ROOT_DIR, "heroicons"
+TEMP_DIR = File.join ROOT_DIR, "tmp", "heroicons"
+
+def fetch(url, redirect = 0)
+  response = Faraday.get url
+
+  if response.status == 302
+    if redirect > 10
+      puts "Unable to download Heroicons - Too many redirects!"
+      exit! -100
+    end
+
+    fetch response.headers['location'], redirect = 1
+  else
+    response
+  end
+end
+
+response = fetch "https://github.com/tailwindlabs/heroicons/archive/refs/heads/master.zip"
+
+if response.status != 200
+  puts "Unable to download heroicons [Status: #{response.status}]"
+  exit! -1
+end
+
+FileUtils.rm_rf TEMP_DIR if Dir.exist? TEMP_DIR
+FileUtils.mkdir_p TEMP_DIR unless Dir.exist? TEMP_DIR
+FileUtils.mkdir_p DESTINATION_DIR unless Dir.exist? DESTINATION_DIR
+
+zipfile_path = File.join TEMP_DIR, "heroicons.zip"
+File.write zipfile_path, response.body
+
+Zip::File.open zipfile_path do |zip|
+  zip.each do |file|
+    if file.file? && file.name && file.name.match(/^heroicons-master\/src\//)
+      relative_path = Pathname.new(file.name).relative_path_from("heroicons-master/src").to_s
+      temp_path = File.join TEMP_DIR, relative_path
+      destination_file = File.join DESTINATION_DIR, relative_path
+
+      # Create Temp file
+      FileUtils.mkdir_p File.dirname(temp_path)
+      file.extract temp_path
+
+      # Modify SVG
+      svg_doc = Nokogiri::XML::DocumentFragment.parse File.read(temp_path)
+      svg_doc.css("[fill]").each { |node| node.attribute("fill").value = "currentColor" unless node.name == "svg" }
+      svg_doc.css("[stroke]").each { |node| node.attribute("stroke").value = "currentColor" unless node.name ==  "svg" }
+
+      # Save SVG
+      FileUtils.rm_f destination_file
+      File.write destination_file, svg_doc.to_s
+    end
+  end
+end
