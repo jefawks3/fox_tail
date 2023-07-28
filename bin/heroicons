@@ -8,7 +8,7 @@ require 'fileutils'
 require "nokogiri"
 
 ROOT_DIR = File.expand_path "..", __dir__
-DESTINATION_DIR = File.join ROOT_DIR, "heroicons"
+DESTINATION_DIR = File.join ROOT_DIR, "app/assets/vendor/heroicons"
 TEMP_DIR = File.join ROOT_DIR, "tmp", "heroicons"
 
 def fetch(url, redirect = 0)
@@ -52,13 +52,14 @@ Zip::File.open zipfile_path do |zip|
       file.extract temp_path
 
       # Modify SVG
-      svg_doc = Nokogiri::XML::DocumentFragment.parse File.read(temp_path)
+      svg_doc = Nokogiri::XML.parse File.read(temp_path)
       svg_doc.css("[fill]").each { |node| node.attribute("fill").value = "currentColor" unless node.name == "svg" }
       svg_doc.css("[stroke]").each { |node| node.attribute("stroke").value = "currentColor" unless node.name ==  "svg" }
 
       # Save SVG
-      FileUtils.rm_f destination_file
-      File.write destination_file, svg_doc.to_s
+      FileUtils.rm_f destination_file if File.exist? destination_file
+      FileUtils.mkdir_p File.dirname(destination_file)
+      File.write destination_file, svg_doc.to_xml
     end
   end
 end

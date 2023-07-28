@@ -1,0 +1,9 @@
+<div class="space-y-2">
+  <% @previews.each do |preview| %>
+    <h3 class="text-2xl font-bold">
+      <%= link_to preview.preview_name.titleize,
+                  preview_view_component_path(preview.preview_name),
+                  class: 'text-blue-600 dark:text-blue-500 hover:underline' %>
+    </h3>
+  <% end %>
+</div>

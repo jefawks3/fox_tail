@@ -11,29 +11,8 @@
   </head>
 
   <body class="p-6 lg:p-8 bg-white dark:bg-gray-800">
-    <% if @example_name.present? %>
-    <div class="space-y-8">
-      <div>
-        <h2 class="text-2xl font-semibold text-gray-900">Light Mode</h2>
-        <div class="flex items-center justify-center py-20 px-8 border border-gray-900">
-          <div>
-            <%= yield %>
-          </div>
-        </div>
-      </div>
-      <div>
-        <h2 class="text-2xl font-semibold text-gray-900">Dark Mode</h2>
-        <div class="flex items-center justify-center dark bg-gray-800 py-20 px-8 border border-gray-900">
-          <div>
-            <%= yield %>
-          </div>
-        </div>
-      </div>
-    </div>
-    <% else %>
-    <div class="format format-sm lg:format-base dark:format-invert format-blue">
+    <div>
       <%= yield %>
     </div>
-    <% end %>
   </body>
 </html>

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Flowbite::AvatarStackComponent < Flowbite::ViewComponents::Base
+class Flowbite::AvatarStackComponent < Flowbite::BaseComponent
   attr_reader :size, :rounded
 
   renders_many :avatars, lambda { |options = {}|
@@ -42,9 +42,9 @@ class Flowbite::AvatarStackComponent < Flowbite::ViewComponents::Base
   end
 
   def call
-    classes = classnames theme.classname("root.base"), theme.classname([:root, :size, size]), html_attributes[:class]
+    root_classes = classnames theme.classname("root.base"), theme.classname([:root, :size, size]), html_class
 
-    content_tag :div, html_attributes.merge(class: classes) do
+    content_tag :div, html_attributes.merge(class: root_classes) do
       avatars.each { |avatar| concat avatar }
       concat counter if counter?
     end

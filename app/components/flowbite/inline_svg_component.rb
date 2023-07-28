@@ -11,7 +11,7 @@
 # Default options are:
 #   :size => :md
 #   :color => :current
-class Flowbite::InlineSvgComponent < Flowbite::ViewComponents::Base
+class Flowbite::InlineSvgComponent < Flowbite::BaseComponent
   attr_reader :path
 
   def initialize(path, html_attributes = {})
@@ -20,10 +20,11 @@ class Flowbite::InlineSvgComponent < Flowbite::ViewComponents::Base
   end
 
   def call
-    doc = Nokogiri::XML::DocumentFragment.parse asset_contents
+    doc = Nokogiri::XML.parse asset_contents
     html_attributes.each { |k, v| doc.child[k.to_s] = v }
+    doc.child[:class] = html_class
     yield doc if block_given?
-    doc.to_s.html_safe
+    doc.child.to_s.html_safe
   end
 
   private
@@ -32,7 +33,7 @@ class Flowbite::InlineSvgComponent < Flowbite::ViewComponents::Base
     if (manifest_file = Rails.application.assets_manifest.assets[path])
       File.join(Rails.application.assets_manifest.directory, manifest_file)
     else
-      Rails.application.assets&.[](path)&.filename
+      Rails.application.assets.find_asset(path)&.filename
     end
   end
 

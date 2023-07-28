@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Flowbite::DotIndicatorComponent < Flowbite::ViewComponents::Base
+class Flowbite::DotIndicatorComponent < Flowbite::BaseComponent
   attr_reader :color
 
   def initialize(color: :default, animated: false, border: true, **html_attributes)
@@ -25,14 +25,14 @@ class Flowbite::DotIndicatorComponent < Flowbite::ViewComponents::Base
   private
 
   def render_dot
-    classes = classnames theme.classname("root.base"), theme.classname([:root, :color, color]), html_attributes[:class]
+    classes = classnames theme.classname("root.base"), theme.classname([:root, :color, color]), html_class
     content_tag :span, nil, html_attributes.merge(class: classes)
   end
 
   def render_animated_dot
     container_classes = classnames theme.classname("root.base"),
                                    theme.classname("container.base"),
-                                   html_attributes[:class]
+                                   html_class
 
     dot_classes = classnames theme.classname("root.base"),
                              theme.classname([:root, :color, color]),

@@ -13,7 +13,7 @@ module Flowbite
       def merge!(theme)
         theme = Theme.load_file theme if theme.is_a? String
         theme = theme.base_theme if theme.is_a? Theme
-        base_theme.merge! theme
+        base_theme.deep_merge! theme
         self
       end
 

@@ -20,17 +20,9 @@ class Flowbite::IconComponent < Flowbite::IconBaseComponent
     super name, **html_attributes
   end
 
-  def call
-    super do |doc|
-      doc.child[:class] = base_classnames
-    end
-  end
-
   protected
 
-  def base_classnames
-    classnames theme.classname([:root, :color, color]),
-               theme.classname([:root, :size, size]),
-               html_attributes[:class]
+  def html_class
+    classnames theme.classname([:root, :color, color]), theme.classname([:root, :size, size]), super
   end
 end

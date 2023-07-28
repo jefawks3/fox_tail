@@ -1,0 +1,11 @@
+root:
+  visuals: group inline-flex items-center justify-center gap-2
+hidden: "hidden"
+visuals:
+  loading: animate-spin
+  size:
+    xs: h-3 w-3
+    sm: h-3.5 w-3.5
+    base: h-3.5 w-3.5
+    lg: h-4 w-4
+    xl: h-4 w-4

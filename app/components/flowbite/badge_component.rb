@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Flowbite::BadgeComponent < Flowbite::ViewComponents::Base
+class Flowbite::BadgeComponent < Flowbite::BaseComponent
   attr_reader :size, :color, :url
 
   renders_one :icon, lambda { |icon, options = {}|
@@ -42,10 +42,7 @@ class Flowbite::BadgeComponent < Flowbite::ViewComponents::Base
   def call
     content_tag (url? ? :a : :span), html_attributes.merge(href: url, class: root_classes) do
       concat icon if icon?
-
-      if content?
-        concat content_tag(:span, content, class: content_classes)
-      end
+      concat content_tag(:span, content, class: content_classes) if content?
     end
   end
 
@@ -63,7 +60,7 @@ class Flowbite::BadgeComponent < Flowbite::ViewComponents::Base
                !icon_only? && theme.classname("root.visuals"),
                icon_only? && theme.classname("root.visuals_only.base"),
                icon_only? && theme.classname([:root, :visuals_only, :size, size]),
-               html_attributes[:class]
+               html_class
   end
 
   def content_classes

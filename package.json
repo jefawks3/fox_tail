@@ -1,0 +1,29 @@
+{
+  "name": "flowbite-view_components",
+  "version": "0.1.0",
+  "description": "Unofficial Rails View Components built for Flowbite and Tailwind CSS",
+  "main": "dest/index.js",
+  "repository": "https://github.com/jefawks3/flowbite-view_components",
+  "author": "James Fawks <jefawks3@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.1",
+    "flowbite": "^1.7.0",
+    "tailwind-merge": "^1.14.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "esbuild": "^0.18.16",
+    "flowbite-typography": "^1.0.3",
+    "postcss": "^8.4.27",
+    "postcss-cli": "^10.1.0",
+    "postcss-nesting": "^12.0.0",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.1.6"
+  },
+  "scripts": {
+    "build:css": "postcss ./test/dummy/app/assets/stylesheets/application.postcss.css -o ./test/dummy/app/assets/builds/application.css",
+    "build": "esbuild test/dummy/app/javascript/*.* --bundle --sourcemap --outdir=test/dummy/app/assets/builds --public-path=/assets"
+  }
+}

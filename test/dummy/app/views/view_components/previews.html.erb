@@ -1,0 +1,13 @@
+<h1 class="text-3xl font-bold dark:text-white mb-4">
+  <%= @preview.preview_name.titleize %>
+</h1>
+<ul class="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+  <% @preview.examples.each do |example| %>
+    <li>
+      <%= link_to example,
+                  preview_view_component_path("#{@preview.preview_name}/#{example}"),
+                  class: 'font-medium text-blue-600 dark:text-blue-500 hover:underline'
+      %>
+    </li>
+  <% end %>
+</ul>

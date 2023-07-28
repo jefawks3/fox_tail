@@ -1,0 +1,21 @@
+root:
+  base: hover:underline
+  color:
+    neutral: text-gray-600 dark:text-gray-500
+    dark: text-gray-800 dark:text-gray-700
+    light: text-gray-300 dark:text-gray-500
+    blue: &default text-blue-600 dark:text-blue-500
+    red: text-red-600 dark:text-red-500
+    green: text-green-600 dark:text-green-500
+    yellow: text-yellow-600 dark:text-yellow-500
+    indigo: text-indigo-600 dark:text-indigo-500
+    purple: text-purple-600 dark:text-purple-500
+    pink: text-pink-600 dark:text-pink-500
+    info: text-blue-800 dark:text-blue-700
+    error: text-red-800 dark:text-red-700
+    warning: text-yellow-800 dark:text-yellow-700
+    success: text-green-800 dark:text-green-700
+    default: *default
+  disabled:
+    base: opacity-50 cursor-not-allowed
+

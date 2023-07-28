@@ -16,8 +16,9 @@ module Flowbite
 
         def defaults
           ActiveSupport::OrderedOptions.new.merge!({
-            classname_merger: Flowbite::ViewComponents::Merger.new,
-            cache_theme: false
+            classname_merger: Merger.new,
+            stimulus_controller_prefix: "flowbite-",
+            use_stimulus: true
           })
         end
       end

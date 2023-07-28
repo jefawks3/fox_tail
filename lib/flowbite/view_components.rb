@@ -8,8 +8,11 @@ module Flowbite
   module ViewComponents
     extend ActiveSupport::Autoload
 
+    autoload :Merger
     autoload :Config
     autoload :Base
+    autoload :Theme
+    autoload :StimulusController
 
     def self.root
       Pathname.new File.expand_path("../..", __dir__)

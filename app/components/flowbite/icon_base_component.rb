@@ -15,6 +15,6 @@ class Flowbite::IconBaseComponent < Flowbite::InlineSvgComponent
     filename = "#{name.to_s.gsub("_", "-")}.svg"
     size = variant == :mini ? "20" : "24"
     style = variant == :mini ? "solid" : variant.to_s
-    Flowbite::ViewComponents.root.join("heroicons", size, style, filename).to_s
+    Flowbite::ViewComponents.root.join("app/assets/vendor/heroicons", size, style, filename).to_s
   end
 end

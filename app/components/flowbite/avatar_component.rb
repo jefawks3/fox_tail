@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Flowbite::AvatarComponent < Flowbite::ViewComponents::Base
+class Flowbite::AvatarComponent < Flowbite::BaseComponent
   attr_reader :size, :src, :text, :icon
 
   renders_one :dot, lambda { |position: :top_right, **options|
@@ -45,7 +45,7 @@ class Flowbite::AvatarComponent < Flowbite::ViewComponents::Base
     visual = render_visual
 
     if dot?
-      content_tag :div, class: "relative" do
+      content_tag :div, class: theme.classname("dot.container") do
         concat dot
         concat visual
       end
@@ -65,7 +65,7 @@ class Flowbite::AvatarComponent < Flowbite::ViewComponents::Base
                !src? && theme.classname("root.background"),
                (icon? || text?) && theme.classname("root.visual"),
                text? && theme.classname("root.text"),
-               html_attributes[:class]
+               html_class
   end
 
   def label_classes

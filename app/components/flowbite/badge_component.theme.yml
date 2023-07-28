@@ -1,6 +1,6 @@
 root:
   base: font-medium h-fit rounded
-  visuals: flex items-center gap-1
+  visuals: inline-flex items-center gap-1
   size:
     base: text-xs px-2.5 py-0.5
     sm: text-sm px-3 py-1
