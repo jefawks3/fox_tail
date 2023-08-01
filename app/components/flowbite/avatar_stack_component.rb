@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Flowbite::AvatarStackComponent < Flowbite::BaseComponent
-  attr_reader :size, :rounded
-
   renders_many :avatars, lambda { |options = {}|
     options[:size] = size
     options[:rounded] = rounded
@@ -31,11 +29,8 @@ class Flowbite::AvatarStackComponent < Flowbite::BaseComponent
     end
   }
 
-  def initialize(size: :base, rounded: true, **html_attributes)
-    @size = size
-    @rounded = rounded
-    super(html_attributes)
-  end
+  has_option :size, default: :base
+  has_option :rounded, default: true, type: :boolean
 
   def render?
     avatars? || counter?

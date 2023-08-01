@@ -5,9 +5,6 @@ require 'view_component'
 module Flowbite
   module ViewComponents
     class Base < ::ViewComponent::Base
-      delegate :flowbite_config, to: :class
-      delegate :classname_merger, to: :flowbite_config
-
       class << self
         def flowbite_config
           @flowbite_config ||= Config.defaults

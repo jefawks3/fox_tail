@@ -2,7 +2,7 @@
 
 class ButtonComponentPreview < ViewComponent::Preview
   def default
-    render(Flowbite::ButtonComponent.new.with_content("Button"))
+    render(Flowbite::ButtonComponent.new(url: "#", controlled: true).with_content("Button"))
   end
 
   def pills

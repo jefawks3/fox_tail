@@ -1,25 +1,11 @@
 # frozen_string_literal: true
 
 class Flowbite::DotIndicatorComponent < Flowbite::BaseComponent
-  attr_reader :color
-
-  def initialize(color: :default, animated: false, border: true, **html_attributes)
-    @color = color
-    @animated = animated
-    @border = border
-    super(html_attributes)
-  end
-
-  def animated?
-    !!@animated
-  end
+  has_option :color, default: :default
+  has_option :animated, default: false, type: :boolean
 
   def call
-    if animated?
-      render_animated_dot
-    else
-      render_dot
-    end
+    animated? ? render_animated_dot : render_dot
   end
 
   private

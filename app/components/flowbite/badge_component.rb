@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Flowbite::BadgeComponent < Flowbite::BaseComponent
-  attr_reader :size, :color, :url
-
   renders_one :icon, lambda { |icon, options = {}|
     options[:variant] ||= :mini
     options[:"aria-hidden"] = true
@@ -10,34 +8,12 @@ class Flowbite::BadgeComponent < Flowbite::BaseComponent
     Flowbite::IconBaseComponent.new icon, **options
   }
 
-  def initialize(size: :base, color: :default, pill: false, border: false, icon_only: false, url: nil, **html_attributes)
-    super html_attributes
-    @size = size
-    @color = color
-    @pill = pill
-    @border = border
-    @icon_only = icon_only
-    @url = url
-  end
-
-  def url?
-    url.present?
-  end
-
-  def pill?
-    # noinspection RubySimplifyBooleanInspection
-    !!@pill
-  end
-
-  def border?
-    # noinspection RubySimplifyBooleanInspection
-    !!@border
-  end
-
-  def icon_only?
-    # noinspection RubySimplifyBooleanInspection
-    !!@icon_only || !content?
-  end
+  has_option :url
+  has_option :size, default: :base
+  has_option :color, default: :default
+  has_option :pill, default: false, type: :boolean
+  has_option :border, default: false, type: :boolean
+  has_option :icon_only, default: false, type: :boolean
 
   def call
     content_tag (url? ? :a : :span), html_attributes.merge(href: url, class: root_classes) do

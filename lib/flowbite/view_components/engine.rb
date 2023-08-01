@@ -11,10 +11,8 @@ module Flowbite
       config.eager_load_paths = %W[#{root}/app/components #{root}/app/helpers]
 
       initializer "flowbite_view_components.set_configs" do |app|
-        ActiveSupport.on_load :view_component do
-          ActiveSupport.on_load :flowbite_view_component do
-            Base.flowbite_config = app.config.flowbite_view_components
-          end
+        ActiveSupport.on_load :flowbite_view_component do
+          Base.flowbite_config = app.config.flowbite_view_components
         end
       end
     end

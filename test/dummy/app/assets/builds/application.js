@@ -8251,116 +8251,74 @@
   // node_modules/tailwind-merge/dist/lib/tw-merge.mjs
   var twMerge = /* @__PURE__ */ createTailwindMerge(getDefaultConfig);
 
-  // app/components/flowbite/link_controller.ts
-  var link_controller_default = class extends Controller {
+  // app/components/flowbite/clickable_controller.ts
+  var clickable_controller_default = class extends Controller {
     static classes = ["active", "disabled"];
+    static targets = ["active", "loading"];
     static values = {
-      disabled: {
-        type: Boolean,
-        default: false
+      state: {
+        type: String,
+        default: "active"
       }
     };
+    get isLink() {
+      return this.element.tagName.toLowerCase() === "a";
+    }
+    get isButton() {
+      return !this.isLink;
+    }
     connect() {
       super.connect();
-      this.disabledValueChanged();
       this.element.addEventListener("click", this.handleClick.bind(this));
     }
-    disabledValueChanged() {
-      this.element.setAttribute("aria-disabled", this.disabledValue.toString());
-      if (this.disabledValue) {
-        this.element.className = twMerge(this.activeClasses.join(" "), this.disabledClasses.join(" "));
-      } else {
-        this.element.className = this.activeClasses.join(" ");
-      }
+    activeTargetConnected(element) {
+      this.toggleActiveTargetVisibility(element);
+    }
+    loadingTargetConnected(element) {
+      this.toggleLoadingTargetVisibility(element);
+    }
+    stateValueChanged() {
+      this.toggleClass();
+      this.toggleAriaDisabled();
+      this.toggleVisibility();
     }
     handleClick(event) {
-      if (this.disabledValue) {
+      if (this.stateValue !== "active") {
         event.preventDefault();
       }
     }
-  };
-
-  // app/components/flowbite/button_controller.ts
-  var button_controller_default = class extends Controller {
-    static classes = ["active", "disabled"];
-    static targets = ["loadingIcon", "loadingLabel", "label", "icon"];
-    static values = {
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      loading: {
-        type: Boolean,
-        default: false
-      }
-    };
-    connect() {
-      super.connect();
-      this.disabledValueChanged();
-    }
-    loadingIconTargetConnected() {
-      this.toggleLoadingIconVisibility();
-    }
-    iconTargetConnected(element) {
-      this.toggleIconVisibility(element);
-    }
-    loadingLabelTargetConnected() {
-      this.toggleLoadingLabelVisibility();
-    }
-    labelTargetConnected() {
-      this.toggleLabelVisibility();
-    }
-    disabledValueChanged() {
-      this.loadingValue = false;
-      this.element.setAttribute("disabled", this.disabledValue.toString());
-      this.toggleDisabled(this.disabledValue);
-    }
-    loadingValueChanged() {
-      this.disabledValue = false;
-      this.toggleDisabled(this.loadingValue);
-      this.toggleLoadingIconVisibility();
-      this.toggleIconsVisibility();
-      this.toggleLoadingLabelVisibility();
-      this.toggleLabelVisibility();
-    }
-    toggleDisabled(disabled) {
-      this.element.setAttribute("disabled", disabled.toString());
-      if (disabled) {
-        this.element.setAttribute("disabled", "disabled");
-        this.element.className = twMerge(this.activeClasses.join(" "), this.disabledClasses.join(" "));
-      } else {
+    toggleAriaDisabled() {
+      if (this.isLink) {
+        this.element.setAttribute("aria-disabled", this.stateValue !== "active" ? "true" : "false");
+      } else if (this.stateValue === "active") {
         this.element.removeAttribute("disabled");
-        this.element.className = this.activeClasses.join(" ");
+      } else {
+        this.element.setAttribute("disabled", "disabled");
       }
     }
-    toggleLoadingIconVisibility() {
-      if (this.hasLoadingIconTarget) {
-        this.loadingIconTarget.classList.toggle("hidden", !this.loadingValue);
+    toggleClass() {
+      let classes = this.activeClasses;
+      if (this.stateValue !== "active") {
+        classes = [...classes, ...this.disabledClasses];
       }
+      this.element.className = twMerge(classes.join(" "));
     }
-    toggleIconsVisibility() {
-      this.iconTargets.forEach((e) => this.toggleIconVisibility(e));
+    toggleVisibility() {
+      this.activeTargets.forEach((e) => this.toggleActiveTargetVisibility(e));
+      this.loadingTargets.forEach((e) => this.toggleLoadingTargetVisibility(e));
     }
-    toggleIconVisibility(icon) {
-      icon.classList.toggle("hidden", this.loadingValue);
+    toggleActiveTargetVisibility(element) {
+      element.classList.toggle("hidden", this.stateValue === "loading");
     }
-    toggleLoadingLabelVisibility() {
-      if (this.hasLoadingLabelTarget) {
-        this.loadingLabelTarget.classList.toggle("hidden", !this.loadingValue);
-      }
-    }
-    toggleLabelVisibility() {
-      if (this.hasLabelTarget) {
-        this.labelTarget.classList.toggle("hidden", this.loadingValue);
-      }
+    toggleLoadingTargetVisibility(element) {
+      element.classList.toggle("hidden", this.stateValue !== "loading");
     }
   };
 
   // src/registerControllers.ts
   var fullControllerName = (namespace, name) => namespace && namespace.length > 0 ? `${namespace}-${name}` : name;
   var registerControllers_default = (application, namespace = "flowbite-") => {
-    application.register(fullControllerName(namespace, "link"), link_controller_default);
-    application.register(fullControllerName(namespace, "button"), button_controller_default);
+    application.register(fullControllerName(namespace, "clickable"), clickable_controller_default);
   };
 
   // test/dummy/app/javascript/application.js

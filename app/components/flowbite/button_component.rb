@@ -6,18 +6,8 @@ class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
   renders_one :left_icon, lambda { |icon, options = {}| render_icon icon, options, :left }
   renders_one :right_icon, lambda { |icon, options = {}| render_icon icon, options, :right }
 
-  def initialize(loadable: false, loading: false, **html_attributes)
-    @loadable = loadable
-    @loading = loading
-    super(**html_attributes)
-  end
-
-  def loading?
-    !!@loading
-  end
-
   def loadable?
-    loading? || @loadable.present?
+    loading? || !!options[:loadable]
   end
 
   def visuals?
@@ -36,7 +26,7 @@ class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
               :span,
               loading_label,
               class: !loading? && theme.classname("hidden"),
-              data: { stimulus_controller.target_key => "loadingLabel" }
+              data: { stimulus_controller.target_key => "loading" }
             )
           )
           concat(
@@ -44,7 +34,7 @@ class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
               :span,
               content,
               class: loading? && theme.classname("hidden"),
-              data: { stimulus_controller.target_key => "label" }
+              data: { stimulus_controller.target_key => "active" }
             )
           )
         else
@@ -62,7 +52,8 @@ class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
 
   def root_classes
     super do
-      classnames visuals? && theme.classname("root.visuals")
+      classnames visuals? && theme.classname("root.visuals"),
+                 loading? && disabled?
     end
   end
 
@@ -74,10 +65,6 @@ class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
 
   private
 
-  def tag_name
-    url? ? :a : :button
-  end
-
   def render_loader(options = {})
     svg = Flowbite::ViewComponents.root.join("app/assets/vendor/flowbite-spinner.svg")
     options[:"aria-hidden"] = true
@@ -87,7 +74,7 @@ class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
                                  controlled? && !loading? && theme.classname("hidden"),
                                  options[:class]
 
-    options[stimulus_controller.target_key(raw: true)] = "loadingIcon" if controlled?
+    options[stimulus_controller.target_key(raw: true)] = "loading" if controlled?
     Flowbite::InlineSvgComponent.new svg, **options
   end
 
@@ -99,7 +86,7 @@ class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
                                  theme.classname([:visuals, :size, size]),
                                  options[:class]
 
-    options[stimulus_controller.target_key(raw: true)] = "icon" if controlled?
+    options[stimulus_controller.target_key(raw: true)] = "active" if controlled?
     Flowbite::IconBaseComponent.new icon, **options
   end
 end

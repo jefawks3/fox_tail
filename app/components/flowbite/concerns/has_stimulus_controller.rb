@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Flowbite::StimulusControllerHelper
+module Flowbite::Concerns::HasStimulusController
   extend ActiveSupport::Concern
 
   included do
@@ -14,7 +14,7 @@ module Flowbite::StimulusControllerHelper
 
     def stimulus_controller_identifier
       [
-        flowbite_config.stimulus_controller_prefix,
+        Flowbite::ViewComponents::Base.flowbite_config.stimulus_controller_prefix,
         stimulus_controller_name.to_s
       ].reject(&:blank?).join("-").gsub("_", "-")
     end
@@ -24,7 +24,7 @@ module Flowbite::StimulusControllerHelper
     end
 
     def use_stimulus?
-      !!flowbite_config.use_stimulus
+      !!Flowbite::ViewComponents::Base.flowbite_config.use_stimulus
     end
   end
 

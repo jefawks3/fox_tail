@@ -1,0 +1,7 @@
+root:
+  base: inline-flex
+button:
+  position:
+    start: rounded-r-none
+    middle: rounded-none border-l-0
+    end: rounded-l-none border-l-0

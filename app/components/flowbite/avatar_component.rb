@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Flowbite::AvatarComponent < Flowbite::BaseComponent
-  attr_reader :size, :src, :text, :icon
-
   renders_one :dot, lambda { |position: :top_right, **options|
     options[:class] = classnames theme.classname("dot.base"),
                                  theme.classname([:dot, :position, position]),
@@ -11,35 +9,12 @@ class Flowbite::AvatarComponent < Flowbite::BaseComponent
     Flowbite::DotIndicatorComponent.new(**options)
   }
 
-  def initialize(src: nil, icon: nil, text: nil, size: :base, rounded: false, border: false, **html_attributes)
-    @size = size
-    @src = src
-    @text = text
-    @icon = icon
-    @rounded = rounded
-    @border = border
-    super html_attributes
-  end
-
-  def rounded?
-    !!@rounded
-  end
-
-  def border?
-    !!@border
-  end
-
-  def src?
-    @src.present?
-  end
-
-  def icon?
-    @icon.present?
-  end
-
-  def text?
-    @text.present?
-  end
+  has_option :src
+  has_option :icon
+  has_option :text
+  has_option :size, default: :base
+  has_option :rounded, type: :boolean, default: false
+  has_option :border, type: :boolean, default: false
 
   def call
     visual = render_visual

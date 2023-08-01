@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class Flowbite::IconBaseComponent < Flowbite::InlineSvgComponent
-  attr_reader :name, :variant
+  attr_reader :name
 
-  def initialize(name, variant: :solid, **html_attributes)
+  has_option :variant, default: :solid
+
+  def initialize(name, html_attributes = {})
     @name = name.to_s.gsub("_", "-")
-    @variant = variant
-    super(icon_fullpath, html_attributes)
+    super icon_fullpath, html_attributes
   end
 
   private

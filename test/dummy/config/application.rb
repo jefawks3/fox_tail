@@ -23,11 +23,15 @@ module Dummy
     config.assets.paths << Flowbite::ViewComponents.root.join("test/dummy/app/assets")
 
     # View Component
-    config.view_component.view_component_path = Flowbite::ViewComponents.root.join('app/components').to_s
+    config.view_component.view_component_path = Flowbite::ViewComponents.root.join("app/components").to_s
     config.view_component.show_previews = true
     config.view_component.default_preview_layout = "component_preview"
     config.view_component.preview_paths = [
       Flowbite::ViewComponents.root.join("test/components/previews")
     ]
+
+    # Flowbite Components
+    config.flowbite_view_components.theme_path = Flowbite::ViewComponents.root.join("test/dummy/app/components").to_s
+    # config.flowbite_view_components.use_stimulus = false
   end
 end

@@ -2,15 +2,6 @@
 
 ##
 # Displays an SVG file inline
-# @param [String] path The full path or relative asset path to the SVG file
-# @param [Hash] html_attributes The html attributes to apply to the SVG file
-# @option html_attributes [Symbol] :size The size of the SVG image that is included in the theme
-# @option html_attributes [Symbol] :color The color of the SVG image that is included in the theme
-# @option html_attributes [Hash] :theme A hash object with the theme overrides
-#
-# Default options are:
-#   :size => :md
-#   :color => :current
 class Flowbite::InlineSvgComponent < Flowbite::BaseComponent
   attr_reader :path
 
