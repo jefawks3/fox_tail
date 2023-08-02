@@ -29,7 +29,7 @@ root:
       warning: *yellow
       error: *red
 dot:
-  base: absolute border-2 border-white dark:border-gray-800 transform
+  base: absolute border-2 border-white dark:border-gray-800 transform z-[1]
   container: relative inline-block
   position:
     top_left: top-0 left-0 -translate-y-1/2 -translate-x-1/2

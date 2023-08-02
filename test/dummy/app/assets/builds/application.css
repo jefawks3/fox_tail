@@ -574,6 +574,9 @@ video {
 .z-10 {
   z-index: 10;
 }
+.z-\[1\] {
+  z-index: 1;
+}
 .mb-4 {
   margin-bottom: 1rem;
 }
