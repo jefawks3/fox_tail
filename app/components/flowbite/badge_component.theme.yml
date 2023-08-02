@@ -19,7 +19,7 @@ root:
       red: &red bg-red-100 text-red-800 border-red-800 dark:bg-gray-700 dark:text-red-400 dark:border-red-400
       blue: &blue bg-blue-100 text-blue-800 border-blue-800 dark:bg-gray-700 dark:text-blue-400 dark:border-blue-400
       yellow: &yellow bg-yellow-100 text-yellow-800 border-yellow-800 dark:bg-gray-700 dark:text-yellow-400 dark:border-yellow-400
-      green: &green bg-green-100 text-green-800 border-green-800 dark:bg-gray-700 dark:text-green-400 dark:border-yellow-400
+      green: &green bg-green-100 text-green-800 border-green-800 dark:bg-gray-700 dark:text-green-400 dark:border-green-400
       indigo: bg-indigo-100 text-indigo-800 border-indigo-800 dark:bg-gray-700 dark:text-indigo-400 dark:border-indigo-400
       purple: bg-indigo-100 text-purple-800 border-purple-800 dark:bg-gray-700 dark:text-purple-400 dark:border-purple-400
       pink: bg-pink-100 text-pink-800 border-pink-800 dark:bg-gray-700 dark:text-pink-400 dark:border-pink-400

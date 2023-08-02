@@ -52,8 +52,7 @@ class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
 
   def root_classes
     super do
-      classnames visuals? && theme.classname("root.visuals"),
-                 loading? && disabled?
+      classnames visuals? && theme.classname("root.visuals")
     end
   end
 

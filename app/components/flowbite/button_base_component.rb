@@ -14,7 +14,7 @@ class Flowbite::ButtonBaseComponent < Flowbite::ClickableComponent
                theme.classname([:root, variant, :base]),
                theme.classname([:root, variant, color]),
                pill? && theme.classname("root.pill"),
-               disabled? && disabled_classes,
+               (disabled? || loading?) && disabled_classes,
                block_given? && yield,
                html_class
   end

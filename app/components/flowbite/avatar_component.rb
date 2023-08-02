@@ -66,9 +66,14 @@ class Flowbite::AvatarComponent < Flowbite::BaseComponent
   def render_icon
     icon_classes = classnames theme.classname("icon.base"), theme.classname([:icon, :size, size])
     label = html_attributes[:alt]
+    icon_name, icon_variant = if icon.is_a? Hash
+                                [icon[:name], icon[:variant]]
+                              else
+                                [icon, :solid]
+                              end
 
     content_tag :div, html_attributes.except(:alt).merge(class: root_classes) do
-      concat render(Flowbite::IconBaseComponent.new(icon, class: icon_classes))
+      concat render(Flowbite::IconBaseComponent.new(icon_name, variant: icon_variant, class: icon_classes))
       concat content_tag(:span, label, class: label_classes) if label.present?
     end
   end
