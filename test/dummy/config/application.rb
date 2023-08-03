@@ -33,11 +33,14 @@ module Dummy
     # Flowbite Components
     config.flowbite_view_components.theme_path = Flowbite::ViewComponents.root.join("test/dummy/app/components").to_s
     # config.flowbite_view_components.use_stimulus = false
+    config.flowbite_view_components.raise_on_asset_not_found = false
 
     # Lookbook
     config.lookbook.project_name = "Flowbite ViewComponents"
     config.lookbook.preview_display_options = {
       theme: ["light", "dark"]
     }
+
+    config.lookbook.page_collection_label = "Docs"
   end
 end

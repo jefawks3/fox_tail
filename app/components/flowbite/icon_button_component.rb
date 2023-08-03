@@ -3,9 +3,9 @@
 class Flowbite::IconButtonComponent < Flowbite::ButtonBaseComponent
   attr_reader :icon
 
-  def initialize(icon, **html_attributes)
+  def initialize(icon, html_attributes = {})
     @icon = icon
-    super(**html_attributes)
+    super(html_attributes)
   end
 
   def call

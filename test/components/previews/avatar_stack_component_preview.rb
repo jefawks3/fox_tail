@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# @component Flowbite::AvatarStackComponent
+# @logical_path components
 class AvatarStackComponentPreview < ViewComponent::Preview
   # @!group Sizes
 

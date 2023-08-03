@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# @component Flowbite::LinkComponent
+# @logical_path typography
 class LinkComponentPreview < ViewComponent::Preview
 
   # @param color "The theme color"

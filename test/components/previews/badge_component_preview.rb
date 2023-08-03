@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# @component Flowbite::BadgeComponent
+# @logical_path components
 class BadgeComponentPreview < ViewComponent::Preview
   ICON = "check-circle"
 

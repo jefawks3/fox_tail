@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require 'flowbite/view_components/merger'
+require 'flowbite/view_components/classname_merger'
+require 'flowbite/view_components/stimulus_merger'
 
 module Flowbite
   module ViewComponents
@@ -16,9 +17,11 @@ module Flowbite
 
         def defaults
           ActiveSupport::OrderedOptions.new.merge!({
-            classname_merger: Merger.new,
+            classname_merger: ClassnameMerger.new,
+            stimulus_merger: StimulusMerger.new,
             stimulus_controller_prefix: "flowbite-",
-            use_stimulus: true
+            use_stimulus: true,
+            raise_on_asset_not_found: true
           })
         end
       end

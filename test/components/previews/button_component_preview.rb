@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# @component Flowbite::ButtonComponent
+# @logical_path components
 class ButtonComponentPreview < ViewComponent::Preview
 
   # @param color "The theme color of the button"

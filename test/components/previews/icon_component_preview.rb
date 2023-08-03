@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# @component Flowbite::IconComponent
+# @logical_path components
 class IconComponentPreview < ViewComponent::Preview
   # Icon Playground
   # ----------------

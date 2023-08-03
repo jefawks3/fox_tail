@@ -5,9 +5,16 @@
 class Flowbite::InlineSvgComponent < Flowbite::BaseComponent
   attr_reader :path
 
+  has_option :raise, as: :raise_error, type: :boolean
+
   def initialize(path, html_attributes = {})
-    @path = path.to_s
     super(html_attributes)
+
+    @path = path.to_s
+
+    unless options.key? :raise
+      options[:raise] = !!Flowbite::ViewComponents::Base.flowbite_config.raise_on_asset_not_found
+    end
   end
 
   def call
@@ -16,6 +23,11 @@ class Flowbite::InlineSvgComponent < Flowbite::BaseComponent
     doc.child[:class] = html_class
     yield doc if block_given?
     doc.child.to_s.html_safe
+  rescue Flowbite::ViewComponents::AssetNotFound => e
+    raise e if raise_error?
+
+    Rails.logger.warn "[Flowbite::InlineSvgComponent] #{e.message}"
+    content_tag :svg, nil, class: "hidden asset-not-found"
   end
 
   private

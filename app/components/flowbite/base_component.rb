@@ -30,8 +30,6 @@ class Flowbite::BaseComponent < Flowbite::ViewComponents::Base
     classname_merger.merge valid_classnames.join(" ") if valid_classnames.present?
   end
 
-  private
-
   def classname_merger
     Flowbite::ViewComponents::Base.flowbite_config.classname_merger
   end

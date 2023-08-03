@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# @component Flowbite::DotIndicatorComponent
+# @logical_path components
 class DotIndicatorComponentPreview < ViewComponent::Preview
 
   # @param color "The theme color of the dot"

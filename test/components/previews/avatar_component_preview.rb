@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# @component Flowbite::AvatarComponent
+# @logical_path components
 class AvatarComponentPreview < ViewComponent::Preview
 
   # @param image "The image asset path or URI to display for the avatar."

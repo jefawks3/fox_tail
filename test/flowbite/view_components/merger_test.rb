@@ -2,7 +2,7 @@ require "test_helper"
 
 class Flowbite::ViewComponents::MergerTest < ActiveSupport::TestCase
   def merger
-    Flowbite::ViewComponents::Merger.new
+    Flowbite::ViewComponents::ClassnameMerger.new
   end
 
   def test_returns_nil_on_falsely

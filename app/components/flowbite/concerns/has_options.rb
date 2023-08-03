@@ -4,24 +4,29 @@ module Flowbite::Concerns::HasOptions
   extend ActiveSupport::Concern
 
   def options
-    @options ||= {}
+    @options ||= self.class.default_options
   end
 
   def extract_options!(options = {})
-    @options = options.extract!(*registered_options)
+    @options = options.extract!(*registered_options.keys).reverse_merge(self.class.default_options)
   end
 
   included do
     class_attribute :registered_options, instance_writer: false, instance_predicate: false
-    self.registered_options = []
+    self.registered_options = {}
   end
 
   class_methods do
+    def default_options
+      registered_options.deep_dup
+    end
+
     def has_option(name, as: name, default: nil, type: nil, &option_block)
-      self.registered_options = registered_options + [name.to_sym] # Isolate child class options
+      self.registered_options = registered_options.merge name => default
 
       define_method as do
-        options[name] ||= default
+        options[name] = default unless options.key? name
+        options[name]
       end
 
       define_method :"#{as}?" do

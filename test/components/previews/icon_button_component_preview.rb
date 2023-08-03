@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# @component Flowbite::IconButtonComponent
+# @logical_path components
 class IconButtonComponentPreview < ViewComponent::Preview
 
   # @param icon "The Heroicon to use"

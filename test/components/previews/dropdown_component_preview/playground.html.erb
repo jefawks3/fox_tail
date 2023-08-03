@@ -1,0 +1,19 @@
+<div class="w-full my-32 flex items-center justify-center">
+  <%= render(Flowbite::DropdownComponent.new(:dropdown_playground,
+                                             placement: placement,
+                                             trigger_type: trigger_type,
+                                             offset_skidding: offset_skidding,
+                                             offset_distance: offset_distance,
+                                             delay: delay)
+      ) do |c| %>
+    <% c.with_button_trigger.with_content "Dropdown" %>
+    <%
+      c.with_menu do |menu|
+        menu.with_item.with_content "Dashboard"
+        menu.with_item.with_content "Settings"
+        menu.with_item.with_content "Earnings"
+        menu.with_item.with_content "Sign Out"
+      end
+    %>
+  <% end %>
+</div>

@@ -5,7 +5,7 @@ require 'tailwind_merge'
 module Flowbite
   module ViewComponents
     # Tailwind CSS class name merger
-    class Merger
+    class ClassnameMerger
       def initialize
         @base_merger = TailwindMerge::Merger.new
       end

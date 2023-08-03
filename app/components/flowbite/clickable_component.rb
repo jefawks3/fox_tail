@@ -23,23 +23,7 @@ class Flowbite::ClickableComponent < Flowbite::BaseComponent
       html_attributes[:disabled] = true if disabled?
     end
 
-    if controlled?
-      html_attributes[:data] ||= {}
-      html_attributes[:data][:controller] = stimulus_controllers html_attributes[:controller],
-                                                                 stimulus_controller_identifier
-
-      state = if loading?
-                :loading
-              elsif disabled?
-                :disabled
-              else
-                :active
-              end
-
-      html_attributes[:data][stimulus_controller.value_key(:state)] = state
-      html_attributes[:data][stimulus_controller.classes_key(:active)] = active_classes
-      html_attributes[:data][stimulus_controller.classes_key(:disabled)] = disabled_classes
-    end
+    stimulus_merger.merge_attributes! html_attributes, stimulus_attributes if controlled?
   end
 
   def call(&block)
@@ -64,6 +48,27 @@ class Flowbite::ClickableComponent < Flowbite::BaseComponent
 
   def link?
     url? && ((!disabled? && !loading?) || controlled?)
+  end
+
+  def stimulus_attributes
+    {
+      data: {
+        controller: stimulus_controller_identifier,
+        stimulus_controller.value_key(:state) => stimulus_state,
+        stimulus_controller.classes_key(:active) => active_classes,
+        stimulus_controller.classes_key(:disabled) => disabled_classes
+      }
+    }
+  end
+
+  def stimulus_state
+    if loading?
+      :loading
+    elsif disabled?
+      :disabled
+    else
+      :active
+    end
   end
 
   class << self

@@ -8,7 +8,7 @@ module Flowbite
   module ViewComponents
     extend ActiveSupport::Autoload
 
-    autoload :Merger
+    autoload :ClassnameMerger
     autoload :Config
     autoload :Base
     autoload :Theme

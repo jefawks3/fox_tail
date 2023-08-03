@@ -50,12 +50,6 @@ module Flowbite
           key.join("_").gsub("-", "_").to_sym
         end
       end
-
-      class << self
-        def merge(*controllers)
-          controllers.flatten.map(&:to_s).reject(&:blank?).uniq.join(" ").to_sym
-        end
-      end
     end
   end
 end
