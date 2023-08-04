@@ -2,12 +2,8 @@
 
 module Flowbite
   module ViewComponents
-    class StimulusController
-      attr_reader :identifier
-
-      def initialize(identifier)
-        @identifier = format_identifier identifier
-      end
+    class StimulusController < Controller
+      delegate :stimulus_merger, to: :config
 
       def target_key(raw: false)
         key :target, raw: raw
@@ -25,30 +21,14 @@ module Flowbite
         key name, :class, raw: raw
       end
 
-      def to_sym
-        identifier.gsub("-", "_").to_sym
+      def merge!(attributes, options = {})
+        stimulus_merger.merge_attributes! attributes, self.attributes(options)
       end
 
-      def to_s
-        identifier
-      end
-
-      private
-
-      def format_identifier(name)
-        name.to_s.gsub "_", "-"
-      end
+      protected
 
       def key(*parts)
-        options = parts.extract_options!
-        formatted_parts = parts.map { |p| format_identifier p }
-        key = [identifier] + formatted_parts
-
-        if options[:raw]
-          ([:data] + key).join("-").gsub("_", "-").to_sym
-        else
-          key.join("_").gsub("-", "_").to_sym
-        end
+        super identifier, *parts
       end
     end
   end

@@ -5,4 +5,5 @@ import 'flowbite';
 import {registerControllers} from '../../../../src/index'
 
 window.Stimulus = Application.start();
+Stimulus.debug = true
 registerControllers(Stimulus);

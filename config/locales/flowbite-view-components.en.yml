@@ -2,3 +2,4 @@ en:
   components:
     flowbite:
       dismiss: Dismiss
+      close: Close

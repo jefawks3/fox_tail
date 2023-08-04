@@ -12,5 +12,7 @@ module Flowbite
         @asset = asset
       end
     end
+
+    class ControllerNotImplemented < Error; end
   end
 end

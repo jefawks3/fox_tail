@@ -12,7 +12,9 @@ module Flowbite
     autoload :Config
     autoload :Base
     autoload :Theme
+    autoload :Controller
     autoload :StimulusController
+    autoload :FlowbiteController
 
     def self.root
       Pathname.new File.expand_path("../..", __dir__)

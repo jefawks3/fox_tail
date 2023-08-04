@@ -8,7 +8,9 @@ module Flowbite::Concerns::HasOptions
   end
 
   def extract_options!(options = {})
-    @options = options.extract!(*registered_options.keys).reverse_merge(self.class.default_options)
+    options.extract!(*registered_options.keys).each do |k, v|
+      send registered_options[k][:setter], v
+    end
   end
 
   included do
@@ -18,11 +20,11 @@ module Flowbite::Concerns::HasOptions
 
   class_methods do
     def default_options
-      registered_options.deep_dup
+      registered_options.transform_values { |v| v[:default] }
     end
 
     def has_option(name, as: name, default: nil, type: nil, &option_block)
-      self.registered_options = registered_options.merge name => default
+      self.registered_options = registered_options.merge name => { name: name, setter: :"with_#{as}", default: default }
 
       define_method as do
         options[name] = default unless options.key? name
@@ -38,12 +40,8 @@ module Flowbite::Concerns::HasOptions
       end
 
       define_method :"with_#{as}" do |value = nil, &setter_block|
-        options[name] = if option_block
-                          instance_exec(options[:name], value, setter_block, &option_block)
-                        else
-                          setter_block ? instance_exec(options[:name], &setter_block) : value
-                        end
-
+        value = instance_exec options[:name], &setter_block if setter_block
+        options[name] = option_block ? instance_exec(options[:name], value, &option_block) : value
         self
       end
     end

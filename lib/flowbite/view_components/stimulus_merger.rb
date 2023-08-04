@@ -14,7 +14,11 @@ module Flowbite
       end
 
       def merge_controllers(*controllers)
-        controllers.map(&:to_s).reject(&:blank?).uniq.join(" ").to_sym
+        controllers.map(&:to_s).reject(&:blank?).uniq.join(" ").presence
+      end
+
+      def merge_actions(*actions)
+        actions.reject(&:blank?).join(" ").presence
       end
 
       private
@@ -22,7 +26,9 @@ module Flowbite
       def merge_stimulus_attributes(source, attributes)
         attributes[:data] ||= {}
         controllers = merge_controllers source[:data].delete(:controller), attributes[:data].delete(:controller)
+        actions = merge_actions source[:data].delete(:action), attributes[:data].delete(:action)
         source[:data][:controller] = controllers
+        source[:data][:action] = actions
         source.deep_merge! attributes
       end
     end

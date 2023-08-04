@@ -6,8 +6,8 @@ class Flowbite::BaseComponent < Flowbite::ViewComponents::Base
 
   attr_reader :html_attributes, :html_class
 
-  has_option :class, as: :html_class do |html_class, value, block|
-    classnames html_class, block ? block.call(html_class) : value
+  has_option :class, as: :html_class do |html_class, value|
+    classnames html_class, value
   end
 
   def initialize(html_attributes = {})

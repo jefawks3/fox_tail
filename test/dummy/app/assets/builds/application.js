@@ -2829,6 +2829,7 @@
     window.Dismiss = Dismiss;
     window.initDismisses = initDismisses;
   }
+  var dismiss_default = Dismiss;
 
   // node_modules/@popperjs/core/lib/enums.js
   var top = "top";
@@ -8316,30 +8317,48 @@
     }
   };
 
+  // app/components/flowbite/dismiss_controller.ts
+  var dismiss_controller_default = class extends Controller {
+    static classes = ["transition"];
+    static values = {
+      target: String,
+      duration: Number,
+      timing: String
+    };
+    get targetElement() {
+      return document.getElementById(this.targetValue);
+    }
+    connect() {
+      super.connect();
+      if (this.targetElement) {
+        this.attach();
+      }
+    }
+    hide() {
+      this._dismiss && this._dismiss.hide();
+    }
+    attach() {
+      const options = { onHide: this.onHide.bind(this) };
+      this.hasTransitionClass && (options.transaction = this.transitionClasses.join(" "));
+      this.hasDurationValue && (options.duration = this.durationValue);
+      this.hasTimingValue && (options.timing = this.timingValue);
+      this._dismiss = new dismiss_default(this.targetElement, this.element, options);
+    }
+    onHide() {
+      this.dispatch("hide", { target: this.targetElement });
+      this.dispatch("hide");
+    }
+  };
+
   // app/components/flowbite/dropdown_controller.ts
   var dropdown_controller_default = class extends Controller {
     static values = {
       dropdown: String,
-      placement: {
-        type: String,
-        default: "bottom"
-      },
-      triggerType: {
-        type: String,
-        default: "click"
-      },
-      offsetSkidding: {
-        type: Number,
-        default: 0
-      },
-      offsetDistance: {
-        type: Number,
-        default: 10
-      },
-      delay: {
-        type: Number,
-        default: 300
-      },
+      placement: String,
+      triggerType: String,
+      offsetSkidding: Number,
+      offsetDistance: Number,
+      delay: Number,
       ignoreClickOutsideClass: String
     };
     get dropdownElement() {
@@ -8351,7 +8370,7 @@
     connect() {
       super.connect();
       if (this.dropdownElement) {
-        this._attach();
+        this.attach();
       }
     }
     show() {
@@ -8369,27 +8388,31 @@
         this._dropdown.toggle();
       }
     }
-    _attach() {
+    attach() {
       const options = {
-        placement: this.placementValue,
-        triggerType: this.triggerTypeValue,
-        offsetSkidding: this.offsetSkiddingValue,
-        offsetDistance: this.offsetDistanceValue,
-        delay: this.delayValue,
-        ignoreClickOutsideClass: this.hasIgnoreClickOutsideClass ? this.ignoreClickOutsideClassValue : false,
         onHide: this.onHide.bind(this),
         onShow: this.onShow.bind(this),
         onToggle: this.onToggle.bind(this)
       };
+      this.hasPlacementValue && (options.placement = this.placementValue);
+      this.hasTriggerTypeValue && (options.triggerType = this.triggerTypeValue);
+      this.hasOffsetDistanceValue && (options.offsetDistance = this.offsetDistanceValue);
+      this.hasOffsetSkiddingValue && (options.offsetSkidding = this.offsetSkiddingValue);
+      this.hasDelayValue && (options.delay = this.delayValue);
+      this.hasIgnoreClickOutsideClass && (options.ignoreClickOutsideClass = this.ignoreClickOutsideClassValue);
       this._dropdown = new dropdown_default(this.dropdownElement, this.element, options);
     }
     onToggle() {
-      this.dispatch("toggle", { detail: { visible: this.isVisible } });
+      const detail = { visible: this.isVisible };
+      this.dispatch("toggle", { target: this.dropdownElement, detail });
+      this.dispatch("toggle", { detail });
     }
     onShow() {
+      this.dispatch("shown", { target: this.dropdownElement });
       this.dispatch("shown");
     }
     onHide() {
+      this.dispatch("hidden", { target: this.dropdownElement });
       this.dispatch("hidden");
     }
   };
@@ -8398,11 +8421,13 @@
   var fullControllerName = (namespace, name) => namespace && namespace.length > 0 ? `${namespace}-${name}` : name;
   var registerControllers_default = (application, namespace = "flowbite-") => {
     application.register(fullControllerName(namespace, "clickable"), clickable_controller_default);
+    application.register(fullControllerName(namespace, "dismiss"), dismiss_controller_default);
     application.register(fullControllerName(namespace, "dropdown"), dropdown_controller_default);
   };
 
   // test/dummy/app/javascript/application.js
   window.Stimulus = Application.start();
+  Stimulus.debug = true;
   registerControllers_default(Stimulus);
 })();
 //# sourceMappingURL=/assets/application.js.map

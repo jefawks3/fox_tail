@@ -42,7 +42,7 @@ module Flowbite
       private
 
       def lookup_key(theme, key)
-        return theme if key.empty? && theme.is_a?(String)
+        return theme if key.empty?
         return nil unless theme.is_a? Hash
 
         lookup_key theme[key.shift], key

@@ -4,34 +4,24 @@ import {Dropdown} from "flowbite";
 export default class extends Controller {
     static values = {
         dropdown: String,
-        placement: {
-            type: String,
-            default: "bottom",
-        },
-        triggerType: {
-            type: String,
-            default: "click"
-        },
-        offsetSkidding: {
-            type: Number,
-            default: 0,
-        },
-        offsetDistance: {
-            type: Number,
-            default: 10
-        },
-        delay: {
-            type: Number,
-            default: 300,
-        },
+        placement: String,
+        triggerType: String,
+        offsetSkidding: Number,
+        offsetDistance: Number,
+        delay: Number,
         ignoreClickOutsideClass: String
     }
 
     declare readonly dropdownValue: string;
+    declare readonly hasPlacementValue: boolean
     declare readonly placementValue: string;
+    declare readonly hasTriggerTypeValue: boolean;
     declare readonly triggerTypeValue: string;
+    declare readonly hasOffsetSkiddingValue: boolean;
     declare readonly offsetSkiddingValue: number;
+    declare readonly hasOffsetDistanceValue: boolean
     declare readonly offsetDistanceValue: number;
+    declare readonly hasDelayValue: boolean;
     declare readonly delayValue: number;
     declare readonly hasIgnoreClickOutsideClass: boolean;
     declare readonly ignoreClickOutsideClassValue: string;
@@ -50,7 +40,7 @@ export default class extends Controller {
         super.connect();
 
         if (this.dropdownElement) {
-            this._attach();
+            this.attach();
         }
     }
 
@@ -72,31 +62,35 @@ export default class extends Controller {
         }
     }
 
-    private _attach() {
+    private attach() {
         const options: any = {
-            placement: this.placementValue,
-            triggerType: this.triggerTypeValue,
-            offsetSkidding: this.offsetSkiddingValue,
-            offsetDistance: this.offsetDistanceValue,
-            delay: this.delayValue,
-            ignoreClickOutsideClass: this.hasIgnoreClickOutsideClass ? this.ignoreClickOutsideClassValue : false,
             onHide: this.onHide.bind(this),
             onShow: this.onShow.bind(this),
             onToggle: this.onToggle.bind(this)
         }
 
+        this.hasPlacementValue && (options.placement = this.placementValue);
+        this.hasTriggerTypeValue && (options.triggerType = this.triggerTypeValue);
+        this.hasOffsetDistanceValue && (options.offsetDistance = this.offsetDistanceValue);
+        this.hasOffsetSkiddingValue && (options.offsetSkidding = this.offsetSkiddingValue);
+        this.hasDelayValue && (options.delay = this.delayValue);
+        this.hasIgnoreClickOutsideClass && (options.ignoreClickOutsideClass = this.ignoreClickOutsideClassValue);
         this._dropdown = new Dropdown(this.dropdownElement, this.element as HTMLElement, options);
     }
 
     private onToggle(): void {
-        this.dispatch('toggle', { detail: { visible: this.isVisible } })
+        const detail = { visible: this.isVisible };
+        this.dispatch('toggle', { target: this.dropdownElement, detail })
+        this.dispatch('toggle', { detail })
     }
 
     private onShow(): void {
+        this.dispatch('shown', { target: this.dropdownElement })
         this.dispatch('shown')
     }
 
     private onHide(): void {
+        this.dispatch('hidden', { target: this.dropdownElement })
         this.dispatch('hidden')
     }
 }

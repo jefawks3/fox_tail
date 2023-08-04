@@ -6,5 +6,6 @@ const fullControllerName = (namespace: string | null, name: string): string =>
 
 export default (application: Application, namespace: string | null = "flowbite-"): void => {
     application.register(fullControllerName(namespace, 'clickable'), Components.ClickableController);
+    application.register(fullControllerName(namespace, 'dismiss'), Components.DismissController);
     application.register(fullControllerName(namespace, 'dropdown'), Components.DropdownController);
 }
