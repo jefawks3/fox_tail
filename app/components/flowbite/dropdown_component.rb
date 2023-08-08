@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 class Flowbite::DropdownComponent < Flowbite::BaseComponent
-  include Flowbite::Concerns::HasStimulusAndFlowbiteController
+  include Flowbite::Concerns::HasStimulusController
+  include Flowbite::Concerns::HasStimulusTriggerController
 
-  attr_reader :id
+  attr_reader :id, :trigger_id
 
   renders_one :trigger, types: {
     button: {
       renders: lambda { |icon: :chevron_down, **options|
-        controller.merge! options, controller_options
+        merge_trigger_attributes! options
         button = Flowbite::ButtonComponent.new(options)
         button.with_right_icon icon if icon.present?
         button
@@ -17,14 +18,14 @@ class Flowbite::DropdownComponent < Flowbite::BaseComponent
     },
     icon: {
       renders: lambda { |icon, options = {}|
-        controller.merge! options, controller_options
+        merge_trigger_attributes! options
         Flowbite::IconButtonComponent.new icon, options
       },
       as: :icon_button_trigger
     },
     component: {
       renders: lambda { |tag_name: :button, **options, &block|
-        controller.merge! options, controller_options
+        merge_trigger_attributes! options
         content_tag tag_name, options, &block
       },
       as: :trigger
@@ -38,16 +39,27 @@ class Flowbite::DropdownComponent < Flowbite::BaseComponent
   renders_many :menus, Flowbite::Dropdown::MenuComponent
 
   has_option :divider, default: true, type: :boolean
-  has_option :placement
-  has_option :trigger_type
-  has_option :offset_distance
-  has_option :offset_skidding
-  has_option :delay
-  has_option :ignore_click_outside_class
+  has_option :placement, default: "bottom"
+  has_option :offset, default: 10
+  has_option :shift
+  has_option :ignore_click_outside
+  has_option :trigger_id
+  has_option :trigger_type, default: :click
+  has_option :delay, default: 300
 
   def initialize(id, html_attributes = {})
     @id = id
     super(html_attributes)
+  end
+
+  def trigger_id
+    options[:trigger_id] ||= :"#{html_attributes.delete(:trigger_id) || id}_trigger"
+  end
+
+  def before_render
+    super
+
+    stimulus_controller.merge! html_attributes, stimulus_controller_options if use_stimulus?
   end
 
   def call
@@ -57,14 +69,25 @@ class Flowbite::DropdownComponent < Flowbite::BaseComponent
     end
   end
 
-  def controller_options
-    options.slice(*self.class.controller_option_keys).merge(dropdown_id: id)
+  def stimulus_controller_options
+    {
+      trigger_id: trigger_id,
+      placement: placement,
+      offset: offset,
+      shift: shift,
+      ignore_click_outside: ignore_click_outside,
+      hidden_classes: theme.classname("root.hidden"),
+      visible_classes: theme.classname("root.visible"),
+      trigger_type: trigger_type,
+      delay: delay
+    }
   end
 
   private
 
   def render_dropdown
     root_classes = classnames theme.classname("root.base"),
+                              theme.classname("root.hidden"),
                               divider? && theme.classname("root.divider"),
                               html_class
 
@@ -76,43 +99,66 @@ class Flowbite::DropdownComponent < Flowbite::BaseComponent
   end
 
   def merge_trigger_attributes!(attributes)
-    stimulus_merger.merge_attributes! attributes, trigger_attributes
-  end
+    options = attributes.extract! :delay, :trigger_type
 
-  class << self
-    def controller_option_keys
-      %i[placement trigger_type offset_skidding offset_distance delay ignore_click_outside_class]
-    end
+    attributes[:id] = trigger_id
+
+    return attributes unless use_stimulus?
+
+    options[:dropdown_id] = id
+    options[:trigger_type] = trigger_type
+    options[:delay] = delay
+    stimulus_trigger.merge! attributes, options
   end
 
   class StimulusController < Flowbite::ViewComponents::StimulusController
+    TRIGGER_TYPES = {
+      hover: {
+        hoverShow: :mouseenter,
+        hoverHide: :mouseleave
+      }
+    }.freeze
+
     def attributes(options = {})
+      trigger_type = options[:trigger_type]&.to_sym
+
       {
         data: {
           controller: identifier,
-          value_key(:dropdown) => options[:dropdown_id],
           value_key(:placement) => options[:placement],
-          value_key(:trigger_type) => options[:trigger_type],
-          value_key(:offset_distance) => options[:offset_distance],
-          value_key(:offset_skidding) => options[:offset_skidding],
-          value_key(:delay) => options[:delay],
-          value_key(:ignore_click_outside_class) => options[:ignore_click_outside_class]
+          value_key(:offset) => options[:offset],
+          value_key(:shift) => options[:shift],
+          value_key(:ignore_click_outside) => options[:ignore_click_outside],
+          outlet_key(Flowbite::DropdownComponent.stimulus_trigger_identifier) => "##{options[:trigger_id]}",
+          classes_key(:hidden) => options[:hidden_classes],
+          classes_key(:visible) => options[:visible_classes],
+          action: (build_actions(TRIGGER_TYPES[trigger_type]) if TRIGGER_TYPES.key? trigger_type)
         }
       }
     end
   end
 
-  class FlowbiteController < Flowbite::ViewComponents::FlowbiteController
+  class StimulusTriggerController < Flowbite::ViewComponents::StimulusController
+    TRIGGER_TYPES = {
+      hover: {
+        show: :click,
+        hoverShow: :mouseenter,
+        hoverHide: :mouseleave
+      },
+      click: {
+        toggle: :click
+      }
+    }.freeze
+
     def attributes(options = {})
+      trigger_type = options[:trigger_type]&.to_sym
+
       {
         data: {
-          dropdown_toggle: options[:dropdown_id],
-          dropdown_placement: options[:placement],
-          dropdown_trigger_type: options[:trigger_type],
-          dropdown_offset_distance: options[:offset_distance],
-          dropdown_offset_skidding: options[:offset_distance],
-          dropdown_delay: options[:delay],
-          dropdown_ignore_click_outside_class: options[:ignore_click_outside_class]
+          controller: identifier,
+          value_key(:delay) => options[:delay],
+          outlet_key(Flowbite::DropdownComponent.stimulus_controller_identifier) => "##{options[:dropdown_id]}",
+          action: (build_actions(TRIGGER_TYPES[trigger_type]) if TRIGGER_TYPES.key? trigger_type)
         }
       }
     end

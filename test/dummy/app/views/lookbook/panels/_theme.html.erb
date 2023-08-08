@@ -1,0 +1,22 @@
+<% components = preview.tags(:renders).map { |c| c.to_s.safe_constantize }.select { |c| c.respond_to? :theme } %>
+<% Lookbook.update_panel :theme, { disabled: components.empty? } %>
+<% if components.many? %>
+  <div class="divide-y divide-dashed divide-lookbook-divider bg-lookbook-prose-bg h-full w-full">
+    <% components.each do |component| %>
+      <div class="p-4 relative">
+        <h6 class="italic font-mono mb-4 opacity-40">
+          # <%= component.name %>
+        </h6>
+        <%= lookbook_render :code, language: :json, line_numbers: true, full_height: true do %>
+          <%== JSON.pretty_print component.theme.as_json %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% elsif components.empty? %>
+  <em class="opacity-50">No themed components.</em>
+<% else %>
+  <%= lookbook_render :code, language: :json, line_numbers: true, full_height: true do %>
+    <%== JSON.pretty_generate components.first.theme.to_h %>
+  <% end %>
+<% end %>

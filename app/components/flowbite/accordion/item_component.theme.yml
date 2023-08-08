@@ -1,0 +1,8 @@
+root:
+  base: p-5
+  border: border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900
+header:
+  base: flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400
+  flush:
+    true:
+    false: border-b

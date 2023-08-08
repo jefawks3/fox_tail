@@ -1,0 +1,29 @@
+root:
+  base: >-
+    absolute z-10 inline-block px-3 py-2 text-sm font-medium
+    transition-opacity duration-300
+    rounded-lg shadow-sm
+  visible: visible opacity-100
+  hidden: invisible opacity-0
+  arrow: group
+  color:
+    dark: &default text-white bg-gray-900 dark:bg-gray-700
+    light: text-gray-900 bg-white border border-gray-200
+    default: *default
+arrow:
+  base: >-
+    absolute w-[8px] h-[8px] rotate-45
+    group-floating-y:left-1/2 group-floating-x:top-1/2
+    group-floating-bottom:top-0 group-floating-bottom:-translate-x-1/2 group-floating-bottom:-translate-y-1/2
+    group-floating-top:bottom-0 group-floating-top:-translate-x-1/2 group-floating-top:translate-y-1/2
+    group-floating-right:left-0 group-floating-right:-translate-x-1/2 group-floating-right:-translate-y-1/2
+    group-floating-left:right-0 group-floating-left:translate-x-1/2 group-floating-left:-translate-y-1/2
+  color:
+    dark: &default bg-gray-900 dark:bg-gray-700
+    light: >-
+      bg-white border-gray-200
+      group-floating-top:border-b group-floating-top:border-r
+      group-floating-right:border-b group-floating-right:border-l
+      group-floating-bottom:border-t group-floating-bottom:border-l
+      group-floating-left:border-t group-floating-left:border-r
+    default: *default

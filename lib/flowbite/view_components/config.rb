@@ -19,7 +19,6 @@ module Flowbite
           ActiveSupport::OrderedOptions.new.merge!({
             classname_merger: ClassnameMerger.new,
             stimulus_merger: StimulusMerger.new,
-            stimulus_controller_prefix: "flowbite-",
             use_stimulus: true,
             raise_on_asset_not_found: true
           })

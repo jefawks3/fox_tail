@@ -2,6 +2,10 @@
 const path = require('node:path')
 const rootPath = path.resolve(__dirname, "../../");
 
+// const { execSync } = require('node:child_process');
+// const dir = execSync('gem which rails')
+//console.log('test', dir.toString())
+
 module.exports = {
     darkMode: 'class',
     content: [
@@ -15,6 +19,7 @@ module.exports = {
     plugins: [
         require('flowbite'),
         require('flowbite-typography'),
+        require('../../plugin'),
     ],
 }
 

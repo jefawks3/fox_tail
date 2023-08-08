@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "es2020"],
+    "target": "es2020",
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "allowJs": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*.ts", "app/components/**/*.ts"],
+  "exclude": ["node_modules", "dist", "lib"]
+}

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class Flowbite::AlertComponent < Flowbite::BaseComponent
+class Flowbite::AlertComponent < Flowbite::DismissibleComponent
+
   SEVERITY_ICONS = { success: "check-circle", warning: "exclamation-triangle", error: "exclamation-circle" }.freeze
   DEFAULT_SEVERITY_ICON = "information-circle"
 
@@ -22,11 +23,14 @@ class Flowbite::AlertComponent < Flowbite::BaseComponent
     content = block ? capture(&block) : I18n.t("flowbite.close")
     icon_options = options.slice(:icon, :variant).reverse_merge(icon: "x-mark", variant: :solid)
     icon_options[:class] = theme.classname "dismiss.icon"
+
+
+    dismiss_actions! options
     options[:class] = classnames theme.classname("dismiss.base"),
                                  theme.classname([:dismiss, :severity, severity]),
                                  options[:class]
 
-    render(Flowbite::DismissComponent.new(id, options)) do
+    content_tag :button, options do
       concat render(Flowbite::IconBaseComponent.new(icon_options[:icon], icon_options.except(:icon)))
       concat content_tag(:div, content, class: theme.classname("accessibility.sr_only"))
     end
@@ -47,9 +51,7 @@ class Flowbite::AlertComponent < Flowbite::BaseComponent
         options[:variant] ||= :outline
         options[:color] ||= severity
         options[:size] ||= :xs
-        dismiss_options = options.extract!(*Flowbite::DismissComponent.dismiss_options_keys)
-        dismiss_options[:target_id] = id
-        Flowbite::DismissComponent.controller.merge! options, dismiss_options
+        dismiss_actions! options
         Flowbite::ButtonComponent.new options
       },
       as: :dismiss_button
@@ -68,11 +70,6 @@ class Flowbite::AlertComponent < Flowbite::BaseComponent
     end
   end
 
-  def initialize(id, html_attributes = {})
-    @id = id
-    super(html_attributes)
-  end
-
   private
 
   def root_classes
@@ -87,5 +84,11 @@ class Flowbite::AlertComponent < Flowbite::BaseComponent
 
   def severity_icon_name
     SEVERITY_ICONS.fetch severity.to_sym, DEFAULT_SEVERITY_ICON
+  end
+
+  def dismiss_actions!(attributes)
+    attributes[:data] ||= {}
+    attributes[:data][:action] = stimulus_merger.merge_actions attributes[:data][:action],
+                                                               stimulus_controller.action("dismiss")
   end
 end

@@ -1,0 +1,16 @@
+root:
+  base: h-px my-4 bg-gray-200 border-0 dark:bg-gray-700
+  size:
+    base: h-px
+    sm: h-1
+  shape:
+    base: w-4 h-4 mx-auto
+    square: rounded
+    circle: mx-auto rounded-full
+wrapper:
+  base: inline-flex items-center justify-center w-full
+  content: absolute px-4 -translate-x-1/2 bg-white left-1/2 dark:bg-gray-900 text-gray-900 dark:text-white
+text:
+  base: font-medium
+icon:
+  base: w-4 h-4 text-gray-700 dark:text-gray-300

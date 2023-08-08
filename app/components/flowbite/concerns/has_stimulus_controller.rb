@@ -4,7 +4,7 @@ module Flowbite::Concerns::HasStimulusController
   extend ActiveSupport::Concern
 
   included do
-    delegate :stimulus_controller, :stimulus_controller_identifier, :use_stimulus?, to: :class
+    delegate :stimulus_controller, :stimulus_controller_identifier, :use_stimulus?, :stimulus_merger, to: :class
   end
 
   def stimulus_controller_options
@@ -17,10 +17,7 @@ module Flowbite::Concerns::HasStimulusController
     end
 
     def stimulus_controller_identifier
-      [
-        Flowbite::ViewComponents::Base.flowbite_config.stimulus_controller_prefix,
-        stimulus_controller_name.to_s
-      ].reject(&:blank?).join("-").gsub("_", "-")
+      :"flowbite--#{stimulus_controller_name.to_s.gsub("_", "-")}"
     end
 
     def stimulus_controller_name
@@ -29,6 +26,10 @@ module Flowbite::Concerns::HasStimulusController
 
     def use_stimulus?
       !!Flowbite::ViewComponents::Base.flowbite_config.use_stimulus
+    end
+
+    def stimulus_merger
+      Flowbite::ViewComponents::Base.flowbite_config.stimulus_merger
     end
 
     private

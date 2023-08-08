@@ -1,4 +1,4 @@
-<%= render(Flowbite::DropdownComponent.new(:dropdown_default, placement: "bottom-start")) do |c| %>
+<%= render(Flowbite::DropdownComponent.new(:dropdown_avatar_trigger, placement: "bottom-start")) do |c| %>
   <% c.with_trigger(class: "flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600") do %>
     <%= render Flowbite::AvatarComponent.new(src: "users/thomas-lean.png", rounded: true) %>
   <% end %>

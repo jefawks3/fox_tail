@@ -12,8 +12,9 @@ class AlertComponentPreview < ViewComponent::Preview
   # @param border select { choices: [none,basic,accent] } "Border type"
   # @param rounded toggle "Round the corners"
   # @param dismiss toggle "Show the dismiss icon"
-  def playground(severity: :info, show_icon: true, show_header: true, icon: nil, border: :basic, rounded: true, dismiss: true, show_buttons: true)
-    render(Flowbite::AlertComponent.new(:playground_alert, severity: severity, border: border, rounded: rounded)) do |c|
+  # @param remove toggle "Remove the alert after animations"
+  def playground(severity: :info, show_icon: true, show_header: true, icon: nil, border: :basic, rounded: true, dismiss: true, show_buttons: true, remove: false)
+    render(Flowbite::AlertComponent.new(severity: severity, border: border, rounded: rounded, remove: remove)) do |c|
       c.with_icon(icon: icon.presence) if show_icon
       c.with_dismiss_icon if dismiss
       c.with_header_content "This is a header to the alert" if show_header
@@ -33,23 +34,23 @@ class AlertComponentPreview < ViewComponent::Preview
   # @!group Severity
 
   def info
-    render(Flowbite::AlertComponent.new(:info_alert, severity: :info).with_content("A simple info alert"))
+    render(Flowbite::AlertComponent.new(severity: :info).with_content("A simple info alert"))
   end
 
   def success
-    render(Flowbite::AlertComponent.new(:success_alert, severity: :success).with_content("A simple success alert"))
+    render(Flowbite::AlertComponent.new(severity: :success).with_content("A simple success alert"))
   end
 
   def warning
-    render(Flowbite::AlertComponent.new(:warning_alert, severity: :warning).with_content("A simple warning alert"))
+    render(Flowbite::AlertComponent.new(severity: :warning).with_content("A simple warning alert"))
   end
 
   def error
-    render(Flowbite::AlertComponent.new(:error_alert, severity: :error).with_content("A simple error alert"))
+    render(Flowbite::AlertComponent.new(severity: :error).with_content("A simple error alert"))
   end
 
   def neutral
-    render(Flowbite::AlertComponent.new(:neutral_alert, severity: :neutral).with_content("A simple alert"))
+    render(Flowbite::AlertComponent.new(severity: :neutral).with_content("A simple alert"))
   end
 
   # @!endgroup
@@ -58,7 +59,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Info
   def info_with_icon
-    render(Flowbite::AlertComponent.new(:info_alert, severity: :info)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :info)) do |c|
       c.with_icon
       "An info alert with an icon"
     end
@@ -66,7 +67,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Success
   def success_with_icon
-    render(Flowbite::AlertComponent.new(:success_alert, severity: :success)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :success)) do |c|
       c.with_icon
       "A success alert with an icon"
     end
@@ -74,7 +75,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Warning
   def warning_with_icon
-    render(Flowbite::AlertComponent.new(:warning_alert, severity: :warning)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :warning)) do |c|
       c.with_icon
       "A warning alert with an icon"
     end
@@ -82,7 +83,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Error
   def error_with_icon
-    render(Flowbite::AlertComponent.new(:error_alert, severity: :error)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :error)) do |c|
       c.with_icon
       "An error alert with an icon"
     end
@@ -90,7 +91,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Neutral
   def neutral_with_icon
-    render(Flowbite::AlertComponent.new(:neutral_alert, severity: :neutral)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :neutral)) do |c|
       c.with_icon
       "An alert with an icon"
     end
@@ -102,7 +103,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Info
   def info_bordered
-    render(Flowbite::AlertComponent.new(:info_alert, severity: :info, border: true)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :info, border: true)) do |c|
       c.with_icon
       "An info alert with a border"
     end
@@ -110,7 +111,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Success
   def success_bordered
-    render(Flowbite::AlertComponent.new(:success_alert, severity: :success, border: true)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :success, border: true)) do |c|
       c.with_icon
       "A success alert with a border"
     end
@@ -118,7 +119,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Warning
   def warning_bordered
-    render(Flowbite::AlertComponent.new(:warning_alert, severity: :warning, border: true)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :warning, border: true)) do |c|
       c.with_icon
       "A warning alert with a border"
     end
@@ -126,7 +127,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Error
   def error_bordered
-    render(Flowbite::AlertComponent.new(:error_alert, severity: :error, border: true)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :error, border: true)) do |c|
       c.with_icon
       "An error alert with a border"
     end
@@ -134,7 +135,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Neutral
   def neutral_bordered
-    render(Flowbite::AlertComponent.new(:neutral_alert, severity: :neutral, border: true)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :neutral, border: true)) do |c|
       c.with_icon
       "An alert with a border"
     end
@@ -146,7 +147,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Info
   def info_with_accent_border
-    render(Flowbite::AlertComponent.new(:info_alert, severity: :info, border: :accent, rounded: false)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :info, border: :accent, rounded: false)) do |c|
       c.with_icon
       "An info alert with a border"
     end
@@ -154,7 +155,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Success
   def success_with_accent_border
-    render(Flowbite::AlertComponent.new(:success_alert, severity: :success, border: :accent, rounded: false)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :success, border: :accent, rounded: false)) do |c|
       c.with_icon
       "A success alert with a border"
     end
@@ -162,7 +163,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Warning
   def warning_with_accent_border
-    render(Flowbite::AlertComponent.new(:warning_alert, severity: :warning, border: :accent, rounded: false)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :warning, border: :accent, rounded: false)) do |c|
       c.with_icon
       "A warning alert with a border"
     end
@@ -170,7 +171,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Error
   def error_with_accent_border
-    render(Flowbite::AlertComponent.new(:error_alert, severity: :error, border: :accent, rounded: false)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :error, border: :accent, rounded: false)) do |c|
       c.with_icon
       "An error alert with a border"
     end
@@ -178,7 +179,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Neutral
   def neutral_with_accent_border
-    render(Flowbite::AlertComponent.new(:neutral_alert, severity: :neutral, border: :accent, rounded: false)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :neutral, border: :accent, rounded: false)) do |c|
       c.with_icon
       "An alert with a border"
     end
@@ -190,7 +191,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Info
   def info_dismissing
-    render(Flowbite::AlertComponent.new(:info_alert, severity: :info)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :info)) do |c|
       c.with_icon
       c.with_dismiss_icon
       "An info alert with an icon"
@@ -199,7 +200,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Success
   def success_dismissing
-    render(Flowbite::AlertComponent.new(:success_alert, severity: :success)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :success)) do |c|
       c.with_icon
       c.with_dismiss_icon
       "A success alert with an icon"
@@ -208,7 +209,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Warning
   def warning_dismissing
-    render(Flowbite::AlertComponent.new(:warning_alert, severity: :warning)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :warning)) do |c|
       c.with_icon
       c.with_dismiss_icon
       "A warning alert with an icon"
@@ -217,7 +218,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Error
   def error_dismissing
-    render(Flowbite::AlertComponent.new(:error_alert, severity: :error)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :error)) do |c|
       c.with_icon
       c.with_dismiss_icon
       "An error alert with an icon"
@@ -226,7 +227,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Neutral
   def neutral_dismissing
-    render(Flowbite::AlertComponent.new(:neutral_alert, severity: :neutral)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :neutral)) do |c|
       c.with_icon
       c.with_dismiss_icon
       "An alert with an icon"
@@ -239,7 +240,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Info
   def info_with_additional_context
-    render(Flowbite::AlertComponent.new(:info_alert, severity: :info, border: true)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :info, border: true)) do |c|
       c.with_icon
       c.with_dismiss_icon
       c.with_header_content "This is an Info alert"
@@ -254,7 +255,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Success
   def success_with_additional_context
-    render(Flowbite::AlertComponent.new(:success_alert, severity: :success, border: true)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :success, border: true)) do |c|
       c.with_icon
       c.with_dismiss_icon
       c.with_header_content "This is an Success alert"
@@ -269,7 +270,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Success
   def warning_with_additional_context
-    render(Flowbite::AlertComponent.new(:warning_alert, severity: :warning, border: true)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :warning, border: true)) do |c|
       c.with_icon
       c.with_dismiss_icon
       c.with_header_content "This is an Warning alert"
@@ -284,7 +285,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Success
   def error_with_additional_context
-    render(Flowbite::AlertComponent.new(:error_alert, severity: :error, border: true)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :error, border: true)) do |c|
       c.with_icon
       c.with_dismiss_icon
       c.with_header_content "This is an Error alert"
@@ -299,7 +300,7 @@ class AlertComponentPreview < ViewComponent::Preview
 
   # @label Success
   def neutral_with_additional_context
-    render(Flowbite::AlertComponent.new(:neutral_alert, severity: :neutral, border: true)) do |c|
+    render(Flowbite::AlertComponent.new(severity: :neutral, border: true)) do |c|
       c.with_icon
       c.with_dismiss_icon
       c.with_header_content "This is an Neutral alert"

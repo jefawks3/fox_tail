@@ -35,6 +35,12 @@ module Flowbite
 
       alias [] classname
 
+      def to_h
+        @base_theme.deep_dup.to_h
+      end
+
+      delegate :to_json, :as_json, to: :to_h
+
       protected
 
       attr_reader :base_theme

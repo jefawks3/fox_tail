@@ -33,9 +33,9 @@ module Flowbite::Concerns::HasOptions
 
       define_method :"#{as}?" do
         if type == :boolean
-          !!options[name]
+          !!send(name)
         else
-          options[name].present?
+          send(name).present?
         end
       end
 
