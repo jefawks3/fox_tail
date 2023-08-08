@@ -1,16 +1,20 @@
 root:
-  base: h-px my-4 bg-gray-200 border-0 dark:bg-gray-700
+  base: h-px bg-gray-300 border-0 dark:bg-gray-700 w-full
   size:
     base: h-px
     sm: h-1
   shape:
     base: w-4 h-4 mx-auto
     square: rounded
-    circle: mx-auto rounded-full
+    circle: rounded-full
+    size:
+      xs: w-2 h-2
+      sm: w-4 h-4
+      base: w-8 h-8
+      lg: w-10 h-10
+      xl: w-12 h-12
 wrapper:
-  base: inline-flex items-center justify-center w-full
-  content: absolute px-4 -translate-x-1/2 bg-white left-1/2 dark:bg-gray-900 text-gray-900 dark:text-white
-text:
-  base: font-medium
-icon:
-  base: w-4 h-4 text-gray-700 dark:text-gray-300
+  base: flex items-center justify-center w-full my-4
+  trimmed: w-64 mx-auto
+content:
+  base: absolute px-4 -translate-x-1/2 bg-white left-1/2 dark:bg-gray-900 text-gray-900 dark:text-white
