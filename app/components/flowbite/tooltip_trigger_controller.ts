@@ -14,4 +14,8 @@ export default class extends Controller {
     hide(): void {
         this.flowbiteTooltipOutlet.hide();
     }
+
+    toggle(): void {
+        this.flowbiteTooltipOutlet.toggle();
+    }
 }

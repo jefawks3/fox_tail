@@ -1,0 +1,35 @@
+root:
+  base: >-
+    absolute z-10 inline-block w-64 shadow-sm
+    text-sm text-gray-500 dark:text-gray-400 
+    bg-white dark:bg-gray-800  
+    transition-opacity duration-300
+    border border-gray-200 dark:border-gray-600 rounded-lg
+  hidden: invisible opacity-0
+  visible: visible opacity-100
+  arrow: group
+header:
+  base: >- 
+    px-3 py-2
+    font-semibold text-gray-900 dark:text-white
+    bg-gray-100 dark:bg-gray-700
+    border-b border-gray-200 rounded-t-lg dark:border-gray-600
+content:
+  base: p-3
+arrow:
+  base: >-
+    absolute w-[8px] h-[8px] rotate-45 
+    bg-white dark:bg-gray-800
+    border-gray-200 dark:border-gray-600
+    group-floating-y:left-1/2 group-floating-x:top-1/2
+    group-floating-bottom:top-0 group-floating-bottom:-translate-x-1/2 group-floating-bottom:-translate-y-1/2
+    group-floating-top:bottom-0 group-floating-top:-translate-x-1/2 group-floating-top:translate-y-1/2
+    group-floating-right:left-0 group-floating-right:-translate-x-1/2 group-floating-right:-translate-y-1/2
+    group-floating-left:right-0 group-floating-left:translate-x-1/2 group-floating-left:-translate-y-1/2
+    group-floating-top:border-b group-floating-top:border-r
+    group-floating-right:border-b group-floating-right:border-l
+    group-floating-bottom:border-t group-floating-bottom:border-l
+    group-floating-left:border-t group-floating-left:border-r
+  header: >-
+    group-floating-bottom:bg-gray-100 group-floating-bottom:dark:bg-gray-700
+

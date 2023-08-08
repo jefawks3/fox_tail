@@ -86,6 +86,14 @@ export default class extends Controller {
         this.onHidden();
     }
 
+    toggle(): void {
+        if (this._isVisible) {
+            this.hide();
+        } else {
+            this.show();
+        }
+    }
+
     protected onShow(): boolean {
         return this.dispatch("show", {cancelable: true}).defaultPrevented;
     }

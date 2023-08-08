@@ -97,4 +97,26 @@ class TooltipComponentPreview < ViewComponent::Preview
   end
 
   # @!endgroup
+
+  # @!group Trigger Type
+
+  def click_trigger_type
+    render(Flowbite::TooltipComponent.new(:click_tooltip)) do |c|
+      c.with_trigger(tag: :button, trigger_type: :click, class: "ml-40 text-gray-900 dark:text-white underline cursor-pointer") do
+        "Click me"
+      end
+      "Tooltip Content"
+    end
+  end
+
+  def hover_trigger_type
+    render(Flowbite::TooltipComponent.new(:hover_tooltip)) do |c|
+      c.with_trigger(tag: :button, trigger_type: :hover, class: "ml-40 text-gray-900 dark:text-white underline cursor-pointer") do
+        "Hover over me"
+      end
+      "Tooltip Content"
+    end
+  end
+
+  # @!endgroup
 end

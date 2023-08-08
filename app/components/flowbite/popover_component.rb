@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
-class Flowbite::TooltipComponent < Flowbite::BaseComponent
+class Flowbite::PopoverComponent < Flowbite::BaseComponent
   include Flowbite::Concerns::HasStimulusController
   include Flowbite::Concerns::HasStimulusTriggerController
 
   attr_reader :id
+
+  renders_one :header, lambda { |text_or_attributes = {}, attributes = {}, &block|
+    attributes = text_or_attributes if block
+    attributes[:class] = classnames theme.classname("header.base"), attributes[:class]
+    content_tag :h3, attributes, &block
+  }
 
   renders_one :trigger, lambda { |attributes = {}, &block|
     tag_name = attributes.delete(:tag) || :span
@@ -12,8 +18,9 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
     options = attributes.extract! :trigger_type
 
     if use_stimulus?
-      options[:tooltip_id] = "##{id}"
-      options[:trigger_type] ||= :hover
+      options[:popover_id] = "##{id}"
+      options[:trigger_type] = trigger_type
+      options[:delay] = delay
       stimulus_trigger.merge! attributes, options
     end
 
@@ -26,7 +33,9 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
   has_option :offset, default: 8
   has_option :shift
   has_option :inline, default: false, type: :boolean
+  has_option :delay, default: 300
   has_option :trigger_id
+  has_option :trigger_type, default: :hover
 
   def initialize(id, html_attributes = {})
     @id = id
@@ -44,7 +53,6 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
     html_attributes[:role] ||= :tooltip
     html_attributes[:class] = classnames theme.classname("root.base"),
                                          arrow? && theme.classname("root.arrow"),
-                                         theme.classname([:root, :color, variant]),
                                          theme.classname("root.hidden"),
                                          html_class
 
@@ -52,18 +60,13 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
   end
 
   def call
-    tooltip_content = content_tag :div, html_attributes do
-      concat content
-      concat render_arrow if arrow?
-    end
-
     if trigger?
       capture do
         concat trigger
-        concat tooltip_content
+        concat render_popover
       end
     else
-      tooltip_content
+      render_popover
     end
   end
 
@@ -74,6 +77,8 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
       offset: offset,
       shift: shift,
       inline: inline?,
+      delay: delay,
+      trigger_type: trigger_type,
       visible_classes: theme.classname("root.visible"),
       hidden_classes: theme.classname("root.hidden")
     }
@@ -81,13 +86,30 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
 
   private
 
+  def render_popover
+    content_tag :div, html_attributes do
+      concat header if header?
+      concat content_tag(:div, content, class: theme.classname("content.base"))
+      concat render_arrow if arrow?
+    end
+  end
+
   def render_arrow
-    classes = classnames theme.classname("arrow.base"), theme.classname([:arrow, :color, variant])
-    content_tag(:div, nil, class: classes)
+    classes = classnames theme.classname("arrow.base"), header? && theme.classname("arrow.header")
+    content_tag :div, nil, class: classes
   end
 
   class StimulusController < Flowbite::ViewComponents::StimulusController
+    TRIGGER_TYPES = {
+      hover: {
+        hoverShow: :mouseenter,
+        hoverHide: :mouseleave
+      }
+    }.freeze
+
     def attributes(options = {})
+      trigger_type = options[:trigger_type]&.to_sym
+
       {
         data: {
           controller: identifier,
@@ -95,9 +117,11 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
           value_key(:offset) => options[:offset],
           value_key(:shift) => options[:shift],
           value_key(:inline) => options[:inline],
+          value_key(:delay) => options[:delay],
           classes_key(:visible) => options[:visible_classes],
           classes_key(:hidden) => options[:hidden_classes],
-          outlet_key(Flowbite::TooltipComponent.stimulus_trigger_identifier) => options[:trigger_id]
+          outlet_key(Flowbite::PopoverComponent.stimulus_trigger_identifier) => options[:trigger_id],
+          action: (build_actions(TRIGGER_TYPES[trigger_type]) if TRIGGER_TYPES.key? trigger_type)
         }
       }
     end
@@ -106,8 +130,8 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
   class StimulusTriggerController < Flowbite::ViewComponents::StimulusController
     TRIGGER_TYPES = {
       hover: {
-        show: %i[mouseenter focus],
-        hide: %i[mouseleave blur]
+        hoverShow: %i[mouseenter focus],
+        hoverHide: %i[mouseleave blur],
       },
       click: {
         toggle: :click,
@@ -121,7 +145,8 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
       {
         data: {
           controller: identifier,
-          outlet_key(Flowbite::TooltipComponent.stimulus_controller_identifier) => options[:tooltip_id],
+          value_key(:delay) => options[:delay],
+          outlet_key(Flowbite::PopoverComponent.stimulus_controller_identifier) => options[:popover_id],
           action: (build_actions(TRIGGER_TYPES[trigger_type]) if TRIGGER_TYPES.key? trigger_type)
         }
       }

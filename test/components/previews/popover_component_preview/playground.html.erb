@@ -1,0 +1,23 @@
+<div class="w-full my-40 flex items-center justify-center">
+  <%= render(Flowbite::PopoverComponent.new(
+    :playground_popover,
+    placement: placement,
+    arrow: arrow,
+    trigger_type: trigger_type,
+    delay: delay
+  )) do |c| %>
+    <% if header %>
+      <% c.with_header do %>
+        Popover title
+      <% end %>
+    <% end %>
+
+    <% c.with_trigger(tag: :button, class: "text-gray-900 dark:text-white underline cursor-pointer") do %>
+      <%= trigger_type == :hover ? "Hover over me" : "Click me" %>
+    <% end %>
+
+    And here's some amazing content. It's very engaging. Right?
+  <% end %>
+</div>
+
+

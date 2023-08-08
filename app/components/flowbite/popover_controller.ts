@@ -1,40 +1,42 @@
 import {Controller} from "@hotwired/stimulus";
-import {flip, Placement, shift, offset} from "@floating-ui/dom";
+import {flip, Placement, shift, offset, Middleware, inline} from "@floating-ui/dom";
 
 import useFloatingUI from "../../../src/mixins/use_floating_ui";
 import useClickOutside from "../../../src/mixins/use_click_outside";
+import useKeyboardListener from "../../../src/mixins/use_keyboard_listener";
 
 export default class extends Controller {
-    static outlets = ["flowbite--dropdown-trigger"]
     static classes = ["visible", "hidden"];
+    static outlets = ["flowbite--popover-trigger"];
 
     static values = {
-        reference: String,
         placement: {
             type: String,
-            default: "bottom",
-        },
-        shift: {
-            type: Number,
-            default: 0
+            default: "top",
         },
         offset: {
             type: Number,
             default: 10,
         },
-        ignoreClickOutside: String,
+        shift: {
+            type: Number,
+            default: 0,
+        },
+        inline: {
+            type: Boolean,
+            default: false,
+        },
         delay: {
             type: Number,
-            default: 300
-        }
-    }
+            default: 300,
+        },
+    };
 
-    declare readonly flowbiteDropdownTriggerOutletElement: Element;
+    declare readonly flowbitePopoverTriggerOutletElement: Element;
     declare readonly placementValue: string;
-    declare readonly shiftValue: number;
     declare readonly offsetValue: number;
-    declare readonly hasIgnoreClickOutside: boolean;
-    declare readonly ignoreClickOutsideValue: string;
+    declare readonly shiftValue: number;
+    declare readonly inlineValue: boolean;
     declare readonly delayValue: number;
     declare readonly visibleClasses: string[];
     declare readonly hiddenClasses: string[];
@@ -44,33 +46,51 @@ export default class extends Controller {
     private detachFloating: () => void = () => {};
     private observeClickOutside: () => void = () => {};
     private unobserveClickOutside: () => void = () => {};
+    private observeKeyboard: () => void = () => {};
+    private unobserveKeyboard: () => void = () => {};
 
     connect() {
         super.connect();
 
+        const middleware: Middleware[] = [
+            offset({
+                mainAxis: this.offsetValue,
+                crossAxis: this.shiftValue,
+            }),
+            flip(),
+            shift(),
+        ];
+
+        this.inlineValue && middleware.unshift(inline());
+
         [this.attachFloating, this.detachFloating] = useFloatingUI(this, {
-            referenceElement: this.flowbiteDropdownTriggerOutletElement,
+            referenceElement: this.flowbitePopoverTriggerOutletElement,
             strategy: "absolute",
             placement: this.placementValue as Placement,
-            middleware: [
-                offset({
-                    mainAxis: this.offsetValue,
-                    crossAxis: this.shiftValue,
-                }),
-                flip(),
-                shift()
-            ],
+            middleware
         });
 
         [this.observeClickOutside, this.unobserveClickOutside] = useClickOutside(this);
+
+        [this.observeKeyboard, this.unobserveKeyboard] = useKeyboardListener(this, {
+            element: document.body,
+            eventName: 'keydown',
+            key: "Escape",
+        });
     }
 
     show(): void {
-        this.showDropdown() && this.observeClickOutside();
+        if (this.showPopover()) {
+            this.observeClickOutside();
+            this.observeKeyboard();
+        }
     }
 
     hide(): void {
-        this.hideDropdown() && this.unobserveClickOutside();
+        if (this.hidePopover()) {
+            this.unobserveClickOutside();
+            this.unobserveKeyboard();
+        }
     }
 
     toggle(): void {
@@ -82,38 +102,15 @@ export default class extends Controller {
     }
 
     hoverShow(): void {
-        this.showDropdown();
+        this.showPopover();
     }
 
     hoverHide(): void {
         setTimeout(() => {
-            if (!this.flowbiteDropdownTriggerOutletElement.matches(":hover")) {
-                this.hideDropdown();
+            if (!this.flowbitePopoverTriggerOutletElement.matches(":hover")) {
+                this.hidePopover();
             }
         }, this.delayValue)
-    }
-
-    protected onClickOutside({target}: Event): void {
-        const outsideTrigger = !this.flowbiteDropdownTriggerOutletElement.contains(target as Node) &&
-            this.flowbiteDropdownTriggerOutletElement != target;
-        const isIgnored = this.isIgnoredClickOutside(target);
-
-        this.application.logDebugActivity(this.identifier, 'onClickOutside', {outsideTrigger, isIgnored});
-        !isIgnored && outsideTrigger && this.hide();
-    }
-
-    protected isIgnoredClickOutside(target: EventTarget | null): boolean {
-        if (this.hasIgnoreClickOutside) {
-            const elements = document.querySelectorAll(this.ignoreClickOutsideValue);
-
-            for(let i = 0; i < elements.length; i++) {
-                if (elements[i].contains(target as Element)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 
     protected onShow(): boolean {
@@ -132,7 +129,7 @@ export default class extends Controller {
         this.dispatch("hidden");
     }
 
-    private showDropdown(): boolean {
+    private showPopover(): boolean {
         if (this._isVisible || this.onShow()) {
             return false;
         }
@@ -147,12 +144,11 @@ export default class extends Controller {
         return true;
     }
 
-    private hideDropdown(): boolean {
+    private hidePopover(): boolean {
         if (!this._isVisible || this.onHide()) {
             return false;
         }
 
-        this.unobserveClickOutside();
         this.detachFloating();
         this.element.classList.remove(...this.visibleClasses);
         this.element.classList.add(...this.hiddenClasses);
@@ -161,5 +157,13 @@ export default class extends Controller {
         this.onHidden();
 
         return true;
+    }
+
+    protected onClickOutside({target}: Event): void {
+        const outsideTrigger = !this.flowbitePopoverTriggerOutletElement.contains(target as Node) &&
+            this.flowbitePopoverTriggerOutletElement != target;
+
+        this.application.logDebugActivity(this.identifier, 'onClickOutside', {outsideTrigger: outsideTrigger});
+        outsideTrigger && this.hide();
     }
 }

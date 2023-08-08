@@ -6,6 +6,8 @@ export default (application: Application): void => {
     application.register("flowbite--dismissible", Components.DismissibleController);
     application.register("flowbite--dropdown", Components.DropdownController);
     application.register("flowbite--dropdown-trigger", Components.DropdownTriggerController);
+    application.register("flowbite--popover", Components.PopoverController);
+    application.register("flowbite--popover-trigger", Components.PopoverTriggerController);
     application.register("flowbite--tooltip", Components.TooltipController);
     application.register("flowbite--tooltip-trigger", Components.TooltipTriggerController);
 }
