@@ -1,0 +1,13 @@
+<%= render(Flowbite::DropdownComponent.new(:default_dropdown)) do |c| %>
+  <% c.with_trigger do |trigger| %>
+    <%= render Flowbite::ButtonComponent.new(trigger.html_attributes).with_content("Dropdown") %>
+  <% end %>
+  <%
+    c.with_menu do |menu|
+      menu.with_item.with_content "Dashboard"
+      menu.with_item.with_content "Settings"
+      menu.with_item.with_content "Earnings"
+      menu.with_item.with_content "Sign Out"
+    end
+  %>
+<% end %>

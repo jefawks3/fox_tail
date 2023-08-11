@@ -2,7 +2,6 @@
 
 class Flowbite::PopoverComponent < Flowbite::BaseComponent
   include Flowbite::Concerns::HasStimulusController
-  include Flowbite::Concerns::HasStimulusTriggerController
 
   attr_reader :id
 
@@ -12,19 +11,10 @@ class Flowbite::PopoverComponent < Flowbite::BaseComponent
     content_tag :h3, attributes, &block
   }
 
-  renders_one :trigger, lambda { |attributes = {}, &block|
-    tag_name = attributes.delete(:tag) || :span
-    attributes[:id] = trigger_id
-    options = attributes.extract! :trigger_type
-
-    if use_stimulus?
-      options[:popover_id] = "##{id}"
-      options[:trigger_type] = trigger_type
-      options[:delay] = delay
-      stimulus_trigger.merge! attributes, options
-    end
-
-    content_tag tag_name, attributes, &block
+  renders_one :trigger, lambda { |attributes = {}|
+    attributes[:trigger_type] = trigger_type
+    attributes[:delay] = delay
+    Flowbite::PopoverTriggerComponent.new trigger_id, "##{id}", attributes
   }
 
   has_option :variant, default: :default
@@ -40,10 +30,7 @@ class Flowbite::PopoverComponent < Flowbite::BaseComponent
   def initialize(id, html_attributes = {})
     @id = id
     super(html_attributes)
-  end
-
-  def trigger_id
-    options[:trigger_id] ||= :"#{html_attributes.delete(:trigger_id) || id}_trigger"
+    with_trigger_id :"#{id}_trigger" unless trigger_id?
   end
 
   def before_render
@@ -60,19 +47,15 @@ class Flowbite::PopoverComponent < Flowbite::BaseComponent
   end
 
   def call
-    if trigger?
-      capture do
-        concat trigger
-        concat render_popover
-      end
-    else
-      render_popover
+    capture do
+      concat trigger if trigger?
+      concat render_popover
     end
   end
 
   def stimulus_controller_options
     {
-      trigger_id: "##{trigger_id}",
+      trigger_id: trigger_id,
       placement: placement,
       offset: offset,
       shift: shift,
@@ -107,49 +90,23 @@ class Flowbite::PopoverComponent < Flowbite::BaseComponent
       }
     }.freeze
 
+    def trigger_identifier
+      Flowbite::PopoverTriggerComponent.stimulus_controller_identifier
+    end
+
     def attributes(options = {})
       trigger_type = options[:trigger_type]&.to_sym
-
-      {
-        data: {
-          controller: identifier,
-          value_key(:placement) => options[:placement],
-          value_key(:offset) => options[:offset],
-          value_key(:shift) => options[:shift],
-          value_key(:inline) => options[:inline],
-          value_key(:delay) => options[:delay],
-          classes_key(:visible) => options[:visible_classes],
-          classes_key(:hidden) => options[:hidden_classes],
-          outlet_key(Flowbite::PopoverComponent.stimulus_trigger_identifier) => options[:trigger_id],
-          action: (build_actions(TRIGGER_TYPES[trigger_type]) if TRIGGER_TYPES.key? trigger_type)
-        }
-      }
-    end
-  end
-
-  class StimulusTriggerController < Flowbite::ViewComponents::StimulusController
-    TRIGGER_TYPES = {
-      hover: {
-        hoverShow: %i[mouseenter focus],
-        hoverHide: %i[mouseleave blur],
-      },
-      click: {
-        toggle: :click,
-        hide: %i[focusout blur]
-      }
-    }.freeze
-
-    def attributes(options = nil)
-      trigger_type = options[:trigger_type]&.to_sym
-
-      {
-        data: {
-          controller: identifier,
-          value_key(:delay) => options[:delay],
-          outlet_key(Flowbite::PopoverComponent.stimulus_controller_identifier) => options[:popover_id],
-          action: (build_actions(TRIGGER_TYPES[trigger_type]) if TRIGGER_TYPES.key? trigger_type)
-        }
-      }
+      attributes = super options
+      attributes[:data][value_key(:placement)] = options[:placement]
+      attributes[:data][value_key(:offset)] = options[:offset]
+      attributes[:data][value_key(:shift)] = options[:shift]
+      attributes[:data][value_key(:inline)] = options[:inline]
+      attributes[:data][value_key(:delay)] = options[:delay]
+      attributes[:data][outlet_key(trigger_identifier)] = "##{options[:trigger_id]}"
+      attributes[:data][classes_key(:hidden)] = options[:hidden_classes]
+      attributes[:data][classes_key(:visible)] = options[:visible_classes]
+      attributes[:data][:action] = build_actions TRIGGER_TYPES[trigger_type]
+      attributes
     end
   end
 end

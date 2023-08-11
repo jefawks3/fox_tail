@@ -22,36 +22,20 @@ class PopoverComponentPreview < ViewComponent::Preview
   # @!group Position
 
   def right
-    render(Flowbite::PopoverComponent.new(:right_popover, placement: :right)) do |c|
-      c.with_trigger(class: "ml-80 text-gray-900 dark:text-white underline cursor-pointer") { "Hover over me" }
-      c.with_header { "Popover title" }
-      "And here's some amazing content. It's very engaging. Right?"
-    end
+    render_with_template template: "popover_component_preview/placement", locals: { placement: :right }
   end
 
   def bottom
-    render(Flowbite::PopoverComponent.new(:bottom_popover, placement: :bottom)) do |c|
-      c.with_trigger(class: "ml-80 text-gray-900 dark:text-white underline cursor-pointer") { "Hover over me" }
-      c.with_header { "Popover title" }
-      "And here's some amazing content. It's very engaging. Right?"
-    end
+    render_with_template template: "popover_component_preview/placement", locals: { placement: :bottom }
   end
 
   def left
-    render(Flowbite::PopoverComponent.new(:left_popover, placement: :left)) do |c|
-      c.with_trigger(class: "ml-80 text-gray-900 dark:text-white underline cursor-pointer") { "Hover over me" }
-      c.with_header { "Popover title" }
-      "And here's some amazing content. It's very engaging. Right?"
-    end
+    render_with_template template: "popover_component_preview/placement", locals: { placement: :left }
   end
 
   # @label Top (Default)
   def top
-    render(Flowbite::PopoverComponent.new(:top_popover, placement: :top)) do |c|
-      c.with_trigger(class: "ml-80 text-gray-900 dark:text-white underline cursor-pointer") { "Hover over me" }
-      c.with_header { "Popover title" }
-      "And here's some amazing content. It's very engaging. Right?"
-    end
+    render_with_template template: "popover_component_preview/placement", locals: { placement: :top }
   end
 
   # @!endgroup
@@ -59,20 +43,14 @@ class PopoverComponentPreview < ViewComponent::Preview
 
   # @!group Trigger Type
 
+  # @label On Click
   def trigger_with_click
-    render(Flowbite::PopoverComponent.new(:click_popover, trigger_type: :click)) do |c|
-      c.with_trigger(tag: :button, class: "ml-80 text-gray-900 dark:text-white underline cursor-pointer") { "Click me" }
-      c.with_header { "Popover title" }
-      "And here's some amazing content. It's very engaging. Right?"
-    end
+    render_with_template template: "popover_component_preview/trigger_type", locals: { trigger_type: :click }
   end
 
+  # @label On Hover
   def trigger_with_hover
-    render(Flowbite::PopoverComponent.new(:hover_popover, trigger_type: :hover)) do |c|
-      c.with_trigger(class: "ml-80 text-gray-900 dark:text-white underline cursor-pointer") { "Hover over me" }
-      c.with_header { "Popover title" }
-      "And here's some amazing content. It's very engaging. Right?"
-    end
+    render_with_template template: "popover_component_preview/trigger_type", locals: { trigger_type: :hover }
   end
 
   # @!endgroup

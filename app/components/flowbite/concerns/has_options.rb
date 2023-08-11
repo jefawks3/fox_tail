@@ -3,6 +3,8 @@
 module Flowbite::Concerns::HasOptions
   extend ActiveSupport::Concern
 
+  RESERVED_OPTIONS = [Flowbite::ViewComponents::Theme::BASE_KEY.to_s].freeze
+
   def options
     @options ||= self.class.default_options
   end
@@ -20,22 +22,24 @@ module Flowbite::Concerns::HasOptions
 
   class_methods do
     def default_options
-      registered_options.transform_values { |v| v[:default] }
+      registered_options.reject { |_,v| v[:default].blank? }.transform_values { |v| v[:default] }
     end
 
     def has_option(name, as: name, default: nil, type: nil, &option_block)
+      raise Flowbite::ViewComponents::ReservedOption.new(self, as) if RESERVED_OPTIONS.include?(as.to_s)
+
       self.registered_options = registered_options.merge name => { name: name, setter: :"with_#{as}", default: default }
 
       define_method as do
-        options[name] = default unless options.key? name
+        options[name] = default unless default.nil? || options.key?(name)
         options[name]
       end
 
       define_method :"#{as}?" do
         if type == :boolean
-          !!send(name)
+          !!send(as)
         else
-          send(name).present?
+          send(as).present?
         end
       end
 

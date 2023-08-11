@@ -1,0 +1,16 @@
+<div class="ml-64">
+  <%= render(Flowbite::PopoverComponent.new(:"#{placement}_popover", placement: placement)) do |c| %>
+    <% c.with_trigger do |trigger| %>
+      <%= render Flowbite::ButtonComponent.new(trigger.html_attributes) do %>
+        Hover over me
+      <% end %>
+    <% end %>
+    <% c.with_header do %>
+      Popover title
+    <% end %>
+
+    And here's some amazing content. It's very engaging. Right?
+  <% end %>
+</div>
+
+

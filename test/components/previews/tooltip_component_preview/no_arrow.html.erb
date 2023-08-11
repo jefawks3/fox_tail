@@ -1,0 +1,6 @@
+<%= render(Flowbite::TooltipComponent.new(:no_arrow_tooltip, arrow: false)) do |c| %>
+  <% c.with_trigger do |trigger| %>
+    <%= render Flowbite::ButtonComponent.new(trigger.html_attributes).with_content("Hover over me") %>
+  <% end %>
+  Tooltip Content
+<% end %>

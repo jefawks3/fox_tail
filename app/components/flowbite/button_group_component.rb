@@ -19,20 +19,22 @@ class Flowbite::ButtonGroupComponent < Flowbite::BaseComponent
 
   private
 
-  def render_button(button, index)
-    position = if index.zero?
-                 :start
-               elsif index === buttons.length - 1
-                 :end
-               else
-                 :middle
-               end
-
-    button.with_size(size).with_pill(pill?)
-    button.with_html_class do |c|
-      classnames theme.classname("button.base"), theme.classname([:button, :position, position]), c
+  def button_position(index)
+    if index.zero?
+      :start
+    elsif index === buttons.length - 1
+      :end
+    else
+      :middle
     end
+  end
 
-    render button
+  def render_button(button, index)
+    position = button_position index
+    classes = classnames theme.classname("button.base"), theme.classname([:button, :position, position])
+    button.with_size size
+    button.with_pill pill?
+    button.with_html_class classes
+    button
   end
 end

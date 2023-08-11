@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # @component Flowbite::DropdownComponent
+# @component Flowbite::DropdownTriggerComponent
 # @logical_path components
 class DropdownComponentPreview < ViewComponent::Preview
 
@@ -22,85 +23,38 @@ class DropdownComponentPreview < ViewComponent::Preview
   # @!group Styles
 
   def default
-    render(Flowbite::DropdownComponent.new(:dropdown_default, placement: "bottom-start")) do |c|
-      c.with_button_trigger.with_content "Dropdown Button"
-      c.with_menu do |menu|
-        menu.with_item.with_content "Dashboard"
-        menu.with_item.with_content "Settings"
-        menu.with_item.with_content "Earnings"
-        menu.with_item.with_content "Sign Out"
-      end
-    end
+    render_with_template
   end
 
   def with_dividers
-    render(Flowbite::DropdownComponent.new(:dropdown_with_dividers, placement: "bottom-start")) do |c|
-      c.with_button_trigger.with_content "Dropdown Button"
-      c.with_menu do |menu|
-        menu.with_item.with_content "Dashboard"
-        menu.with_item.with_content "Settings"
-        menu.with_item.with_content "Earnings"
-      end
-      c.with_menu do |menu|
-        menu.with_item.with_content "Sign Out"
-      end
-    end
+    render_with_template
   end
 
   def with_header
-    render(Flowbite::DropdownComponent.new(:dropdown_with_header, placement: "bottom-start")) do |c|
-      c.with_button_trigger.with_content "Dropdown Button"
-      c.with_header do
-        # Normally would use `concat` to join tag helpers; `concat` is not available in the ViewComponent preview
-        content_tag(:div, "User Name") +
-          content_tag(:div, "name@flowbite-viewcomponents.com", class: "font-medium truncate")
-      end
-      c.with_menu do |menu|
-        menu.with_item.with_content "Dashboard"
-        menu.with_item.with_content "Settings"
-        menu.with_item.with_content "Earnings"
-      end
-      c.with_menu do |menu|
-        menu.with_item.with_content "Sign Out"
-      end
-    end
+    render_with_template
   end
 
   def with_custom_content
-    render_with_template template: "dropdown_component_preview/with_custom_content"
+    render_with_template
   end
 
   # @!endgroup
 
   # @!group Trigger Types
 
+  # @label Button
   def button_trigger
-    render(Flowbite::DropdownComponent.new(:dropdown_button_trigger, placement: "bottom-start")) do |c|
-      c.with_button_trigger.with_content "Dropdown Button"
-      c.with_menu do |menu|
-        menu.with_item.with_content "Dashboard"
-        menu.with_item.with_content "Settings"
-        menu.with_item.with_content "Earnings"
-        menu.with_item.with_content "Sign Out"
-      end
-    end
+    render_with_template
   end
 
+  # @label Icon Button
   def icon_button_trigger
-    render(Flowbite::DropdownComponent.new(:dropdown_icon_button_trigger, placement: "bottom-start")) do |c|
-      c.with_icon_button_trigger "ellipsis-vertical", variant: :outline
-      c.with_menu do |menu|
-        menu.with_item.with_content "Dashboard"
-        menu.with_item.with_content "Settings"
-        menu.with_item.with_content "Earnings"
-        menu.with_item.with_content "Sign Out"
-      end
-    end
+    render_with_template
   end
 
-  # @label Custom Trigger (Avatar)
+  # @label Avatar
   def avatar_trigger
-    render_with_template template: "dropdown_component_preview/avatar_trigger"
+    render_with_template
   end
 
   # @!endgroup
@@ -108,27 +62,11 @@ class DropdownComponentPreview < ViewComponent::Preview
   # @!group Trigger Events
 
   def on_click
-    render(Flowbite::DropdownComponent.new(:dropdown_click)) do |c|
-      c.with_button_trigger.with_content "Dropdown Button"
-      c.with_menu do |menu|
-        menu.with_item.with_content "Dashboard"
-        menu.with_item.with_content "Settings"
-        menu.with_item.with_content "Earnings"
-        menu.with_item.with_content "Sign Out"
-      end
-    end
+    render_with_template
   end
 
   def on_hover
-    render(Flowbite::DropdownComponent.new(:dropdown_hover, trigger_type: :hover)) do |c|
-      c.with_button_trigger.with_content "Dropdown Button"
-      c.with_menu do |menu|
-        menu.with_item.with_content "Dashboard"
-        menu.with_item.with_content "Settings"
-        menu.with_item.with_content "Earnings"
-        menu.with_item.with_content "Sign Out"
-      end
-    end
+    render_with_template
   end
 
   # @!endgroup

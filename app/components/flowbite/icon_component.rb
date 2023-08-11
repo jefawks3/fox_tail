@@ -11,6 +11,6 @@ class Flowbite::IconComponent < Flowbite::IconBaseComponent
   protected
 
   def html_class
-    classnames theme.classname([:root, :color, color]), theme.classname([:root, :size, size]), super
+    classnames theme.apply(:root, self), super
   end
 end

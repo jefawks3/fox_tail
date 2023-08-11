@@ -2,22 +2,11 @@
 
 class Flowbite::TooltipComponent < Flowbite::BaseComponent
   include Flowbite::Concerns::HasStimulusController
-  include Flowbite::Concerns::HasStimulusTriggerController
 
   attr_reader :id
 
-  renders_one :trigger, lambda { |attributes = {}, &block|
-    tag_name = attributes.delete(:tag) || :span
-    attributes[:id] = trigger_id
-    options = attributes.extract! :trigger_type
-
-    if use_stimulus?
-      options[:tooltip_id] = "##{id}"
-      options[:trigger_type] ||= :hover
-      stimulus_trigger.merge! attributes, options
-    end
-
-    content_tag tag_name, attributes, &block
+  renders_one :trigger, lambda { |attributes = {}|
+    Flowbite::TooltipTriggerComponent.new trigger_id, "##{id}", attributes
   }
 
   has_option :variant, default: :default
@@ -31,10 +20,7 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
   def initialize(id, html_attributes = {})
     @id = id
     super(html_attributes)
-  end
-
-  def trigger_id
-    options[:trigger_id] ||= :"#{html_attributes.delete(:trigger_id) || id}_trigger"
+    with_trigger_id :"#{id}_trigger" unless trigger_id?
   end
 
   def before_render
@@ -47,29 +33,18 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
                                          theme.classname([:root, :color, variant]),
                                          theme.classname("root.hidden"),
                                          html_class
-
-    stimulus_controller.merge! html_attributes, stimulus_controller_options if use_stimulus?
   end
 
   def call
-    tooltip_content = content_tag :div, html_attributes do
-      concat content
-      concat render_arrow if arrow?
-    end
-
-    if trigger?
-      capture do
-        concat trigger
-        concat tooltip_content
-      end
-    else
-      tooltip_content
+    capture do
+      concat trigger if trigger?
+      concat render_tooltip
     end
   end
 
   def stimulus_controller_options
     {
-      trigger_id: "##{trigger_id}",
+      trigger_id: trigger_id,
       placement: placement,
       offset: offset,
       shift: shift,
@@ -81,50 +56,33 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
 
   private
 
+  def render_tooltip
+    content_tag :div, html_attributes do
+      concat content
+      concat render_arrow if arrow?
+    end
+  end
+
   def render_arrow
     classes = classnames theme.classname("arrow.base"), theme.classname([:arrow, :color, variant])
     content_tag(:div, nil, class: classes)
   end
 
   class StimulusController < Flowbite::ViewComponents::StimulusController
-    def attributes(options = {})
-      {
-        data: {
-          controller: identifier,
-          value_key(:placement) => options[:placement],
-          value_key(:offset) => options[:offset],
-          value_key(:shift) => options[:shift],
-          value_key(:inline) => options[:inline],
-          classes_key(:visible) => options[:visible_classes],
-          classes_key(:hidden) => options[:hidden_classes],
-          outlet_key(Flowbite::TooltipComponent.stimulus_trigger_identifier) => options[:trigger_id]
-        }
-      }
+    def trigger_identifier
+      Flowbite::TooltipTriggerComponent.stimulus_controller_identifier
     end
-  end
 
-  class StimulusTriggerController < Flowbite::ViewComponents::StimulusController
-    TRIGGER_TYPES = {
-      hover: {
-        show: %i[mouseenter focus],
-        hide: %i[mouseleave blur]
-      },
-      click: {
-        toggle: :click,
-        hide: %i[focusout blur]
-      }
-    }.freeze
-
-    def attributes(options = nil)
-      trigger_type = options[:trigger_type]&.to_sym
-
-      {
-        data: {
-          controller: identifier,
-          outlet_key(Flowbite::TooltipComponent.stimulus_controller_identifier) => options[:tooltip_id],
-          action: (build_actions(TRIGGER_TYPES[trigger_type]) if TRIGGER_TYPES.key? trigger_type)
-        }
-      }
+    def attributes(options = {})
+      attributes = super options
+      attributes[:data][value_key(:placement)] = options[:placement]
+      attributes[:data][value_key(:offset)] = options[:offset]
+      attributes[:data][value_key(:shift)] = options[:shift]
+      attributes[:data][value_key(:inline)] = options[:inline]
+      attributes[:data][outlet_key(trigger_identifier)] = "##{options[:trigger_id]}"
+      attributes[:data][classes_key(:hidden)] = options[:hidden_classes]
+      attributes[:data][classes_key(:visible)] = options[:visible_classes]
+      attributes
     end
   end
 end

@@ -16,8 +16,10 @@ module Flowbite
         @config ||= Flowbite::ViewComponents::Base.flowbite_config
       end
 
-      def attributes(options = {})
-        raise NotImplementedError
+      def attributes(_options = {})
+        {
+          data: { controller: identifier }
+        }
       end
 
       def target_key(raw: false)
@@ -49,7 +51,13 @@ module Flowbite
         event && event.to_sym != :click ? "#{event}->#{action}" : action
       end
 
+      def event(event_name)
+        "#{identifier}:#{event_name}"
+      end
+
       def build_actions(actions)
+        return nil if actions.blank?
+
         formatted_actions = actions.each_with_object([]) do |(method_name, events), results|
           Array(events).each { |event| results.push( action(method_name, event: event)) }
         end

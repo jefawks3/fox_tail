@@ -1,7 +1,7 @@
 <div class="w-full my-52 flex items-center justify-center">
   <%= render(Flowbite::TooltipComponent.new(:playground_tooltip, placement: placement, arrow: arrow, variant: variant)) do |c| %>
-    <% c.with_trigger(class: "text-gray-900 dark:text-white underline cursor-pointer") do %>
-      Hover over me
+    <% c.with_trigger do |trigger| %>
+      <%= render Flowbite::ButtonComponent.new(trigger.html_attributes).with_content("Hover over me") %>
     <% end %>
     Tooltip Content
   <% end %>

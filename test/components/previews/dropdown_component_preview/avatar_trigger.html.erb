@@ -1,6 +1,8 @@
 <%= render(Flowbite::DropdownComponent.new(:dropdown_avatar_trigger, placement: "bottom-start")) do |c| %>
-  <% c.with_trigger(class: "flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600") do %>
-    <%= render Flowbite::AvatarComponent.new(src: "users/thomas-lean.png", rounded: true) %>
+  <% c.with_trigger do |trigger| %>
+    <%= content_tag :button, trigger.html_attributes.merge(class: "flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600") do %>
+      <%= render Flowbite::AvatarComponent.new(src: "users/thomas-lean.png", rounded: true) %>
+    <% end %>
   <% end %>
   <%
     c.with_menu do |menu|

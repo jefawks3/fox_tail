@@ -12,8 +12,10 @@
       <% end %>
     <% end %>
 
-    <% c.with_trigger(tag: :button, class: "text-gray-900 dark:text-white underline cursor-pointer") do %>
-      <%= trigger_type == :hover ? "Hover over me" : "Click me" %>
+    <% c.with_trigger do |trigger| %>
+      <%= render Flowbite::ButtonComponent.new(trigger.html_attributes) do %>
+        <%= trigger_type == :hover ? "Hover over me" : "Click me" %>
+      <% end %>
     <% end %>
 
     And here's some amazing content. It's very engaging. Right?

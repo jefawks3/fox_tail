@@ -8,7 +8,7 @@
           # <%= component.name %>
         </h6>
         <%= lookbook_render :code, language: :json, line_numbers: true, full_height: true do %>
-          <%== JSON.pretty_print component.theme.as_json %>
+          <%== JSON.pretty_generate component.theme.to_h %>
         <% end %>
       </div>
     <% end %>

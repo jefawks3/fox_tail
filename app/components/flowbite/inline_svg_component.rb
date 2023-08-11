@@ -11,10 +11,7 @@ class Flowbite::InlineSvgComponent < Flowbite::BaseComponent
     super(html_attributes)
 
     @path = path.to_s
-
-    unless options.key? :raise
-      options[:raise] = !!Flowbite::ViewComponents::Base.flowbite_config.raise_on_asset_not_found
-    end
+    with_raise_error Flowbite::ViewComponents::Base.flowbite_config.raise_on_asset_not_found unless options.key? :raise
   end
 
   def call

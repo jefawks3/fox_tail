@@ -7,6 +7,12 @@ module Flowbite::Concerns::HasStimulusController
     delegate :stimulus_controller, :stimulus_controller_identifier, :use_stimulus?, :stimulus_merger, to: :class
   end
 
+  def before_render
+    super
+
+    stimulus_controller.merge! html_attributes, stimulus_controller_options if use_stimulus?
+  end
+
   def stimulus_controller_options
     raise NotImplementedError
   end

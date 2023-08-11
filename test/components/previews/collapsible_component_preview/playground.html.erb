@@ -1,0 +1,12 @@
+<div class="space-y-4">
+  <%= render(Flowbite::CollapsibleComponent.new(id, open: opened)) do |collapsible| %>
+    <% collapsible.with_trigger do |trigger| %>
+      <%= render Flowbite::ButtonComponent.new(trigger.html_attributes).with_content("Toggle Collapse") %>
+    <% end %>
+
+    <div class="block p-6 bg-white text-gray-900 border border-gray-200 rounded-lg dark:text-white dark:bg-gray-800 dark:border-gray-700">
+      Some placeholder content for the collapse component.
+      This panel is hidden by default but revealed when the user activates the relevant trigger.
+    </div>
+  <% end %>
+</div>

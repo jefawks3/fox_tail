@@ -9,6 +9,10 @@ class Flowbite::ClickableComponent < Flowbite::BaseComponent
   has_option :loadable, default: false, type: :boolean
   has_option :controlled, default: false, type: :boolean
 
+  def use_stimulus?
+    controlled? && super
+  end
+
   def before_render
     super
 
@@ -22,8 +26,6 @@ class Flowbite::ClickableComponent < Flowbite::BaseComponent
       html_attributes[:type] ||= :button
       html_attributes[:disabled] = true if disabled?
     end
-
-    stimulus_controller.merge! html_attributes, stimulus_controller_options if controlled?
   end
 
   def call(&block)

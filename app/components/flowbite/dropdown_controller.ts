@@ -45,6 +45,10 @@ export default class extends Controller {
     private observeClickOutside: () => void = () => {};
     private unobserveClickOutside: () => void = () => {};
 
+    get isVisible(): boolean {
+        return this._isVisible;
+    }
+
     connect() {
         super.connect();
 

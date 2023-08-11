@@ -15,39 +15,19 @@ class TooltipComponentPreview < ViewComponent::Preview
 
   # @label Top (Default)
   def top
-    render(Flowbite::TooltipComponent.new(:top_tooltip, placement: :top)) do |c|
-      c.with_trigger(class: "ml-40 text-gray-900 dark:text-white underline cursor-pointer") do
-        "Hover over me"
-      end
-      "Tooltip Content"
-    end
+    render_with_template template: "tooltip_component_preview/placement", locals: { placement: :top }
   end
 
   def bottom
-    render(Flowbite::TooltipComponent.new(:bottom_tooltip, placement: :bottom)) do |c|
-      c.with_trigger(class: "ml-40 text-gray-900 dark:text-white underline cursor-pointer") do
-        "Hover over me"
-      end
-      "Tooltip Content"
-    end
+    render_with_template template: "tooltip_component_preview/placement", locals: { placement: :bottom }
   end
 
   def left
-    render(Flowbite::TooltipComponent.new(:left_tooltip, placement: :left)) do |c|
-      c.with_trigger(class: "ml-40 text-gray-900 dark:text-white underline cursor-pointer") do
-        "Hover over me"
-      end
-      "Tooltip Content"
-    end
+    render_with_template template: "tooltip_component_preview/placement", locals: { placement: :left }
   end
 
   def right
-    render(Flowbite::TooltipComponent.new(:right_tooltip, placement: :right)) do |c|
-      c.with_trigger(class: "ml-40 text-gray-900 dark:text-white underline cursor-pointer") do
-        "Hover over me"
-      end
-      "Tooltip Content"
-    end
+    render_with_template template: "tooltip_component_preview/placement", locals: { placement: :right }
   end
 
   # @!endgroup
@@ -56,31 +36,16 @@ class TooltipComponentPreview < ViewComponent::Preview
 
   # @label Dark (Default)
   def dark
-    render(Flowbite::TooltipComponent.new(:dark_tooltip, variant: :dark)) do |c|
-      c.with_trigger(class: "ml-40 text-gray-900 dark:text-white underline cursor-pointer") do
-        "Hover over me"
-      end
-      "Tooltip Content"
-    end
+    render_with_template template: "tooltip_component_preview/variant", locals: { variant: :dark }
   end
 
   def light
-    render(Flowbite::TooltipComponent.new(:light_tooltip, variant: :light)) do |c|
-      c.with_trigger(class: "ml-40 text-gray-900 dark:text-white underline cursor-pointer") do
-        "Hover over me"
-      end
-      "Tooltip Content"
-    end
+    render_with_template template: "tooltip_component_preview/variant", locals: { variant: :light }
   end
 
   # @label Disabled Arrow
   def no_arrow
-    render(Flowbite::TooltipComponent.new(:no_arrow_tooltip, arrow: false)) do |c|
-      c.with_trigger(class: "ml-40 text-gray-900 dark:text-white underline cursor-pointer") do
-        "Hover over me"
-      end
-      "Tooltip Content"
-    end
+    render_with_template
   end
 
   # @!endgroup
@@ -88,34 +53,26 @@ class TooltipComponentPreview < ViewComponent::Preview
   # @!group Inline
 
   def without_inline
-    render_with_template template: 'tooltip_component_preview/inline', locals: { tooltip_id: :without_inline, inline: false }
+    render_with_template template: "tooltip_component_preview/inline", locals: { inline: false }
   end
 
 
   def inline
-    render_with_template template: 'tooltip_component_preview/inline', locals: { tooltip_id: :inline, inline: true }
+    render_with_template template: "tooltip_component_preview/inline", locals: { inline: true }
   end
 
   # @!endgroup
 
   # @!group Trigger Type
 
+  # @label Click
   def click_trigger_type
-    render(Flowbite::TooltipComponent.new(:click_tooltip)) do |c|
-      c.with_trigger(tag: :button, trigger_type: :click, class: "ml-40 text-gray-900 dark:text-white underline cursor-pointer") do
-        "Click me"
-      end
-      "Tooltip Content"
-    end
+    render_with_template template: "tooltip_component_preview/trigger_type", locals: { trigger_type: :click }
   end
 
+  # @label Hover
   def hover_trigger_type
-    render(Flowbite::TooltipComponent.new(:hover_tooltip)) do |c|
-      c.with_trigger(tag: :button, trigger_type: :hover, class: "ml-40 text-gray-900 dark:text-white underline cursor-pointer") do
-        "Hover over me"
-      end
-      "Tooltip Content"
-    end
+    render_with_template template: "tooltip_component_preview/trigger_type", locals: { trigger_type: :hover }
   end
 
   # @!endgroup

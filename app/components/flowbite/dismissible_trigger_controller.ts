@@ -5,9 +5,9 @@ import DismissibleController from "./dismissible_controller";
 export default class extends Controller {
     static outlets = ["dismissible"];
 
-    declare readonly dismissibleOutlet: DismissibleController;
+    declare readonly dismissibleOutlets: DismissibleController[];
 
     dismiss(): void {
-        this.dismissibleOutlet.dismiss();
+        this.dismissibleOutlets.forEach((outlet) => outlet.dismiss());
     }
 }

@@ -12,6 +12,7 @@ gem 'sprockets-rails', '~> 3.4'
 gem "puma"
 gem "sqlite3"
 gem "lookbook", ">= 2.0.5"
+gem "faker"
 
 group :development, :test do
   gem "rubocop"

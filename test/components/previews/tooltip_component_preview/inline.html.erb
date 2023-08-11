@@ -1,17 +1,11 @@
 <div class="w-72 text-gray-800 dark:text-gray-100 font-light">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  <%= content_tag :span,
-                  " Etiam ultricies",
-                  Flowbite::TooltipComponent.stimulus_trigger.merge!(
-                    {
-                      id: :"#{tooltip_id}_trigger",
-                      class: "text-blue-600 dark:text-blue-500 cursor-pointer font-medium"
-                    },
-                    {
-                      tooltip_id: "##{tooltip_id}",
-                      trigger_type: :hover
-                    }
-                  ) %>
+  <%= render(Flowbite::TooltipComponent.new(:"inline_#{inline}_tooltip", inline: inline)) do |c| %>
+    <% c.with_trigger(class: "text-blue-600 dark:text-blue-500 cursor-pointer font-medium") do |trigger| %>
+      <%= content_tag :span, "Etiam ultricies", trigger.html_attributes %>
+    <% end %>
+    Tooltip Content
+  <% end %>
   turpis tellus, et tristique libero euismod vel.
 </div>
-<%= render(Flowbite::TooltipComponent.new(tooltip_id, inline: inline).with_content("Tooltip content")) %>
+

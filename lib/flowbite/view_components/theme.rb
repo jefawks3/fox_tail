@@ -5,7 +5,10 @@ module Flowbite
 
     # Flowbite Component Theme
     class Theme
-      def initialize(theme = {})
+      BASE_KEY = "base"
+
+      def initialize(theme = {}, class_merger: ClassnameMerger.new)
+        @class_merger = class_merger
         @base_theme = (theme || {}).deep_stringify_keys
       end
 
@@ -27,13 +30,22 @@ module Flowbite
 
       # Return the classnames for the `key` in the theme
       def classname(key)
-        return nil unless key.present?
+        key = normalize_key key
+        return if key.blank?
 
-        normalized_key = Array(key).map { |k| k.to_s.split "." }.flatten
-        lookup_key base_theme, normalized_key
+        lookup_key base_theme, key
       end
 
       alias [] classname
+
+      def apply(key, object)
+        key = normalize_key key
+        return if key.blank? || object.blank?
+
+        object_theme = lookup_key base_theme, key
+        object = ActiveSupport::HashWithIndifferentAccess.new object if object.is_a? Hash
+        apply_theme object_theme, object
+      end
 
       def to_h
         @base_theme.deep_dup.to_h
@@ -43,15 +55,44 @@ module Flowbite
 
       protected
 
-      attr_reader :base_theme
+      attr_reader :base_theme, :class_merger
 
-      private
+      def normalize_key(key)
+        Array(key).map { |k| k.to_s.split "." }.flatten.presence
+      end
 
       def lookup_key(theme, key)
         return theme if key.empty?
         return nil unless theme.is_a? Hash
 
         lookup_key theme[key.shift], key
+      end
+
+      def apply_theme(theme, object)
+        return if theme.blank?
+
+        theme.inject(theme[BASE_KEY]) do |classes, (key, value)|
+          class_merger.merge [classes, apply_classes_for(object, key, value)]
+        end
+      end
+
+      def apply_classes_for(object, key, value)
+        object_value = object_attribute_value object, key.to_sym
+
+        if value.is_a? Hash
+          theme = value[object_value&.to_s]
+          theme.is_a?(Hash) ? apply_theme(theme, object) : theme
+        elsif object_value
+          value
+        end
+      end
+
+      def object_attribute_value(object, attribute)
+        if object.is_a?(Hash)
+          object[attribute]
+        elsif object.respond_to? attribute, true
+          object.send attribute
+        end
       end
 
       class << self
