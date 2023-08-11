@@ -38,13 +38,14 @@ module Flowbite
 
       alias [] classname
 
-      def apply(key, object)
+      def apply(key, object, attributes = {})
         key = normalize_key key
         return if key.blank? || object.blank?
 
         object_theme = lookup_key base_theme, key
+        attributes = ActiveSupport::HashWithIndifferentAccess.new attributes
         object = ActiveSupport::HashWithIndifferentAccess.new object if object.is_a? Hash
-        apply_theme object_theme, object
+        apply_theme object_theme, object, attributes
       end
 
       def to_h
@@ -68,27 +69,29 @@ module Flowbite
         lookup_key theme[key.shift], key
       end
 
-      def apply_theme(theme, object)
+      def apply_theme(theme, object, attributes)
         return if theme.blank?
 
         theme.inject(theme[BASE_KEY]) do |classes, (key, value)|
-          class_merger.merge [classes, apply_classes_for(object, key, value)]
+          class_merger.merge [classes, apply_classes_for(object, attributes, key, value)]
         end
       end
 
-      def apply_classes_for(object, key, value)
-        object_value = object_attribute_value object, key.to_sym
+      def apply_classes_for(object, attributes, key, value)
+        object_value = object_attribute_value object, attributes, key.to_sym
 
         if value.is_a? Hash
           theme = value[object_value&.to_s]
-          theme.is_a?(Hash) ? apply_theme(theme, object) : theme
+          theme.is_a?(Hash) ? apply_theme(theme, object, attributes) : theme
         elsif object_value
           value
         end
       end
 
-      def object_attribute_value(object, attribute)
-        if object.is_a?(Hash)
+      def object_attribute_value(object, attributes, attribute)
+        if attributes.key?(attribute)
+          attributes[attribute]
+        elsif object.is_a?(Hash)
           object[attribute]
         elsif object.respond_to? attribute, true
           object.send attribute

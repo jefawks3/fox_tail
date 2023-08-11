@@ -22,8 +22,8 @@ class Flowbite::CollapsibleComponent < Flowbite::BaseComponent
     super
 
     html_attributes[:id] = id
-    html_attributes[:class] = classnames theme.classname("root.base"),
-                                         !open? && theme.classname("root.hidden"),
+    html_attributes[:class] = classnames theme.apply(:root, self),
+                                         !open? && theme.apply("root/collapsed", self),
                                          html_class
   end
 
@@ -37,7 +37,7 @@ class Flowbite::CollapsibleComponent < Flowbite::BaseComponent
   def stimulus_controller_options
     {
       open: open?,
-      hidden_classes: theme.classname("root.hidden")
+      hidden_classes: theme.apply("root/collapsed", self)
     }
   end
 

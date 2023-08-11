@@ -6,6 +6,10 @@ class Flowbite::HrComponent < Flowbite::BaseComponent
   has_option :shape, default: :none
   has_option :trimmed, default: false, type: :boolean
 
+  def shape?
+    shape != :none
+  end
+
   def call
     content_tag :div, class: wrapper_classes do
       if content? && shape == :none
@@ -21,20 +25,14 @@ class Flowbite::HrComponent < Flowbite::BaseComponent
   private
 
   def wrapper_classes
-    classnames theme.classname("wrapper.base"),
-               trimmed? && shape == :none && theme.classname("wrapper.trimmed"),
-               html_class
+    classnames theme.apply(:wrapper, self), html_class
   end
 
   def hr_classes
-    classnames theme.classname("root.base"),
-               shape == :none && theme.classname([:root, :size, size]),
-               shape != :none && theme.classname(["root.shape.base"]),
-               shape != :none && theme.classname([:root, :shape, shape]),
-               shape != :none && theme.classname([:root, :shape, :size, size])
+    theme.apply :root, self
   end
 
   def content_classes
-    classnames theme.classname("content.base")
+    theme.apply :content, self
   end
 end

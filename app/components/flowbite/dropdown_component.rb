@@ -12,7 +12,8 @@ class Flowbite::DropdownComponent < Flowbite::BaseComponent
   }
 
   renders_one :header, lambda { |options = {}, &block|
-    content_tag :div, options.merge(class: classnames(theme.classname("header.base"), options[:class])), &block
+    options[:class] = classnames theme.apply(:header, self), options[:class]
+    content_tag :div, options, &block
   }
 
   renders_many :menus, Flowbite::Dropdown::MenuComponent
@@ -36,9 +37,8 @@ class Flowbite::DropdownComponent < Flowbite::BaseComponent
     super
 
     html_attributes[:id] = id
-    html_attributes[:class] = classnames theme.classname("root.base"),
-                                         theme.classname("root.hidden"),
-                                         divider? && theme.classname("root.divider"),
+    html_attributes[:class] = classnames theme.apply(:root, self),
+                                         theme.apply("root/hidden", self),
                                          html_class
   end
 
@@ -56,8 +56,8 @@ class Flowbite::DropdownComponent < Flowbite::BaseComponent
       offset: offset,
       shift: shift,
       ignore_click_outside: ignore_click_outside,
-      hidden_classes: theme.classname("root.hidden"),
-      visible_classes: theme.classname("root.visible"),
+      hidden_classes: theme.apply("root/hidden", self),
+      visible_classes: theme.apply("root/visible", self),
       trigger_type: trigger_type,
       delay: delay
     }

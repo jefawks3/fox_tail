@@ -1,3 +1,2 @@
-root:
-  hidden: hidden
-
+root/collapsed:
+  base: hidden

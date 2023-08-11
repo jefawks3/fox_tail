@@ -7,30 +7,28 @@ root:
     base: w-10 h-10
     lg: w-20 h-20
     xl: w-36 h-36
-  background: bg-gray-100 dark:bg-gray-600
-  visual: relative overflow-hidden
-  text: flex items-center justify-center
+  src?:
+    false: bg-gray-100 dark:bg-gray-600 relative overflow-hidden
+  text?: flex items-center justify-center
+  border?: ring-2
   border:
-    base: ring-2
-    color:
-      neutral: &default ring-gray-300 dark:ring-gray-500
-      dark: ring-gray-800 dark:ring-gray-800
-      light: ring-gray-100 dark:ring-gray-700
-      red: &red ring-red-300 dark:ring-red-500
-      blue: &blue ring-blue-300 dark:ring-blue-500
-      green: &green ring-green-300 dark:ring-green-500
-      yellow: &yellow ring-yellow-300 dark:ring-yellow-500
-      indigo: ring-indigo-300 dark:ring-indigo-500
-      purple: ring-purple-300 dark:ring-purple-500
-      pink: ring-pink-300 dark:ring-pink-500
-      default: *default
-      info: *blue
-      success: *green
-      warning: *yellow
-      error: *red
+    neutral: &default ring-gray-300 dark:ring-gray-500
+    dark: ring-gray-800 dark:ring-gray-800
+    light: ring-gray-100 dark:ring-gray-700
+    red: &red ring-red-300 dark:ring-red-500
+    blue: &blue ring-blue-300 dark:ring-blue-500
+    green: &green ring-green-300 dark:ring-green-500
+    yellow: &yellow ring-yellow-300 dark:ring-yellow-500
+    indigo: ring-indigo-300 dark:ring-indigo-500
+    purple: ring-purple-300 dark:ring-purple-500
+    pink: ring-pink-300 dark:ring-pink-500
+    default: *default
+    info: *blue
+    success: *green
+    warning: *yellow
+    error: *red
 dot:
   base: absolute border-2 border-white dark:border-gray-800 transform z-[1]
-  container: relative inline-block
   position:
     top_left: top-0 left-0 -translate-y-1/2 -translate-x-1/2
     top_center: top-0 left-1/2 -translate-y-1/2 -translate-x-1/2
@@ -42,6 +40,8 @@ dot:
     bottom_center: bottom-0 left-1/2 translate-y-1/2 -translate-x-1/2
     bottom_right: bottom-0 right-0 translate-y-1/2 translate-x-1/2
     default: *default
+dot/container:
+  base: relative inline-block
 label:
   base: sr-only
 icon:

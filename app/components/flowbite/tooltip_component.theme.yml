@@ -3,13 +3,15 @@ root:
     absolute z-10 inline-block px-3 py-2 text-sm font-medium
     transition-opacity duration-300
     rounded-lg shadow-sm
-  visible: visible opacity-100
-  hidden: invisible opacity-0
-  arrow: group
-  color:
+  arrow?: group
+  variant:
     dark: &default text-white bg-gray-900 dark:bg-gray-700
     light: text-gray-900 bg-white border border-gray-200
     default: *default
+root/visible:
+  base: visible opacity-100
+root/hidden:
+  base: invisible opacity-0
 arrow:
   base: >-
     absolute w-[8px] h-[8px] rotate-45
@@ -18,7 +20,7 @@ arrow:
     group-floating-top:bottom-0 group-floating-top:-translate-x-1/2 group-floating-top:translate-y-1/2
     group-floating-right:left-0 group-floating-right:-translate-x-1/2 group-floating-right:-translate-y-1/2
     group-floating-left:right-0 group-floating-left:translate-x-1/2 group-floating-left:-translate-y-1/2
-  color:
+  variant:
     dark: &default bg-gray-900 dark:bg-gray-700
     light: >-
       bg-white border-gray-200

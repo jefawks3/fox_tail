@@ -1,6 +1,6 @@
 root:
   base: border-gray-200 dark:border-gray-700 dark:bg-gray-900 text-gray-500 dark:text-gray-400
-  flush:
+  flush?:
     true: border-b py-5
     false:
       base: border border-t-0 p-5
@@ -12,7 +12,7 @@ header:
     font-medium border-gray-200 dark:border-gray-700
     text-gray-500 dark:text-gray-400 
     [&:not(.collapsed)]:text-gray-900 [&:not(.collapsed)]:dark:text-white
-  flush:
+  flush?:
     true: border-b py-5
     false:
       base: border p-5 [&:not(.collapsed)]:bg-gray-100 dark:[&:not(.collapsed)]:bg-gray-800

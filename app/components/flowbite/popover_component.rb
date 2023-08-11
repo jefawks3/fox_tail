@@ -38,11 +38,7 @@ class Flowbite::PopoverComponent < Flowbite::BaseComponent
 
     html_attributes[:id] = id
     html_attributes[:role] ||= :tooltip
-    html_attributes[:class] = classnames theme.classname("root.base"),
-                                         arrow? && theme.classname("root.arrow"),
-                                         theme.classname("root.hidden"),
-                                         html_class
-
+    html_attributes[:class] = classnames theme.apply(:root, self), theme.apply("root/hidden", self), html_class
     stimulus_controller.merge! html_attributes, stimulus_controller_options if use_stimulus?
   end
 
@@ -62,8 +58,8 @@ class Flowbite::PopoverComponent < Flowbite::BaseComponent
       inline: inline?,
       delay: delay,
       trigger_type: trigger_type,
-      visible_classes: theme.classname("root.visible"),
-      hidden_classes: theme.classname("root.hidden")
+      visible_classes: theme.apply("root/visible", self),
+      hidden_classes: theme.apply("root/hidden", self)
     }
   end
 
@@ -72,14 +68,13 @@ class Flowbite::PopoverComponent < Flowbite::BaseComponent
   def render_popover
     content_tag :div, html_attributes do
       concat header if header?
-      concat content_tag(:div, content, class: theme.classname("content.base"))
+      concat content_tag(:div, content, class: theme.apply(:content, self))
       concat render_arrow if arrow?
     end
   end
 
   def render_arrow
-    classes = classnames theme.classname("arrow.base"), header? && theme.classname("arrow.header")
-    content_tag :div, nil, class: classes
+    content_tag :div, nil, class: theme.apply(:arrow, self)
   end
 
   class StimulusController < Flowbite::ViewComponents::StimulusController

@@ -12,8 +12,8 @@ class Flowbite::BadgeComponent < Flowbite::BaseComponent
   has_option :size, default: :base
   has_option :color, default: :default
   has_option :pill, default: false, type: :boolean
-  has_option :border, default: false, type: :boolean
   has_option :icon_only, default: false, type: :boolean
+  has_option :border, default: false, type: :boolean
 
   def call
     content_tag (url? ? :a : :span), html_attributes.merge(href: url, class: root_classes) do
@@ -25,18 +25,7 @@ class Flowbite::BadgeComponent < Flowbite::BaseComponent
   private
 
   def root_classes
-    classnames theme.classname("root.base"),
-               theme.classname([:root, :size, size]),
-               theme.classname([:root, :color, color]),
-               border? && theme.classname("root.bordered.base"),
-               border? && theme.classname([:root, :bordered, :color, color]),
-               url? && theme.classname("root.link.base"),
-               url? && theme.classname([:root, :link, :color, color]),
-               pill? && theme.classname("root.pills"),
-               !icon_only? && theme.classname("root.visuals"),
-               icon_only? && theme.classname("root.visuals_only.base"),
-               icon_only? && theme.classname([:root, :visuals_only, :size, size]),
-               html_class
+    classnames theme.apply(:root, self), html_class
   end
 
   def content_classes

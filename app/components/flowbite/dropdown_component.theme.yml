@@ -1,7 +1,9 @@
 root:
   base: z-10 rounded-lg shadow w-48 bg-white dark:bg-gray-700 focus:outline-none transition-opacity duration-300 ease-in-out
-  divider: divide-y divide-gray-100 dark:divide-gray-600
-  hidden: invisible opacity-0
-  visible: visible opacity-100
+  divider?: divide-y divide-gray-100 dark:divide-gray-600
+root/hidden:
+  base: invisible opacity-0
+root/visible:
+  base: visible opacity-100
 header:
   base: px-4 py-3 text-sm text-gray-900 dark:text-white

@@ -1,7 +1,6 @@
 root:
   base: flex items-center justify-start w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600
-  disabled: opacity-50
-  visuals: flex items-center gap-2
+  visuals?: flex items-center gap-2
   color:
     neutral: &default text-gray-700 dark:text-gray-200 dark:hover:text-white
     dark: text-gray-800 dark:text-gray-700
@@ -18,6 +17,9 @@ root:
     warning: text-yellow-800 dark:text-yellow-700
     success: text-green-800 dark:text-green-700
     default: *default
+root/disabled:
+  base: opacity-50
 visual:
   base: w-2.5 h-2.5
-  end: ml-auto
+  side:
+    end: ml-auto

@@ -2,17 +2,20 @@
 
 class Flowbite::DropdownTriggerComponent < Flowbite::TriggerBaseComponent
   has_option :delay, default: 300
+  has_option :open, default: false, type: :boolean
 
   def before_render
     super
 
-    html_attributes[:class] = classnames theme.classname("root.base"), html_class
+    html_attributes[:class] = classnames theme.apply(:root, self),
+                                         theme.apply("root/#{open? ? :open : :close}", self),
+                                         html_class
   end
 
   def stimulus_controller_options
     super.merge delay: delay,
-                open_classes: theme.classname("root.open"),
-                closed_classes: theme.classname("root.closed")
+                open_classes: theme.apply("root/open", self),
+                closed_classes: theme.apply("root/closed", self)
   end
 
   class StimulusController < Flowbite::ViewComponents::StimulusController

@@ -1,5 +1,4 @@
 root:
-  base: hover:underline
   color:
     neutral: text-gray-600 dark:text-gray-500
     dark: text-gray-800 dark:text-gray-700
@@ -16,6 +15,7 @@ root:
     warning: text-yellow-800 dark:text-yellow-700
     success: text-green-800 dark:text-green-700
     default: *default
-  disabled:
-    base: opacity-50 cursor-not-allowed
-
+root/active:
+  base: hover:underline
+root/disabled:
+  base: opacity-50 cursor-not-allowed

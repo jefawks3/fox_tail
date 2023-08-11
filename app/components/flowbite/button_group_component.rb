@@ -10,9 +10,14 @@ class Flowbite::ButtonGroupComponent < Flowbite::BaseComponent
     buttons?
   end
 
+  def before_render
+    super
+
+    html_attributes[:class] = classnames theme.apply(:root, self), html_class
+  end
+
   def call
-    classes = classnames theme.classname("root.base"), html_class
-    content_tag :div, html_attributes.merge(class: classes) do
+    content_tag :div, html_attributes do
       buttons.each_with_index { |btn, index| concat render_button(btn, index) }
     end
   end
@@ -30,8 +35,7 @@ class Flowbite::ButtonGroupComponent < Flowbite::BaseComponent
   end
 
   def render_button(button, index)
-    position = button_position index
-    classes = classnames theme.classname("button.base"), theme.classname([:button, :position, position])
+    classes = classnames theme.apply(:button, { position: button_position(index) })
     button.with_size size
     button.with_pill pill?
     button.with_html_class classes

@@ -10,7 +10,7 @@ class Flowbite::ClickableComponent < Flowbite::BaseComponent
   has_option :controlled, default: false, type: :boolean
 
   def use_stimulus?
-    controlled? && super
+    controlled? && self.class.use_stimulus?
   end
 
   def before_render
@@ -41,14 +41,22 @@ class Flowbite::ClickableComponent < Flowbite::BaseComponent
   protected
 
   def root_classes
-    classnames html_class
+    classnames theme.apply(:root, self),
+               theme.apply("root/#{disabled? ? :disabled : :active}", self),
+               block_given? && yield,
+               html_class
   end
 
   def active_classes
-    classnames html_class
+    classnames theme.apply(:root, self),
+               theme.apply("root/active", self),
+               block_given? && yield,
+               html_class
   end
 
-  def disabled_classes; end
+  def disabled_classes
+    classnames theme.apply("root/disabled", self), block_given? && yield
+  end
 
   private
 

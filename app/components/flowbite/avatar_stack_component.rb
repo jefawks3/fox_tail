@@ -4,8 +4,11 @@ class Flowbite::AvatarStackComponent < Flowbite::BaseComponent
   renders_many :avatars, lambda { |options = {}|
     options[:size] = size
     options[:rounded] = rounded
-    options[:border] = true
-    options[:class] = classnames theme.classname("avatar.base"), options[:class]
+    options[:border] = true unless options.key? :border
+    options[:class] = classnames theme.apply(:content, self),
+                                 theme.apply(:avatar, self),
+                                 options[:class]
+
     Flowbite::AvatarComponent.new(**options)
   }
 
@@ -15,13 +18,13 @@ class Flowbite::AvatarStackComponent < Flowbite::BaseComponent
     options[:text] = text
     options[:size] = size
     options[:rounded] = rounded
-    options[:border] = true
-    options[:class] = classnames theme.classname("avatar.base"),
-                                 theme.classname("counter.base"),
+    options[:border] = true unless options.key? :border
+    options[:class] = classnames theme.apply(:content, self),
+                                 theme.apply(:counter, self),
                                  options[:class]
 
     if url.present?
-      link_to url, class: theme.classname("counter.link") do
+      link_to url, class: theme.apply("counter/link", self) do
         render(Flowbite::AvatarComponent.new(**options))
       end
     else
@@ -36,10 +39,14 @@ class Flowbite::AvatarStackComponent < Flowbite::BaseComponent
     avatars? || counter?
   end
 
-  def call
-    root_classes = classnames theme.classname("root.base"), theme.classname([:root, :size, size]), html_class
+  def before_render
+    super
 
-    content_tag :div, html_attributes.merge(class: root_classes) do
+    html_attributes[:class] = classnames theme.apply(:root, self), html_class
+  end
+
+  def call
+    content_tag :div, html_attributes do
       avatars.each { |avatar| concat avatar }
       concat counter if counter?
     end

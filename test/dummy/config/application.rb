@@ -22,6 +22,9 @@ module Dummy
 
     config.assets.paths << Flowbite::ViewComponents.root.join("test/dummy/app/assets")
 
+    # I18n
+    config.i18n.load_path += Dir[Flowbite::ViewComponents.root.join("config/locales/*.yml")]
+
     # View Component
     config.view_component.view_component_path = Flowbite::ViewComponents.root.join("app/components").to_s
     config.view_component.show_previews = true

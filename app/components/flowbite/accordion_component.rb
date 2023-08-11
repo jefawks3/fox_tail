@@ -26,7 +26,7 @@ class Flowbite::AccordionComponent < Flowbite::BaseComponent
     super
 
     html_attributes[:id] = id
-    html_attributes[:class] = html_class
+    html_attributes[:class] = classnames theme.apply(:root, self), html_class
   end
 
   def call

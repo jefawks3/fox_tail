@@ -5,9 +5,11 @@ root:
     bg-white dark:bg-gray-800  
     transition-opacity duration-300
     border border-gray-200 dark:border-gray-600 rounded-lg
-  hidden: invisible opacity-0
-  visible: visible opacity-100
-  arrow: group
+  arrow?: group
+root/visible:
+  base: visible opacity-100
+root/hidden:
+  base: invisible opacity-0
 header:
   base: >- 
     px-3 py-2
@@ -30,6 +32,6 @@ arrow:
     group-floating-right:border-b group-floating-right:border-l
     group-floating-bottom:border-t group-floating-bottom:border-l
     group-floating-left:border-t group-floating-left:border-r
-  header: >-
+  header?: >-
     group-floating-bottom:bg-gray-100 group-floating-bottom:dark:bg-gray-700
 

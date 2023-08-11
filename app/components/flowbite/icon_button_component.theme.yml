@@ -12,6 +12,4 @@ icon:
     sm: h-3.5 w-3.5
     base: h-3.5 w-3.5
     lg: h-4 w-4
-    xl: h-4 w-4
-content:
-  base: sr-only
+    xl: h-5 w-5

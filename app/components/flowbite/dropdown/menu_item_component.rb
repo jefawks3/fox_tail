@@ -1,42 +1,48 @@
 # frozen_string_literal: true
 
 class Flowbite::Dropdown::MenuItemComponent < Flowbite::ClickableComponent
-  renders_one :left_icon, lambda { |icon, options = {}| render_icon icon, options, :start }
-  renders_one :right_icon, lambda { |icon, options = {}| render_icon icon, options, :end }
+  renders_one :left_visual, types: {
+    icon: {
+      renders: lambda { |icon, options = {}| render_icon icon, options, :start },
+      as: :left_icon
+    },
+    svg: {
+      renders: lambda { |path, options = {}| render_svg path, options, :start },
+      as: :left_svg
+    },
+    image: {
+      renders: lambda { |url, attributes = {}| render_image url, attributes, :start },
+      as: :left_image
+    }
+  }
+
+  renders_one :right_visual, types: {
+    icon: {
+      renders: lambda { |icon, options = {}| render_icon icon, options, :end },
+      as: :right_icon
+    },
+    svg: {
+      renders: lambda { |path, options = {}| render_svg path, options, :end },
+      as: :right_svg
+    },
+    image: {
+      renders: lambda { |url, attributes = {}| render_image url, attributes, :end },
+      as: :right_image
+    }
+  }
 
   has_option :color, default: :default
 
   def visuals?
-    left_icon? || right_icon?
+    left_visual? || right_visual?
   end
 
   def call
     super do
-      concat left_icon if left_icon?
+      concat left_visual if left_visual?
       concat content
-      concat right_icon if right_icon?
+      concat right_visual if right_visual?
     end
-  end
-
-  protected
-
-  def root_classes
-    classnames theme.classname("root.base"),
-               theme.classname([:root, :color, color]),
-               visuals? && theme.classname("root.visuals"),
-               disabled? && theme.classname("root.disabled"),
-               html_class
-  end
-
-  def disabled_classes
-    classnames theme.classname("root.disabled")
-  end
-
-  def active_classes
-    classnames theme.classname("root.base"),
-               theme.classname([:root, :color, color]),
-               visuals? && theme.classname("root.visuals"),
-               html_class
   end
 
   private
@@ -44,10 +50,19 @@ class Flowbite::Dropdown::MenuItemComponent < Flowbite::ClickableComponent
   def render_icon(icon, options, side)
     options[:variant] ||= :mini
     options[:"aria-hidden"] = true
-    options[:class] = classnames theme.classname("visuals.base"),
-                                 theme.classname([:visuals, side]),
-                                 options[:class]
+    options[:class] = classnames theme.apply(:visual, self, side: side), options[:class]
+    Flowbite::IconBaseComponent.new icon, options
+  end
 
-    Flowbite::IconBaseComponent.new icon, **options
+  def render_svg(path, options, side)
+    options[:"aria-hidden"] = true
+    options[:class] = classnames theme.apply(:visual, self, side: side), options[:class]
+    Flowbite::InlineSvgComponent.new path, options
+  end
+
+  def render_image(uri, options, side)
+    options[:"aria-hidden"] = true
+    options[:class] = classnames theme.apply(:visual, self, side: side), options[:class]
+    image_tag uri, options
   end
 end

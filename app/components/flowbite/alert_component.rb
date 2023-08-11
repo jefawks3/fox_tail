@@ -1,34 +1,29 @@
 # frozen_string_literal: true
 
 class Flowbite::AlertComponent < Flowbite::DismissibleComponent
-
   SEVERITY_ICONS = { success: "check-circle", warning: "exclamation-triangle", error: "exclamation-circle" }.freeze
   DEFAULT_SEVERITY_ICON = "information-circle"
 
   attr_reader :id
 
   renders_one :header, lambda { |options = {}, &block|
-    options[:class] = classnames theme.classname("header.base"), options[:class]
+    options[:class] = classnames theme.apply(:header, self), options[:class]
     content_tag(:h3, options, &block)
   }
 
   renders_one :icon, lambda { |options = {}|
     name = options.delete(:icon) || severity_icon_name
-    options[:class] = classnames theme.classname("icon.base"), options[:class]
+    options[:class] = classnames theme.apply(:icon, self), options[:class]
     options[:variant] ||= :mini
     Flowbite::IconBaseComponent.new name, options
   }
 
   renders_one :dismiss_icon, lambda { |options = {}, &block|
-    content = block ? capture(&block) : I18n.t("flowbite.close")
+    content = block ? capture(&block) : I18n.t("components.flowbite.close")
     icon_options = options.slice(:icon, :variant).reverse_merge(icon: "x-mark", variant: :solid)
-    icon_options[:class] = theme.classname "dismiss.icon"
-
-
+    icon_options[:class] = theme.apply "dismiss.icon", self
     dismiss_actions! options
-    options[:class] = classnames theme.classname("dismiss.base"),
-                                 theme.classname([:dismiss, :severity, severity]),
-                                 options[:class]
+    options[:class] = classnames theme.apply("dismiss.button", self), options[:class]
 
     content_tag :button, options do
       concat render(Flowbite::IconBaseComponent.new(icon_options[:icon], icon_options.except(:icon)))
@@ -66,20 +61,18 @@ class Flowbite::AlertComponent < Flowbite::DismissibleComponent
     elsif !value
       :none
     else
-      value
+      value.to_sym
     end
+  end
+
+  def border?
+    border != :none
   end
 
   private
 
   def root_classes
-    classnames theme.classname("root.base"),
-               theme.classname([:root, :severity, severity]),
-               rounded? && theme.classname("root.rounded"),
-               border != :none && theme.classname("root.border.base"),
-               border != :none && theme.classname([:root, :border, border]),
-               border != :none && theme.classname([:root, :border, :severity, severity]),
-               html_class
+    classnames theme.apply(:root, self), html_class
   end
 
   def severity_icon_name
@@ -87,6 +80,8 @@ class Flowbite::AlertComponent < Flowbite::DismissibleComponent
   end
 
   def dismiss_actions!(attributes)
+    return unless use_stimulus?
+
     attributes[:data] ||= {}
     attributes[:data][:action] = stimulus_merger.merge_actions attributes[:data][:action],
                                                                stimulus_controller.action("dismiss")

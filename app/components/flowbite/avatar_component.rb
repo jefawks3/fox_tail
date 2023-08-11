@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 class Flowbite::AvatarComponent < Flowbite::BaseComponent
-  renders_one :dot, lambda { |position: :top_right, **options|
-    options[:class] = classnames theme.classname("dot.base"),
-                                 theme.classname([:dot, :position, position]),
-                                 options[:class]
-
+  renders_one :dot, lambda { |options = {}|
+    dot_options = options.extract!(:position).reverse_merge(position: :top_right)
+    options[:class] = classnames theme.apply(:dot, dot_options), options[:class]
     Flowbite::DotIndicatorComponent.new(**options)
   }
 
@@ -14,37 +12,36 @@ class Flowbite::AvatarComponent < Flowbite::BaseComponent
   has_option :text
   has_option :size, default: :base
   has_option :rounded, type: :boolean, default: false
-  has_option :border, type: :boolean, default: false
+
+  has_option :border, default: false do |_border, value|
+    if value.is_a?(TrueClass)
+      :default
+    elsif !value
+      :none
+    else
+      value.to_sym
+    end
+  end
+
+  def border?
+    border != :none
+  end
 
   def call
-    visual = render_visual
-
     if dot?
-      content_tag :div, class: theme.classname("dot.container") do
+      content_tag :div, class: theme.apply("dot/container", self) do
         concat dot
-        concat visual
+        concat render_visual
       end
     else
-      visual
+      render_visual
     end
   end
 
   private
 
   def root_classes
-    classnames theme.classname("root.base"),
-               theme.classname([:root, :size, size]),
-               rounded? && theme.classname("root.rounded"),
-               border? && theme.classname("root.border.base"),
-               border? && theme.classname([:root, :border, :color, @border.is_a?(TrueClass) ? :default : @border]),
-               !src? && theme.classname("root.background"),
-               (icon? || text?) && theme.classname("root.visual"),
-               text? && theme.classname("root.text"),
-               html_class
-  end
-
-  def label_classes
-    classnames theme.classname("label.base")
+    classnames theme.apply(:root, self), html_class
   end
 
   def render_visual
@@ -64,7 +61,7 @@ class Flowbite::AvatarComponent < Flowbite::BaseComponent
   end
 
   def render_icon
-    icon_classes = classnames theme.classname("icon.base"), theme.classname([:icon, :size, size])
+    icon_classes = theme.apply :icon, self
     label = html_attributes[:alt]
     icon_name, icon_variant = if icon.is_a? Hash
                                 [icon[:name], icon[:variant]]
@@ -80,7 +77,7 @@ class Flowbite::AvatarComponent < Flowbite::BaseComponent
 
   def render_text
     label = html_attributes[:alt]
-    text_classes = classnames theme.classname("text.base"), theme.classname([:text, :size, size])
+    text_classes = theme.apply :text, self
 
     content_tag :div, html_attributes.except(:alt).merge(class: root_classes) do
       concat content_tag(:span, text, class: text_classes)

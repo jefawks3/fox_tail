@@ -51,15 +51,7 @@ class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
   protected
 
   def root_classes
-    super do
-      classnames visuals? && theme.classname("root.visuals")
-    end
-  end
-
-  def active_classes
-    super do
-      classnames visuals? && theme.classname("root.visuals")
-    end
+    super { loading? && theme.apply("root/disabled", self) }
   end
 
   private
@@ -67,9 +59,9 @@ class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
   def render_loader(options = {})
     svg = Flowbite::ViewComponents.root.join("app/assets/vendor/flowbite-spinner.svg")
     options[:"aria-hidden"] = true
-    options[:class] = classnames theme.classname("visuals.base"),
-                                 theme.classname("visuals.loading"),
-                                 theme.classname([:visuals, :size, size]),
+    options[:class] = classnames theme.apply(:visual, self),
+                                 theme.apply("visual/left", self),
+                                 theme.apply("visual/loader", self),
                                  controlled? && !loading? && theme.classname("hidden"),
                                  options[:class]
 
@@ -80,9 +72,8 @@ class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
   def render_icon(icon, options, side)
     options[:variant] ||= :mini
     options[:"aria-hidden"] = true
-    options[:class] = classnames theme.classname("visuals.base"),
-                                 theme.classname([:visuals, side]),
-                                 theme.classname([:visuals, :size, size]),
+    options[:class] = classnames theme.apply(:visual, self),
+                                 theme.apply("visual/#{side}", self),
                                  options[:class]
 
     options[stimulus_controller.target_key(raw: true)] = "active" if controlled?

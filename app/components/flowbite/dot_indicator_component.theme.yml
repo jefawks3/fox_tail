@@ -1,5 +1,7 @@
 root:
   base: inline-block w-3.5 h-3.5 rounded-full
+dot:
+  animated?: w-full h-full
   color:
     neutral: &default bg-gray-400
     dark: bg-gray-700
@@ -16,9 +18,8 @@ root:
     error: bg-red-700
     warning: bg-yellow-700
     default: *default
+dot/animation:
+  base: absolute animate-ping opacity-75 w-full h-full
 container:
   base: relative flex
-animated:
-  base: absolute animate-ping opacity-75 w-full h-full
-  dot: w-full h-full
 

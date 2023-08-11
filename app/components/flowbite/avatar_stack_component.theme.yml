@@ -6,5 +6,5 @@ root:
     base: -space-x-4
     lg: -space-x-8
     xl: -space-x-16
-avatar:
+content:
   base: p-0 z-0

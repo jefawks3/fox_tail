@@ -28,11 +28,7 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
 
     html_attributes[:id] = id
     html_attributes[:role] ||= :tooltip
-    html_attributes[:class] = classnames theme.classname("root.base"),
-                                         arrow? && theme.classname("root.arrow"),
-                                         theme.classname([:root, :color, variant]),
-                                         theme.classname("root.hidden"),
-                                         html_class
+    html_attributes[:class] = classnames theme.apply(:root, self), theme.apply("root/hidden", self), html_class
   end
 
   def call
@@ -49,8 +45,8 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
       offset: offset,
       shift: shift,
       inline: inline?,
-      visible_classes: theme.classname("root.visible"),
-      hidden_classes: theme.classname("root.hidden")
+      visible_classes: theme.apply("root/visible", self),
+      hidden_classes: theme.apply("root/hidden", self)
     }
   end
 
@@ -64,8 +60,7 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
   end
 
   def render_arrow
-    classes = classnames theme.classname("arrow.base"), theme.classname([:arrow, :color, variant])
-    content_tag(:div, nil, class: classes)
+    content_tag :div, nil, class: theme.apply(:arrow, self)
   end
 
   class StimulusController < Flowbite::ViewComponents::StimulusController

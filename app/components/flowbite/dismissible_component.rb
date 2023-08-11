@@ -8,7 +8,7 @@ class Flowbite::DismissibleComponent < Flowbite::BaseComponent
   def before_render
     super
 
-    html_attributes[:class] = html_class
+    html_attributes[:class] = classnames theme.apply(:root, self), html_class
   end
 
   def call
@@ -18,8 +18,8 @@ class Flowbite::DismissibleComponent < Flowbite::BaseComponent
   def stimulus_controller_options
     {
       remove: remove?,
-      dismissing_classes: theme.classname("root.dismissing"),
-      dismissed_classes: theme.classname("root.dismissed")
+      dismissing_classes: theme.apply("root/dismissing", self),
+      dismissed_classes: theme.apply("root/dismissed", self)
     }
   end
 

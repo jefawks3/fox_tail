@@ -11,20 +11,17 @@ class Flowbite::DotIndicatorComponent < Flowbite::BaseComponent
   private
 
   def render_dot
-    classes = classnames theme.classname("root.base"), theme.classname([:root, :color, color]), html_class
+    classes = classnames theme.apply(:root, self), theme.apply(:dot, self), html_class
     content_tag :span, nil, html_attributes.merge(class: classes)
   end
 
   def render_animated_dot
-    container_classes = classnames theme.classname("root.base"),
-                                   theme.classname("container.base"),
+    container_classes = classnames theme.apply(:root, self),
+                                   theme.apply(:container, self),
                                    html_class
 
-    dot_classes = classnames theme.classname("root.base"),
-                             theme.classname([:root, :color, color]),
-                             theme.classname("animated.dot")
-
-    animated_classes = classnames dot_classes, theme.classname("animated.base")
+    dot_classes = classnames theme.apply(:root, self), theme.apply(:dot, self)
+    animated_classes = classnames dot_classes, theme.apply("dot/animation", self)
 
     content_tag :span, html_attributes.merge(class: container_classes) do
       concat content_tag(:span, nil, class: animated_classes)

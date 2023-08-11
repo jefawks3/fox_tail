@@ -11,14 +11,13 @@ class Flowbite::IconButtonComponent < Flowbite::ButtonBaseComponent
   def call
     super do
       concat render_icon
-      concat content_tag(:span, content, class: theme.classname("content.base")) if content?
+      concat content_tag(:span, content, class: theme.classname("accessibility.sr_only")) if content?
     end
   end
 
   private
 
   def render_icon
-    classes = classnames theme.classname("icon.base"), theme.classname([:icon, :size, size])
-    render(Flowbite::IconBaseComponent.new(icon, class: classes))
+    render(Flowbite::IconBaseComponent.new(icon, class: theme.apply(:icon, self)))
   end
 end
