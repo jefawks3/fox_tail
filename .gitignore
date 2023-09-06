@@ -18,3 +18,5 @@ Gemfile.lock
 
 .DS_store
 .keep
+
+yarn-error.log

@@ -1,0 +1,6 @@
+<%= render Flowbite::ColorThemeTriggerComponent.new(action: :toggle) do |color_theme_component| %>
+  <%= render Flowbite::IconButtonComponent.new(color_theme_component.html_attributes) do |icon_button_component| %>
+    <% icon_button_component.with_icon(:sun, class: 'dark:hidden', variant: :outline) %>
+    <% icon_button_component.with_icon(:moon, class: 'hidden dark:block', variant: :outline) %>
+  <% end %>
+<% end %>

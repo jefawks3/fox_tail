@@ -20,7 +20,8 @@ module Flowbite
             classname_merger: ClassnameMerger.new,
             stimulus_merger: StimulusMerger.new,
             use_stimulus: true,
-            raise_on_asset_not_found: true
+            raise_on_asset_not_found: true,
+            color_theme: ActiveSupport::OrderedOptions.new
           })
         end
       end
