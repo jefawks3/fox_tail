@@ -3191,6 +3191,7 @@ var Default = {
     offsetSkidding: 0,
     offsetDistance: 10,
     delay: 300,
+    ignoreClickOutsideClass: false,
     onShow: function () { },
     onHide: function () { },
     onToggle: function () { },
@@ -3286,9 +3287,23 @@ var Dropdown = /** @class */ (function () {
     };
     Dropdown.prototype._handleClickOutside = function (ev, targetEl) {
         var clickedEl = ev.target;
+        // Ignore clicks on the trigger element (ie. a datepicker input)
+        var ignoreClickOutsideClass = this._options.ignoreClickOutsideClass;
+        var isIgnored = false;
+        if (ignoreClickOutsideClass) {
+            var ignoredClickOutsideEls = document.querySelectorAll(".".concat(ignoreClickOutsideClass));
+            ignoredClickOutsideEls.forEach(function (el) {
+                if (el.contains(clickedEl)) {
+                    isIgnored = true;
+                    return;
+                }
+            });
+        }
+        // Ignore clicks on the target element (ie. dropdown itself)
         if (clickedEl !== targetEl &&
             !targetEl.contains(clickedEl) &&
             !this._triggerEl.contains(clickedEl) &&
+            !isIgnored &&
             this.isVisible()) {
             this.hide();
         }
@@ -3369,6 +3384,7 @@ function initDropdowns() {
             var offsetDistance = $triggerEl.getAttribute('data-dropdown-offset-distance');
             var triggerType = $triggerEl.getAttribute('data-dropdown-trigger');
             var delay = $triggerEl.getAttribute('data-dropdown-delay');
+            var ignoreClickOutsideClass = $triggerEl.getAttribute('data-dropdown-ignore-click-outside-class');
             new Dropdown($dropdownEl, $triggerEl, {
                 placement: placement ? placement : Default.placement,
                 triggerType: triggerType
@@ -3381,6 +3397,9 @@ function initDropdowns() {
                     ? parseInt(offsetDistance)
                     : Default.offsetDistance,
                 delay: delay ? parseInt(delay) : Default.delay,
+                ignoreClickOutsideClass: ignoreClickOutsideClass
+                    ? ignoreClickOutsideClass
+                    : Default.ignoreClickOutsideClass,
             });
         }
         else {
