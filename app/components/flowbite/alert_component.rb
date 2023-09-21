@@ -55,7 +55,7 @@ class Flowbite::AlertComponent < Flowbite::DismissibleComponent
 
   has_option :severity, default: :info
   has_option :rounded, default: true, type: :boolean
-  has_option :border, default: :none do |_border, value|
+  has_option :border, default: :none do |value|
     if value.is_a?(TrueClass)
       :basic
     elsif !value

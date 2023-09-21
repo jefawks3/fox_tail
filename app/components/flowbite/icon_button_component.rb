@@ -19,7 +19,10 @@ class Flowbite::IconButtonComponent < Flowbite::ButtonBaseComponent
   def call
     super do
       icons.each { |icon| concat icon }
-      concat content_tag(:span, content, class: theme.classname("accessibility.sr_only")) if content?
+
+      if content? || i18n_content.present?
+        concat content_tag(:span, retrieve_content, class: theme.classname("accessibility.sr_only"))
+      end
     end
   end
 end

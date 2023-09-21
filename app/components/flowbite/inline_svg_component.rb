@@ -8,15 +8,18 @@ class Flowbite::InlineSvgComponent < Flowbite::BaseComponent
   has_option :raise, as: :raise_error, type: :boolean
 
   def initialize(path, html_attributes = {})
+    unless html_attributes.key? :raise
+      html_attributes[:raise] = Flowbite::ViewComponents::Base.flowbite_config.raise_on_asset_not_found
+    end
+
     super(html_attributes)
 
     @path = path.to_s
-    with_raise_error Flowbite::ViewComponents::Base.flowbite_config.raise_on_asset_not_found unless options.key? :raise
   end
 
   def call
     doc = Nokogiri::XML.parse asset_contents
-    html_attributes.each { |k, v| doc.child[k.to_s] = v }
+    sanitized_html_attributes.each { |k, v| doc.child[k.to_s] = v }
     doc.child[:class] = html_class
     yield doc if block_given?
     doc.child.to_s.html_safe

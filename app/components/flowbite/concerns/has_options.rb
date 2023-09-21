@@ -11,7 +11,7 @@ module Flowbite::Concerns::HasOptions
 
   def extract_options!(options = {})
     options.extract!(*registered_options.keys).each do |k, v|
-      send registered_options[k][:setter], v
+      self.options[k.to_sym] = v
     end
   end
 
@@ -25,13 +25,12 @@ module Flowbite::Concerns::HasOptions
       registered_options.reject { |_,v| v[:default].blank? }.transform_values { |v| v[:default] }
     end
 
-    def has_option(name, as: name, default: nil, type: nil, &option_block)
+    def has_option(name, as: name, default: nil, type: nil)
       raise Flowbite::ViewComponents::ReservedOption.new(self, as) if RESERVED_OPTIONS.include?(as.to_s)
 
-      self.registered_options = registered_options.merge name => { name: name, setter: :"with_#{as}", default: default }
+      self.registered_options = registered_options.merge name => { name: name, as: as, default: default, type: type }
 
       define_method as do
-        options[name] = default unless default.nil? || options.key?(name)
         options[name]
       end
 
@@ -42,12 +41,10 @@ module Flowbite::Concerns::HasOptions
           send(as).present?
         end
       end
+    end
 
-      define_method :"with_#{as}" do |value = nil, &setter_block|
-        value = instance_exec options[:name], &setter_block if setter_block
-        options[name] = option_block ? instance_exec(options[:name], value, &option_block) : value
-        self
-      end
+    def extract_options(options = {})
+      options.slice(*registered_options.keys)
     end
   end
 end

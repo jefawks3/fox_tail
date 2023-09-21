@@ -9,7 +9,7 @@ class Flowbite::AvatarStackComponent < Flowbite::BaseComponent
                                  theme.apply(:avatar, self),
                                  options[:class]
 
-    Flowbite::AvatarComponent.new(**options)
+    Flowbite::AvatarComponent.new options
   }
 
   renders_one :counter, lambda { |text, options = {}|
@@ -25,10 +25,10 @@ class Flowbite::AvatarStackComponent < Flowbite::BaseComponent
 
     if url.present?
       link_to url, class: theme.apply("counter/link", self) do
-        render(Flowbite::AvatarComponent.new(**options))
+        render Flowbite::AvatarComponent.new(options)
       end
     else
-      render(Flowbite::AvatarComponent.new(**options))
+      Flowbite::AvatarComponent.new options
     end
   }
 

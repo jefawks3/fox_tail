@@ -18,9 +18,12 @@ class Flowbite::TooltipComponent < Flowbite::BaseComponent
   has_option :trigger_id
 
   def initialize(id, html_attributes = {})
-    @id = id
     super(html_attributes)
-    with_trigger_id :"#{id}_trigger" unless trigger_id?
+    @id = id
+  end
+
+  def trigger_id
+    options[:trigger_id] ||= :"#{id}_trigger"
   end
 
   def before_render

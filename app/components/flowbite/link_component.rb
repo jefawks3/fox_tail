@@ -5,6 +5,6 @@ class Flowbite::LinkComponent < Flowbite::ClickableComponent
 
   def initialize(url, html_attributes = {})
     super(html_attributes)
-    with_url url
+    @url = url
   end
 end

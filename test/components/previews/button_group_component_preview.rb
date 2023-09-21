@@ -110,5 +110,16 @@ class ButtonGroupComponentPreview < ViewComponent::Preview
     end
   end
 
+  def with_icons
+    render(Flowbite::ButtonGroupComponent.new) do |c|
+      c.with_button do |btn|
+        btn.with_left_icon "user"
+        "One"
+      end
+      c.with_button.with_content("Two")
+      c.with_button.with_content("Three")
+    end
+  end
+
   # @!endgroup
 end

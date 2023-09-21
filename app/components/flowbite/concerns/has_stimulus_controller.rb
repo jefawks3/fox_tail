@@ -30,14 +30,6 @@ module Flowbite::Concerns::HasStimulusController
       name.demodulize.underscore.gsub(/_component$/, "").to_sym
     end
 
-    def use_stimulus?
-      !!Flowbite::ViewComponents::Base.flowbite_config.use_stimulus
-    end
-
-    def stimulus_merger
-      Flowbite::ViewComponents::Base.flowbite_config.stimulus_merger
-    end
-
     private
 
     def find_stimulus_controller!

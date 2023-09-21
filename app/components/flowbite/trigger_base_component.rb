@@ -3,14 +3,19 @@
 class Flowbite::TriggerBaseComponent < Flowbite::BaseComponent
   include Flowbite::Concerns::HasStimulusController
 
-  attr_reader :id, :selector
+  attr_reader :id, :selector, :block
 
   has_option :trigger_type
 
-  def initialize(id, selector, html_attributes = {})
+  def initialize(id, selector, html_attributes = {}, &block)
+    super(html_attributes)
     @id = id
     @selector = selector
-    super(html_attributes)
+    @block = block
+  end
+
+  def block?
+    !!block
   end
 
   def before_render
@@ -21,11 +26,11 @@ class Flowbite::TriggerBaseComponent < Flowbite::BaseComponent
   end
 
   def render?
-    content?
+    content? || block?
   end
 
   def call
-    content
+    block? ? view_context.capture(self, &block) : content
   end
 
   def stimulus_controller_options

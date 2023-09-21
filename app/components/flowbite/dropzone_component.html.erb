@@ -1,0 +1,8 @@
+<%= content_tag :label, class: classnames(theme.apply(:outer_container, self), html_class) do %>
+  <%= content_tag :div, class: theme.apply(:inner_container, self) do %>
+    <%= icon %>
+    <%= title %>
+    <%= helper_text if helper_text? %>
+  <% end %>
+  <%= tag :input, html_attributes %>
+<% end %>

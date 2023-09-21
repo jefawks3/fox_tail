@@ -1,0 +1,12 @@
+root:
+  base: >-
+    block w-full cursor-pointer
+    text-gray-900 dark:text-white
+    placeholder-gray-600 dark:placeholder-gray-400
+    bg-gray-50 dark:bg-gray-700
+    rounded-lg border border-gray-300 dark:border-gray-600
+    focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500
+  size:
+    sm: text-xs
+    base: text-sm
+    lg: text-lg

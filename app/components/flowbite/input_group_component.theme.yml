@@ -1,0 +1,28 @@
+root:
+  base: flex flex-row
+item:
+  position:
+    start: border-r-0 rounded-r-none
+    middle: border-r-0 rounded-r-none rounded-l-none
+    end: rounded-l-none
+addon:
+  base: >-
+    inline-flex items-center px-3 
+    text-sm text-gray-900 dark:text-gray-400
+    bg-gray-200 dark:bg-gray-600
+    border border-gray-300 rounded-md dark:border-gray-600
+  fill: p-0 aspect-square overflow-hidden
+addon/visual:
+  size:
+    sm: h-3.5 w-3.5
+    base: h-4 w-4
+    lg: h-5 w-5
+addon/image:
+  base: rounded
+  fill:
+    true:
+      base: rounded-none object-cover h-full
+      size:
+        sm: w-8
+        base: w-10
+        lg: w-14

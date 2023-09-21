@@ -13,7 +13,7 @@ class Flowbite::AvatarComponent < Flowbite::BaseComponent
   has_option :size, default: :base
   has_option :rounded, type: :boolean, default: false
 
-  has_option :border, default: false do |_border, value|
+  has_option :border, default: false do |value|
     if value.is_a?(TrueClass)
       :default
     elsif !value

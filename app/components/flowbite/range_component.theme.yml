@@ -1,0 +1,5 @@
+root:
+  base: w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700
+  size:
+    sm: h-1 range-sm
+    lg: h-3 range-lg

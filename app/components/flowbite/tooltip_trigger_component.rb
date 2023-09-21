@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class Flowbite::TooltipTriggerComponent < Flowbite::TriggerBaseComponent
-  def initialize(id, selector, html_attributes = {})
-    super
-    with_trigger_type :hover unless trigger_type?
+  def trigger_type
+    options[:trigger_type] ||= :hover
   end
 
   class StimulusController < Flowbite::ViewComponents::StimulusController

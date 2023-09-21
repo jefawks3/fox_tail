@@ -15,7 +15,10 @@ class Flowbite::CollapsibleComponent < Flowbite::BaseComponent
   def initialize(id, html_attributes = {})
     super(html_attributes)
     @id = id
-    with_trigger_id :"#{id}_trigger" unless trigger_id?
+  end
+
+  def trigger_id
+    options[:trigger_id] ||= :"#{id}_trigger"
   end
 
   def before_render

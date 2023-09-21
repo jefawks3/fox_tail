@@ -1,0 +1,20 @@
+<%= render Flowbite::InputGroupComponent.new(size: size) do |c| %>
+  <% c.with_item do |item| %>
+    <%= render Flowbite::DropdownComponent.new(:search_dropdown) do |d| %>
+      <% d.with_trigger do |trigger| %>
+        <%= render Flowbite::ButtonComponent.new trigger.html_attributes.merge(item.options) do |btn| %>
+          <% btn.with_right_icon "chevron-down" %>
+          Location
+        <% end %>
+      <% end %>
+      <% d.with_menu do |menu| %>
+        <% menu.with_item_content "United State" %>
+        <% menu.with_item_content "Canada" %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% c.with_input type: :search, placeholder: "Search for ..." %>
+  <% c.with_icon_button "magnifying-glass", color: :green, variant: :solid, type: :submit do %>
+    Search
+  <% end %>
+<% end %>

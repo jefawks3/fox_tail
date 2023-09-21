@@ -1,0 +1,39 @@
+root:
+  left_visual?:
+    true:
+      size:
+        sm: pl-9
+        base: pl-10
+        lg: pl-11
+  right_visual?:
+    true:
+      size:
+        sm:
+        base: pr-10
+        lg:
+container:
+  base: relative w-full
+visual/container:
+  base: absolute inset-y-0 flex items-center pointer-events-none
+  position:
+    left:
+      base: left-0
+      size:
+        sm: pl-3
+        base: pl-3.5
+        lg: pl-4
+    right:
+      base: right-0
+      size:
+        sm: pr-3
+        base: pr-3.5
+        lg: pr-4
+visual:
+  base: text-gray-500 dark:text-gray-400
+  size:
+    sm: w-4 h-4
+    base: w-4 h-4
+    lg: w-5 h-5
+  state:
+    valid: text-green-900 dark:text-green-500
+    invalid: text-red-900 dark:text-red-500

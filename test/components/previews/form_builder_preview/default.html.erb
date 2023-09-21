@@ -1,0 +1,39 @@
+<%= form_with model: model, url: request.original_fullpath, method: :post, builder: Flowbite::FormBuilder do |f| %>
+  <div class="space-y-6">
+    <div>
+      <%= f.label :text, class: "mb-2" %>
+      <%= f.text_field :text %>
+      <%= f.error_list :text %>
+    </div>
+    <div>
+      <%= f.label :email, required: true, class: "mb-2" %>
+      <%= f.email_field :email, required: true, placeholder: true do |c| %>
+        <% c.with_left_icon :envelope %>
+      <% end %>
+      <%= f.error_list :email, class: "mt-1" %>
+    </div>
+    <div>
+      <%= f.label :password, required: true, class: "mb-2" %>
+      <%= f.email_field :password, required: true, placeholder: true %>
+      <%= f.error_list :phone, class: "mt-1" %>
+    </div>
+    <div>
+      <%= f.label :phone, class: "mb-2" %>
+      <%= f.text_field :phone %>
+      <%= f.error_list :phone %>
+    </div>
+    <hr />
+    <%= f.fields_for model.address do |a| %>
+      <div>
+        <%= a.label :full_address, class: "mb-2" %>
+        <%= a.text_field :full_address %>
+        <%= a.error_list :full_address %>
+      </div>
+    <% end %>
+    <hr />
+    <div class="flex flex-row gap-4">
+      <%= f.submit %>
+      <%= f.button "Cancel", variant: :outline, color: :neutral %>
+    </div>
+  </div>
+<% end %>

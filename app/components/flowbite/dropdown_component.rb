@@ -5,15 +5,15 @@ class Flowbite::DropdownComponent < Flowbite::BaseComponent
 
   attr_reader :id
 
-  renders_one :trigger, lambda { |attributes = {}|
-    attributes[:delay] = delay
-    attributes[:trigger_type] = trigger_type
-    Flowbite::DropdownTriggerComponent.new trigger_id, "##{id}", attributes
+  renders_one :trigger, lambda { |options = {}, &block|
+    options[:trigger_type] = trigger_type
+    options[:delay] = delay
+    Flowbite::DropdownTriggerComponent.new trigger_id, "##{id}", options, &block
   }
 
   renders_one :header, lambda { |options = {}, &block|
-    options[:class] = classnames theme.apply(:header, self), options[:class]
-    content_tag :div, options, &block
+    attributes = options.merge class: classnames(theme.apply(:header, self), options[:class])
+    content_tag :div, attributes, &block
   }
 
   renders_many :menus, Flowbite::Dropdown::MenuComponent
@@ -28,9 +28,12 @@ class Flowbite::DropdownComponent < Flowbite::BaseComponent
   has_option :delay, default: 300
 
   def initialize(id, html_attributes = {})
-    @id = id
     super(html_attributes)
-    with_trigger_id :"#{id}_trigger" unless trigger_id?
+    @id = id
+  end
+
+  def trigger_id
+    options[:trigger_id] ||= :"#{id}_trigger"
   end
 
   def before_render
@@ -63,7 +66,7 @@ class Flowbite::DropdownComponent < Flowbite::BaseComponent
     }
   end
 
-  private
+  protected
 
   def render_dropdown
     content_tag :div, html_attributes do

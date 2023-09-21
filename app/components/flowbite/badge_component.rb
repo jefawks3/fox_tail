@@ -5,7 +5,7 @@ class Flowbite::BadgeComponent < Flowbite::BaseComponent
     options[:variant] ||= :mini
     options[:"aria-hidden"] = true
     options[:class] = icon_classes options[:class]
-    Flowbite::IconBaseComponent.new icon, **options
+    Flowbite::IconBaseComponent.new icon, options
   }
 
   has_option :url

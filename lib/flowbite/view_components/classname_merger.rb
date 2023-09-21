@@ -11,16 +11,8 @@ module Flowbite
       end
 
       # Merge Tailwind class names removing any styling conflicts
-      def merge(classes)
-        normalized = Array(classes).flatten.each_with_object([]) do |value, results|
-          next results unless value.is_a? String
-
-          str = value.strip
-          next results if str.empty?
-
-          results << str
-        end
-
+      def merge(*classes)
+        normalized = classes.flatten.select { |c| c.present? && c.is_a?(String) }
         return nil if normalized.empty?
 
         @base_merger.merge normalized.join(" ")

@@ -12,6 +12,7 @@ module Flowbite
     autoload :Config
     autoload :Base
     autoload :Theme
+    autoload :Translator
     autoload :StimulusController
 
     def self.root

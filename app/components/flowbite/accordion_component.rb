@@ -5,9 +5,12 @@ class Flowbite::AccordionComponent < Flowbite::BaseComponent
 
   attr_reader :id
 
-  renders_many :items, lambda { |id, title, options = {}|
+  renders_many :items, lambda { |id, title, options = {}, &block|
     options[:flush] = flush?
-    Flowbite::Accordion::ItemComponent.new(id, title, options)
+
+    Flowbite::WrapperComponent.new options do |wrapper|
+      render Flowbite::Accordion::ItemComponent.new(id, title, wrapper.options), &block
+    end
   }
 
   has_option :always_open, default: false, type: :boolean
@@ -52,7 +55,7 @@ class Flowbite::AccordionComponent < Flowbite::BaseComponent
   end
 
   def render_item(item, index)
-    item.with_position item_position(index)
+    item.options[:position] = item_position index
     item
   end
 

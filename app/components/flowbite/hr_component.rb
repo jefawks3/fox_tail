@@ -13,11 +13,11 @@ class Flowbite::HrComponent < Flowbite::BaseComponent
   def call
     content_tag :div, class: wrapper_classes do
       if content? && shape == :none
-        concat content_tag(:hr, nil, class: hr_classes)
+        concat tag(:hr, class: hr_classes)
         concat content_tag(:div, content, class: content_classes)
-        concat content_tag(:hr, nil, class: hr_classes)
+        concat tag(:hr, class: hr_classes)
       else
-        content_tag :hr, nil, class: hr_classes
+        tag :hr, class: hr_classes
       end
     end
   end

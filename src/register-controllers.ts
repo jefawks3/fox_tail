@@ -12,6 +12,7 @@ export default (application: Application): void => {
     application.register("flowbite--dropdown-trigger", Components.DropdownTriggerController);
     application.register("flowbite--popover", Components.PopoverController);
     application.register("flowbite--popover-trigger", Components.PopoverTriggerController);
+    application.register("flowbite--textarea-auto-resize", Components.TextareaAutoResizeController);
     application.register("flowbite--tooltip", Components.TooltipController);
     application.register("flowbite--tooltip-trigger", Components.TooltipTriggerController);
 }

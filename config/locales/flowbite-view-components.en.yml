@@ -3,3 +3,5 @@ en:
     flowbite:
       dismiss: Dismiss
       close: Close
+      dropzone:
+        title_html: <span class="font-semibold">Click to upload</span> or drag and drop.

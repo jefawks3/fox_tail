@@ -17,9 +17,9 @@ module.exports = {
         extend: {},
     },
     plugins: [
-        require('flowbite'),
+        require('flowbite/plugin'),
         require('flowbite-typography'),
-        require('../../plugin'),
+        require(path.join(rootPath, "plugin.js")),
     ],
 }
 

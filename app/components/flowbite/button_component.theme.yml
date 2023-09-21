@@ -1,9 +1,8 @@
 root:
   visuals?: group inline-flex items-center justify-center gap-2
 hidden: "hidden"
-visual/loader:
-  base: animate-spin
 visual:
+  loader: animate-spin
   size:
     xs: h-3 w-3
     sm: h-3.5 w-3.5
