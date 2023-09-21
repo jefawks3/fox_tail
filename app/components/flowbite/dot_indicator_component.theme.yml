@@ -1,5 +1,11 @@
 root:
-  base: inline-block w-3.5 h-3.5 rounded-full
+  base: inline-block rounded-full
+  size:
+    xs: w-1.5 h-1.5
+    sm: w-2.5 h-2.5
+    base: w-3.5 h-3.5
+    lg: w-5 h-5
+    xl: w-6 h-6
 dot:
   animated?: w-full h-full
   color:

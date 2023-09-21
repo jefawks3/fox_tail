@@ -3,6 +3,7 @@
 class Flowbite::DotIndicatorComponent < Flowbite::BaseComponent
   has_option :color, default: :default
   has_option :animated, default: false, type: :boolean
+  has_option :size, default: :base
 
   def call
     animated? ? render_animated_dot : render_dot

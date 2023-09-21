@@ -5,9 +5,10 @@
 class DotIndicatorComponentPreview < ViewComponent::Preview
 
   # @param color "The theme color of the dot"
+  # @param size select {choices: [xs,sm,base,lg,xl]}
   # @param animated toggle "Add a pulsing animation."
-  def playground(color: :default, animated: false)
-    render(Flowbite::DotIndicatorComponent.new(color: color, animated: animated))
+  def playground(color: :default, animated: false, size: :base)
+    render(Flowbite::DotIndicatorComponent.new(color: color, animated: animated, size: size))
   end
 
   # @!group Theme
@@ -136,13 +137,29 @@ class DotIndicatorComponentPreview < ViewComponent::Preview
 
   # @!endgroup
 
-  %i[default neutral dark light blue red green yellow indigo purple pink info error success warning].each do |color|
-    define_method :"#{color}_dot" do
-      render(Flowbite::DotIndicatorComponent.new(color: color))
-    end
+  # @!group Sizes
 
-    define_method :"#{color}_animated_dot" do
-      render(Flowbite::DotIndicatorComponent.new(color: color, animated: true))
-    end
+  def extra_small
+    render(Flowbite::DotIndicatorComponent.new(size: :xs))
   end
+
+  def small
+    render(Flowbite::DotIndicatorComponent.new(size: :sm))
+  end
+
+  # @label Base (Default)
+  def base
+    render(Flowbite::DotIndicatorComponent.new(size: :base))
+  end
+
+  def large
+    render(Flowbite::DotIndicatorComponent.new(size: :lg))
+  end
+
+  def extra_large
+    render(Flowbite::DotIndicatorComponent.new(size: :xl))
+  end
+
+  # @!endgroup
+
 end
