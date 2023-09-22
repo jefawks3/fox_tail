@@ -1,0 +1,68 @@
+root:
+  base: >-
+    w-full max-w-xs
+    p-4 rounded-lg shadow
+    text-gray-500 dark:text-gray-400
+    bg-white dark:bg-gray-800
+container/header:
+  base: flex items-center gap-3
+  dividers?: divide-x divide-gray-200 dark:divide-gray-700
+  long_content?: items-start
+container/content:
+  base: text-sm font-normal
+  dividers?: pl-3
+container/actions:
+  base: flex items-center ml-auto gap-2
+container/visual:
+  base: inline-flex items-center justify-center
+  fill:
+    true:
+      base: w-8 h-8 rounded-lg
+      color:
+        blue: &default text-blue-500 bg-blue-100 dark:bg-blue-800 dark:text-blue-200
+        red: &red text-red-500 bg-red-100 dark:bg-red-800 dark:text-red-200
+        green: &green text-green-500 bg-green-100 dark:bg-green-800 dark:text-green-200
+        yellow: &yellow text-yellow-500 bg-yellow-100 dark:bg-yellow-800 dark:text-yellow-200
+        indigo: text-indigo-500 bg-indigo-100 dark:bg-indigo-800 dark:text-indigo-200
+        pink: text-pink-500 bg-pink-100 dark:bg-pink-800 dark:text-pink-200
+        purple: text-purple-500 bg-purple-100 dark:bg-purple-800 dark:text-purple-200
+        success: *green
+        error: *red
+        warning: *yellow
+        default: *default
+visual:
+  base: w-5 h-5
+  fill:
+    false:
+      color:
+        blue: &default text-blue-600 dark:text-blue-500
+        red: &red text-red-600 dark:text-red-500
+        green: &green text-green-600 dark:text-green-500
+        yellow: &yellow text-yellow-600 dark:text-yellow-500
+        indigo: text-indigo-600 dark:text-indigo-500
+        pink: text-pink-600 dark:text-pink-500
+        purple: text-purple-600 dark:text-purple-500
+        success: *green
+        error: *red
+        warning: *yellow
+        default: *default
+visual/image:
+  base: w-8 h-8 rounded-full shadow-lg
+action:
+  base: >-
+    rounded-lg p-1.5 font-medium text-sm 
+    text-blue-600 dark:text-blue-500
+    hover:bg-blue-100 dark:hover:bg-gray-700
+dismiss/button:
+  base: >-
+    -mx-1.5 -my-1.5 p-1.5 rounded-lg
+    inline-flex items-center justify-center 
+    h-8 w-8
+    bg-white dark:bg-gray-800
+    text-gray-400 dark:text-gray-500
+    hover:text-gray-900 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700
+    focus:ring-2 focus:ring-gray-300
+dismiss/icon:
+  base: w-4 h-4
+header:
+  base: mb-1 text-sm font-semibold text-gray-900 dark:text-white

@@ -1,0 +1,26 @@
+<%= content_tag :div, html_attributes do %>
+  <% if header? %>
+    <%= content_tag :div, class: theme.apply("container/header", self) do %>
+      <%= visual if visual? %>
+      <%= header %>
+      <% if action? || dismiss_icon? %>
+        <%= content_tag :div, class: theme.apply("container/actions", self) do %>
+          <%= action if action?%>
+          <%= dismiss_icon if dismiss_icon? %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <%= content %>
+  <% else %>
+    <%= content_tag :div, class: theme.apply("container/header", self) do %>
+      <%= visual if visual? %>
+      <%= content_tag :div, content, class: theme.apply("container/content", self) %>
+      <% if action? || dismiss_icon? %>
+        <%= content_tag :div, class: theme.apply("container/actions", self) do %>
+          <%= action if action?%>
+          <%= dismiss_icon if dismiss_icon? %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
