@@ -314,4 +314,16 @@ class AlertComponentPreview < ViewComponent::Preview
   end
 
   # @!endgroup
+
+  # @!group Auto Close
+
+  def default_delay
+    render(Flowbite::AlertComponent.new(auto_close: true).with_content("A simple info alert"))
+  end
+
+  def custom_delay
+    render(Flowbite::AlertComponent.new(auto_close: true, delay: 5000).with_content("A simple info alert"))
+  end
+
+  # @!endgroup
 end

@@ -10,15 +10,36 @@ export default class extends Controller {
         remove: {
             type: Boolean,
             default: false
-        }
-    }
+        },
+        autoClose: {
+            type: Boolean,
+            default: false,
+        },
+        delay: {
+            type: Number,
+            default: 3000,
+        },
+    };
 
-    declare readonly targetValue: string;
     declare readonly removeValue: boolean;
+    declare readonly autoCloseValue: boolean;
+    declare readonly delayValue: number;
     declare readonly dismissingClasses: string[];
     declare readonly dismissedClasses: string[];
 
     private _dismissed: boolean = false;
+    private _autoCloseTimer: number | null = null;
+
+    connect() {
+        super.connect();
+
+        if (this.autoCloseValue) { this.setTimer(); }
+    }
+
+    disconnect() {
+        super.disconnect();
+        this.clearTimer();
+    }
 
     dismiss(): void {
         if (this._dismissed || this.onDismissing()) {
@@ -26,8 +47,9 @@ export default class extends Controller {
         }
 
         this._dismissed = true;
-
+        this.clearTimer();
         addClasses(this.element, ...this.dismissingClasses);
+
         const duration = this.calculateDuration();
 
         setTimeout(() => {
@@ -50,5 +72,13 @@ export default class extends Controller {
 
     private calculateDuration(): number {
         return parseDuration(getComputedStyle(this.element).transitionDuration.split(",")[0].trim()) as number;
+    }
+
+    private setTimer(): void {
+        this._autoCloseTimer = setTimeout(this.dismiss.bind(this), this.delayValue);
+    }
+
+    private clearTimer(): void {
+        if (this._autoCloseTimer) { clearTimeout(this._autoCloseTimer); }
     }
 }

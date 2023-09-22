@@ -55,18 +55,25 @@ class Flowbite::AlertComponent < Flowbite::DismissibleComponent
 
   has_option :severity, default: :info
   has_option :rounded, default: true, type: :boolean
-  has_option :border, default: :none do |value|
-    if value.is_a?(TrueClass)
-      :basic
-    elsif !value
-      :none
-    else
-      value.to_sym
-    end
-  end
+  has_option :border, default: :none
+  has_option :dismissible, default: true, type: :boolean
 
   def border?
     border != :none
+  end
+
+  def border
+    if options[:border].is_a?(TrueClass)
+      :basic
+    elsif !options[:border]
+      :none
+    else
+      (options[:border] || :none).to_sym
+    end
+  end
+
+  def use_stimulus?
+    super && dismissible?
   end
 
   private
