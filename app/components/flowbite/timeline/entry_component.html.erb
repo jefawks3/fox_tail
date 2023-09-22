@@ -1,0 +1,12 @@
+<%= content_tag :ol, html_attributes do %>
+  <% if vertical? %>
+    <%= visual %>
+    <%= content %>
+  <% else %>
+    <%= content_tag :div, class: theme.apply("container/timeline", self) do %>
+      <%= visual %>
+      <%= content_tag :div, nil, class: theme.apply(:line, self) %>
+    <% end %>
+    <%= content_tag :div, content, class: theme.apply("container/content", self) %>
+  <% end %>
+<% end %>

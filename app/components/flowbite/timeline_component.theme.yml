@@ -1,0 +1,4 @@
+root:
+  vertical?:
+    true: relative border-l border-gray-200 dark:border-gray-700
+    false: items-center sm:flex
