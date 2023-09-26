@@ -1,0 +1,15 @@
+root:
+  base: flex flex-wrap
+  variant:
+    default: gap-2 border-b border-gray-200 dark:border-gray-700
+    underline: -mb-px gap-2 border-b border-gray-200 dark:border-gray-700
+    pills: gap-2
+    full_width: rounded-lg shadow divide-x divide-gray-200 dark:divide-gray-700
+tab:
+  variant:
+    pills:
+      position:
+        start: rounded-l-lg
+        end: rounded-r-lg
+panel:
+  hidden: hidden
