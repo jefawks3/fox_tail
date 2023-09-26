@@ -40,7 +40,7 @@ module Flowbite::Concerns::HasStimulusController
     def find_stimulus_controller(klass)
       if defined? klass::StimulusController
         klass::StimulusController.new stimulus_controller_identifier
-      elsif superclass != Flowbite::ViewComponents::Base
+      elsif klass != Flowbite::ViewComponents::Base
         find_stimulus_controller klass.superclass
       end
     end
