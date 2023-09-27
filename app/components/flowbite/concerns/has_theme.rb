@@ -5,13 +5,6 @@ module Flowbite::Concerns::HasTheme
 
   THEME_EXTENSION = "theme.yml"
 
-  def with_theme(value = nil)
-    theme.merge! block_given? ? yield(theme) : value
-    self
-  end
-
-  protected
-
   def theme
     @theme ||= self.class.theme
   end

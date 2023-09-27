@@ -38,6 +38,16 @@ module Flowbite
 
       alias [] classname
 
+      def theme(key)
+        key = normalize_key key
+        return if key.blank?
+
+        hash = lookup_key base_theme, key
+        return if hash.blank?
+
+        self.class.new hash
+      end
+
       def apply(key, object, attributes = {})
         key = normalize_key key
         return if key.blank? || object.blank?

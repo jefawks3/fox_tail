@@ -14,9 +14,15 @@ class Flowbite::BaseComponent < Flowbite::ViewComponents::Base
     super
 
     html_attributes = ActiveSupport::HashWithIndifferentAccess.new html_attributes
-    theme.merge! html_attributes.delete(:theme) if html_attributes[:theme].present?
+    theme = html_attributes.delete :theme
     extract_options! html_attributes
     @html_attributes = html_attributes
+
+    if theme.is_a? Flowbite::ViewComponents::Theme
+      @theme = theme
+    elsif theme.is_a? Hash
+      self.theme.merge! theme
+    end
   end
 
   def with_html_attributes(attributes = {})
@@ -54,23 +60,6 @@ class Flowbite::BaseComponent < Flowbite::ViewComponents::Base
 
     def stimulus_merger
       Flowbite::ViewComponents::Base.flowbite_config.stimulus_merger
-    end
-
-    def delayed_render(&block)
-      lambda do |*args, &rblock|
-        block.call *args, &rblock
-      end
-    end
-  end
-
-  class DelayRenderComponent < ViewComponent::Base
-    def initialize(*, &block)
-      super
-      @block = block
-    end
-
-    def call
-      block.call
     end
   end
 end

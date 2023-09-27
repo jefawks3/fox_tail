@@ -8,6 +8,7 @@ class Flowbite::TabsComponent < Flowbite::BaseComponent
     options[:tabs_id] = tag_id
     options[:variant] = variant
     options[:controlled] = controlled?
+    options[:theme] = theme.theme :tab
     Flowbite::Tabs::TabComponent.new options
   }
 
@@ -48,7 +49,7 @@ class Flowbite::TabsComponent < Flowbite::BaseComponent
 
   def render_tabs
     content_tag :div, html_attributes do
-      tabs.each_with_index { |tab, index| concat render_tab(tab, index) }
+      tabs.each { |tab| concat tab }
     end
   end
 
@@ -56,20 +57,5 @@ class Flowbite::TabsComponent < Flowbite::BaseComponent
     content_tag :div do
       panels.each { |panel| concat panel }
     end
-  end
-
-  def tab_position(index)
-    if index.zero?
-      :start
-    elsif index == tabs.length - 1
-      :end
-    else
-      :middle
-    end
-  end
-
-  def render_tab(tab, index)
-    tab.with_html_class classnames(theme.apply(:tab, self, { position: tab_position(index) }), tab.html_class)
-    tab
   end
 end

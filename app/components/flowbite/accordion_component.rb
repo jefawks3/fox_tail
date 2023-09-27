@@ -7,6 +7,7 @@ class Flowbite::AccordionComponent < Flowbite::BaseComponent
 
   renders_many :items, lambda { |id, title, options = {}, &block|
     options[:flush] = flush?
+    options[:theme] = theme.theme :item
 
     Flowbite::WrapperComponent.new options do |wrapper|
       render Flowbite::Accordion::ItemComponent.new(id, title, wrapper.options), &block

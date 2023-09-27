@@ -13,7 +13,7 @@ class Flowbite::ButtonGroupComponent < Flowbite::BaseComponent
           options[:method_name] = method_or_options
         end
 
-        Flowbite::ButtonComponent.new objectify_component_options(options)
+        Flowbite::ButtonComponent.new button_component_options(options)
       }
     },
     icon_button: {
@@ -27,7 +27,7 @@ class Flowbite::ButtonGroupComponent < Flowbite::BaseComponent
           options[:method_name] = icon_or_method
         end
 
-        Flowbite::IconButtonComponent.new icon, objectify_component_options(options)
+        Flowbite::IconButtonComponent.new icon, button_component_options(options)
       }
     }
   }
@@ -47,28 +47,19 @@ class Flowbite::ButtonGroupComponent < Flowbite::BaseComponent
 
   def call
     content_tag :div, html_attributes do
-      buttons.each_with_index { |btn, index| concat render_button(btn, index) }
+      buttons.each { |btn| concat btn }
     end
   end
 
   private
 
+  def button_component_options(options)
+    options = objectify_component_options options
+    options[:class] = classnames theme.apply(:button, self), options[:class]
+    options
+  end
+
   def objectify_component_options(options)
     options.merge self.options.except(:class, :method_name, :value_array)
-  end
-
-  def button_position(index)
-    if index.zero?
-      :start
-    elsif index === buttons.length - 1
-      :end
-    else
-      :middle
-    end
-  end
-
-  def render_button(button, index)
-    button.with_html_class theme.apply(:button, self, { position: button_position(index) })
-    button
   end
 end

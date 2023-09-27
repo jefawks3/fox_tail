@@ -2,7 +2,6 @@
 
 # @logical_path components
 # @component Flowbite::TabsComponent
-# @component Flowbite::Tabs::TabComponent
 class TabsComponentPreview < ViewComponent::Preview
 
   def default
@@ -61,11 +60,11 @@ class TabsComponentPreview < ViewComponent::Preview
 
   def full_width
     render Flowbite::TabsComponent.new variant: :full_width do |c|
-      c.with_tab(selected: true).with_content "Profile"
+      c.with_tab(selected: true, class: "rounded-l-lg").with_content "Profile"
       c.with_tab_content "Dashboard"
       c.with_tab_content "Settings"
       c.with_tab_content "Contacts"
-      c.with_tab(disabled: true).with_content "Disabled"
+      c.with_tab(disabled: true, class: "rounded-r-lg").with_content "Disabled"
     end
   end
 

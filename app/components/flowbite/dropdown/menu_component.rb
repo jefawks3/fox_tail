@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class Flowbite::Dropdown::MenuComponent < Flowbite::BaseComponent
-  renders_many :items, Flowbite::Dropdown::MenuItemComponent
+  renders_many :items, lambda { |options = {}|
+    options[:theme] = theme.theme :item
+    Flowbite::Dropdown::MenuItemComponent.new options
+  }
 
   def render?
     items?

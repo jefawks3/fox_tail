@@ -16,7 +16,10 @@ class Flowbite::DropdownComponent < Flowbite::BaseComponent
     content_tag :div, attributes, &block
   }
 
-  renders_many :menus, Flowbite::Dropdown::MenuComponent
+  renders_many :menus, lambda { |options = {}|
+    options[:theme] = theme.theme :menu
+    Flowbite::Dropdown::MenuComponent.new options
+  }
 
   has_option :divider, default: true, type: :boolean
   has_option :placement, default: "bottom"

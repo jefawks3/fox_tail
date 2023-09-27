@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# @logical_path helpers
 class FormBuilderPreview < Lookbook::Preview
 
   def default
