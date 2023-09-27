@@ -1,0 +1,38 @@
+root:
+  base: w-full text-sm text-left text-gray-500 dark:text-gray-400
+caption:
+  base: p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800
+thead:
+tbody:
+tfoot:
+header:
+  root:
+    base: text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400
+  column:
+    root:
+      base: px-6 py-3
+      highlight:
+        columns: even:bg-white dark:even:bg-gray-900
+row:
+  root:
+    base: bg-white dark:bg-gray-800
+    border?: border-b dark:border-gray-700 last:border-0
+    highlight:
+      rows: dark:odd:bg-gray-900 even:bg-gray-50 dark:even:bg-gray-800
+      columns: bg-gray-50
+    hover?: hover:bg-gray-200 dark:hover:bg-gray-600
+  column:
+    root:
+      base: px-6 py-4
+      tag:
+        th: font-medium text-gray-900 whitespace-nowrap dark:text-white
+      highlight:
+        columns: even:bg-white dark:even:bg-gray-900
+footer:
+  root:
+    base: font-semibold text-gray-900 dark:text-white
+  column:
+    root:
+      base: px-6 py-3
+      tag:
+        th: text-base
