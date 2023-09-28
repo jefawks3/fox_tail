@@ -1,0 +1,21 @@
+<%= content_tag :li, html_attributes do %>
+  <% if %i[default progress detailed breadcrumb timeline].include? variant %>
+    <%= content_tag :span, class: theme.apply("visual/container", self) do %>
+      <% if visual? %>
+        <%= visual %>
+      <% else %>
+        <%= content_tag :span, index, class: theme.apply(:index, self) %>
+      <% end %>
+    <% end %>
+    <%= content_tag :span, content, class: theme.apply(:content, self) if content? %>
+    <% if variant == :breadcrumb %>
+      <%= render Flowbite::IconBaseComponent.new("chevron-double-right", class: theme.apply(:divider, self)) %>
+    <% end %>
+  <% elsif variant == :vertical %>
+    <span class="sr-only"><%= content %></span>
+    <%= content_tag :h3, class: theme.apply(:content, self) do %>
+      <%= index %>. <%= content %>
+    <% end %>
+    <%= visual if visual? %>
+  <% end %>
+<% end %>
