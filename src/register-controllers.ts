@@ -8,6 +8,8 @@ export default (application: Application): void => {
     application.register("flowbite--collapsible-trigger", Components.CollapsibleTriggerController);
     application.register("flowbite--color-theme", Components.ColorThemeController);
     application.register("flowbite--dismissible", Components.DismissibleController);
+    application.register("flowbite--drawer", Components.DrawerController);
+    application.register("flowbite--drawer-trigger", Components.DrawerTriggerController);
     application.register("flowbite--dropdown", Components.DropdownController);
     application.register("flowbite--dropdown-trigger", Components.DropdownTriggerController);
     application.register("flowbite--popover", Components.PopoverController);

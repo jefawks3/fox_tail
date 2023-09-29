@@ -9,9 +9,10 @@ const rootPath = path.resolve(__dirname, "../../");
 module.exports = {
     darkMode: 'class',
     content: [
-        path.join(rootPath, "app/components/**/*.{rb,erb,js,ts,theme.yml}"),
+        path.join(rootPath, "app/components/**/*.{rb,erb,ts,theme.yml}"),
+        path.join(rootPath, "src/**/*.ts"),
         path.join(rootPath, "test/components/previews/**/*.{rb,erb}"),
-        path.join(rootPath, "test/dummy/app/views/**/*.erb")
+        path.join(rootPath, "test/dummy/app/views/**/*.erb"),
     ],
     theme: {
         extend: {},

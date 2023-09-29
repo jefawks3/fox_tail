@@ -1,0 +1,4 @@
+root:
+  base: group
+root/open:
+  base: open

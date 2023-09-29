@@ -1,0 +1,20 @@
+<div class="p-6 text-center">
+  <%= render Flowbite::DrawerTriggerComponent.new(:drawer_example_trigger, "#drawer_example") do |t| %>
+    <%= render Flowbite::ButtonComponent.new(t.html_attributes).with_content("Show Drawer") %>
+  <% end %>
+</div>
+
+<%= render Flowbite::DrawerComponent.new(
+  id: :drawer_example,
+  placement: placement,
+  backdrop: backdrop,
+  swipeable_edge: swipeable_edge,
+  border: border,
+  rounded: rounded,
+  open: true,
+  class: %i[bottom top].include?(placement.to_sym) && "min-h-[150px]"
+) do |c| %>
+  <% c.with_close_icon if close_icon %>
+  <% c.with_notch if notch %>
+  Drawer content
+<% end %>

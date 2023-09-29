@@ -1,0 +1,62 @@
+root:
+  base: >-
+    fixed z-40 p-4 w-80
+    text-gray-500 dark:text-gray-400
+    bg-white dark:bg-gray-800
+    transition-transform
+  placement:
+    top: top-0 left-0 right-0 w-full
+    bottom: bottom-0 left-0 right-0 w-full
+    left: left-0 top-0 h-screen overflow-y-auto
+    right: right-0 top-0 h-screen overflow-y-auto
+  border?:
+    true:
+      base: border-gray-200 dark:border-gray-700
+      placement:
+        top: border-b
+        bottom: border-t
+        left: border-r
+        right: border-l
+  rounded?:
+    true:
+      placement:
+        top: rounded-b-lg
+        bottom: rounded-t-lg
+        left: rounded-r-lg
+        right: rounded-l-lg
+root/visible:
+  base: transform-none
+root/hidden:
+  base:
+  placement:
+    top: -translate-y-full
+    bottom: translate-y-full
+    left: -translate-x-full
+    right: translate-x-full
+backdrop:
+  base:
+body:
+  base:
+close/button:
+  base: >-
+    absolute top-2.5 right-2.5 w-8 h-8
+    inline-flex items-center justify-center
+    text-sm text-gray-400 
+    rounded-lg bg-transparent
+    hover:text-gray-900 dark:hover:text-white
+    hover:bg-gray-200 dark:hover:bg-gray-600
+close/icon:
+  base: w-6 h-6
+swipeable_edge:
+  placement:
+    top: top-[60px]
+    bottom: bottom-[60px]
+    left: left-[60px]
+    right: right-[60px]
+notch:
+  base: absolute rounded-lg bg-gray-300 dark:bg-gray-600
+  placement:
+    top: w-8 h-1 -translate-x-1/2 bottom-3 left-1/2
+    bottom: w-8 h-1 -translate-x-1/2 top-3 left-1/2
+    left: w-1 h-8 -translate-y-1/2 top-1/2 right-3
+    right: w-1 h-8 -translate-y-1/2 top-1/2 left-3
