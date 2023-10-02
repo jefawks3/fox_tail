@@ -75,8 +75,14 @@ class Flowbite::Accordion::ItemComponent < Flowbite::BaseComponent
     :"#{id}_trigger"
   end
 
+  def before_render
+    super
+
+    html_attributes[:class] = classnames theme.apply(:root, self), html_class
+  end
+
   def call
-    capture do
+    content_tag :div, html_attributes do
       concat render_header
       concat render_body
     end
@@ -85,7 +91,7 @@ class Flowbite::Accordion::ItemComponent < Flowbite::BaseComponent
   private
 
   def body_classes
-    theme.apply :root, self
+    theme.apply :body, self
   end
 
   def header_classes

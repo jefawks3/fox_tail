@@ -1,27 +1,27 @@
 root:
+  base:
 item:
   root:
-    base: border-gray-200 dark:border-gray-700 dark:bg-gray-900 text-gray-500 dark:text-gray-400
+    base: group/accordion-item dark:bg-gray-900 text-gray-500 dark:text-gray-400
+  body:
+    base: border-gray-200 dark:border-gray-700 border-b
     flush?:
-      true: border-b py-5
-      false:
-        base: border border-t-0 p-5
-        position:
-          end: rounded-b-xl
+      true: py-5
+      false: p-5 border-x group-[:last-child]/accordion-item:rounded-b-xl
   header:
     base: >-
       flex items-center w-full 
       font-medium border-gray-200 dark:border-gray-700
       text-gray-500 dark:text-gray-400 
+      [&.collapsed]:border-b
       [&:not(.collapsed)]:text-gray-900 [&:not(.collapsed)]:dark:text-white
+      group-[:first-child]/accordion-item:rounded-t-xl
+      group-[:not(:first-child)]/accordion-item:border-t-0
     flush?:
-      true: border-b py-5
-      false:
-        base: border p-5 [&:not(.collapsed)]:bg-gray-100 dark:[&:not(.collapsed)]:bg-gray-800
-        position:
-          start: rounded-t-xl
-          middle: border-t-0
-          end: border-t-0 [&.collapsed]:rounded-b-xl
+      true: py-5 border-b
+      false: >- 
+        p-5 [&:not(.collapsed)]:bg-gray-100 dark:[&:not(.collapsed)]:bg-gray-800 border
+        group-[:last-child]/accordion-item:[&.collapsed]:rounded-b-xl
   icon:
     base: w-5 h-5 mr-2 shrink-0
   arrow:

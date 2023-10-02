@@ -5,13 +5,10 @@ class Flowbite::AccordionComponent < Flowbite::BaseComponent
 
   attr_reader :id
 
-  renders_many :items, lambda { |id, title, options = {}, &block|
+  renders_many :items, lambda { |id, title, options = {}|
     options[:flush] = flush?
     options[:theme] = theme.theme :item
-
-    Flowbite::WrapperComponent.new options do |wrapper|
-      render Flowbite::Accordion::ItemComponent.new(id, title, wrapper.options), &block
-    end
+    Flowbite::Accordion::ItemComponent.new id, title, options
   }
 
   has_option :always_open, default: false, type: :boolean
@@ -35,29 +32,12 @@ class Flowbite::AccordionComponent < Flowbite::BaseComponent
 
   def call
     content_tag :div, html_attributes do
-      items.each_with_index { |item, index| concat render_item(item, index) }
+      items.each { |item| concat item }
     end
   end
 
   def stimulus_controller_options
     { always_open: always_open }
-  end
-
-  private
-
-  def item_position(index)
-    if index.zero?
-      :start
-    elsif index == items.length - 1
-      :end
-    else
-      :middle
-    end
-  end
-
-  def render_item(item, index)
-    item.options[:position] = item_position index
-    item
   end
 
   class StimulusController < Flowbite::ViewComponents::StimulusController
