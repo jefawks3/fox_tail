@@ -15,14 +15,9 @@ class Flowbite::BaseComponent < Flowbite::ViewComponents::Base
 
     html_attributes = ActiveSupport::HashWithIndifferentAccess.new html_attributes
     theme = html_attributes.delete :theme
+    self.theme.merge! theme if theme.present?
     extract_options! html_attributes
     @html_attributes = html_attributes
-
-    if theme.is_a? Flowbite::ViewComponents::Theme
-      @theme = theme
-    elsif theme.is_a? Hash
-      self.theme.merge! theme
-    end
   end
 
   def with_html_attributes(attributes = {})
