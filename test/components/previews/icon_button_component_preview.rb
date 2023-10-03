@@ -65,6 +65,20 @@ class IconButtonComponentPreview < ViewComponent::Preview
 
   # @!endgroup
 
+  # @!group FAB
+
+  # @label Circle
+  def fab_circle
+    render(Flowbite::IconButtonComponent.new("plus", size: :fab, pill: true))
+  end
+
+  # @label Square
+  def fab_square
+    render(Flowbite::IconButtonComponent.new("plus", size: :fab))
+  end
+
+  # @!endgroup
+
   def controlled
     render(Flowbite::IconButtonComponent.new("arrow-right", controlled: true, onclick: "this.setAttribute('data-flowbite--clickable-state-value', 'disable')"))
   end

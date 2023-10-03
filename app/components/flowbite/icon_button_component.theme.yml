@@ -1,11 +1,11 @@
 root:
-  icon: inline-flex items-center
   size:
     xs: p-2 text-xs
     sm: p-2 text-sm
     base: p-2.5 text-sm
     lg: p-3 text-base
     xl: p-3.5 text-base
+    fab: w-14 h-14 inline-flex items-center justify-center
 icon:
   size:
     xs: h-3 w-3
@@ -13,3 +13,6 @@ icon:
     base: h-3.5 w-3.5
     lg: h-4 w-4
     xl: h-5 w-5
+    fab: h-7 w-7
+content:
+  base: sr-only
