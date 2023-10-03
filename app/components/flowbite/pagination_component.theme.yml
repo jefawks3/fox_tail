@@ -1,0 +1,40 @@
+root:
+  base: inline-flex -space-x-px
+  size:
+    sm: text-sm h-8
+    base: text-base h-10
+item_base: &item_base >-
+  flex items-center justify-center gap-2
+  leading-tight border border-gray-300 dark:border-gray-700
+  first:rounded-l-lg last:rounded-r-lg
+action:
+  root:
+    base: !concat [*item_base, " px-3 text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800"]
+  root/active:
+    base: hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-white
+  root/disabled:
+    base: bg-gray-100 dark:bg-gray-900 text-gray-300 dark:text-gray-600
+  label:
+    show_label?:
+      false: sr-only
+  visual:
+    base:
+    size:
+      sm: w-3 h-3
+      base: w-4 h-4
+page:
+  root:
+    base: !concat [*item_base, " px-4"]
+    current_page?:
+      false: text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800
+      true: text-blue-600 dark:text-white bg-blue-50 dark:bg-gray-700
+  root/active:
+    current_page?:
+      true: hover:text-blue-700 hover:bg-blue-100
+      false: hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-white
+ellipse:
+  base: !concat [*item_base, " px-3 text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800"]
+ellipse/icon:
+  size:
+    sm: w-3 h-3
+    base: w-4 h-5

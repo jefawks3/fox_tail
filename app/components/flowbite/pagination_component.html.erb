@@ -1,0 +1,21 @@
+<%= content_tag :nav, html_attributes do %>
+  <%= first_button if first_button %>
+  <%= previous_button %>
+  <% if left_page_gap? %>
+    <%= content_tag :span, class: theme.apply(:ellipse, self) do %>
+      <%= render Flowbite::IconBaseComponent.new("ellipsis-horizontal", class: theme.apply("ellipse/icon", self)) %>
+    <% end %>
+  <% end %>
+  <% display_range.each do |page| %>
+    <%= render Flowbite::Pagination::PageComponent.new url: page_url(page), current_page: page == current_page, theme: theme.theme(:page) do %>
+      <%= page %>
+    <% end %>
+  <% end %>
+  <% if right_page_gap? %>
+    <%= content_tag :span, class: theme.apply(:ellipse, self) do %>
+      <%= render Flowbite::IconBaseComponent.new("ellipsis-horizontal", class: theme.apply("ellipse/icon", self)) %>
+    <% end %>
+  <% end %>
+  <%= next_button %>
+  <%= last_button if last_button? %>
+<% end %>

@@ -5,3 +5,8 @@ en:
       close: Close
       dropzone:
         title_html: <span class="font-semibold">Click to upload</span> or drag and drop.
+      pagination:
+        first_page: First
+        previous_page: Previous
+        next_page: Next
+        last_page: Last
