@@ -11,6 +11,7 @@ export { default as DropdownTriggerController } from "./dropdown_trigger_control
 export { default as FABController } from "./fab_controller";
 export { default as PopoverController } from "./popover_controller";
 export { default as PopoverTriggerController } from "./popover_trigger_controller";
+export { default as ProgressBarController } from "./progress_bar_controller";
 export { default as TabController } from "./tab_controller";
 export { default as TextareaAutoResizeController } from "./textarea_auto_resize_controller";
 export { default as TooltipController } from "./tooltip_controller";

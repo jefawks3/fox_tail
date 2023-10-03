@@ -1,0 +1,24 @@
+root:
+  base: relative w-full rounded-full bg-gray-200 dark:bg-gray-700
+  size:
+    xs: h-1
+    sm: h-1.5
+    base: h-2.5
+    lg: h-4
+    xl: h-6
+bar:
+  base: >-
+    absolute left-0 top-0 bottom-0 rounded-full 
+    text-xs text-white font-medium leading-none p-0.5 
+    flex items-center justify-center
+    transition transition-[width] ease-linear
+  color:
+    dark: bg-gray-600 dark:bg-gray-300
+    blue: &blue bg-blue-600 dark:bg-blue-500
+    red: bg-red-600 dark:bg-red-500
+    green: bg-green-600 dark:bg-green-500
+    yellow: bg-yellow-600 dark:bg-yellow-500
+    indigo: bg-indigo-600 dark:bg-indigo-500
+    purple: bg-purple-600 dark:bg-purple-500
+    pink: bg-pink-600 dark:bg-pink-500
+    default: *blue

@@ -15,6 +15,7 @@ export default (application: Application): void => {
     application.register("flowbite--fab", Components.FABController);
     application.register("flowbite--popover", Components.PopoverController);
     application.register("flowbite--popover-trigger", Components.PopoverTriggerController);
+    application.register("flowbite--progress-bar", Components.ProgressBarController);
     application.register("flowbite--tab", Components.TabController);
     application.register("flowbite--textarea-auto-resize", Components.TextareaAutoResizeController);
     application.register("flowbite--tooltip", Components.TooltipController);
