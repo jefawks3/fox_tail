@@ -13,6 +13,14 @@ class Flowbite::ClickableComponent < Flowbite::BaseComponent
     controlled? && self.class.use_stimulus?
   end
 
+  def link?
+    url? && ((!disabled? && !loading?) || controlled?)
+  end
+
+  def root_tag_name
+    link? ? :a : :button
+  end
+
   def before_render
     super
 
@@ -30,8 +38,7 @@ class Flowbite::ClickableComponent < Flowbite::BaseComponent
 
   def call(&block)
     captured_content = block ? capture(&block) : content
-    tag_name = link? ? :a : :button
-    content_tag tag_name, captured_content, html_attributes
+    content_tag root_tag_name, captured_content, html_attributes
   end
 
   def stimulus_controller_options
@@ -59,10 +66,6 @@ class Flowbite::ClickableComponent < Flowbite::BaseComponent
   end
 
   private
-
-  def link?
-    url? && ((!disabled? && !loading?) || controlled?)
-  end
 
   def stimulus_state
     if loading?
