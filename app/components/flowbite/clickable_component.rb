@@ -26,10 +26,10 @@ class Flowbite::ClickableComponent < Flowbite::BaseComponent
 
     html_attributes[:class] = root_classes
 
-    if link?
+    if root_tag_name == :a
       html_attributes[:href] = url
       html_attributes["aria-disabled"] = true if disabled?
-    else
+    elsif root_tag_name == :button
       html_attributes[:role] ||= :button
       html_attributes[:type] ||= :button
       html_attributes[:disabled] = true if disabled?
