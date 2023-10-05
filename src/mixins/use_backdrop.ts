@@ -47,6 +47,9 @@ export default (controller: Controller, options: Options = {}) => {
     const controllerDisconnect = controller.disconnect.bind(controller);
 
     Object.assign(controller, {
+        get backdropElement(): HTMLElement | undefined {
+            return backdrop;
+        },
         disconnect() {
             hide();
             controllerDisconnect();

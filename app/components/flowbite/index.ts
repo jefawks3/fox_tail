@@ -9,6 +9,8 @@ export { default as DrawerTriggerController } from "./drawer_trigger_controller"
 export { default as DropdownController } from "./dropdown_controller";
 export { default as DropdownTriggerController } from "./dropdown_trigger_controller";
 export { default as FABController } from "./fab_controller";
+export { default as ModalController } from "./modal_controller";
+export { default as ModalTriggerController } from "./modal_trigger_controller";
 export { default as PopoverController } from "./popover_controller";
 export { default as PopoverTriggerController } from "./popover_trigger_controller";
 export { default as ProgressBarController } from "./progress_bar_controller";

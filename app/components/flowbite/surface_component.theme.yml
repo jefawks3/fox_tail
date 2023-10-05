@@ -1,0 +1,4 @@
+root:
+  base: bg-white rounded-lg dark:bg-gray-800
+  border?: border border-gray-200 dark:border-gray-700
+  hover?: hover:bg-gray-100 dark:hover:bg-gray-700

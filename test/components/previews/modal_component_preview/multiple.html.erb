@@ -1,0 +1,33 @@
+<%= render Flowbite::ModalTriggerComponent.new nil, "#first_modal" do |trigger| %>
+  <%= render Flowbite::ButtonComponent.new trigger.html_attributes do %>
+    Open First Modal
+  <% end %>
+<% end %>
+
+<%= render Flowbite::ModalComponent.new id: :first_modal do |m| %>
+  <%= render Flowbite::SurfaceComponent.new(border: false, class: "p-6 text-center") do %>
+    <%= render m.close_icon_button_component class: "absolute top-2.5 right-2.5" %>
+    <%= render Flowbite::IconComponent.new "window", variant: :outline, class: "mx-auto mb-4 w-12 h-12" %>
+    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+      Fist modal message.
+    </h3>
+    <div class="flex items-center justify-center gap-4">
+      <%= render Flowbite::ModalTriggerComponent.new nil, "#second_modal" do |trigger| %>
+        <%= render Flowbite::ButtonComponent.new(trigger.html_attributes.merge(color: :default, size: :lg)) do %>
+          Open Next Modal
+        <% end %>
+      <% end %>
+      <%= render m.close_button_component(color: :neutral, variant: :outline, size: :lg).with_content("Close") %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= render Flowbite::ModalComponent.new id: :second_modal do |m| %>
+  <%= render Flowbite::SurfaceComponent.new(border: false, class: "p-6 text-center") do %>
+    <%= render m.close_icon_button_component class: "absolute top-2.5 right-2.5" %>
+    <%= render Flowbite::IconComponent.new "window", variant: :outline, class: "mx-auto mb-4 w-12 h-12" %>
+    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+      Second modal message.
+    </h3>
+  <% end %>
+<% end %>

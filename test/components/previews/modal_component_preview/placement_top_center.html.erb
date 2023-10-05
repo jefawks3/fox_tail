@@ -1,0 +1,23 @@
+<%= render Flowbite::ModalComponent.new placement: :top_center do |m| %>
+  <% m.with_trigger do |trigger| %>
+    <%= render Flowbite::ButtonComponent.new trigger.html_attributes do %>
+      Open Top Center Modal
+    <% end %>
+  <% end %>
+
+  <%= render Flowbite::DialogComponent.new do |c| %>
+    <% c.with_header do %>
+      <h3 class="text-xl font-semibold">Top Center Modal</h3>
+      <%= render m.close_icon_button_component %>
+    <% end %>
+    <% c.with_footer class: "justify-end" do %>
+      <%= render m.close_button_component.with_content("I Accept") %>
+      <%= render m.close_button_component(color: :neutral, variant: :outline).with_content("I Decline") %>
+    <% end %>
+    <div class="space-y-2">
+      <% Faker::Books::Lovecraft.paragraphs(number: 1).each do |p| %>
+        <%= content_tag :p, p %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

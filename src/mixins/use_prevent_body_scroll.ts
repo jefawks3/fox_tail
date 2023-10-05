@@ -16,12 +16,15 @@ export default (controller: Controller, options: Options = {}) => {
             return;
         }
 
+        scrollPrevented = true;
+
         if (options.classes && options.classes.length > 0) {
             document.body.classList.add(...options.classes);
         } else {
             document.body.classList.add(DEFAULT_CLASSES);
         }
 
+        controller.application.logDebugActivity("usePreventBodyScroll", "preventScroll");
         safeCallMethod(controller, "onBodyScrollingDisabled");
     }
 
@@ -30,12 +33,15 @@ export default (controller: Controller, options: Options = {}) => {
             return;
         }
 
+        scrollPrevented = false;
+
         if (options.classes && options.classes.length > 0) {
             document.body.classList.remove(...options.classes);
         } else {
             document.body.classList.remove(DEFAULT_CLASSES);
         }
 
+        controller.application.logDebugActivity("usePreventBodyScroll", "enableScroll");
         safeCallMethod(controller, "onBodyScrollingEnabled");
     }
 

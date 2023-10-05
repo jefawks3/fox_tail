@@ -1,0 +1,10 @@
+<%= content_tag tag_name, html_attributes do %>
+  <%= header if header? %>
+  <% if body? %>
+    <%= body %>
+    <%= content if content? %>
+  <% elsif content? %>
+    <%= content_tag :div, content, class: theme.apply(:body, self) %>
+  <% end %>
+  <%= footer if footer? %>
+<% end %>

@@ -1,0 +1,43 @@
+root:
+  base: >-
+    fixed top-0 left-0 right-0 md:inset-0 z-[1300]
+    w-full h-full max-h-full p-4
+    overflow-x-hidden overflow-y-auto
+    justify-center items-center
+  backdrop?:
+    false: pointer-events-none
+  placement:
+    top_left: justify-start items-start
+    top_center: justify-center items-start
+    top_right: justify-end items-start
+    center_left: justify-start items-center
+    center: justify-center items-center
+    center_right: justify-end items-center
+    bottom_left: justify-start items-end
+    bottom_center: justify-center items-end
+    bottom_right: justify-end items-end
+root/hidden:
+  base: hidden
+root/visible:
+  base: flex
+backdrop:
+  base: absolute inset-0 z-[-1] bg-gray-900 bg-opacity-50 dark:bg-opacity-80
+content:
+  base: relative w-full max-h-full
+  backdrop?:
+    false: pointer-events-auto
+  size:
+    sm: max-w-md
+    base: max-w-lg
+    lg: max-w-4xl
+    xl: max-w-7xl
+close_icon_button:
+  root:
+    base: >-
+      w-8 h-8 rounded-lg
+      inline-flex justify-center items-center
+      text-sm text-gray-400 hover:text-gray-900 dark:hover:text-white
+      bg-transparent hover:bg-gray-200 dark:hover:bg-gray-600
+  visual:
+    base: w-3 h-3
+
