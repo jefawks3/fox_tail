@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
-  renders_one :loading_icon, lambda { |options = {}| loader_svg_component options }
+  renders_one :loading_icon, lambda { |options = {}|
+    options[:class] = loader_classes options[:class]
+    options[stimulus_controller.target_key(raw: true)] = "loading" if controlled?
+    Flowbite::SpinnerComponent.new options
+  }
+
   renders_one :loading_label
 
   renders_one :left_visual, types: {
@@ -88,10 +93,6 @@ class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
     super { loading? && theme.apply("root/disabled", self) }
   end
 
-  def loading_svg_path
-    Flowbite::ViewComponents.root.join "app/assets/vendor/flowbite-spinner.svg"
-  end
-
   def loader_classes(additional_classes = nil)
     classnames theme.apply(:visual, self, { position: :left, loader: true }),
                controlled? && !loading? && theme.classname("hidden"),
@@ -103,14 +104,6 @@ class Flowbite::ButtonComponent < Flowbite::ButtonBaseComponent
   end
 
   private
-
-  def loader_svg_component(options = {})
-    path = options.delete(:path).presence || loading_svg_path
-    options[:class] = loader_classes options[:class]
-    options[:"aria-hidden"] = true
-    options[stimulus_controller.target_key(raw: true)] = "loading" if controlled?
-    Flowbite::InlineSvgComponent.new path, options
-  end
 
   def icon_component(side, icon, options)
     options[:variant] ||= :mini

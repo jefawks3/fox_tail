@@ -2,7 +2,7 @@ root:
   visuals?: group inline-flex items-center justify-center gap-2
 hidden: "hidden"
 visual:
-  loader: animate-spin
+  loader: text-gray-400 dark:text-gray-500 fill-white
   size:
     xs: h-3 w-3
     sm: h-3.5 w-3.5
