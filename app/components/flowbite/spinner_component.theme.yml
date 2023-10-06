@@ -1,0 +1,18 @@
+root:
+  base: animate-spin text-gray-200 dark:text-gray-600
+  color:
+    neutral: fill-gray-600 dark:fill-gray-300
+    blue: &default fill-blue-600
+    red: fill-red-600
+    green: fill-green-500
+    yellow: fill-yellow-400
+    indigo: fill-indigo-600
+    purple: fill-purple-600
+    pink: fill-pink-600
+    default: *default
+  size:
+    xs: w-2.5 h-2.5
+    sm: w-4 h-4
+    base: w-6 h-6
+    lg: w-8 h-8
+    xl: w-10 h-10
