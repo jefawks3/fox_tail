@@ -42,6 +42,7 @@ class Flowbite::DrawerComponent < Flowbite::BaseComponent
   has_option :open, type: :boolean, default: false
   has_option :border, type: :boolean, default: false
   has_option :rounded, type: :boolean, default: false
+  has_option :tag_name, default: :div
 
   def before_render
     super
@@ -56,7 +57,7 @@ class Flowbite::DrawerComponent < Flowbite::BaseComponent
   end
 
   def call
-    content_tag :div, html_attributes do
+    content_tag tag_name, html_attributes do
       concat close_button if close_button?
       concat notch if notch?
       concat content
