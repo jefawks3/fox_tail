@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 # @logical_path components
-# @component Flowbite::TimelineComponent
-# @component Flowbite::Timeline::EntryComponent
+# @component FoxTail::TimelineComponent
+# @component FoxTail::Timeline::EntryComponent
 class TimelineComponentPreview < ViewComponent::Preview
 
   # @!group Visuals
 
   def dot_indicator
-    render Flowbite::TimelineComponent.new do |t|
+    render FoxTail::TimelineComponent.new do |t|
       t.with_entry do |e|
         e.capture do
           e.concat e.time_tag(Date.today - 10.days, class: "mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500")
@@ -35,7 +35,7 @@ class TimelineComponentPreview < ViewComponent::Preview
   end
 
   def icons
-    render Flowbite::TimelineComponent.new do |t|
+    render FoxTail::TimelineComponent.new do |t|
       t.with_entry do |e|
         e.with_icon
         e.capture do
@@ -64,7 +64,7 @@ class TimelineComponentPreview < ViewComponent::Preview
   end
 
   def images
-    render Flowbite::TimelineComponent.new do |t|
+    render FoxTail::TimelineComponent.new do |t|
       t.with_entry do |e|
         e.with_image "users/bonnie-green.png"
         e.capture do
@@ -95,7 +95,7 @@ class TimelineComponentPreview < ViewComponent::Preview
   # @!endgroup
 
   def stepper
-    render Flowbite::TimelineComponent.new vertical: false do |t|
+    render FoxTail::TimelineComponent.new vertical: false do |t|
       t.with_entry do |e|
         e.with_icon
         e.capture do

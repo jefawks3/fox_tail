@@ -1,8 +1,8 @@
-<%= render Flowbite::InputGroupComponent.new(size: size) do |c| %>
+<%= render FoxTail::InputGroupComponent.new(size: size) do |c| %>
   <% c.with_item do |item| %>
-    <%= render Flowbite::DropdownComponent.new(:search_dropdown) do |d| %>
+    <%= render FoxTail::DropdownComponent.new(:search_dropdown) do |d| %>
       <% d.with_trigger do |trigger| %>
-        <%= render Flowbite::ButtonComponent.new trigger.html_attributes.merge(item.options) do |btn| %>
+        <%= render FoxTail::ButtonComponent.new trigger.html_attributes.merge(item.options) do |btn| %>
           <% btn.with_right_icon "chevron-down" %>
           Location
         <% end %>

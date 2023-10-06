@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# @component Flowbite::CollapsibleComponent
-# @component Flowbite::CollapsibleTriggerComponent
+# @component FoxTail::CollapsibleComponent
+# @component FoxTail::CollapsibleTriggerComponent
 # @logical_path components
 class CollapsibleComponentPreview < ViewComponent::Preview
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# @component Flowbite::PopoverComponent
+# @component FoxTail::PopoverComponent
 # @logical_path components
 class PopoverComponentPreview < ViewComponent::Preview
 

@@ -1,5 +1,5 @@
 <div class="w-full my-52 flex items-center justify-center">
-  <%= render(Flowbite::DropdownComponent.new(
+  <%= render(FoxTail::DropdownComponent.new(
     :dropdown_playground,
     placement: placement,
     offset: offset,
@@ -8,7 +8,7 @@
     delay: delay
   )) do |c| %>
     <% c.with_trigger do |trigger| %>
-      <%= render Flowbite::ButtonComponent.new(trigger.html_attributes).with_content("Dropdown") %>
+      <%= render FoxTail::ButtonComponent.new(trigger.html_attributes).with_content("Dropdown") %>
     <% end %>
     <%
       c.with_menu do |menu|

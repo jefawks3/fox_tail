@@ -1,6 +1,6 @@
-<%= render(Flowbite::DropdownComponent.new(:icon_button_trigger_dropdown)) do |c| %>
+<%= render(FoxTail::DropdownComponent.new(:icon_button_trigger_dropdown)) do |c| %>
   <% c.with_trigger do |trigger| %>
-    <%= render Flowbite::IconButtonComponent.new("ellipsis-vertical", trigger.html_attributes.merge(variant: :outline)).with_content("Dropdown") %>
+    <%= render FoxTail::IconButtonComponent.new("ellipsis-vertical", trigger.html_attributes.merge(variant: :outline)).with_content("Dropdown") %>
   <% end %>
   <%
     c.with_menu do |menu|

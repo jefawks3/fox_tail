@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # @logical_path forms
-# @component Flowbite::DropzoneComponent
+# @component FoxTail::DropzoneComponent
 class DropzoneComponentPreview < ViewComponent::Preview
 
   # @param icon
@@ -12,7 +12,7 @@ class DropzoneComponentPreview < ViewComponent::Preview
     title: nil,
     helper_text: "SVG, PNG, JPG or GIF (MAX. 800x400px)"
   )
-    render Flowbite::DropzoneComponent.new do |c|
+    render FoxTail::DropzoneComponent.new do |c|
       c.with_icon icon, variant: :outline if icon.present?
       c.with_title title.html_safe if title.present?
       c.with_helper_text helper_text if helper_text.present?
@@ -20,23 +20,23 @@ class DropzoneComponentPreview < ViewComponent::Preview
   end
 
   def default
-    render Flowbite::DropzoneComponent.new
+    render FoxTail::DropzoneComponent.new
   end
 
   def custom_icon
-    render Flowbite::DropzoneComponent.new do |c|
+    render FoxTail::DropzoneComponent.new do |c|
       c.with_icon "document-arrow-up"
     end
   end
 
   def custom_title
-    render Flowbite::DropzoneComponent.new do |c|
+    render FoxTail::DropzoneComponent.new do |c|
       c.with_title "Click or drag files to upload."
     end
   end
 
   def with_helper_text
-    render Flowbite::DropzoneComponent.new do |c|
+    render FoxTail::DropzoneComponent.new do |c|
       c.with_helper_text "SVG, PNG, JPG or GIF (MAX. 800x400px)"
     end
   end

@@ -1,7 +1,7 @@
 <div class="ml-44">
-  <%= render(Flowbite::TooltipComponent.new(:"#{placement}_tooltip", placement: placement)) do |c| %>
+  <%= render(FoxTail::TooltipComponent.new(:"#{placement}_tooltip", placement: placement)) do |c| %>
     <% c.with_trigger do |trigger| %>
-      <%= render Flowbite::ButtonComponent.new(trigger.html_attributes).with_content("Hover over me") %>
+      <%= render FoxTail::ButtonComponent.new(trigger.html_attributes).with_content("Hover over me") %>
     <% end %>
     Tooltip Content
   <% end %>

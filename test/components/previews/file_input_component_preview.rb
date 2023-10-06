@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # @logical_path forms
-# @component Flowbite::FileInputComponent
+# @component FoxTail::FileInputComponent
 class FileInputComponentPreview < ViewComponent::Preview
 
   # @param size select {choices: [sm,base,lg]}
@@ -9,17 +9,17 @@ class FileInputComponentPreview < ViewComponent::Preview
   # @param disabled toggle
   # @param multiple toggle
   def playground(size: :base, state: :default, disabled: false, multiple: false)
-    render Flowbite::FileInputComponent.new(size: size, state: state, disabled: disabled, multiple: multiple)
+    render FoxTail::FileInputComponent.new(size: size, state: state, disabled: disabled, multiple: multiple)
   end
 
   # @!group Disabled
 
   def active
-    render Flowbite::FileInputComponent.new(disabled: false)
+    render FoxTail::FileInputComponent.new(disabled: false)
   end
 
   def disabled
-    render Flowbite::FileInputComponent.new(disabled: true)
+    render FoxTail::FileInputComponent.new(disabled: true)
   end
 
   # @!endgroup
@@ -27,16 +27,16 @@ class FileInputComponentPreview < ViewComponent::Preview
   # @!group Sizes
 
   def small
-    render Flowbite::FileInputComponent.new(size: :sm)
+    render FoxTail::FileInputComponent.new(size: :sm)
   end
 
   # @label Base (Default)
   def base
-    render Flowbite::FileInputComponent.new(size: :base)
+    render FoxTail::FileInputComponent.new(size: :base)
   end
 
   def large
-    render Flowbite::FileInputComponent.new(size: :lg)
+    render FoxTail::FileInputComponent.new(size: :lg)
   end
 
   # @!endgroup
@@ -44,11 +44,11 @@ class FileInputComponentPreview < ViewComponent::Preview
   # @!group Multiple
 
   def single
-    render Flowbite::FileInputComponent.new(multiple: false)
+    render FoxTail::FileInputComponent.new(multiple: false)
   end
 
   def multiple
-    render Flowbite::FileInputComponent.new(multiple: true)
+    render FoxTail::FileInputComponent.new(multiple: true)
   end
 
   # @!endgroup
@@ -56,15 +56,15 @@ class FileInputComponentPreview < ViewComponent::Preview
   # @!group States
 
   def default
-    render Flowbite::FileInputComponent.new(state: :default)
+    render FoxTail::FileInputComponent.new(state: :default)
   end
 
   def valid
-    render Flowbite::FileInputComponent.new(state: :valid)
+    render FoxTail::FileInputComponent.new(state: :valid)
   end
 
   def invalid
-    render Flowbite::FileInputComponent.new(state: :invalid)
+    render FoxTail::FileInputComponent.new(state: :invalid)
   end
 
   # @!endgroup

@@ -1,6 +1,6 @@
-<%= render(Flowbite::DropdownComponent.new(:on_hover_dropdown, trigger_type: :hover)) do |c| %>
+<%= render(FoxTail::DropdownComponent.new(:on_hover_dropdown, trigger_type: :hover)) do |c| %>
   <% c.with_trigger do |trigger| %>
-    <%= render Flowbite::ButtonComponent.new(trigger.html_attributes).with_content("Dropdown") %>
+    <%= render FoxTail::ButtonComponent.new(trigger.html_attributes).with_content("Dropdown") %>
   <% end %>
   <%
     c.with_menu do |menu|

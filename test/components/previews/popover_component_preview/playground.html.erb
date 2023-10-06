@@ -1,5 +1,5 @@
 <div class="w-full my-40 flex items-center justify-center">
-  <%= render(Flowbite::PopoverComponent.new(
+  <%= render(FoxTail::PopoverComponent.new(
     :playground_popover,
     placement: placement,
     arrow: arrow,
@@ -13,7 +13,7 @@
     <% end %>
 
     <% c.with_trigger do |trigger| %>
-      <%= render Flowbite::ButtonComponent.new(trigger.html_attributes) do %>
+      <%= render FoxTail::ButtonComponent.new(trigger.html_attributes) do %>
         <%= trigger_type == :hover ? "Hover over me" : "Click me" %>
       <% end %>
     <% end %>

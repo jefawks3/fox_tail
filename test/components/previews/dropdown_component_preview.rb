@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# @component Flowbite::DropdownComponent
-# @component Flowbite::DropdownTriggerComponent
+# @component FoxTail::DropdownComponent
+# @component FoxTail::DropdownTriggerComponent
 # @logical_path components
 class DropdownComponentPreview < ViewComponent::Preview
 

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 # @logical_path components
-# @component Flowbite::StepperComponent
+# @component FoxTail::StepperComponent
 class StepperComponentPreview < ViewComponent::Preview
 
   # @!group Default
   def default_with_labels
-    render Flowbite::StepperComponent.new(variant: :default) do |c|
+    render FoxTail::StepperComponent.new(variant: :default) do |c|
       c.with_step(state: :completed) do
         'Personal <span class="hidden sm:inline ml-2">Info</span>'.html_safe
       end
@@ -22,7 +22,7 @@ class StepperComponentPreview < ViewComponent::Preview
   end
 
   def default_without_labels
-    render Flowbite::StepperComponent.new(variant: :default) do |c|
+    render FoxTail::StepperComponent.new(variant: :default) do |c|
       c.with_step(state: :completed)
       c.with_step(state: :current)
       c.with_step do |s|
@@ -36,7 +36,7 @@ class StepperComponentPreview < ViewComponent::Preview
 
   # @!group Progress
   def progress_with_labels
-    render Flowbite::StepperComponent.new(variant: :progress) do |c|
+    render FoxTail::StepperComponent.new(variant: :progress) do |c|
       c.with_step(state: :completed) do
         'Personal <span class="hidden sm:inline ml-2">Info</span>'.html_safe
       end
@@ -52,7 +52,7 @@ class StepperComponentPreview < ViewComponent::Preview
   end
 
   def progress_without_labels
-    render Flowbite::StepperComponent.new(variant: :progress) do |c|
+    render FoxTail::StepperComponent.new(variant: :progress) do |c|
       c.with_step(state: :completed)
       c.with_step(state: :current)
       c.with_step do |s|
@@ -65,7 +65,7 @@ class StepperComponentPreview < ViewComponent::Preview
   # @!endgroup
 
   def detailed
-    render Flowbite::StepperComponent.new(variant: :detailed) do |c|
+    render FoxTail::StepperComponent.new(variant: :detailed) do |c|
       c.with_step(state: :completed) do
         <<~HTML.html_safe
           <h3 class="font-medium leading-tight">User info</h3>
@@ -95,7 +95,7 @@ class StepperComponentPreview < ViewComponent::Preview
   end
 
   def vertical
-    render Flowbite::StepperComponent.new(variant: :vertical) do |c|
+    render FoxTail::StepperComponent.new(variant: :vertical) do |c|
       c.with_step(state: :completed).with_content("Personal Info")
       c.with_step(state: :current).with_content("Account Info")
       c.with_step_content "Review"
@@ -104,7 +104,7 @@ class StepperComponentPreview < ViewComponent::Preview
   end
 
   def breadcrumb
-    render Flowbite::StepperComponent.new(variant: :breadcrumb) do |c|
+    render FoxTail::StepperComponent.new(variant: :breadcrumb) do |c|
       c.with_step(state: :completed) do
         'Personal <span class="hidden sm:inline ml-2">Info</span>'.html_safe
       end
@@ -120,7 +120,7 @@ class StepperComponentPreview < ViewComponent::Preview
   end
 
   def timeline
-    render Flowbite::StepperComponent.new(variant: :timeline) do |c|
+    render FoxTail::StepperComponent.new(variant: :timeline) do |c|
       c.with_step(state: :completed) do
         <<~HTML.html_safe
           <h3 class="font-medium leading-tight">User info</h3>

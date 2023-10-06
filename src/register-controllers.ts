@@ -1,25 +1,25 @@
 import type {Application} from "@hotwired/stimulus";
-import * as Components from "../app/components/flowbite";
+import * as Components from "../app/components/fox_tail";
 
 export default (application: Application): void => {
-    application.register("flowbite--accordion", Components.AccordionController);
-    application.register("flowbite--clickable", Components.ClickableController);
-    application.register("flowbite--collapsible", Components.CollapsibleController);
-    application.register("flowbite--collapsible-trigger", Components.CollapsibleTriggerController);
-    application.register("flowbite--color-theme", Components.ColorThemeController);
-    application.register("flowbite--dismissible", Components.DismissibleController);
-    application.register("flowbite--drawer", Components.DrawerController);
-    application.register("flowbite--drawer-trigger", Components.DrawerTriggerController);
-    application.register("flowbite--dropdown", Components.DropdownController);
-    application.register("flowbite--dropdown-trigger", Components.DropdownTriggerController);
-    application.register("flowbite--fab", Components.FABController);
-    application.register("flowbite--modal", Components.ModalController);
-    application.register("flowbite--modal-trigger", Components.ModalTriggerController);
-    application.register("flowbite--popover", Components.PopoverController);
-    application.register("flowbite--popover-trigger", Components.PopoverTriggerController);
-    application.register("flowbite--progress-bar", Components.ProgressBarController);
-    application.register("flowbite--tab", Components.TabController);
-    application.register("flowbite--textarea-auto-resize", Components.TextareaAutoResizeController);
-    application.register("flowbite--tooltip", Components.TooltipController);
-    application.register("flowbite--tooltip-trigger", Components.TooltipTriggerController);
+    application.register("fox-tail--accordion", Components.AccordionController);
+    application.register("fox-tail--clickable", Components.ClickableController);
+    application.register("fox-tail--collapsible", Components.CollapsibleController);
+    application.register("fox-tail--collapsible-trigger", Components.CollapsibleTriggerController);
+    application.register("fox-tail--color-theme", Components.ColorThemeController);
+    application.register("fox-tail--dismissible", Components.DismissibleController);
+    application.register("fox-tail--drawer", Components.DrawerController);
+    application.register("fox-tail--drawer-trigger", Components.DrawerTriggerController);
+    application.register("fox-tail--dropdown", Components.DropdownController);
+    application.register("fox-tail--dropdown-trigger", Components.DropdownTriggerController);
+    application.register("fox-tail--fab", Components.FABController);
+    application.register("fox-tail--modal", Components.ModalController);
+    application.register("fox-tail--modal-trigger", Components.ModalTriggerController);
+    application.register("fox-tail--popover", Components.PopoverController);
+    application.register("fox-tail--popover-trigger", Components.PopoverTriggerController);
+    application.register("fox-tail--progress-bar", Components.ProgressBarController);
+    application.register("fox-tail--tab", Components.TabController);
+    application.register("fox-tail--textarea-auto-resize", Components.TextareaAutoResizeController);
+    application.register("fox-tail--tooltip", Components.TooltipController);
+    application.register("fox-tail--tooltip-trigger", Components.TooltipTriggerController);
 }

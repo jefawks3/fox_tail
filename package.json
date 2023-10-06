@@ -1,9 +1,9 @@
 {
-  "name": "flowbite-view_components",
+  "name": "fox_tail",
   "version": "0.1.0",
-  "description": "Unofficial Rails View Components built for Flowbite and Tailwind CSS",
+  "description": "Rails View Components built with Flowbite and Tailwind CSS",
   "main": "dest/index.js",
-  "repository": "https://github.com/jefawks3/flowbite-view_components",
+  "repository": "https://github.com/jefawks3/fox_tail",
   "author": "James Fawks <jefawks3@gmail.com>",
   "license": "MIT",
   "private": false,

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# @component Flowbite::AccordionComponent
-# @component Flowbite::Accordion::ItemComponent
+# @component FoxTail::AccordionComponent
+# @component FoxTail::Accordion::ItemComponent
 # @logical_path components
 class AccordionComponentPreview < ViewComponent::Preview
 
@@ -11,7 +11,7 @@ class AccordionComponentPreview < ViewComponent::Preview
   # @param arrow "Heroicon to display to the right of the text"
   # @param rotate_arrow toggle "Rotate the arrow when collapsed"
   def playground(flush: false, always_open: false, icon: :question_mark_circle, arrow: :chevron_down, rotate_arrow: true)
-    render Flowbite::AccordionComponent.new(:playground_accordion, always_open: always_open, flush: flush) do |accordion|
+    render FoxTail::AccordionComponent.new(:playground_accordion, always_open: always_open, flush: flush) do |accordion|
       0.upto(3) do |i|
         accordion.with_item :"item_#{i}", Faker::Lorem.question, open: i.zero? do |item|
           item.with_icon icon if icon.present?
@@ -23,7 +23,7 @@ class AccordionComponentPreview < ViewComponent::Preview
   end
 
   def flush
-    render Flowbite::AccordionComponent.new(:flush_accordion, flush: true) do |accordion|
+    render FoxTail::AccordionComponent.new(:flush_accordion, flush: true) do |accordion|
       0.upto(3) do |i|
         accordion.with_item :"item_#{i}", Faker::Lorem.question, open: i.zero? do |item|
           item.with_arrow
@@ -34,7 +34,7 @@ class AccordionComponentPreview < ViewComponent::Preview
   end
 
   def always_open
-    render Flowbite::AccordionComponent.new(:flush_accordion, always_open: true) do |accordion|
+    render FoxTail::AccordionComponent.new(:flush_accordion, always_open: true) do |accordion|
       0.upto(3) do |i|
         accordion.with_item :"item_#{i}", Faker::Lorem.question, open: i.zero? do |item|
           item.with_arrow

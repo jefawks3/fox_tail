@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 # @logical_path components
-# @component Flowbite::ListGroupComponent
+# @component FoxTail::ListGroupComponent
 class ListGroupComponentPreview < ViewComponent::Preview
 
   def default
-    render Flowbite::ListGroupComponent.new class: "w-48" do |l|
+    render FoxTail::ListGroupComponent.new class: "w-48" do |l|
       l.with_item(static: true).with_content "Profile"
       l.with_item(static: true).with_content "Settings"
       l.with_item(static: true).with_content "Messages"
@@ -14,7 +14,7 @@ class ListGroupComponentPreview < ViewComponent::Preview
   end
 
   def links
-    render Flowbite::ListGroupComponent.new class: "w-48" do |l|
+    render FoxTail::ListGroupComponent.new class: "w-48" do |l|
       l.with_item(url: "#", selected: true).with_content("Profile")
       l.with_item(url: "#").with_content("Settings")
       l.with_item(url: "#").with_content("Messages")
@@ -23,7 +23,7 @@ class ListGroupComponentPreview < ViewComponent::Preview
   end
 
   def icons
-    render Flowbite::ListGroupComponent.new class: "w-48" do |l|
+    render FoxTail::ListGroupComponent.new class: "w-48" do |l|
       l.with_item(url: "#", selected: true) do |i|
         i.with_icon "user-circle"
         "Profile"

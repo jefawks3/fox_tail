@@ -3,7 +3,7 @@
 # installed from the root of your application.
 
 ENGINE_ROOT = File.expand_path("..", __dir__)
-ENGINE_PATH = File.expand_path("../lib/flowbite/view_components/engine", __dir__)
+ENGINE_PATH = File.expand_path("../lib/fox_tail/engine", __dir__)
 APP_PATH = File.expand_path("../test/dummy/config/application", __dir__)
 
 require "bundler/setup"

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # @logical_path forms
-# @component Flowbite::InputComponent
+# @component FoxTail::InputComponent
 class InputComponentPreview < ViewComponent::Preview
 
   # @param size select {choices: [sm,base,lg]}
@@ -11,7 +11,7 @@ class InputComponentPreview < ViewComponent::Preview
   # @param left_icon
   # @param right_icon
   def playground(readonly: false, disabled: false, size: :base, state: :default, left_icon: nil, right_icon: nil)
-    render Flowbite::InputComponent.new(
+    render FoxTail::InputComponent.new(
       size: size,
       state: state,
       disabled: disabled,
@@ -26,27 +26,27 @@ class InputComponentPreview < ViewComponent::Preview
   # @!group Types
 
   def text
-    render Flowbite::InputComponent.new(type: :text, placeholder: "Enter text")
+    render FoxTail::InputComponent.new(type: :text, placeholder: "Enter text")
   end
 
   def telephone
-    render Flowbite::InputComponent.new(type: :tel, placeholder: "123-456-7890")
+    render FoxTail::InputComponent.new(type: :tel, placeholder: "123-456-7890")
   end
 
   def email
-    render Flowbite::InputComponent.new(type: :email, placeholder: "username@domain.com")
+    render FoxTail::InputComponent.new(type: :email, placeholder: "username@domain.com")
   end
 
   def url
-    render Flowbite::InputComponent.new(type: :url, placeholder: "https://example.com")
+    render FoxTail::InputComponent.new(type: :url, placeholder: "https://example.com")
   end
 
   def number
-    render Flowbite::InputComponent.new(type: :number, placeholder: "0")
+    render FoxTail::InputComponent.new(type: :number, placeholder: "0")
   end
 
   def password
-    render Flowbite::InputComponent.new(type: :password, placeholder: "*****")
+    render FoxTail::InputComponent.new(type: :password, placeholder: "*****")
   end
 
   # @!endgroup
@@ -55,11 +55,11 @@ class InputComponentPreview < ViewComponent::Preview
   # @!group Readonly
 
   def editable
-    render Flowbite::InputComponent.new(readonly: false, value: "Test content")
+    render FoxTail::InputComponent.new(readonly: false, value: "Test content")
   end
 
   def readonly
-    render Flowbite::InputComponent.new(readonly: true, value: "Test content")
+    render FoxTail::InputComponent.new(readonly: true, value: "Test content")
   end
 
   # @!endgroup
@@ -67,11 +67,11 @@ class InputComponentPreview < ViewComponent::Preview
   # @!group Disabled
 
   def active
-    render Flowbite::InputComponent.new(disabled: false, placeholder: "Placeholder", value: "Test content")
+    render FoxTail::InputComponent.new(disabled: false, placeholder: "Placeholder", value: "Test content")
   end
 
   def disabled
-    render Flowbite::InputComponent.new(disabled: true, value: "Test content")
+    render FoxTail::InputComponent.new(disabled: true, value: "Test content")
   end
 
   # @!endgroup
@@ -79,16 +79,16 @@ class InputComponentPreview < ViewComponent::Preview
   # @!group Sizes
 
   def small
-    render Flowbite::InputComponent.new(size: :sm, placeholder: "Placeholder")
+    render FoxTail::InputComponent.new(size: :sm, placeholder: "Placeholder")
   end
 
   # @label Base (Default)
   def base
-    render Flowbite::InputComponent.new(size: :base, placeholder: "Placeholder")
+    render FoxTail::InputComponent.new(size: :base, placeholder: "Placeholder")
   end
 
   def large
-    render Flowbite::InputComponent.new(size: :lg, placeholder: "Placeholder")
+    render FoxTail::InputComponent.new(size: :lg, placeholder: "Placeholder")
   end
 
   # @!endgroup
@@ -96,15 +96,15 @@ class InputComponentPreview < ViewComponent::Preview
   # @!group States
 
   def default
-    render Flowbite::InputComponent.new(state: :default, placeholder: "Placeholder")
+    render FoxTail::InputComponent.new(state: :default, placeholder: "Placeholder")
   end
 
   def valid
-    render Flowbite::InputComponent.new(state: :valid, placeholder: "Placeholder")
+    render FoxTail::InputComponent.new(state: :valid, placeholder: "Placeholder")
   end
 
   def invalid
-    render Flowbite::InputComponent.new(state: :invalid, placeholder: "Placeholder")
+    render FoxTail::InputComponent.new(state: :invalid, placeholder: "Placeholder")
   end
 
   # @!endgroup
@@ -112,19 +112,19 @@ class InputComponentPreview < ViewComponent::Preview
   # @!group Visuals
 
   def with_left_icon
-    render Flowbite::InputComponent.new(placeholder: "Placeholder") do |c|
+    render FoxTail::InputComponent.new(placeholder: "Placeholder") do |c|
       c.with_left_icon "envelope"
     end
   end
 
   def with_right_icon
-    render Flowbite::InputComponent.new(placeholder: "Placeholder") do |c|
+    render FoxTail::InputComponent.new(placeholder: "Placeholder") do |c|
       c.with_right_icon "envelope"
     end
   end
 
   def with_both_icons
-    render Flowbite::InputComponent.new(placeholder: "Placeholder") do |c|
+    render FoxTail::InputComponent.new(placeholder: "Placeholder") do |c|
       c.with_left_icon "envelope"
       c.with_right_icon "envelope"
     end
@@ -135,23 +135,23 @@ class InputComponentPreview < ViewComponent::Preview
   # @!group Name & ID Parameters
 
   def with_name
-    render Flowbite::InputComponent.new(name: :first_name)
+    render FoxTail::InputComponent.new(name: :first_name)
   end
 
   def with_method_name
-    render Flowbite::InputComponent.new(method_name: :first_name)
+    render FoxTail::InputComponent.new(method_name: :first_name)
   end
 
   def with_object_name
-    render Flowbite::InputComponent.new(object_name: :user, method_name: :first_name)
+    render FoxTail::InputComponent.new(object_name: :user, method_name: :first_name)
   end
 
   def with_object_name_and_multiple
-    render Flowbite::InputComponent.new(object_name: :user, method_name: :first_name, value_array: true)
+    render FoxTail::InputComponent.new(object_name: :user, method_name: :first_name, value_array: true)
   end
 
   def with_object_name_multiple_and_index
-    render Flowbite::InputComponent.new(
+    render FoxTail::InputComponent.new(
       object_name: :user,
       method_name: :first_name,
       value_array: true,
@@ -164,15 +164,15 @@ class InputComponentPreview < ViewComponent::Preview
   # @!group Placeholder
 
   def string_placeholder
-    render Flowbite::InputComponent.new(placeholder: "Enter first name")
+    render FoxTail::InputComponent.new(placeholder: "Enter first name")
   end
 
   def translation_placeholder
-    render Flowbite::InputComponent.new(object_name: :user, method_name: :first_name, object: User.new, placeholder: true)
+    render FoxTail::InputComponent.new(object_name: :user, method_name: :first_name, object: User.new, placeholder: true)
   end
 
   def missing_translation_placeholder
-    render Flowbite::InputComponent.new(object_name: :user, method_name: :agree_to_terms, object: User.new, placeholder: true)
+    render FoxTail::InputComponent.new(object_name: :user, method_name: :agree_to_terms, object: User.new, placeholder: true)
   end
 
   # @!endgroup

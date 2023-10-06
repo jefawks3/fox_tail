@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# @component Flowbite::TooltipComponent
+# @component FoxTail::TooltipComponent
 # @logical_path components
 class TooltipComponentPreview < ViewComponent::Preview
 

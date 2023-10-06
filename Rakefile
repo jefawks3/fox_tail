@@ -1,3 +1,3 @@
-require "bundler/setup"
+require_relative 'test/dummy/config/application'
 
-require "bundler/gem_tasks"
+Rails.application.load_tasks

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# @component Flowbite::HrComponent
+# @component FoxTail::HrComponent
 # @logical_path typography
 class HrComponentPreview < ViewComponent::Preview
 
@@ -9,23 +9,23 @@ class HrComponentPreview < ViewComponent::Preview
   # @param size select { choices: [xs,sm,base,lg,xl] } "Size of the shape or line if not a shape"
   # @param content "Display with text"
   def playground(trimmed: false, shape: :none, size: :base, content: nil)
-    render(Flowbite::HrComponent.new(trimmed: trimmed, size: size, shape: shape)) do |c|
+    render(FoxTail::HrComponent.new(trimmed: trimmed, size: size, shape: shape)) do |c|
       content if content.present?
     end
   end
 
   def default
-    render(Flowbite::HrComponent.new)
+    render(FoxTail::HrComponent.new)
   end
 
   def trimmed
-    render(Flowbite::HrComponent.new(trimmed: true))
+    render(FoxTail::HrComponent.new(trimmed: true))
   end
 
   # @!group With Content
 
   def with_text
-    render(Flowbite::HrComponent.new(trimmed: true, class: "font-light text-gray-900 dark:text-white").with_content("or"))
+    render(FoxTail::HrComponent.new(trimmed: true, class: "font-light text-gray-900 dark:text-white").with_content("or"))
   end
 
   def with_icon
@@ -37,11 +37,11 @@ class HrComponentPreview < ViewComponent::Preview
   # @!group Shape
 
   def circle
-    render(Flowbite::HrComponent.new(shape: :circle))
+    render(FoxTail::HrComponent.new(shape: :circle))
   end
 
   def square
-    render(Flowbite::HrComponent.new(shape: :square))
+    render(FoxTail::HrComponent.new(shape: :square))
   end
 
   # @!endgroup

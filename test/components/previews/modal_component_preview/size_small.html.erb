@@ -1,11 +1,11 @@
-<%= render Flowbite::ModalComponent.new size: :sm do |m| %>
+<%= render FoxTail::ModalComponent.new size: :sm do |m| %>
   <% m.with_trigger do |trigger| %>
-    <%= render Flowbite::ButtonComponent.new trigger.html_attributes do %>
+    <%= render FoxTail::ButtonComponent.new trigger.html_attributes do %>
       Open Small Modal
     <% end %>
   <% end %>
 
-  <%= render Flowbite::DialogComponent.new do |c| %>
+  <%= render FoxTail::DialogComponent.new do |c| %>
     <% c.with_header do %>
       <h3 class="text-xl font-semibold">Small Modal</h3>
       <%= render m.close_icon_button_component %>

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 # @logical_path forms
-# @component Flowbite::InputGroupComponent
-# @component Flowbite::InputGroup::AddonComponent
+# @component FoxTail::InputGroupComponent
+# @component FoxTail::InputGroup::AddonComponent
 class InputGroupComponentPreview < ViewComponent::Preview
   # @param size select {choices: [sm,base,lg]}
   def search(size: :base)
-    render Flowbite::InputGroupComponent.new(size: size) do |c|
+    render FoxTail::InputGroupComponent.new(size: size) do |c|
       c.with_input(type: :search, placeholder: "Search for ...") do |input|
         input.with_left_icon("magnifying-glass")
       end
@@ -18,7 +18,7 @@ class InputGroupComponentPreview < ViewComponent::Preview
 
   # @param size select {choices: [sm,base,lg]}
   def button(size: :base)
-    render Flowbite::InputGroupComponent.new(size: size) do |c|
+    render FoxTail::InputGroupComponent.new(size: size) do |c|
       c.with_input(type: :search, placeholder: "Search for ...") do |input|
         input.with_left_icon("magnifying-glass")
       end
@@ -36,7 +36,7 @@ class InputGroupComponentPreview < ViewComponent::Preview
 
   # @param size select {choices: [sm,base,lg]}
   def label(size: :base)
-    render Flowbite::InputGroupComponent.new(size: size) do |c|
+    render FoxTail::InputGroupComponent.new(size: size) do |c|
       c.with_input type: :url, placeholder: "mydomain", class: "text-right"
       c.with_text ".example.com"
     end
@@ -44,7 +44,7 @@ class InputGroupComponentPreview < ViewComponent::Preview
 
   # @param size select {choices: [sm,base,lg]}
   def icon(size: :base)
-    render Flowbite::InputGroupComponent.new(size: size) do |c|
+    render FoxTail::InputGroupComponent.new(size: size) do |c|
       c.with_icon "envelope"
       c.with_input type: :email, placeholder: "username@domain.com"
     end
@@ -54,7 +54,7 @@ class InputGroupComponentPreview < ViewComponent::Preview
   # @param size select {choices: [sm,base,lg]}
   # @param fill toggle
   def image(image: "users/thomas-lean.png", size: :base, fill: false)
-    render Flowbite::InputGroupComponent.new(size: size) do |c|
+    render FoxTail::InputGroupComponent.new(size: size) do |c|
       c.with_image image, fill: fill
       c.with_input type: :email, placeholder: "username@domain.com"
     end

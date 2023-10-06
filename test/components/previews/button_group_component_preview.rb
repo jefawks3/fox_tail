@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# @component Flowbite::ButtonGroupComponent
+# @component FoxTail::ButtonGroupComponent
 # @logical_path components
 class ButtonGroupComponentPreview < ViewComponent::Preview
 
@@ -28,7 +28,7 @@ class ButtonGroupComponentPreview < ViewComponent::Preview
     button_three_color: :default,
     button_three_variant: :solid
   )
-    render(Flowbite::ButtonGroupComponent.new(size: size, pill: pill)) do |c|
+    render(FoxTail::ButtonGroupComponent.new(size: size, pill: pill)) do |c|
       c.with_button(color: button_one_color, variant: button_one_variant).with_content(button_one_text)
       c.with_button(color: button_two_color, variant: button_two_variant).with_content(button_two_text)
       c.with_button(color: button_three_color, variant: button_three_variant).with_content(button_three_text)
@@ -39,7 +39,7 @@ class ButtonGroupComponentPreview < ViewComponent::Preview
 
   # @label Extra Small
   def xs
-    render(Flowbite::ButtonGroupComponent.new(size: :xs)) do |c|
+    render(FoxTail::ButtonGroupComponent.new(size: :xs)) do |c|
       c.with_button.with_content("One")
       c.with_button.with_content("Two")
       c.with_button.with_content("Three")
@@ -48,7 +48,7 @@ class ButtonGroupComponentPreview < ViewComponent::Preview
 
   # @label Small
   def sm
-    render(Flowbite::ButtonGroupComponent.new(size: :sm)) do |c|
+    render(FoxTail::ButtonGroupComponent.new(size: :sm)) do |c|
       c.with_button.with_content("One")
       c.with_button.with_content("Two")
       c.with_button.with_content("Three")
@@ -57,7 +57,7 @@ class ButtonGroupComponentPreview < ViewComponent::Preview
 
   # @label Base (Default)
   def base
-    render(Flowbite::ButtonGroupComponent.new(size: :base)) do |c|
+    render(FoxTail::ButtonGroupComponent.new(size: :base)) do |c|
       c.with_button.with_content("One")
       c.with_button.with_content("Two")
       c.with_button.with_content("Three")
@@ -66,7 +66,7 @@ class ButtonGroupComponentPreview < ViewComponent::Preview
 
   # @label Large
   def lg
-    render(Flowbite::ButtonGroupComponent.new(size: :lg)) do |c|
+    render(FoxTail::ButtonGroupComponent.new(size: :lg)) do |c|
       c.with_button.with_content("One")
       c.with_button.with_content("Two")
       c.with_button.with_content("Three")
@@ -75,7 +75,7 @@ class ButtonGroupComponentPreview < ViewComponent::Preview
 
   # @label Extra Large
   def xl
-    render(Flowbite::ButtonGroupComponent.new(size: :xl)) do |c|
+    render(FoxTail::ButtonGroupComponent.new(size: :xl)) do |c|
       c.with_button.with_content("One")
       c.with_button.with_content("Two")
       c.with_button.with_content("Three")
@@ -87,7 +87,7 @@ class ButtonGroupComponentPreview < ViewComponent::Preview
   # @!group Styles
 
   def pill
-    render(Flowbite::ButtonGroupComponent.new(pill: true)) do |c|
+    render(FoxTail::ButtonGroupComponent.new(pill: true)) do |c|
       c.with_button.with_content("One")
       c.with_button.with_content("Two")
       c.with_button.with_content("Three")
@@ -95,7 +95,7 @@ class ButtonGroupComponentPreview < ViewComponent::Preview
   end
 
   def outline
-    render(Flowbite::ButtonGroupComponent.new) do |c|
+    render(FoxTail::ButtonGroupComponent.new) do |c|
       c.with_button(variant: :outline).with_content("One")
       c.with_button(variant: :outline).with_content("Two")
       c.with_button(variant: :outline).with_content("Three")
@@ -103,7 +103,7 @@ class ButtonGroupComponentPreview < ViewComponent::Preview
   end
 
   def mixed
-    render(Flowbite::ButtonGroupComponent.new) do |c|
+    render(FoxTail::ButtonGroupComponent.new) do |c|
       c.with_button(variant: :outline, color: :neutral).with_content("One")
       c.with_button(variant: :solid).with_content("Two")
       c.with_button(variant: :solid, color: :red).with_content("Three")
@@ -111,7 +111,7 @@ class ButtonGroupComponentPreview < ViewComponent::Preview
   end
 
   def with_icons
-    render(Flowbite::ButtonGroupComponent.new) do |c|
+    render(FoxTail::ButtonGroupComponent.new) do |c|
       c.with_button do |btn|
         btn.with_left_icon "user"
         "One"

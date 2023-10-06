@@ -1,4 +1,4 @@
-<%= form_with model: model, url: request.original_fullpath, method: :post, builder: Flowbite::FormBuilder do |f| %>
+<%= form_with model: model, url: request.original_fullpath, method: :post, builder: FoxTail::FormBuilder do |f| %>
   <div class="space-y-6">
     <div>
       <%= f.label :text, class: "mb-2" %>

@@ -1,10 +1,10 @@
-<%= render(Flowbite::DropdownComponent.new(:with_header_dropdown)) do |c| %>
+<%= render(FoxTail::DropdownComponent.new(:with_header_dropdown)) do |c| %>
   <% c.with_trigger do |trigger| %>
-    <%= render Flowbite::ButtonComponent.new(trigger.html_attributes).with_content("Dropdown") %>
+    <%= render FoxTail::ButtonComponent.new(trigger.html_attributes).with_content("Dropdown") %>
   <% end %>
   <% c.with_header do %>
     <div>User Name</div>
-    <div class="font-medium truncate">name@flowbite-viewcomponents.com</div>
+    <div class="font-medium truncate">name@foxtail.com</div>
   <% end %>
   <%
     c.with_menu do |menu|

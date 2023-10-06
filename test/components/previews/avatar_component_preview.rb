@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# @component Flowbite::AvatarComponent
+# @component FoxTail::AvatarComponent
 # @logical_path components
 class AvatarComponentPreview < ViewComponent::Preview
 
@@ -15,7 +15,7 @@ class AvatarComponentPreview < ViewComponent::Preview
   # @param indicator_color "The theme color of the Dot Indicator"
   # @param indicator_animated toggle "Animate the indicator with a pulse"
   def playground(image: "users/michael-gough.png", icon: "user", text: "TT", size: :base, rounded: false, border: false, indicator: false, indicator_position: :top_right, indicator_color: :green, indicator_animated: false)
-    render(Flowbite::AvatarComponent.new(src: image, icon: icon, text: text, size: size, rounded: rounded, border: border)) do |c|
+    render(FoxTail::AvatarComponent.new(src: image, icon: icon, text: text, size: size, rounded: rounded, border: border)) do |c|
       c.with_dot position: indicator_position, color: indicator_color, animated: indicator_animated if indicator.present?
     end
   end
@@ -24,27 +24,27 @@ class AvatarComponentPreview < ViewComponent::Preview
 
   # @label Extra Small
   def xs
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png", size: :xs))
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png", size: :xs))
   end
 
   # @label Small
   def sm
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png", size: :sm))
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png", size: :sm))
   end
 
   # @label Base (Default)
   def base
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png", size: :base))
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png", size: :base))
   end
 
   # @label Large
   def lg
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png", size: :lg))
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png", size: :lg))
   end
 
   # @label Extra Large
   def xl
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png", size: :lg))
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png", size: :lg))
   end
 
   # @!endgroup
@@ -52,15 +52,15 @@ class AvatarComponentPreview < ViewComponent::Preview
   # @!group Styles
 
   def default
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png"))
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png"))
   end
 
   def rounded
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png", rounded: true))
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png", rounded: true))
   end
 
   def bordered
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png", border: true))
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png", border: true))
   end
 
   # @!endgroup
@@ -69,63 +69,63 @@ class AvatarComponentPreview < ViewComponent::Preview
 
   # @label Top Left
   def indicator_top_left
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
       c.with_dot position: :top_left
     end
   end
 
   # @label Top Center
   def indicator_top_center
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
       c.with_dot position: :top_center
     end
   end
 
   # @label Top Right
   def indicator_top_right
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
       c.with_dot position: :top_right
     end
   end
 
   # @label Center Left
   def indicator_center_left
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
       c.with_dot position: :center_left
     end
   end
 
   # @label Center
   def indicator_center
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
       c.with_dot position: :center
     end
   end
 
   # @label Center Right
   def indicator_center_right
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
       c.with_dot position: :center_right
     end
   end
 
   # @label Bottom Left
   def indicator_bottom_left
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
       c.with_dot position: :bottom_left
     end
   end
 
   # @label Bottom Center
   def indicator_bottom_center
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
       c.with_dot position: :bottom_center
     end
   end
 
   # @label Top Left
   def indicator_bottom_right
-    render(Flowbite::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
+    render(FoxTail::AvatarComponent.new(src: "users/michael-gough.png")) do |c|
       c.with_dot position: :bottom_right
     end
   end

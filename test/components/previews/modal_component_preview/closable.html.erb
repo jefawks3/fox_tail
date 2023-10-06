@@ -1,11 +1,11 @@
-<%= render Flowbite::ModalComponent.new closable: true do |m| %>
+<%= render FoxTail::ModalComponent.new closable: true do |m| %>
   <% m.with_trigger do |trigger| %>
-    <%= render Flowbite::ButtonComponent.new trigger.html_attributes do %>
+    <%= render FoxTail::ButtonComponent.new trigger.html_attributes do %>
       Open Closable Modal
     <% end %>
   <% end %>
 
-  <%= render Flowbite::DialogComponent.new do |c| %>
+  <%= render FoxTail::DialogComponent.new do |c| %>
     <% c.with_header do %>
       <h3 class="text-xl font-semibold">Closable Dialog</h3>
       <%= render m.close_icon_button_component %>

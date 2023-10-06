@@ -1,10 +1,10 @@
 <div class="p-6 text-center">
-  <%= render Flowbite::DrawerTriggerComponent.new(:drawer_example_trigger, "#drawer_example") do |t| %>
-    <%= render Flowbite::ButtonComponent.new(t.html_attributes).with_content("Show Drawer") %>
+  <%= render FoxTail::DrawerTriggerComponent.new(:drawer_example_trigger, "#drawer_example") do |t| %>
+    <%= render FoxTail::ButtonComponent.new(t.html_attributes).with_content("Show Drawer") %>
   <% end %>
 </div>
 
-<%= render Flowbite::DrawerComponent.new(
+<%= render FoxTail::DrawerComponent.new(
   id: :drawer_example,
   placement: placement,
   backdrop: backdrop,

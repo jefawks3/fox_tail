@@ -1,45 +1,45 @@
 # frozen_string_literal: true
 
 # @logical_path components
-# @component Flowbite::ToastComponent
+# @component FoxTail::ToastComponent
 class ToastComponentPreview < ViewComponent::Preview
 
   # @!group Style
 
   def basic
-    render Flowbite::ToastComponent.new do |c|
+    render FoxTail::ToastComponent.new do |c|
       c.with_icon "fire", variant: :solid, fill: true
       "Set yourself free."
     end
   end
 
   def with_dividers
-    render Flowbite::ToastComponent.new dividers: true, dismissible: false do |c|
+    render FoxTail::ToastComponent.new dividers: true, dismissible: false do |c|
       c.with_icon "paper-airplane", variant: :outline, class: "-rotate-45"
       "Message sent."
     end
   end
 
   def with_action
-    render Flowbite::ToastComponent.new do |c|
+    render FoxTail::ToastComponent.new do |c|
       c.with_action_content "Undo"
       "Conversation archived."
     end
   end
 
   def message
-    render Flowbite::ToastComponent.new long_content: true do |c|
+    render FoxTail::ToastComponent.new long_content: true do |c|
       c.with_image "users/neil-sims.png"
       c.capture do
         c.concat content_tag(:span, "Neil Sims", class: "mb-1 text-sm font-semibold text-gray-900 dark:text-white")
         c.concat content_tag(:div, "Hi, thanks for sharing your thoughts.", class: "mb-2 text-xs font-normal")
-        c.concat c.render(Flowbite::ButtonComponent.new(size: :xs).with_content("Reply"))
+        c.concat c.render(FoxTail::ButtonComponent.new(size: :xs).with_content("Reply"))
       end
     end
   end
 
   def push_notification
-    render Flowbite::ToastComponent.new do |c|
+    render FoxTail::ToastComponent.new do |c|
       c.with_header "New Notification"
 
       <<~HTML.html_safe
@@ -69,21 +69,21 @@ class ToastComponentPreview < ViewComponent::Preview
   # @!group Dismissible
 
   def not_dismissible
-    render Flowbite::ToastComponent.new dividers: true, dismissible: false do |c|
+    render FoxTail::ToastComponent.new dividers: true, dismissible: false do |c|
       c.with_icon "paper-airplane", variant: :outline, class: "-rotate-45"
       "Message sent."
     end
   end
 
   def dismissible
-    render Flowbite::ToastComponent.new do |c|
+    render FoxTail::ToastComponent.new do |c|
       c.with_icon "fire", variant: :solid, fill: true
       "Set yourself free."
     end
   end
 
   def auto_close
-    render Flowbite::ToastComponent.new auto_close: true do |c|
+    render FoxTail::ToastComponent.new auto_close: true do |c|
       c.with_action_content "Undo"
       "Conversation archived."
     end

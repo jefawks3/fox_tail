@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# @component Flowbite::IconComponent
+# @component FoxTail::IconComponent
 # @logical_path components
 class IconComponentPreview < ViewComponent::Preview
   # Icon Playground
@@ -12,66 +12,66 @@ class IconComponentPreview < ViewComponent::Preview
   # @param size select { choices: [xs,sm,base,lg,xl] } "The size of the icon"
   # @param color "The theme color of the icon"
   def playground(icon: "shield-check", variant: :solid, size: :base, color: :default)
-    render(Flowbite::IconComponent.new(icon, variant: variant, size: size, color: color))
+    render(FoxTail::IconComponent.new(icon, variant: variant, size: size, color: color))
   end
 
   # @!group Theme
 
   # @label Neutral (Default)
   def neutral
-    render(Flowbite::IconComponent.new("shield-check", color: :neutral))
+    render(FoxTail::IconComponent.new("shield-check", color: :neutral))
   end
 
   def dark
-    render(Flowbite::IconComponent.new("shield-check", color: :dark))
+    render(FoxTail::IconComponent.new("shield-check", color: :dark))
   end
 
   def light
-    render(Flowbite::IconComponent.new("shield-check", color: :light))
+    render(FoxTail::IconComponent.new("shield-check", color: :light))
   end
 
   def blue
-    render(Flowbite::IconComponent.new("shield-check", color: :blue))
+    render(FoxTail::IconComponent.new("shield-check", color: :blue))
   end
 
   def red
-    render(Flowbite::IconComponent.new("shield-check", color: :red))
+    render(FoxTail::IconComponent.new("shield-check", color: :red))
   end
 
   def green
-    render(Flowbite::IconComponent.new("shield-check", color: :green))
+    render(FoxTail::IconComponent.new("shield-check", color: :green))
   end
 
   def yellow
-    render(Flowbite::IconComponent.new("shield-check", color: :yellow))
+    render(FoxTail::IconComponent.new("shield-check", color: :yellow))
   end
 
   def indigo
-    render(Flowbite::IconComponent.new("shield-check", color: :indigo))
+    render(FoxTail::IconComponent.new("shield-check", color: :indigo))
   end
 
   def purple
-    render(Flowbite::IconComponent.new("shield-check", color: :purple))
+    render(FoxTail::IconComponent.new("shield-check", color: :purple))
   end
 
   def pink
-    render(Flowbite::IconComponent.new("shield-check", color: :pink))
+    render(FoxTail::IconComponent.new("shield-check", color: :pink))
   end
 
   def info
-    render(Flowbite::IconComponent.new("shield-check", color: :info))
+    render(FoxTail::IconComponent.new("shield-check", color: :info))
   end
 
   def success
-    render(Flowbite::IconComponent.new("shield-check", color: :success))
+    render(FoxTail::IconComponent.new("shield-check", color: :success))
   end
 
   def warning
-    render(Flowbite::IconComponent.new("shield-check", color: :warning))
+    render(FoxTail::IconComponent.new("shield-check", color: :warning))
   end
 
   def error
-    render(Flowbite::IconComponent.new("shield-check", color: :error))
+    render(FoxTail::IconComponent.new("shield-check", color: :error))
   end
 
   # @!endgroup
@@ -86,7 +86,7 @@ class IconComponentPreview < ViewComponent::Preview
   #
   # @label Solid (Default)
   def solid
-    render(Flowbite::IconComponent.new("shield-check", variant: :solid))
+    render(FoxTail::IconComponent.new("shield-check", variant: :solid))
   end
 
   # Outline Icon
@@ -95,7 +95,7 @@ class IconComponentPreview < ViewComponent::Preview
   #
   # Useful for primary navigation and marketing sections.
   def outline
-    render(Flowbite::IconComponent.new("shield-check", variant: :outline))
+    render(FoxTail::IconComponent.new("shield-check", variant: :outline))
   end
 
   # Mini Icon
@@ -104,7 +104,7 @@ class IconComponentPreview < ViewComponent::Preview
   #
   # Useful for smaller elements like buttons, form elements, and to support text.
   def mini
-    render(Flowbite::IconComponent.new("shield-check", variant: :mini))
+    render(FoxTail::IconComponent.new("shield-check", variant: :mini))
   end
 
   # @!endgroup
@@ -113,27 +113,27 @@ class IconComponentPreview < ViewComponent::Preview
 
   # @label Extra Small
   def xs
-    render(Flowbite::IconComponent.new("shield-check", size: :xs))
+    render(FoxTail::IconComponent.new("shield-check", size: :xs))
   end
 
   # @label Small
   def sm
-    render(Flowbite::IconComponent.new("shield-check", size: :sm))
+    render(FoxTail::IconComponent.new("shield-check", size: :sm))
   end
 
   # @label Base (Default)
   def base
-    render(Flowbite::IconComponent.new("shield-check", size: :base))
+    render(FoxTail::IconComponent.new("shield-check", size: :base))
   end
 
   # @label Large
   def lg
-    render(Flowbite::IconComponent.new("shield-check", size: :lg))
+    render(FoxTail::IconComponent.new("shield-check", size: :lg))
   end
 
   # @label Extra Large
   def xl
-    render(Flowbite::IconComponent.new("shield-check", size: :xl))
+    render(FoxTail::IconComponent.new("shield-check", size: :xl))
   end
 
   # @!endgroup

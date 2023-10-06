@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # @logical_path forms
-# @component Flowbite::ToggleComponent
+# @component FoxTail::ToggleComponent
 class ToggleComponentPreview < ViewComponent::Preview
 
   # @param color select { choices: [default,blue,red,green,yellow,indigo,purple,pink] }
@@ -9,22 +9,22 @@ class ToggleComponentPreview < ViewComponent::Preview
   # @param disabled toggle
   # @param checked toggle
   def playground(color: :default, size: :base, disabled: false, checked: true)
-    render Flowbite::ToggleComponent.new(color: color, size: size, disabled: disabled, checked: checked)
+    render FoxTail::ToggleComponent.new(color: color, size: size, disabled: disabled, checked: checked)
   end
 
   # @!group Sizes
 
   def small
-    render Flowbite::ToggleComponent.new(size: :sm)
+    render FoxTail::ToggleComponent.new(size: :sm)
   end
 
   # @label Base (Default)
   def base
-    render Flowbite::ToggleComponent.new(size: :base)
+    render FoxTail::ToggleComponent.new(size: :base)
   end
 
   def large
-    render Flowbite::ToggleComponent.new(size: :lg)
+    render FoxTail::ToggleComponent.new(size: :lg)
   end
 
   # @!endgroup
@@ -32,35 +32,35 @@ class ToggleComponentPreview < ViewComponent::Preview
   # @!group Color
 
   def default
-    render Flowbite::ToggleComponent.new(color: :default, checked: true)
+    render FoxTail::ToggleComponent.new(color: :default, checked: true)
   end
 
   def blue
-    render Flowbite::ToggleComponent.new(color: :blue, checked: true)
+    render FoxTail::ToggleComponent.new(color: :blue, checked: true)
   end
 
   def red
-    render Flowbite::ToggleComponent.new(color: :red, checked: true)
+    render FoxTail::ToggleComponent.new(color: :red, checked: true)
   end
 
   def green
-    render Flowbite::ToggleComponent.new(color: :green, checked: true)
+    render FoxTail::ToggleComponent.new(color: :green, checked: true)
   end
 
   def yellow
-    render Flowbite::ToggleComponent.new(color: :yellow, checked: true)
+    render FoxTail::ToggleComponent.new(color: :yellow, checked: true)
   end
 
   def indigo
-    render Flowbite::ToggleComponent.new(color: :indigo, checked: true)
+    render FoxTail::ToggleComponent.new(color: :indigo, checked: true)
   end
 
   def purple
-    render Flowbite::ToggleComponent.new(color: :purple, checked: true)
+    render FoxTail::ToggleComponent.new(color: :purple, checked: true)
   end
 
   def pink
-    render Flowbite::ToggleComponent.new(color: :pink, checked: true)
+    render FoxTail::ToggleComponent.new(color: :pink, checked: true)
   end
 
   # @!endgroup
@@ -68,11 +68,11 @@ class ToggleComponentPreview < ViewComponent::Preview
   # @!group Checked
 
   def unchecked
-    render Flowbite::ToggleComponent.new(checked: false)
+    render FoxTail::ToggleComponent.new(checked: false)
   end
 
   def checked
-    render Flowbite::ToggleComponent.new(checked: true)
+    render FoxTail::ToggleComponent.new(checked: true)
   end
 
   # @!endgroup
@@ -80,11 +80,11 @@ class ToggleComponentPreview < ViewComponent::Preview
   # @!group Disabled
 
   def active
-    render Flowbite::ToggleComponent.new(disabled: false, checked: true)
+    render FoxTail::ToggleComponent.new(disabled: false, checked: true)
   end
 
   def disabled
-    render Flowbite::ToggleComponent.new(disabled: true, checked: true)
+    render FoxTail::ToggleComponent.new(disabled: true, checked: true)
   end
 
   # @!endgroup

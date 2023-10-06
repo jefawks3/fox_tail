@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 # @logical_path components
-# @component Flowbite::TableComponent
+# @component FoxTail::TableComponent
 class TableComponentPreview < ViewComponent::Preview
 
   def default
-    render Flowbite::TableComponent.new do |t|
+    render FoxTail::TableComponent.new do |t|
       t.with_header do |h|
         h.with_column_content "Product Name"
         h.with_column_content "Color"
@@ -48,7 +48,7 @@ class TableComponentPreview < ViewComponent::Preview
   # @!group Highlight
 
   def stripped_rows
-    render Flowbite::TableComponent.new highlight: :rows do |t|
+    render FoxTail::TableComponent.new highlight: :rows do |t|
       t.with_header do |h|
         h.with_column_content "Product Name"
         h.with_column_content "Color"
@@ -89,7 +89,7 @@ class TableComponentPreview < ViewComponent::Preview
   end
 
   def stripped_columns
-    render Flowbite::TableComponent.new highlight: :columns do |t|
+    render FoxTail::TableComponent.new highlight: :columns do |t|
       t.with_header do |h|
         h.with_column_content "Product Name"
         h.with_column_content "Color"
@@ -130,7 +130,7 @@ class TableComponentPreview < ViewComponent::Preview
   end
 
   def hover
-    render Flowbite::TableComponent.new hover: true do |t|
+    render FoxTail::TableComponent.new hover: true do |t|
       t.with_header do |h|
         h.with_column_content "Product Name"
         h.with_column_content "Color"
@@ -175,7 +175,7 @@ class TableComponentPreview < ViewComponent::Preview
   # @!group Layouts
 
   def table_footer
-    render Flowbite::TableComponent.new hover: true do |t|
+    render FoxTail::TableComponent.new hover: true do |t|
       t.with_header do |h|
         h.with_column_content "Product Name"
         h.with_column_content "Quantity"
@@ -215,7 +215,7 @@ class TableComponentPreview < ViewComponent::Preview
   end
 
   def table_caption
-    render Flowbite::TableComponent.new do |t|
+    render FoxTail::TableComponent.new do |t|
       t.with_caption do
         <<~HTML.html_safe
            Our Products
@@ -269,7 +269,7 @@ class TableComponentPreview < ViewComponent::Preview
   # @!group Border
 
   def bordered
-    render Flowbite::TableComponent.new border: true do |t|
+    render FoxTail::TableComponent.new border: true do |t|
       t.with_header do |h|
         h.with_column_content "Product Name"
         h.with_column_content "Color"
@@ -310,7 +310,7 @@ class TableComponentPreview < ViewComponent::Preview
   end
 
   def borderless
-    render Flowbite::TableComponent.new border: false do |t|
+    render FoxTail::TableComponent.new border: false do |t|
       t.with_header do |h|
         h.with_column_content "Product Name"
         h.with_column_content "Color"

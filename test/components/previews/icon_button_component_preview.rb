@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# @component Flowbite::IconButtonComponent
+# @component FoxTail::IconButtonComponent
 # @logical_path components
 class IconButtonComponentPreview < ViewComponent::Preview
 
@@ -11,7 +11,7 @@ class IconButtonComponentPreview < ViewComponent::Preview
   # @param pill toggle "Display the button as a circle"
   # @param content "The hidden text for screen readers"
   def playground(icon: "arrow-right", color: :default, variant: :solid, size: :base, pill: false, content: nil)
-    render(Flowbite::IconButtonComponent.new(icon, color: color, variant: variant, size: size, pill: pill)) do
+    render(FoxTail::IconButtonComponent.new(icon, color: color, variant: variant, size: size, pill: pill)) do
       content
     end
   end
@@ -20,27 +20,27 @@ class IconButtonComponentPreview < ViewComponent::Preview
 
   # @label Extra Small
   def xs
-    render(Flowbite::IconButtonComponent.new("arrow-right", size: :xs))
+    render(FoxTail::IconButtonComponent.new("arrow-right", size: :xs))
   end
 
   # @label Small
   def sm
-    render(Flowbite::IconButtonComponent.new("arrow-right", size: :sm))
+    render(FoxTail::IconButtonComponent.new("arrow-right", size: :sm))
   end
 
   # @label Base (Default)
   def base
-    render(Flowbite::IconButtonComponent.new("arrow-right", size: :base))
+    render(FoxTail::IconButtonComponent.new("arrow-right", size: :base))
   end
 
   # @label Large
   def lg
-    render(Flowbite::IconButtonComponent.new("arrow-right", size: :lg))
+    render(FoxTail::IconButtonComponent.new("arrow-right", size: :lg))
   end
 
   # @label Extra Large
   def xl
-    render(Flowbite::IconButtonComponent.new("arrow-right", size: :xl))
+    render(FoxTail::IconButtonComponent.new("arrow-right", size: :xl))
   end
 
   # @!endgroup
@@ -48,19 +48,19 @@ class IconButtonComponentPreview < ViewComponent::Preview
   # @!group Styles
 
   def default
-    render(Flowbite::IconButtonComponent.new("arrow-right"))
+    render(FoxTail::IconButtonComponent.new("arrow-right"))
   end
 
   def rounded
-    render(Flowbite::IconButtonComponent.new("arrow-right", pill: true))
+    render(FoxTail::IconButtonComponent.new("arrow-right", pill: true))
   end
 
   def outline
-    render(Flowbite::IconButtonComponent.new("arrow-right", variant: :outline))
+    render(FoxTail::IconButtonComponent.new("arrow-right", variant: :outline))
   end
 
   def disabled
-    render(Flowbite::IconButtonComponent.new("arrow-right", disabled: true))
+    render(FoxTail::IconButtonComponent.new("arrow-right", disabled: true))
   end
 
   # @!endgroup
@@ -69,17 +69,17 @@ class IconButtonComponentPreview < ViewComponent::Preview
 
   # @label Circle
   def fab_circle
-    render(Flowbite::IconButtonComponent.new("plus", size: :fab, pill: true))
+    render(FoxTail::IconButtonComponent.new("plus", size: :fab, pill: true))
   end
 
   # @label Square
   def fab_square
-    render(Flowbite::IconButtonComponent.new("plus", size: :fab))
+    render(FoxTail::IconButtonComponent.new("plus", size: :fab))
   end
 
   # @!endgroup
 
   def controlled
-    render(Flowbite::IconButtonComponent.new("arrow-right", controlled: true, onclick: "this.setAttribute('data-flowbite--clickable-state-value', 'disable')"))
+    render(FoxTail::IconButtonComponent.new("arrow-right", controlled: true, onclick: "this.setAttribute('data-fox_tail--clickable-state-value', 'disable')"))
   end
 end

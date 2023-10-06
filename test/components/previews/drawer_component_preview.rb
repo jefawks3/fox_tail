@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # @logical_path components
-# @component Flowbite::DrawerComponent
+# @component FoxTail::DrawerComponent
 class DrawerComponentPreview < ViewComponent::Preview
 
   # @param placement select {choices: [left,top,right,bottom]}

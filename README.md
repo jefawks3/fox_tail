@@ -1,5 +1,5 @@
-# Flowbite::ViewComponents
-Unofficial Rails View Components built for Flowbite and Tailwind CSS
+# FoxTail
+Rails View Components built with Flowbite and Tailwind CSS
 
 ## Usage
 How to use my plugin.
@@ -8,7 +8,7 @@ How to use my plugin.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "flowbite-view_components"
+gem "fox_tail"
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ $ bundle
 
 Or install it yourself as:
 ```bash
-$ gem install flowbite-view_components
+$ gem install fox_tail
 ```
 
 ## Contributing

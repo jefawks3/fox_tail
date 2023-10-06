@@ -1,6 +1,6 @@
 <div class="w-72 text-gray-800 dark:text-gray-100 font-light">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  <%= render(Flowbite::TooltipComponent.new(:"inline_#{inline}_tooltip", inline: inline)) do |c| %>
+  <%= render(FoxTail::TooltipComponent.new(:"inline_#{inline}_tooltip", inline: inline)) do |c| %>
     <% c.with_trigger(class: "text-blue-600 dark:text-blue-500 cursor-pointer font-medium") do |trigger| %>
       <%= content_tag :span, "Etiam ultricies", trigger.html_attributes %>
     <% end %>

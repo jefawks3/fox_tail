@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # @logical_path components
-# @component Flowbite::ModalComponent
+# @component FoxTail::ModalComponent
 class ModalComponentPreview < ViewComponent::Preview
   # @!group Style
   def popup

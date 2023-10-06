@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 # @logical_path components
-# @component Flowbite::TabsComponent
+# @component FoxTail::TabsComponent
 class TabsComponentPreview < ViewComponent::Preview
 
   def default
-    render Flowbite::TabsComponent.new do |c|
+    render FoxTail::TabsComponent.new do |c|
       c.with_tab(selected: true).with_content "Profile"
       c.with_tab_content "Dashboard"
       c.with_tab_content "Settings"
@@ -15,7 +15,7 @@ class TabsComponentPreview < ViewComponent::Preview
   end
 
   def underline
-    render Flowbite::TabsComponent.new variant: :underline do |c|
+    render FoxTail::TabsComponent.new variant: :underline do |c|
       c.with_tab(selected: true).with_content "Profile"
       c.with_tab_content "Dashboard"
       c.with_tab_content "Settings"
@@ -25,7 +25,7 @@ class TabsComponentPreview < ViewComponent::Preview
   end
 
   def visuals
-    render Flowbite::TabsComponent.new variant: :underline do |c|
+    render FoxTail::TabsComponent.new variant: :underline do |c|
       c.with_tab(selected: true) do |t|
         t.with_left_icon "user-circle"
         "Profile"
@@ -49,7 +49,7 @@ class TabsComponentPreview < ViewComponent::Preview
   end
 
   def pills
-    render Flowbite::TabsComponent.new variant: :pills do |c|
+    render FoxTail::TabsComponent.new variant: :pills do |c|
       c.with_tab(selected: true).with_content "Profile"
       c.with_tab_content "Dashboard"
       c.with_tab_content "Settings"
@@ -59,7 +59,7 @@ class TabsComponentPreview < ViewComponent::Preview
   end
 
   def full_width
-    render Flowbite::TabsComponent.new variant: :full_width do |c|
+    render FoxTail::TabsComponent.new variant: :full_width do |c|
       c.with_tab(selected: true, class: "rounded-l-lg").with_content "Profile"
       c.with_tab_content "Dashboard"
       c.with_tab_content "Settings"
@@ -69,7 +69,7 @@ class TabsComponentPreview < ViewComponent::Preview
   end
 
   def controlled
-    render Flowbite::TabsComponent.new variant: :underline, controlled: true do |c|
+    render FoxTail::TabsComponent.new variant: :underline, controlled: true do |c|
       c.with_tab(selected: true).with_content "Profile"
       c.with_tab_content "Dashboard"
       c.with_tab_content "Settings"
@@ -79,7 +79,7 @@ class TabsComponentPreview < ViewComponent::Preview
   end
 
   def panels
-    render Flowbite::TabsComponent.new id: :tabs_with_panels, variant: :underline, controlled: true do |c|
+    render FoxTail::TabsComponent.new id: :tabs_with_panels, variant: :underline, controlled: true do |c|
       c.with_tab(selected: true, panel_id: :profile).with_content "Profile"
       c.with_tab(panel_id: :dashboard).with_content("Dashboard")
       c.with_tab(panel_id: :settings).with_content("Settings")
