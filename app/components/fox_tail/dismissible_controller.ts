@@ -1,15 +1,15 @@
-import {Controller} from "@hotwired/stimulus";
-import parseDuration from 'parse-duration'
+import { Controller } from '@hotwired/stimulus';
+import parseDuration from 'parse-duration';
 
-import {addClasses} from "../../../src/utilities/tailwind";
+import { addClasses } from '../../../src/utilities/tailwind';
 
 export default class extends Controller {
-    static classes = ["dismissing", "dismissed"];
+    static classes = ['dismissing', 'dismissed'];
 
     static values = {
         remove: {
             type: Boolean,
-            default: false
+            default: false,
         },
         autoClose: {
             type: Boolean,
@@ -33,7 +33,9 @@ export default class extends Controller {
     connect() {
         super.connect();
 
-        if (this.autoCloseValue) { this.setTimer(); }
+        if (this.autoCloseValue) {
+            this.setTimer();
+        }
     }
 
     disconnect() {
@@ -63,7 +65,8 @@ export default class extends Controller {
     }
 
     protected onDismissing(): boolean {
-        return this.dispatch('dismissing', { cancelable: true }).defaultPrevented;
+        return this.dispatch('dismissing', { cancelable: true })
+            .defaultPrevented;
     }
 
     protected onDismissed(): void {
@@ -71,14 +74,23 @@ export default class extends Controller {
     }
 
     private calculateDuration(): number {
-        return parseDuration(getComputedStyle(this.element).transitionDuration.split(",")[0].trim()) as number;
+        return parseDuration(
+            getComputedStyle(this.element)
+                .transitionDuration.split(',')[0]
+                .trim(),
+        ) as number;
     }
 
     private setTimer(): void {
-        this._autoCloseTimer = setTimeout(this.dismiss.bind(this), this.delayValue);
+        this._autoCloseTimer = setTimeout(
+            this.dismiss.bind(this),
+            this.delayValue,
+        );
     }
 
     private clearTimer(): void {
-        if (this._autoCloseTimer) { clearTimeout(this._autoCloseTimer); }
+        if (this._autoCloseTimer) {
+            clearTimeout(this._autoCloseTimer);
+        }
     }
 }

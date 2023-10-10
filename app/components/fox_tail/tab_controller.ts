@@ -1,11 +1,11 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
-import CollapsibleController from "./collapsible_controller";
-import {setClasses} from '../../../src/utilities/tailwind';
+import CollapsibleController from './collapsible_controller';
+import { setClasses } from '../../../src/utilities/tailwind';
 
 export default class TabController extends Controller {
-    static classes = ["active", "selected"];
-    static outlets = ["fox-tail--tab", "fox-tail--collapsible"];
+    static classes = ['active', 'selected'];
+    static outlets = ['fox-tail--tab', 'fox-tail--collapsible'];
 
     static values = {
         selected: {
@@ -28,10 +28,14 @@ export default class TabController extends Controller {
         super.connect();
 
         this._selected = this.selectedValue;
-        this.element.setAttribute("aria-selected", this._selected.toString());
+        this.element.setAttribute('aria-selected', this._selected.toString());
 
         if (this._selected) {
-            setClasses(this.element, ...this.activeClasses, ...this.selectedClasses);
+            setClasses(
+                this.element,
+                ...this.activeClasses,
+                ...this.selectedClasses,
+            );
         } else {
             setClasses(this.element, ...this.activeClasses);
         }
@@ -44,9 +48,9 @@ export default class TabController extends Controller {
             outlet.hide();
         }
 
-        if (outlet.element.id && !this.element.hasAttribute("aria-controls")) {
-            const id = outlet.element.id.replace(/^#/, "");
-            this.element.setAttribute("aria-controls", id);
+        if (outlet.element.id && !this.element.hasAttribute('aria-controls')) {
+            const id = outlet.element.id.replace(/^#/, '');
+            this.element.setAttribute('aria-controls', id);
         }
     }
 
@@ -57,9 +61,14 @@ export default class TabController extends Controller {
 
         this._selected = true;
         this.deselectSiblings();
-        setClasses(this.element, ...this.activeClasses, ...this.selectedClasses);
-        this.element.setAttribute("aria-selected", "true");
-        this.hasFoxTailCollapsibleOutlet && this.foxTailCollapsibleOutlet.show();
+        setClasses(
+            this.element,
+            ...this.activeClasses,
+            ...this.selectedClasses,
+        );
+        this.element.setAttribute('aria-selected', 'true');
+        this.hasFoxTailCollapsibleOutlet &&
+            this.foxTailCollapsibleOutlet.show();
         this.onSelected();
     }
 
@@ -70,13 +79,14 @@ export default class TabController extends Controller {
 
         this._selected = false;
         setClasses(this.element, ...this.activeClasses);
-        this.element.setAttribute("aria-selected", "false");
-        this.hasFoxTailCollapsibleOutlet && this.foxTailCollapsibleOutlet.hide();
+        this.element.setAttribute('aria-selected', 'false');
+        this.hasFoxTailCollapsibleOutlet &&
+            this.foxTailCollapsibleOutlet.hide();
         this.onDeselected();
     }
 
     protected onSelect(): boolean {
-        return this.dispatch('select', {cancelable: true}).defaultPrevented;
+        return this.dispatch('select', { cancelable: true }).defaultPrevented;
     }
 
     protected onSelected(): void {
@@ -84,7 +94,7 @@ export default class TabController extends Controller {
     }
 
     protected onDeselect(): boolean {
-        return this.dispatch('deselect', {cancelable: true}).defaultPrevented;
+        return this.dispatch('deselect', { cancelable: true }).defaultPrevented;
     }
 
     protected onDeselected(): void {

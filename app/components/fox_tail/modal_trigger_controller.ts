@@ -1,8 +1,8 @@
-import {Controller} from "@hotwired/stimulus";
-import ModalController from "./modal_controller";
+import { Controller } from '@hotwired/stimulus';
+import ModalController from './modal_controller';
 
 export default class extends Controller {
-    static outlets = ["fox-tail--modal"];
+    static outlets = ['fox-tail--modal'];
 
     declare readonly foxTailModalOutlet: ModalController;
 

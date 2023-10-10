@@ -1,24 +1,24 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
-import usePreventBodyScroll from "../../../src/mixins/use_prevent_body_scroll";
-import useKeyboardListener from "../../../src/mixins/use_keyboard_listener";
-import useClickOutside from "../../../src/mixins/use_click_outside";
-import Stack from "../../../src/utilities/stack";
+import usePreventBodyScroll from '../../../src/mixins/use_prevent_body_scroll';
+import useKeyboardListener from '../../../src/mixins/use_keyboard_listener';
+import useClickOutside from '../../../src/mixins/use_click_outside';
+import Stack from '../../../src/utilities/stack';
 
-export default class extends Controller {
-    static modals = new Stack();
+const modals = new Stack<ModalController>();
 
-    static classes = ["visible", "hidden", "body"];
-    static targets = ["content"];
+export default class ModalController extends Controller {
+    static classes = ['visible', 'hidden', 'body'];
+    static targets = ['content'];
 
     static values = {
         static: {
-          type: Boolean,
-          default: false,
+            type: Boolean,
+            default: false,
         },
         closeable: {
             type: Boolean,
-            default: true
+            default: true,
         },
         bodyScrolling: {
             type: Boolean,
@@ -26,8 +26,8 @@ export default class extends Controller {
         },
         open: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     };
 
     declare readonly staticValue: boolean;
@@ -61,40 +61,43 @@ export default class extends Controller {
     }
 
     get isActive(): boolean {
-        return (this.constructor as any).modals.peak() === this;
+        return modals.peak() === this;
     }
 
     connect() {
         super.connect();
 
         if (!this.bodyScrolling) {
-            [this._disableBodyScrolling, this._enableBodyScrolling] = usePreventBodyScroll(
-                this,
-                {
+            [this._disableBodyScrolling, this._enableBodyScrolling] =
+                usePreventBodyScroll(this, {
                     classes: this.bodyClasses,
-                },
-            );
+                });
         }
 
         if (this.closeableValue) {
-            [this._attachKeyboard, this._detachKeyboard] = useKeyboardListener(this, { element: document.body });
+            [this._attachKeyboard, this._detachKeyboard] = useKeyboardListener(
+                this,
+                { element: document.body },
+            );
 
             if (!this.staticValue) {
-                [this._attachClickOutside, this._detachClickOutside] = useClickOutside(
-                    this,
-                    {
-                        element: this.hasContentTarget ? this.contentTarget : this.element.children[0],
-                    },
-                );
+                [this._attachClickOutside, this._detachClickOutside] =
+                    useClickOutside(this, {
+                        element: this.hasContentTarget
+                            ? this.contentTarget
+                            : this.element.children[0],
+                    });
             }
         }
 
-        if (this.openValue) { this.show(); }
+        if (this.openValue) {
+            this.show();
+        }
     }
 
     disconnect() {
         super.disconnect();
-        (this.constructor as any).modals.remove(this);
+        modals.remove(this);
     }
 
     toggle(): void {
@@ -111,8 +114,8 @@ export default class extends Controller {
         }
 
         this._open = true;
-        (this.constructor as any).modals.forEach((modal: any) => modal.moveToBackground());
-        (this.constructor as any).modals.push(this);
+        modals.forEach((modal: ModalController) => modal.moveToBackground());
+        modals.push(this);
         this.moveToForeground();
         this.onShown();
     }
@@ -123,26 +126,26 @@ export default class extends Controller {
         }
 
         this._open = false;
-        (this.constructor as any).modals.remove(this);
+        modals.remove(this);
         this.moveToBackground();
-        (this.constructor as any).modals.peak()?.moveToForeground();
+        modals.peak()?.moveToForeground();
         this.onHidden();
     }
 
     protected onShow(): boolean {
-        return this.dispatch("show", { cancelable: true }).defaultPrevented;
+        return this.dispatch('show', { cancelable: true }).defaultPrevented;
     }
 
     protected onShown(): void {
-        this.dispatch("shown");
+        this.dispatch('shown');
     }
 
     protected onHide(): boolean {
-        return this.dispatch("hide", { cancelable: true }).defaultPrevented;
+        return this.dispatch('hide', { cancelable: true }).defaultPrevented;
     }
 
     protected onHidden(): void {
-        this.dispatch("hidden");
+        this.dispatch('hidden');
     }
 
     protected onKeyboardEvent(event: KeyboardEvent): void {
@@ -152,7 +155,7 @@ export default class extends Controller {
     }
 
     protected onClickOutside(): void {
-        this.isActive && this.hide()
+        this.isActive && this.hide();
     }
 
     private moveToForeground(): void {
@@ -163,9 +166,9 @@ export default class extends Controller {
         this._visible = true;
         this.element.classList.add(...this.visibleClasses);
         this.element.classList.remove(...this.hiddenClasses);
-        this.element.setAttribute("aria-modal", "true");
-        this.element.setAttribute("role", "dialog");
-        this.element.removeAttribute("aria-hidden");
+        this.element.setAttribute('aria-modal', 'true');
+        this.element.setAttribute('role', 'dialog');
+        this.element.removeAttribute('aria-hidden');
         this._disableBodyScrolling();
         this._attachKeyboard();
         this._attachClickOutside();
@@ -179,9 +182,9 @@ export default class extends Controller {
         this._visible = false;
         this.element.classList.add(...this.hiddenClasses);
         this.element.classList.remove(...this.visibleClasses);
-        this.element.removeAttribute("aria-modal");
-        this.element.removeAttribute("role");
-        this.element.setAttribute("aria-hidden", "true");
+        this.element.removeAttribute('aria-modal');
+        this.element.removeAttribute('role');
+        this.element.setAttribute('aria-hidden', 'true');
         this._enableBodyScrolling();
         this._detachKeyboard();
         this._detachClickOutside();

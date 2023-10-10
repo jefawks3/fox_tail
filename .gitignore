@@ -3,6 +3,7 @@
 /.bundle/
 /doc/
 /log/*.log
+/dist/
 /pkg/
 /tmp/
 /test/dummy/app/assets/builds/

@@ -1,18 +1,18 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
-import CollapsibleController from "./collapsible_controller";
-import useForwardedEventListener from "../../../src/mixins/use_forwarded_event_listener";
+import CollapsibleController from './collapsible_controller';
+import useForwardedEventListener from '../../../src/mixins/use_forwarded_event_listener';
 
 export default class extends Controller {
-    static classes = ["expanded", "collapsed"];
-    static outlets = ["fox-tail--collapsible"];
+    static classes = ['expanded', 'collapsed'];
+    static outlets = ['fox-tail--collapsible'];
 
     static values = {
         collapsed: {
             type: Boolean,
             default: false,
-        }
-    }
+        },
+    };
 
     declare readonly expandedClasses: string[];
     declare readonly collapsedClasses: string[];
@@ -20,20 +20,23 @@ export default class extends Controller {
 
     declare _unsubscribeListener: (() => void) | null;
 
-    foxTailCollapsibleOutletConnected(outlet: CollapsibleController, element: Element): void {
+    foxTailCollapsibleOutletConnected(
+        _outlet: CollapsibleController,
+        element: Element,
+    ): void {
         const [observe, unobserve] = useForwardedEventListener(
             this,
-            ["show", "shown", "hide", "hidden"],
+            ['show', 'shown', 'hide', 'hidden'],
             element,
             this.element,
-            { capture: true, eventPrefix: "fox-tail--collapsible" }
+            { capture: true, eventPrefix: 'fox-tail--collapsible' },
         );
 
         this._unsubscribeListener = unobserve;
         observe();
     }
 
-    foxTailCollapsibleOutletDisconnected(outlet: CollapsibleController, element: Element): void {
+    foxTailCollapsibleOutletDisconnected(): void {
         this._unsubscribeListener && this._unsubscribeListener();
         this._unsubscribeListener = null;
     }
@@ -51,7 +54,10 @@ export default class extends Controller {
     }
 
     onForwardEvent(): void {
-        this.element.setAttribute("aria-expanded", this.foxTailCollapsibleOutlet.isVisible.toString());
+        this.element.setAttribute(
+            'aria-expanded',
+            this.foxTailCollapsibleOutlet.isVisible.toString(),
+        );
 
         if (this.foxTailCollapsibleOutlet.isVisible) {
             this.element.classList.remove(...this.collapsedClasses);

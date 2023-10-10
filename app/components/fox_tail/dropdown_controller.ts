@@ -1,22 +1,22 @@
-import {Controller} from "@hotwired/stimulus";
-import {flip, Placement, shift, offset} from "@floating-ui/dom";
+import { Controller } from '@hotwired/stimulus';
+import { flip, Placement, shift, offset } from '@floating-ui/dom';
 
-import useFloatingUI from "../../../src/mixins/use_floating_ui";
-import useClickOutside from "../../../src/mixins/use_click_outside";
+import useFloatingUI from '../../../src/mixins/use_floating_ui';
+import useClickOutside from '../../../src/mixins/use_click_outside';
 
 export default class extends Controller {
-    static outlets = ["fox-tail--dropdown-trigger"]
-    static classes = ["visible", "hidden"];
+    static outlets = ['fox-tail--dropdown-trigger'];
+    static classes = ['visible', 'hidden'];
 
     static values = {
         reference: String,
         placement: {
             type: String,
-            default: "bottom",
+            default: 'bottom',
         },
         shift: {
             type: Number,
-            default: 0
+            default: 0,
         },
         offset: {
             type: Number,
@@ -25,9 +25,9 @@ export default class extends Controller {
         ignoreClickOutside: String,
         delay: {
             type: Number,
-            default: 300
-        }
-    }
+            default: 300,
+        },
+    };
 
     declare readonly foxTailDropdownTriggerOutletElement: Element;
     declare readonly placementValue: string;
@@ -54,7 +54,7 @@ export default class extends Controller {
 
         [this.attachFloating, this.detachFloating] = useFloatingUI(this, {
             referenceElement: this.foxTailDropdownTriggerOutletElement,
-            strategy: "absolute",
+            strategy: 'absolute',
             placement: this.placementValue as Placement,
             middleware: [
                 offset({
@@ -62,11 +62,12 @@ export default class extends Controller {
                     crossAxis: this.shiftValue,
                 }),
                 flip(),
-                shift()
+                shift(),
             ],
         });
 
-        [this.observeClickOutside, this.unobserveClickOutside] = useClickOutside(this);
+        [this.observeClickOutside, this.unobserveClickOutside] =
+            useClickOutside(this);
     }
 
     show(): void {
@@ -91,26 +92,33 @@ export default class extends Controller {
 
     hoverHide(): void {
         setTimeout(() => {
-            if (!this.foxTailDropdownTriggerOutletElement.matches(":hover")) {
+            if (!this.foxTailDropdownTriggerOutletElement.matches(':hover')) {
                 this.hideDropdown();
             }
-        }, this.delayValue)
+        }, this.delayValue);
     }
 
-    protected onClickOutside({target}: Event): void {
-        const outsideTrigger = !this.foxTailDropdownTriggerOutletElement.contains(target as Node) &&
-            this.foxTailDropdownTriggerOutletElement != target;
+    protected onClickOutside({ target }: Event): void {
+        const outsideTrigger =
+            !this.foxTailDropdownTriggerOutletElement.contains(
+                target as Node,
+            ) && this.foxTailDropdownTriggerOutletElement != target;
         const isIgnored = this.isIgnoredClickOutside(target);
 
-        this.application.logDebugActivity(this.identifier, 'onClickOutside', {outsideTrigger, isIgnored});
+        this.application.logDebugActivity(this.identifier, 'onClickOutside', {
+            outsideTrigger,
+            isIgnored,
+        });
         !isIgnored && outsideTrigger && this.hide();
     }
 
     protected isIgnoredClickOutside(target: EventTarget | null): boolean {
         if (this.hasIgnoreClickOutside) {
-            const elements = document.querySelectorAll(this.ignoreClickOutsideValue);
+            const elements = document.querySelectorAll(
+                this.ignoreClickOutsideValue,
+            );
 
-            for(let i = 0; i < elements.length; i++) {
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].contains(target as Element)) {
                     return true;
                 }
@@ -121,19 +129,19 @@ export default class extends Controller {
     }
 
     protected onShow(): boolean {
-        return this.dispatch("show", {cancelable: true}).defaultPrevented;
+        return this.dispatch('show', { cancelable: true }).defaultPrevented;
     }
 
     protected onShown(): void {
-        this.dispatch("shown");
+        this.dispatch('shown');
     }
 
     protected onHide(): boolean {
-        return this.dispatch("hide", {cancelable: true}).defaultPrevented;
+        return this.dispatch('hide', { cancelable: true }).defaultPrevented;
     }
 
     protected onHidden(): void {
-        this.dispatch("hidden");
+        this.dispatch('hidden');
     }
 
     private showDropdown(): boolean {
@@ -144,7 +152,7 @@ export default class extends Controller {
         this.attachFloating();
         this.element.classList.remove(...this.hiddenClasses);
         this.element.classList.add(...this.visibleClasses);
-        this.element.removeAttribute("aria-hidden");
+        this.element.removeAttribute('aria-hidden');
         this._isVisible = true;
         this.onShown();
 
@@ -160,7 +168,7 @@ export default class extends Controller {
         this.detachFloating();
         this.element.classList.remove(...this.visibleClasses);
         this.element.classList.add(...this.hiddenClasses);
-        this.element.setAttribute("aria-hidden", "true");
+        this.element.setAttribute('aria-hidden', 'true');
         this._isVisible = false;
         this.onHidden();
 

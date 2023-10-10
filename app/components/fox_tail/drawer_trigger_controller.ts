@@ -1,23 +1,26 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
-import DrawerController from "./drawer_controller";
-import useForwardedEventListener from "../../../src/mixins/use_forwarded_event_listener";
+import DrawerController from './drawer_controller';
+import useForwardedEventListener from '../../../src/mixins/use_forwarded_event_listener';
 
 export default class extends Controller {
-    static classes = ["open", "closed"];
-    static outlets = ["fox-tail--drawer"];
+    static classes = ['open', 'closed'];
+    static outlets = ['fox-tail--drawer'];
 
     declare readonly openClasses: string[];
     declare readonly closedClasses: string[];
     declare readonly foxTailDrawerOutlet: DrawerController;
 
-    foxTailDrawerOutletConnected(outlet: DrawerController, element: HTMLElement): void {
+    foxTailDrawerOutletConnected(
+        outlet: DrawerController,
+        element: HTMLElement,
+    ): void {
         const [observe] = useForwardedEventListener(
             this,
-            ["show", "shown", "hide", "hidden"],
+            ['show', 'shown', 'hide', 'hidden'],
             element,
             this.element,
-            { capture: true, eventPrefix: "fox-tail--drawer" }
+            { capture: true, eventPrefix: 'fox-tail--drawer' },
         );
 
         observe();
@@ -51,4 +54,3 @@ export default class extends Controller {
         }
     }
 }
-

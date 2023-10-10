@@ -1,20 +1,21 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
-import CollapsibleController from "./collapsible_controller";
+import CollapsibleController from './collapsible_controller';
 
 export default class extends Controller {
-    static targets = ["collapsible"];
+    static targets = ['collapsible'];
 
     static values = {
         alwaysOpen: {
             type: Boolean,
             default: false,
-        }
+        },
     };
 
     declare readonly alwaysOpenValue: boolean;
 
-    private _collapsibleItems: Map<Element, CollapsibleController | null> = new Map();
+    private _collapsibleItems: Map<Element, CollapsibleController | null> =
+        new Map();
 
     initialize() {
         super.initialize();
@@ -24,12 +25,20 @@ export default class extends Controller {
 
     collapsibleTargetConnected(element: Element): void {
         this._collapsibleItems.set(element, null);
-        element.addEventListener("fox-tail--collapsible:show", this.handleShow, true);
+        element.addEventListener(
+            'fox-tail--collapsible:show',
+            this.handleShow,
+            true,
+        );
     }
 
     collapsibleTargetDisconnected(element: Element): void {
         this._collapsibleItems.delete(element);
-        element.removeEventListener("fox-tail--collapsible:show", this.handleShow, true);
+        element.removeEventListener(
+            'fox-tail--collapsible:show',
+            this.handleShow,
+            true,
+        );
     }
 
     showAll(event?: Event): void {
@@ -57,7 +66,11 @@ export default class extends Controller {
 
         this._collapsibleItems.forEach((controller, element) => {
             if (!controller) {
-                controller = this.application.getControllerForElementAndIdentifier(element, "fox-tail--collapsible") as CollapsibleController;
+                controller =
+                    this.application.getControllerForElementAndIdentifier(
+                        element,
+                        'fox-tail--collapsible',
+                    ) as CollapsibleController;
                 controller && this._collapsibleItems.set(element, controller);
             }
 
@@ -65,7 +78,7 @@ export default class extends Controller {
                 controllers.push(controller);
             } else {
                 throw new Error(
-                    `Missing collapsible controller for "collapsible" target for host controller "${this.identifier}".`
+                    `Missing collapsible controller for "collapsible" target for host controller "${this.identifier}".`,
                 );
             }
         });

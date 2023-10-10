@@ -1,14 +1,14 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static classes = ["hidden"];
+    static classes = ['hidden'];
 
     static values = {
         collapsed: {
             type: Boolean,
             default: false,
-        }
-    }
+        },
+    };
 
     declare readonly collapsedValue: boolean;
     declare readonly hiddenClasses: string[];
@@ -45,7 +45,7 @@ export default class extends Controller {
             return;
         }
 
-        this.element.classList.add(...this.hiddenClasses)
+        this.element.classList.add(...this.hiddenClasses);
         this._isVisible = false;
         this.onHidden();
     }
@@ -59,18 +59,18 @@ export default class extends Controller {
     }
 
     protected onHide(): boolean {
-        return this.dispatch("hide", {cancelable: true}).defaultPrevented;
+        return this.dispatch('hide', { cancelable: true }).defaultPrevented;
     }
 
     protected onHidden(): void {
-        this.dispatch("hidden");
+        this.dispatch('hidden');
     }
 
     protected onShow(): boolean {
-        return this.dispatch("show", {cancelable: true}).defaultPrevented;
+        return this.dispatch('show', { cancelable: true }).defaultPrevented;
     }
 
     protected onShown(): void {
-        this.dispatch("shown");
+        this.dispatch('shown');
     }
 }

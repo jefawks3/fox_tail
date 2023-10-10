@@ -1,7 +1,7 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
-import {safeCallMethod} from "../utilities/reflection";
-import {subscribeTo, SubscribeToOptions} from "../utilities/event_helpers";
+import { safeCallMethod } from '../utilities/reflection';
+import { subscribeTo, SubscribeToOptions } from '../utilities/event_helpers';
 
 export interface ForwardedEvent {
     event: Event;
@@ -9,21 +9,40 @@ export interface ForwardedEvent {
     target: Element;
 }
 
-export default (controller: Controller, eventName: string[] | string, listenTo: Element, forwardTo: Element, options?: SubscribeToOptions) => {
+export default (
+    controller: Controller,
+    eventName: string[] | string,
+    listenTo: Element,
+    forwardTo: Element,
+    options?: SubscribeToOptions,
+) => {
     const handler = (event: CustomEvent) => {
-        const {detail, bubbles, cancelable} = event;
-        const newEvent = new CustomEvent(event.type, {detail, bubbles, cancelable});
+        const { detail, bubbles, cancelable } = event;
+        const newEvent = new CustomEvent(event.type, {
+            detail,
+            bubbles,
+            cancelable,
+        });
 
-        safeCallMethod(controller, "onForwardEvent", { element: listenTo, target: forwardTo, event });
+        safeCallMethod(controller, 'onForwardEvent', {
+            element: listenTo,
+            target: forwardTo,
+            event,
+        });
         forwardTo.dispatchEvent(newEvent);
         cancelable && newEvent.defaultPrevented && event.preventDefault();
-    }
+    };
 
     let unsubscribe: (() => void) | null = null;
 
     const observe = () => {
-        unsubscribe = subscribeTo(listenTo, eventName, handler as any, options);
-    }
+        unsubscribe = subscribeTo(
+            listenTo,
+            eventName,
+            handler as EventListenerOrEventListenerObject,
+            options,
+        );
+    };
 
     const unobserve = () => {
         if (unsubscribe) {
@@ -31,7 +50,7 @@ export default (controller: Controller, eventName: string[] | string, listenTo: 
         }
 
         unsubscribe = null;
-    }
+    };
 
     return [observe, unobserve] as const;
-}
+};

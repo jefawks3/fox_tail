@@ -1,12 +1,12 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
-import {safeCallMethod} from "../utilities/reflection";
+import { safeCallMethod } from '../utilities/reflection';
 
 interface Options {
     classes?: string[] | null | undefined;
 }
 
-const DEFAULT_CLASSES = "overflow-hidden";
+const DEFAULT_CLASSES = 'overflow-hidden';
 
 export default (controller: Controller, options: Options = {}) => {
     let scrollPrevented = false;
@@ -24,9 +24,12 @@ export default (controller: Controller, options: Options = {}) => {
             document.body.classList.add(DEFAULT_CLASSES);
         }
 
-        controller.application.logDebugActivity("usePreventBodyScroll", "preventScroll");
-        safeCallMethod(controller, "onBodyScrollingDisabled");
-    }
+        controller.application.logDebugActivity(
+            'usePreventBodyScroll',
+            'preventScroll',
+        );
+        safeCallMethod(controller, 'onBodyScrollingDisabled');
+    };
 
     const enableScroll = () => {
         if (!scrollPrevented) {
@@ -41,10 +44,12 @@ export default (controller: Controller, options: Options = {}) => {
             document.body.classList.remove(DEFAULT_CLASSES);
         }
 
-        controller.application.logDebugActivity("usePreventBodyScroll", "enableScroll");
-        safeCallMethod(controller, "onBodyScrollingEnabled");
-    }
-
+        controller.application.logDebugActivity(
+            'usePreventBodyScroll',
+            'enableScroll',
+        );
+        safeCallMethod(controller, 'onBodyScrollingEnabled');
+    };
 
     const controllerDisconnect = controller.disconnect.bind(controller);
 
@@ -56,4 +61,4 @@ export default (controller: Controller, options: Options = {}) => {
     });
 
     return [preventScroll, enableScroll];
-}
+};

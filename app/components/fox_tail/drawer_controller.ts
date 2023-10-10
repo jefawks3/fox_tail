@@ -1,11 +1,11 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
-import useBackdrop from "../../../src/mixins/use_backdrop";
-import usePreventBodyScroll from "../../../src/mixins/use_prevent_body_scroll";
-import useKeyboardListener from "../../../src/mixins/use_keyboard_listener";
+import useBackdrop from '../../../src/mixins/use_backdrop';
+import usePreventBodyScroll from '../../../src/mixins/use_prevent_body_scroll';
+import useKeyboardListener from '../../../src/mixins/use_keyboard_listener';
 
 export default class extends Controller {
-    static classes = ["visible", "hidden", "backdrop", "body"]
+    static classes = ['visible', 'hidden', 'backdrop', 'body'];
 
     static values = {
         backdrop: {
@@ -19,8 +19,8 @@ export default class extends Controller {
         open: {
             type: Boolean,
             default: false,
-        }
-    }
+        },
+    };
 
     declare readonly backdropValue: boolean;
     declare readonly bodyScrollingValue: boolean;
@@ -44,16 +44,21 @@ export default class extends Controller {
         super.connect();
 
         if (this.backdropValue) {
-            [this._showBackdrop, this._hideBackdrop] = useBackdrop(this, { classes: this.backdropClasses });
+            [this._showBackdrop, this._hideBackdrop] = useBackdrop(this, {
+                classes: this.backdropClasses,
+            });
         }
 
         if (this.bodyScrollingValue) {
-            [this._disableBodyScrolling, this._enableBodyScrolling] = usePreventBodyScroll(this, { classes: this.bodyClasses });
+            [this._disableBodyScrolling, this._enableBodyScrolling] =
+                usePreventBodyScroll(this, { classes: this.bodyClasses });
         }
 
         useKeyboardListener(this)[0]();
 
-        if (this.openValue) { this.show() }
+        if (this.openValue) {
+            this.show();
+        }
     }
 
     toggle() {
@@ -71,9 +76,9 @@ export default class extends Controller {
 
         this.element.classList.remove(...this.hiddenClasses);
         this.element.classList.add(...this.visibleClasses);
-        this.element.setAttribute("aria-modal", "true");
-        this.element.setAttribute("role", "dialog");
-        this.element.removeAttribute("aria-hidden");
+        this.element.setAttribute('aria-modal', 'true');
+        this.element.setAttribute('role', 'dialog');
+        this.element.removeAttribute('aria-hidden');
         this._disableBodyScrolling();
         this._showBackdrop();
         this._visible = true;
@@ -87,9 +92,9 @@ export default class extends Controller {
 
         this.element.classList.remove(...this.visibleClasses);
         this.element.classList.add(...this.hiddenClasses);
-        this.element.setAttribute("aria-hidden", "true");
-        this.element.removeAttribute("aria-model");
-        this.element.removeAttribute("role");
+        this.element.setAttribute('aria-hidden', 'true');
+        this.element.removeAttribute('aria-model');
+        this.element.removeAttribute('role');
         this._enableBodyScrolling();
         this._hideBackdrop();
         this._visible = false;
@@ -97,7 +102,7 @@ export default class extends Controller {
     }
 
     protected onShow(): boolean {
-        return this.dispatch('show', {cancelable: true}).defaultPrevented;
+        return this.dispatch('show', { cancelable: true }).defaultPrevented;
     }
 
     protected onShown(): void {
@@ -105,7 +110,7 @@ export default class extends Controller {
     }
 
     protected onHide(): boolean {
-        return this.dispatch('hide', {cancelable: true}).defaultPrevented;
+        return this.dispatch('hide', { cancelable: true }).defaultPrevented;
     }
 
     protected onHidden(): void {

@@ -11,18 +11,18 @@ export default class implements Storage {
         this.options = options;
     }
 
-    [name: string]: any;
+    [name: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
     readonly length: number = -1;
 
-    clear(): void { }
+    clear(): void {}
 
     getItem(key: string): string | null {
         const value = Cookies.get(key);
         return value ? value : null;
     }
 
-    key(index: number): string | null {
+    key(): string | null {
         return null;
     }
 

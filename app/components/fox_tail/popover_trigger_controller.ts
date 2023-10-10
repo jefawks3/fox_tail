@@ -1,9 +1,9 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
-import PopoverController from "./popover_controller";
+import PopoverController from './popover_controller';
 
 export default class extends Controller {
-    static outlets = ["fox-tail--popover"];
+    static outlets = ['fox-tail--popover'];
 
     static values = {
         delay: {
@@ -22,7 +22,10 @@ export default class extends Controller {
     }
 
     hoverShow(): void {
-        setTimeout(() => this.foxTailPopoverOutlet.hoverShow(), this.delayValue);
+        setTimeout(
+            () => this.foxTailPopoverOutlet.hoverShow(),
+            this.delayValue,
+        );
     }
 
     hide(): void {
@@ -30,8 +33,8 @@ export default class extends Controller {
     }
 
     hoverHide(): void {
-        setTimeout(() =>{
-            if (!this.foxTailPopoverOutletElement.matches(":hover")) {
+        setTimeout(() => {
+            if (!this.foxTailPopoverOutletElement.matches(':hover')) {
                 this.foxTailPopoverOutlet.hoverHide();
             }
         }, this.delayValue);

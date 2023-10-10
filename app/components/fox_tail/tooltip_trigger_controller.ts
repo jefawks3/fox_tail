@@ -1,9 +1,9 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
-import TooltipController from "./tooltip_controller";
+import TooltipController from './tooltip_controller';
 
 export default class extends Controller {
-    static outlets = ["fox-tail--tooltip"];
+    static outlets = ['fox-tail--tooltip'];
 
     declare readonly foxTailTooltipOutlet: TooltipController;
 

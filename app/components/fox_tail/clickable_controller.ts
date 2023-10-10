@@ -1,5 +1,5 @@
-import { Controller } from "@hotwired/stimulus";
-import {twMerge} from "tailwind-merge";
+import { Controller } from '@hotwired/stimulus';
+import { twMerge } from 'tailwind-merge';
 
 export default class extends Controller {
     static classes = ['active', 'disabled'];
@@ -8,8 +8,8 @@ export default class extends Controller {
     static values = {
         state: {
             type: String,
-            default: "active"
-        }
+            default: 'active',
+        },
     };
 
     declare stateValue: string;
@@ -19,7 +19,7 @@ export default class extends Controller {
     declare readonly loadingTargets: HTMLElement[];
 
     get isLink(): boolean {
-        return this.element.tagName.toLowerCase() === "a";
+        return this.element.tagName.toLowerCase() === 'a';
     }
 
     get isButton(): boolean {
@@ -28,7 +28,7 @@ export default class extends Controller {
 
     connect() {
         super.connect();
-        this.element.addEventListener("click", this.handleClick.bind(this));
+        this.element.addEventListener('click', this.handleClick.bind(this));
     }
 
     activeTargetConnected(element: HTMLElement): void {
@@ -46,41 +46,46 @@ export default class extends Controller {
     }
 
     private handleClick(event: Event): void {
-        if (this.stateValue !== "active") {
+        if (this.stateValue !== 'active') {
             event.preventDefault();
         }
     }
 
     private toggleAriaDisabled(): void {
         if (this.isLink) {
-            this.element.setAttribute("aria-disabled", this.stateValue !== "active" ? "true" : "false")
-        } else if (this.stateValue === "active") {
-            this.element.removeAttribute("disabled");
+            this.element.setAttribute(
+                'aria-disabled',
+                this.stateValue !== 'active' ? 'true' : 'false',
+            );
+        } else if (this.stateValue === 'active') {
+            this.element.removeAttribute('disabled');
         } else {
-            this.element.setAttribute("disabled", "disabled");
+            this.element.setAttribute('disabled', 'disabled');
         }
     }
 
     private toggleClass(): void {
         let classes = this.activeClasses;
 
-        if (this.stateValue !== "active") {
-            classes = [...classes, ...this.disabledClasses]
+        if (this.stateValue !== 'active') {
+            classes = [...classes, ...this.disabledClasses];
         }
 
-        this.element.className = twMerge(classes.join(" "));
+        this.element.className = twMerge(classes.join(' '));
     }
 
     private toggleVisibility(): void {
-        this.activeTargets.forEach(e => this.toggleActiveTargetVisibility(e));
-        this.loadingTargets.forEach(e => this.toggleLoadingTargetVisibility(e));
+        this.activeTargets.forEach((e) => this.toggleActiveTargetVisibility(e));
+        this.loadingTargets.forEach((e) =>
+            this.toggleLoadingTargetVisibility(e),
+        );
     }
 
     private toggleActiveTargetVisibility(element: HTMLElement) {
-        element.classList.toggle('hidden', this.stateValue === "loading");
+        element.classList.toggle('hidden', this.stateValue === 'loading');
     }
 
     private toggleLoadingTargetVisibility(element: HTMLElement) {
-        element.classList.toggle('hidden', this.stateValue !== "loading");
+        element.classList.toggle('hidden', this.stateValue !== 'loading');
     }
 }

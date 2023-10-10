@@ -1,6 +1,6 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
-import debounce from "../../../src/utilities/debounce";
+import debounce from '../../../src/utilities/debounce';
 
 export default class extends Controller {
     static values = {
@@ -8,14 +8,17 @@ export default class extends Controller {
             type: Number,
             default: 0,
         },
-    }
+    };
 
     declare readonly delayValue: number;
-    declare private handleResize: () => void;
+    private declare handleResize: () => void;
 
     initialize() {
         super.initialize();
-        this.handleResize = debounce(this.resizeElement.bind(this), this.delayValue);
+        this.handleResize = debounce(
+            this.resizeElement.bind(this),
+            this.delayValue,
+        );
     }
 
     connect() {
@@ -32,9 +35,12 @@ export default class extends Controller {
     }
 
     private resizeElement(): void {
-        (this.element as HTMLElement).style.height = "1px";
+        (this.element as HTMLElement).style.height = '1px';
         this.element.scrollTop = 0;
-        (this.element as HTMLElement).style.height =
-            `${this.element.scrollHeight - this.element.clientHeight + this.element.getBoundingClientRect().height}px`
+        (this.element as HTMLElement).style.height = `${
+            this.element.scrollHeight -
+            this.element.clientHeight +
+            this.element.getBoundingClientRect().height
+        }px`;
     }
 }

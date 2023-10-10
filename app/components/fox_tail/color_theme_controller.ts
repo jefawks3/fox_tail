@@ -1,11 +1,11 @@
-import {Controller} from "@hotwired/stimulus";
-import CookieStorage from "../../../src/utilities/cookie-storage";
+import { Controller } from '@hotwired/stimulus';
+import CookieStorage from '../../../src/utilities/cookie-storage';
 
 export default class extends Controller {
     static values = {
         key: {
             type: String,
-            default: "color-theme",
+            default: 'color-theme',
         },
         storage: {
             type: String,
@@ -13,10 +13,10 @@ export default class extends Controller {
         },
         defaultTheme: {
             type: String,
-            default: 'media'
+            default: 'media',
         },
         domain: String,
-    }
+    };
 
     declare readonly keyValue: string;
     declare readonly storageValue: string;
@@ -25,7 +25,7 @@ export default class extends Controller {
     declare readonly domainValue: string;
 
     get htmlElement(): Element {
-        return document.querySelector("html") as Element;
+        return document.querySelector('html') as Element;
     }
 
     toggle() {
@@ -37,57 +37,69 @@ export default class extends Controller {
     }
 
     setDarkMode() {
-        if (this.onThemeChange("dark")) { return; }
+        if (this.onThemeChange('dark')) {
+            return;
+        }
 
-        this.htmlElement.classList.add("dark");
-        this.getStorage().setItem(this.keyValue, "dark");
-        this.onThemeChanged("dark");
+        this.htmlElement.classList.add('dark');
+        this.getStorage().setItem(this.keyValue, 'dark');
+        this.onThemeChanged('dark');
     }
 
     setLightMode() {
-        if (this.onThemeChange("light")) { return; }
+        if (this.onThemeChange('light')) {
+            return;
+        }
 
-        this.htmlElement.classList.remove("dark");
-        this.getStorage().setItem(this.keyValue, "light");
-        this.onThemeChanged("light");
+        this.htmlElement.classList.remove('dark');
+        this.getStorage().setItem(this.keyValue, 'light');
+        this.onThemeChanged('light');
     }
 
     setPreferred() {
-        if (this.onThemeChange("media")) { return; }
-
-        this.getStorage().setItem(this.keyValue, "media");
-
-        if (this.getPreferredTheme() === "dark") {
-            this.htmlElement.classList.add("dark");
-        } else {
-            this.htmlElement.classList.remove("dark");
+        if (this.onThemeChange('media')) {
+            return;
         }
 
-        this.onThemeChanged("media")
+        this.getStorage().setItem(this.keyValue, 'media');
+
+        if (this.getPreferredTheme() === 'dark') {
+            this.htmlElement.classList.add('dark');
+        } else {
+            this.htmlElement.classList.remove('dark');
+        }
+
+        this.onThemeChanged('media');
     }
 
     protected onThemeChange(mode: string): boolean {
-        return this.dispatch('change', { detail: {mode}, cancelable: true }).defaultPrevented;
+        return this.dispatch('change', { detail: { mode }, cancelable: true })
+            .defaultPrevented;
     }
 
     protected onThemeChanged(mode: string) {
-        this.dispatch('changed', { detail: {mode} });
+        this.dispatch('changed', { detail: { mode } });
     }
 
     private getStorage(): Storage {
         if (this.storageValue === 'local') {
             return window.localStorage;
-        } else if(this.storageValue === 'session') {
+        } else if (this.storageValue === 'session') {
             return window.sessionStorage;
-        } else if(this.storageValue === 'cookie') {
-            return new CookieStorage({ domain: this.hasDomainValue ? this.domainValue : undefined });
+        } else if (this.storageValue === 'cookie') {
+            return new CookieStorage({
+                domain: this.hasDomainValue ? this.domainValue : undefined,
+            });
         } else {
-            throw `Unknown storage type '${this.storageValue}'`
+            throw `Unknown storage type '${this.storageValue}'`;
         }
     }
 
     private getPreferredTheme(): string {
-        return window.matchMedia && window.matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light"
+        return window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme:dark)').matches
+            ? 'dark'
+            : 'light';
     }
 
     private getCurrentTheme(): string {
@@ -98,9 +110,10 @@ export default class extends Controller {
     private isDarkMode(): boolean {
         let theme = this.getCurrentTheme();
 
-        if (theme === "media") { theme = this.getPreferredTheme() }
+        if (theme === 'media') {
+            theme = this.getPreferredTheme();
+        }
 
-        return theme === "dark";
+        return theme === 'dark';
     }
 }
-

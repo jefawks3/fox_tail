@@ -1,16 +1,23 @@
-import {Controller} from "@hotwired/stimulus";
-import {flip, Placement, shift, offset, Middleware, inline} from "@floating-ui/dom";
+import { Controller } from '@hotwired/stimulus';
+import {
+    flip,
+    Placement,
+    shift,
+    offset,
+    Middleware,
+    inline,
+} from '@floating-ui/dom';
 
-import useFloatingUI from "../../../src/mixins/use_floating_ui";
+import useFloatingUI from '../../../src/mixins/use_floating_ui';
 
 export default class extends Controller {
-    static classes = ["visible", "hidden"];
-    static outlets = ["fox-tail--tooltip-trigger"];
+    static classes = ['visible', 'hidden'];
+    static outlets = ['fox-tail--tooltip-trigger'];
 
     static values = {
         placement: {
             type: String,
-            default: "top",
+            default: 'top',
         },
         offset: {
             type: Number,
@@ -23,8 +30,8 @@ export default class extends Controller {
         inline: {
             type: Boolean,
             default: false,
-        }
-    }
+        },
+    };
 
     declare readonly foxTailTooltipTriggerOutletElement: Element;
     declare readonly placementValue: string;
@@ -54,9 +61,9 @@ export default class extends Controller {
 
         [this.attachFloating, this.detachFloating] = useFloatingUI(this, {
             referenceElement: this.foxTailTooltipTriggerOutletElement,
-            strategy: "absolute",
+            strategy: 'absolute',
             placement: this.placementValue as Placement,
-            middleware
+            middleware,
         });
     }
 
@@ -68,7 +75,7 @@ export default class extends Controller {
         this.attachFloating();
         this.element.classList.remove(...this.hiddenClasses);
         this.element.classList.add(...this.visibleClasses);
-        this.element.removeAttribute("aria-hidden");
+        this.element.removeAttribute('aria-hidden');
         this._isVisible = true;
         this.onShown();
     }
@@ -81,7 +88,7 @@ export default class extends Controller {
         this.detachFloating();
         this.element.classList.remove(...this.visibleClasses);
         this.element.classList.add(...this.hiddenClasses);
-        this.element.setAttribute("aria-hidden", "true");
+        this.element.setAttribute('aria-hidden', 'true');
         this._isVisible = false;
         this.onHidden();
     }
@@ -95,18 +102,18 @@ export default class extends Controller {
     }
 
     protected onShow(): boolean {
-        return this.dispatch("show", {cancelable: true}).defaultPrevented;
+        return this.dispatch('show', { cancelable: true }).defaultPrevented;
     }
 
     protected onShown(): void {
-        this.dispatch("shown");
+        this.dispatch('shown');
     }
 
     protected onHide(): boolean {
-        return this.dispatch("hide", {cancelable: true}).defaultPrevented;
+        return this.dispatch('hide', { cancelable: true }).defaultPrevented;
     }
 
     protected onHidden(): void {
-        this.dispatch("hidden");
+        this.dispatch('hidden');
     }
 }
