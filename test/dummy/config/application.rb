@@ -39,10 +39,11 @@ module Dummy
     config.fox_tail.raise_on_asset_not_found = false
 
     # Lookbook
-    config.lookbook.project_name = "FoxTail ViewComponents"
-    config.lookbook.preview_display_options = {
-      theme: ["light", "dark"]
-    }
+    config.lookbook.project_name = "Fox Tail ViewComponents"
+    config.lookbook.project_logo = FoxTail.root.join("foxtail.svg").read
+    config.lookbook.preview_display_options = { theme: %w[light dark] }
+    config.lookbook.ui_theme = "zinc"
+    config.lookbook.ui_favicon = config.lookbook.project_logo
 
     config.lookbook.page_collection_label = "Docs"
   end
