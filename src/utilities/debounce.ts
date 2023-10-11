@@ -2,7 +2,7 @@
 type Callback = (...args: any[]) => void;
 
 export default (callback: Callback, delay: number): Callback => {
-    let timeout: number;
+    let timeout: NodeJS.Timeout;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (...args: any[]) => {
