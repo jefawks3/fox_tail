@@ -12,3 +12,6 @@ root:
     default:
       base: text-red-900
       bottom: border-red-900
+sub_theme:
+  root:
+    base: p-4 sub-theme

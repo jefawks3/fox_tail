@@ -12,7 +12,7 @@ module FoxTail
     end
 
     def config
-      @config ||= FoxTail::Base.fox_tail_config
+      @config ||= FoxTail::Config.current
     end
 
     def attributes(_options = {})

@@ -5,12 +5,6 @@ require 'fox_tail/stimulus_merger'
 
 module FoxTail
   class Config
-    def initialize
-      @config = self.class.defaults
-    end
-
-    delegate_missing_to :@config
-
     class << self
       alias_method :default, :new
 
@@ -20,9 +14,19 @@ module FoxTail
                                                    stimulus_merger: StimulusMerger.new,
                                                    use_stimulus: true,
                                                    raise_on_asset_not_found: true,
-                                                   color_theme: ActiveSupport::OrderedOptions.new
+                                                   color_theme: {}
                                                  })
       end
+
+      def current
+        @current ||= default
+      end
+    end
+
+    delegate_missing_to :@config
+
+    def initialize
+      @config = self.class.defaults.clone
     end
   end
 end
