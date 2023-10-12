@@ -50,6 +50,10 @@ module FoxTail
       event && event.to_sym != :click ? "#{event}->#{action}" : action
     end
 
+    def action_param_key(name, raw: false)
+      key name, :param, raw: raw
+    end
+
     def event(event_name)
       "#{identifier}:#{event_name}"
     end

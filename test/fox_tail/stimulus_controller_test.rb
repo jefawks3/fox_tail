@@ -60,6 +60,14 @@ class FoxTail::StimulusControllerTest < Minitest::Test
     assert_equal "hover->test-controller#fooBar", @controller.action("fooBar", event: :hover)
   end
 
+  def test_action_param_key
+    assert_equal :test_controller_id_param, @controller.action_param_key(:id)
+  end
+
+  def test_action_param_raw_key
+    assert_equal :"data-test-controller-id-param", @controller.action_param_key(:id, raw: true)
+  end
+
   def test_event
     assert_equal "test-controller:foo-bar", @controller.event("foo-bar")
   end

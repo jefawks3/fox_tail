@@ -1,0 +1,55 @@
+<%= content_tag :div, html_attributes do %>
+  <%= content_tag :div, class: theme.apply("slide/container", self) do %>
+    <% slides.each do |s| %>
+      <%= s %>
+    <% end %>
+  <% end %>
+  <% if show_indicators? %>
+    <%= content_tag :div, class: theme.apply("indicator/container", self) do %>
+      <% slides.each_with_index do |_, i| %>
+        <%= content_tag :button,
+                        nil,
+                        type: :button,
+                        class: theme.apply(:indicator, self),
+                        aria: {
+                          label: I18n.t(:slide_label, scope: "helpers.carousel", default: "Slide #{i + 1}", slide: i)
+                        },
+                        data: {
+                          stimulus_controller.target_key => :indicator,
+                          stimulus_controller.action_param_key(:slide) => i,
+                          action: stimulus_controller.action("goTo")
+                        } if use_stimulus?
+        %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if show_controls? %>
+    <%= content_tag :button,
+                    class: classnames(theme.apply(:control, self), theme.apply("control/previous", self)),
+                    type: :button,
+                    data: { action: use_stimulus? && stimulus_controller.action("previous")  } do %>
+      <%= content_tag :span, class: theme.apply("control/inner_container", self) do %>
+        <%= render FoxTail::IconBaseComponent.new('chevron-left',
+                                                  class: theme.apply("control/visual", self),
+                                                  "aria-hidden": true) %>
+        <%= content_tag :span, class: theme.classname("accessibility.sr_only") do %>
+          <%= I18n.t(:previous, scope: "helpers.carousel", default: "Previous") %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <%= content_tag :button,
+                    class: classnames(theme.apply(:control, self), theme.apply("control/next", self)),
+                    type: :button,
+                    data: { action: use_stimulus? && stimulus_controller.action("next")  } do %>
+      <%= content_tag :span, class: theme.apply("control/inner_container", self) do %>
+        <%= render FoxTail::IconBaseComponent.new('chevron-right',
+                                                  class: theme.apply("control/visual", self),
+                                                  "aria-hidden": true) %>
+        <%= content_tag :span, class: theme.classname("accessibility.sr_only") do %>
+          <%= I18n.t(:next, scope: "helpers.carousel", default: "Next") %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= content %>
+<% end %>
