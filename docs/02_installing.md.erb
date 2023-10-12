@@ -1,0 +1,109 @@
+---
+title: Get started with Fox Tail UI
+label: Get Started
+---
+
+**We don't recommend using [importmap](https://github.com/rails/importmap-rails) with Fox Tail UI project.**
+
+If you currently are using importmaps with your Rails project, you might want to consider migrating over to an asset bundler
+before considering using this project.
+
+## Install Tailwind CSS
+
+1. Add the [cssbundling-rails](https://github.com/rails/cssbundling-rails) GEM
+
+    ```shell
+    bundle add cssbundling-rails
+    ```
+
+2. Run
+
+    ```shell
+    rails css:install:tailwind
+    ```
+
+## Install Flowbite
+
+1. Add the Flowbite NPM package
+
+    ```shell
+    npm install flowbite
+    ```
+
+2. Include Flowbite as a plugin inside the `tailwind.config.js` file.
+
+    ```javascript
+    module.exports = {
+
+        plugins: [
+            require('flowbite/plugin')
+        ]
+    }
+    ```
+
+## Install JS Bundler
+
+1. Add the [jsbundling-rails](https://github.com/rails/jsbundling-rails) GEM
+
+    ```ruby
+    bundle add 'jsbundling-rails'
+    ```
+
+2. Run
+
+   ```shell
+   rails javascript:install:[bun|esbuild|rollup|webpack]
+   ```
+
+## Install Stimulus
+
+1. Add the [Stimulus](https://stimulus.hotwired.dev/) NPM package
+
+    ```shell
+    npm install @hotwired/stimulus
+   ```
+
+## Install Fox Tail
+
+1. Add the GEM
+
+    ```ruby
+   bundle add fox_tail
+    ```
+
+2. Add the NPM package
+
+    ```shell
+    npm install fox_tail
+    ```
+
+3. Include Fox Tail as a plugin to inside the `tailwind.config.js` file
+
+    ```javascript
+   const path = require('node:path')
+   const { execSync } = require('node:child_process');
+   const foxTailPath = execSync('gem which fox_tail').toString();
+
+    module.exports = {
+        darkMode: 'class',
+
+        content: [
+            path.join(foxTailPath, "app/components/fox_tail/**/*.{ts,theme.yml}")
+        ],
+
+        plugins: [
+            require('flowbite/plugin'),
+            require('fox_tail/plugin')
+        ]
+    }
+    ```
+
+4. Register the Stimulus controllers in your `application.js` file
+
+    ```javascript
+    import {Application} from "@hotwired/stimulus";
+    import {registerControllers} from 'fox_tail';
+
+    window.Stimulus = Application.start();
+    registerControllers(Stimulus);
+   ```
