@@ -18,15 +18,14 @@ module Dummy
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.eager_load_paths << FoxTail.root.join("app/components")
+    config.eager_load_paths << FoxTail.root.join("app/components").to_s
 
-    config.assets.paths << FoxTail.root.join("test/dummy/app/assets")
+    config.assets.paths << FoxTail.root.join("test/dummy/app/assets").to_s
 
     # I18n
-    config.i18n.load_path += Dir[FoxTail.root.join("config/locales/*.yml")]
+    config.i18n.load_path += Dir[FoxTail.root.join("config/locales/*.yml").to_s]
 
     # View Component
-    config.view_component.view_component_path = FoxTail.root.join("app/components").to_s
     config.view_component.show_previews = true
     config.view_component.default_preview_layout = "component_preview"
     config.view_component.preview_paths = [
