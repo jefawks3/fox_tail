@@ -55,8 +55,8 @@
     "build:npm:umd:minify": "esbuild src/index.umd.ts --minify --bundle --sourcemap --outfile=dist/index.min.js",
     "build:npm": "run-s clean:dist build:npm:lib build:npm:umd build:npm:umd:minify",
     "docker:clean": "docker rm --force fox-tail-$npm_package_version",
-    "docker:build": "docker build -t jefawks3/fox-tail:$npm_package_version -t jefawks3/fox-tail:latest .",
-    "docker:run": "docker run --name fox-tail-$npm_package_version -p 80:80 jefawks3/fox-tail:$npm_package_version",
+    "docker:build": "docker build -t jfawks/fox-tail:$npm_package_version -t jfawks/fox-tail:latest .",
+    "docker:run": "docker run --name fox-tail-$npm_package_version -p 80:80 jfawks/fox-tail:$npm_package_version",
     "docker:reload": "run-s docker:clean docker:build docker:run",
     "lint": "eslint",
     "test": "jest --verbose"
