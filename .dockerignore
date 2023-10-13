@@ -1,0 +1,13 @@
+.idea/
+
+dist/
+log/
+node_modules/
+tmp/
+
+test/dummy/assets/builds/
+test/dummy/public/assets/
+test/dummy/log
+test/dummy/storage/
+test/dummy/tmp/
+test/dummy/config/master.key
