@@ -2,3 +2,35 @@ root:
   vertical?:
     true: relative border-l border-gray-200 dark:border-gray-700
     false: items-center sm:flex
+entry:
+  root:
+    vertical?:
+      true: mb-10 ml-6
+      false: relative mb-6 sm:mb-0
+  visual:
+    base: ring-8 ring-white dark:ring-gray-900
+    vertical?: absolute
+  visual/dot:
+    base: w-3 h-3
+    vertical?: mt-1.5 -left-1.5
+  visual/icon:
+    base: w-2.5 h-2.5
+    color:
+      blue: &default text-blue-800 dark:text-blue-300
+      default: *default
+  visual/image:
+    base: absolute inset-0 object-cover rounded-full
+  visual/container:
+    base: flex items-center justify-center w-6 h-6 rounded-full
+    vertical?:
+      true: -left-3
+      false: relative
+    color:
+      blue: &default bg-blue-100 dark:bg-blue-900
+      default: *default
+  container/timeline:
+    base: flex items-center
+  container/content:
+    base: mt-3 sm:pr-6
+  line:
+    base: hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700

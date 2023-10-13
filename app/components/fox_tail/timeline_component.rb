@@ -3,6 +3,7 @@
 class FoxTail::TimelineComponent < FoxTail::BaseComponent
   renders_many :entries, lambda { |options = {}|
     options[:vertical] = vertical?
+    options[:theme] = theme.theme :entry
     FoxTail::Timeline::EntryComponent.new options
   }
 
