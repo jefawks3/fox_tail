@@ -1,0 +1,17 @@
+---
+title: Customizing the default theme
+label: Theme
+---
+
+Fox Tail UI loads a component's theme from the `[component_name]_component.theme.yml` file.
+Child components will merge their theme from the Parent Fox Tail UI theme, making it easier to make slight changes.
+
+Steps:
+
+1. Run
+
+    ```shell
+    rails g fox_tail:themes
+    ```
+
+2. Edit the the individual component `.theme.yml` files under your `app/components/fox_tail` directory.
