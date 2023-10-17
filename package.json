@@ -1,5 +1,5 @@
 {
-  "name": "fox_tail",
+  "name": "@jfawks/fox_tail",
   "version": "0.1.0",
   "description": "Rails View Components built with Flowbite and Tailwind CSS",
   "main": "dist/cjs/src/index.js",
