@@ -28,7 +28,7 @@ export default class extends Controller {
     declare readonly dismissedClasses: string[];
 
     private _dismissed: boolean = false;
-    private _autoCloseTimer: number | null = null;
+    private _autoCloseTimer: NodeJS.Timeout | null = null;
 
     connect() {
         super.connect();
