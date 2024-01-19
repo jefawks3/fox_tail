@@ -17,6 +17,7 @@ class FoxTail::InputBaseComponent < FoxTail::BaseComponent
     super
 
     add_default_name_and_id
+    html_attributes[:placeholder] = retrieve_placeholder if placeholder?
   end
 
   protected

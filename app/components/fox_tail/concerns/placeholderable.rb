@@ -11,12 +11,6 @@ module FoxTail::Concerns::Placeholderable
     !!placeholder.presence
   end
 
-  def before_render
-    super
-
-    html_attributes[:placeholder] = retrieve_placeholder if placeholder?
-  end
-
   protected
 
   def retrieve_placeholder

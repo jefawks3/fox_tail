@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 class FoxTail::SelectComponent < FoxTail::InputBaseComponent
+  include FoxTail::Concerns::Placeholderable
+
   has_option :disabled, type: :boolean, default: false
   has_option :value
   has_option :include_hidden, type: :boolean, default: true
+  has_option :include_blank, type: :boolean, default: false
 
-  renders_one :placeholder, lambda { |text, selected: false, disabled: true|
+  renders_one :prompt, lambda { |text, selected: false, disabled: true|
     FoxTail::Select::OptionComponent.new("", disabled: disabled, selected: selected).with_content(text)
   }
 
@@ -35,6 +38,12 @@ class FoxTail::SelectComponent < FoxTail::InputBaseComponent
 
     html_attributes[:class] = classnames theme.apply(:root, self), html_class
     html_attributes[:multiple] = :multiple if html_attributes[:multiple]
+
+    if placeholder?
+      with_prompt retrieve_placeholder, selected: value_from_object.nil?
+    elsif include_blank?
+      with_prompt "", disabled: false, selected: value_from_object.nil?
+    end
   end
 
   def call
@@ -62,7 +71,7 @@ class FoxTail::SelectComponent < FoxTail::InputBaseComponent
 
   def render_select
     content_tag :select, html_attributes do
-      concat placeholder if placeholder?
+      concat prompt if prompt?
       select_options.each { |select_option| concat select_option } if select_options?
       concat content if content?
     end

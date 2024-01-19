@@ -125,18 +125,11 @@ class FoxTail::FormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def select(method, choices = nil, options = {}, html_options = {}, &block)
-    include_blank = options.delete :include_blank
-    prompt = options.delete :prompt
     options = objectify_component_options(method, options.merge(html_options))
+    options[:placeholder] = options.delete(:placeholder) || options.delete(:prompt)
     choices = choices.to_a if choices.is_a? Range
 
     @template.render FoxTail::SelectComponent.new(options) do |select|
-      if !!prompt
-        select.with_placeholder prompt_text(prompt)
-      elsif !!include_blank
-        select.with_placeholder "", disabled: false
-      end
-
       if choices.present?
         choices.each do |choice|
           choice_options = option_html_attributes choice
@@ -145,7 +138,7 @@ class FoxTail::FormBuilder < ActionView::Helpers::FormBuilder
         end
       end
 
-      capture select, &block if block
+      @template.capture select, &block if block
     end
   end
 
@@ -172,8 +165,8 @@ class FoxTail::FormBuilder < ActionView::Helpers::FormBuilder
 
   def button(value = nil, options = {}, &block)
     if value.is_a? Hash
-      value = nil
       options = value
+      value = nil
     end
 
     options = objectify_component_options nil, options
