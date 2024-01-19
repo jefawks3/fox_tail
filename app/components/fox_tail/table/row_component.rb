@@ -12,10 +12,6 @@ class FoxTail::Table::RowComponent < FoxTail::BaseComponent
   has_option :hover, type: :boolean, default: false
   has_option :border, type: :boolean, default: true
 
-  def even?
-    position.is_a?(Numeric) && position.even?
-  end
-
   def before_render
     super
 
