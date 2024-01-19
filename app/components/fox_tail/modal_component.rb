@@ -4,7 +4,7 @@ class FoxTail::ModalComponent < FoxTail::BaseComponent
   include FoxTail::Concerns::HasStimulusController
 
   renders_one :trigger, lambda { |options = {}|
-    FoxTail::ModalTriggerComponent.new options.delete(:id), "##{tag_id}", options
+    self.class.trigger_component.new options.delete(:id), "##{tag_id}", options
   }
 
   has_option :placement, default: :center
@@ -114,6 +114,10 @@ class FoxTail::ModalComponent < FoxTail::BaseComponent
   class << self
     def stimulus_controller_name
       :modal
+    end
+
+    def trigger_component
+      FoxTail::ModalTriggerComponent
     end
   end
 
