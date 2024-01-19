@@ -60,6 +60,7 @@ class FoxTail::DrawerComponent < FoxTail::BaseComponent
     content_tag tag_name, html_attributes do
       concat close_button if close_button?
       concat notch if notch?
+      yield if block_given?
       concat content
     end
   end

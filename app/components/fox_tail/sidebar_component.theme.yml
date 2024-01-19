@@ -1,0 +1,25 @@
+menu_container:
+  dividers?: divider-y divider-gray-200 dark:divider-gray-700 space-y-4
+_menu_item: &menu_item
+  root:
+    base: &menu_item_root_base >-
+      flex items-center gap-3 w-full p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group
+  content:
+    base: truncate whitespace-nowrap flex-grow-1 flex-shrink-1
+  visual:
+    position:
+      left: >-
+        w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white
+      right: ml-auto
+menu:
+  root:
+    base: space-y-2 font-medium
+  menu_item:
+    <<: *menu_item
+    menu:
+      root:
+        base: py-2 space-y-2
+      menu_item:
+        <<: *menu_item
+        root:
+          base: !concat [*menu_item_root_base, "pl-11"]
