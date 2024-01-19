@@ -106,3 +106,14 @@ root:
         default: *default
 root/disabled:
   base: pointer-events-none cursor-not-allowed opacity-50
+indicator:
+  base: absolute
+  position:
+    top_left: top-0 left-0 -translate-x-1/2 -translate-y-1/2
+    top: top-0 left-1/2 -translate-x-1/2 -translate-y-1/2
+    top_right: top-0 right-0 translate-x-1/2 -translate-y-1/2
+    center_left: top-1/2 left-0 -translate-x-1/2 -translate-y-1/2
+    center_right: top-1/2 right-0 translate-x-1/2 -translate-y-1/2
+    bottom_left: bottom-0 left-0 -translate-x-1/2 translate-y-1/2
+    bottom: bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2
+    bottom_right: bottom-0 right-0 translate-x-1/2 translate-y-1/2

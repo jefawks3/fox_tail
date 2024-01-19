@@ -20,6 +20,7 @@ class FoxTail::IconButtonComponent < FoxTail::ButtonBaseComponent
   def call
     super do
       icons.each { |icon| concat icon }
+      concat indicator if indicator?
 
       if content? || i18n_content.present?
         concat content_tag(:span, retrieve_content, class: theme.apply(:content, self))

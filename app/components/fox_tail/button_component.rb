@@ -55,6 +55,7 @@ class FoxTail::ButtonComponent < FoxTail::ButtonBaseComponent
 
   def call
     super do
+      concat indicator if indicator?
       concat loading_icon if loading_icon?
       concat left_visual if left_visual?
 

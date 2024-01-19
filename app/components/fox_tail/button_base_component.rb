@@ -3,6 +3,28 @@
 class FoxTail::ButtonBaseComponent < FoxTail::ClickableComponent
   include FoxTail::Concerns::Formable
 
+  renders_one :indicator, types: {
+    dot: {
+      as: :dot_indicator,
+      renders: lambda { |options = {}|
+        styling_options = options.extract!(:position).reverse_merge(position: :top_right)
+        options[:size] ||= :sm
+        options[:class] = classnames theme.apply(:indicator, self, styling_options), options[:class]
+        FoxTail::DotIndicatorComponent.new options
+      }
+    },
+    badge: {
+      as: :badge_indicator,
+      renders: lambda { |options = {}|
+        styling_options = options.extract!(:position).reverse_merge(position: :top_right)
+        options[:size] ||= :sm
+        options[:pill] = true unless options.key?(:pill)
+        options[:class] = classnames theme.apply(:indicator, self, styling_options), options[:class]
+        FoxTail::BadgeComponent.new options
+      }
+    }
+  }
+
   has_option :variant, default: :solid
   has_option :size, default: :base
   has_option :color, default: :default
