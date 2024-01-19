@@ -11,7 +11,7 @@ class FoxTail::TextareaComponent < FoxTail::InputBaseComponent
   end
 
   def call
-    content_tag :textarea, content, html_attributes
+    content_tag :textarea, object_name? ? value_from_object : content, html_attributes
   end
 
   class AutoResizeStimulusController < FoxTail::StimulusController
