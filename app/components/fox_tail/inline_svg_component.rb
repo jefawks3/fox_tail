@@ -7,18 +7,23 @@ class FoxTail::InlineSvgComponent < FoxTail::BaseComponent
 
   has_option :raise, as: :raise_error, type: :boolean
 
-  def initialize(path, html_attributes = {})
+  def initialize(path_or_html_attributes = {}, html_attributes = {})
+    if path_or_html_attributes.is_a?(Hash)
+      html_attributes = path_or_html_attributes
+      path_or_html_attributes = nil
+    end
+
     unless html_attributes.key? :raise
       html_attributes[:raise] = FoxTail::Base.fox_tail_config.raise_on_asset_not_found
     end
 
     super(html_attributes)
 
-    @path = path.to_s
+    @path = path_or_html_attributes&.to_s
   end
 
   def call
-    doc = Nokogiri::XML.parse asset_contents
+    doc = Nokogiri::XML.parse content? ? content : asset_contents
     sanitized_html_attributes.each { |k, v| doc.child[k.to_s] = v }
     doc.child[:class] = html_class
     yield doc if block_given?
