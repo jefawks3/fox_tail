@@ -6,9 +6,15 @@ class FoxTail::AlertComponent < FoxTail::DismissibleComponent
 
   attr_reader :id
 
-  renders_one :header, lambda { |options = {}, &block|
+  renders_one :header, lambda { |text_or_options = {}, options = {}, &block|
+    if block
+      options = text_or_options
+      text_or_options = nil
+    end
+
+    text_or_options ||= capture(&block)
     options[:class] = classnames theme.apply(:header, self), options[:class]
-    content_tag(:h3, options, &block)
+    content_tag :h3, text_or_options, options
   }
 
   renders_one :icon, lambda { |options = {}|
@@ -24,6 +30,7 @@ class FoxTail::AlertComponent < FoxTail::DismissibleComponent
     icon_options[:class] = theme.apply "dismiss.icon", self
     dismiss_actions! options
     options[:class] = classnames theme.apply("dismiss.button", self), options[:class]
+    options[:type] = :button
 
     content_tag :button, options do
       concat render(FoxTail::IconBaseComponent.new(icon_options[:icon], icon_options.except(:icon)))
