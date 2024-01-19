@@ -13,19 +13,19 @@ class FoxTail::TableComponent < FoxTail::BaseComponent
   }
 
   renders_one :header, lambda { |options = {}|
-    options = options.merge self.options
+    options = options.merge section_options
     options[:theme] = theme.theme :header
     FoxTail::Table::HeaderComponent.new options
   }
 
   renders_many :rows, lambda { |options = {}|
-    options = options.merge self.options
+    options = options.merge section_options
     options[:theme] = theme.theme :row
     FoxTail::Table::RowComponent.new options
   }
 
   renders_one :footer, lambda { |options = {}|
-    options = options.merge self.options
+    options = options.merge section_options
     options[:theme] = theme.theme :footer
     FoxTail::Table::RowComponent.new options
   }
@@ -38,5 +38,11 @@ class FoxTail::TableComponent < FoxTail::BaseComponent
     super
 
     html_attributes[:class] = classnames theme.apply(:root, self), html_class
+  end
+
+  private
+
+  def section_options
+    self.options.slice :highlight, :hover, :border
   end
 end
