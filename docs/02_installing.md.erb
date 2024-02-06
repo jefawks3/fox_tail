@@ -82,7 +82,7 @@ before considering using this project.
     ```javascript
    const path = require('node:path')
    const { execSync } = require('node:child_process');
-   const foxTailPath = execSync('gem which fox_tail').toString();
+   const foxTailPath = execSync('bundle show fox_tail').toString();
 
     module.exports = {
         darkMode: 'class',
@@ -93,7 +93,7 @@ before considering using this project.
 
         plugins: [
             require('flowbite/plugin'),
-            require('fox_tail/plugin')
+            require('@jfawks/fox_tail/plugin')
         ]
     }
     ```
@@ -102,7 +102,7 @@ before considering using this project.
 
     ```javascript
     import {Application} from "@hotwired/stimulus";
-    import {registerControllers} from 'fox_tail';
+    import {registerControllers} from '@jfawks/fox_tail';
 
     window.Stimulus = Application.start();
     registerControllers(Stimulus);
