@@ -20,6 +20,7 @@ group :development, :test do
   gem "faraday"
   gem "capybara"
   gem "listen"
+  gem "rubyzip"
 end
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
