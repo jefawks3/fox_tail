@@ -2,21 +2,35 @@
 
 class FoxTail::AccordionComponent < FoxTail::BaseComponent
   include FoxTail::Concerns::HasStimulusController
+  include FoxTail::Concerns::Identifiable
 
-  attr_reader :id
+  renders_many :items, lambda { |id_or_title, title_or_options = {}, options = {}|
+    if title_or_options.is_a? Hash
+      options = title_or_options
+      title_or_options = id_or_title
+    else
+      options[:id] = id_or_title
+      __id_argument_deprecated_warning slot: :item
+    end
 
-  renders_many :items, lambda { |id, title, options = {}|
     options[:flush] = flush?
     options[:theme] = theme.theme :item
-    FoxTail::Accordion::ItemComponent.new id, title, options
+    options[:id] ||= "#{id}_item_#{SecureRandom.base58(6)}"
+    FoxTail::Accordion::ItemComponent.new title_or_options, options
   }
 
   has_option :always_open, default: false, type: :boolean
   has_option :flush, default: false, type: :boolean
 
-  def initialize(id, html_attributes = {})
-    @id = id
-    super(html_attributes)
+  def initialize(id_or_attributes = {}, html_attributes = {})
+    if id_or_attributes.is_a? Hash
+      html_attributes = id_or_attributes
+    else
+      __id_argument_deprecated_warning
+      html_attributes[:id] = id_or_attributes
+    end
+
+    super html_attributes
   end
 
   def render?
@@ -26,7 +40,7 @@ class FoxTail::AccordionComponent < FoxTail::BaseComponent
   def before_render
     super
 
-    html_attributes[:id] = id
+    generate_unique_id
     html_attributes[:class] = classnames theme.apply(:root, self), html_class
   end
 

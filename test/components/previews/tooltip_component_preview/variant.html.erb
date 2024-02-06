@@ -1,4 +1,4 @@
-<%= render(FoxTail::TooltipComponent.new(:"#{variant}_tooltip", variant: variant)) do |c| %>
+<%= render(FoxTail::TooltipComponent.new(variant: variant)) do |c| %>
   <% c.with_trigger do |trigger| %>
     <%= render FoxTail::ButtonComponent.new(trigger.html_attributes).with_content("Hover over me") %>
   <% end %>

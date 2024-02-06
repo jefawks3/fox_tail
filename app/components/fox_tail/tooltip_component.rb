@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class FoxTail::TooltipComponent < FoxTail::BaseComponent
+  include FoxTail::Concerns::Identifiable
   include FoxTail::Concerns::HasStimulusController
 
-  attr_reader :id
-
   renders_one :trigger, lambda { |attributes = {}|
-    FoxTail::TooltipTriggerComponent.new trigger_id, "##{id}", attributes
+    attributes[:id] = trigger_id
+    FoxTail::TooltipTriggerComponent.new "##{id}", attributes
   }
 
   has_option :variant, default: :default
@@ -17,9 +17,15 @@ class FoxTail::TooltipComponent < FoxTail::BaseComponent
   has_option :inline, default: false, type: :boolean
   has_option :trigger_id
 
-  def initialize(id, html_attributes = {})
+  def initialize(id_or_attributes = {}, html_attributes = {})
+    if id_or_attributes.is_a? Hash
+      html_attributes = id_or_attributes
+    else
+      __id_argument_deprecated_warning
+      html_attributes[:id] = id_or_attributes
+    end
+
     super(html_attributes)
-    @id = id
   end
 
   def trigger_id
@@ -29,7 +35,7 @@ class FoxTail::TooltipComponent < FoxTail::BaseComponent
   def before_render
     super
 
-    html_attributes[:id] = id
+    generate_unique_id
     html_attributes[:role] ||= :tooltip
     html_attributes[:class] = classnames theme.apply(:root, self), theme.apply("root/hidden", self), html_class
   end

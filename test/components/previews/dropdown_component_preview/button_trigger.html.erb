@@ -1,4 +1,4 @@
-<%= render(FoxTail::DropdownComponent.new(:button_trigger_dropdown)) do |c| %>
+<%= render(FoxTail::DropdownComponent.new) do |c| %>
   <% c.with_trigger do |trigger| %>
     <%= render FoxTail::ButtonComponent.new(trigger.html_attributes).with_content("Dropdown") %>
   <% end %>

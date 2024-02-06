@@ -1,20 +1,25 @@
 # frozen_string_literal: true
 
 class FoxTail::CollapsibleComponent < FoxTail::BaseComponent
+  include FoxTail::Concerns::Identifiable
   include FoxTail::Concerns::HasStimulusController
 
-  attr_reader :id
-
   renders_one :trigger, lambda { |attributes = {}|
-    FoxTail::CollapsibleTriggerComponent.new trigger_id, "##{id}", attributes.merge(open: open?)
+    FoxTail::CollapsibleTriggerComponent.new "##{id}", attributes.merge(open: open?, id: trigger_id)
   }
 
   has_option :open, default: false, type: :boolean
   has_option :trigger_id
 
-  def initialize(id, html_attributes = {})
+  def initialize(id_or_attributes = {}, html_attributes = {})
+    if id_or_attributes.is_a? Hash
+      html_attributes = id_or_attributes
+    else
+      __id_argument_deprecated_warning
+      html_attributes[:id] = id_or_attributes
+    end
+
     super(html_attributes)
-    @id = id
   end
 
   def trigger_id
@@ -24,7 +29,7 @@ class FoxTail::CollapsibleComponent < FoxTail::BaseComponent
   def before_render
     super
 
-    html_attributes[:id] = id
+    generate_unique_id
     html_attributes[:class] = classnames theme.apply(:root, self),
                                          !open? && theme.apply("root/collapsed", self),
                                          html_class

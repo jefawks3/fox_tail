@@ -1,5 +1,5 @@
 <div class="mb-96">
-  <%= render(FoxTail::DropdownComponent.new(:dropdown_custom_content, placement: "bottom-start", class: "w-fit max-w-sm")) do |c| %>
+  <%= render(FoxTail::DropdownComponent.new(placement: "bottom-start", class: "w-fit max-w-sm")) do |c| %>
     <% c.with_trigger do |trigger| %>
       <%= render FoxTail::ButtonComponent.new(trigger.html_attributes).with_content("Dropdown") %>
     <% end %>

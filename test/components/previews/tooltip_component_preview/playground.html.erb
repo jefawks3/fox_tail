@@ -1,5 +1,5 @@
 <div class="w-full my-52 flex items-center justify-center">
-  <%= render(FoxTail::TooltipComponent.new(:playground_tooltip, placement: placement, arrow: arrow, variant: variant)) do |c| %>
+  <%= render(FoxTail::TooltipComponent.new(placement: placement, arrow: arrow, variant: variant)) do |c| %>
     <% c.with_trigger do |trigger| %>
       <%= render FoxTail::ButtonComponent.new(trigger.html_attributes).with_content("Hover over me") %>
     <% end %>

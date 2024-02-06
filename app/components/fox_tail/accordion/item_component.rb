@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class FoxTail::Accordion::ItemComponent < FoxTail::BaseComponent
-  attr_reader :id, :title
+  include FoxTail::Concerns::Identifiable
+
+  attr_reader :title
 
   renders_one :icon, types: {
     icon: {
@@ -61,9 +63,16 @@ class FoxTail::Accordion::ItemComponent < FoxTail::BaseComponent
   has_option :open, default: false, type: :boolean
   has_option :header_tag, default: :h2
 
-  def initialize(id, title, html_attributes = {})
-    @id = id
-    @title = title
+  def initialize(id_or_title, title_or_attributes = {}, html_attributes = {})
+    if title_or_attributes.is_a? Hash
+      html_attributes = title_or_attributes
+      title_or_attributes = id_or_title
+    else
+      __id_argument_deprecated_warning
+      html_attributes[:id] = id_or_title
+    end
+
+    @title = title_or_attributes
     super(html_attributes)
   end
 
@@ -78,6 +87,7 @@ class FoxTail::Accordion::ItemComponent < FoxTail::BaseComponent
   def before_render
     super
 
+    generate_unique_id
     html_attributes[:class] = classnames theme.apply(:root, self), html_class
   end
 
@@ -100,7 +110,12 @@ class FoxTail::Accordion::ItemComponent < FoxTail::BaseComponent
 
   def render_header
     content_tag header_tag, id: id do
-      render(FoxTail::CollapsibleTriggerComponent.new(trigger_id, "##{body_id}", open: open?, class: header_classes)) do |trigger|
+      render(FoxTail::CollapsibleTriggerComponent.new(
+        "##{body_id}",
+        id: trigger_id,
+        open: open?,
+        class: header_classes
+      )) do |trigger|
         content_tag :button, trigger.html_attributes do
           concat icon if icon?
           concat content_tag(:span, title)
@@ -112,7 +127,7 @@ class FoxTail::Accordion::ItemComponent < FoxTail::BaseComponent
 
   def render_body
     render(FoxTail::CollapsibleComponent.new(
-      body_id,
+      id: body_id,
       open: open?,
       data: { FoxTail::AccordionComponent.stimulus_controller.target_key => :collapsible },
       aria: { labelledby: id }

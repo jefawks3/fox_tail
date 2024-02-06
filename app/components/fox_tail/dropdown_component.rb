@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class FoxTail::DropdownComponent < FoxTail::BaseComponent
+  include FoxTail::Concerns::Identifiable
   include FoxTail::Concerns::HasStimulusController
-
-  attr_reader :id
 
   renders_one :trigger, lambda { |options = {}, &block|
     options[:trigger_type] = trigger_type
     options[:delay] = delay
-    FoxTail::DropdownTriggerComponent.new trigger_id, "##{id}", options, &block
+    options[:id] = trigger_id
+    FoxTail::DropdownTriggerComponent.new "##{id}", options, &block
   }
 
   renders_one :header, lambda { |options = {}, &block|
@@ -30,9 +30,15 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
   has_option :trigger_type, default: :click
   has_option :delay, default: 300
 
-  def initialize(id, html_attributes = {})
+  def initialize(id_or_attributes = {}, html_attributes = {})
+    if id_or_attributes.is_a? Hash
+      html_attributes = id_or_attributes
+    else
+      __id_argument_deprecated_warning
+      html_attributes[:id] = id_or_attributes
+    end
+
     super(html_attributes)
-    @id = id
   end
 
   def trigger_id
@@ -42,7 +48,7 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
   def before_render
     super
 
-    html_attributes[:id] = id
+    generate_unique_id
     html_attributes[:class] = classnames theme.apply(:root, self),
                                          theme.apply("root/hidden", self),
                                          html_class

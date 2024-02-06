@@ -1,7 +1,11 @@
-<%= render(FoxTail::PopoverComponent.new(:"on_#{trigger_type}_popover", trigger_type: trigger_type)) do |c| %>
+<%= render(FoxTail::PopoverComponent.new(trigger_type: trigger_type)) do |c| %>
   <% c.with_trigger do |trigger| %>
     <%= render FoxTail::ButtonComponent.new(trigger.html_attributes) do %>
-      Hover over me
+      <% if trigger_type == :hover %>
+        Hover over me
+      <% else %>
+        Click on me
+      <% end %>
     <% end %>
   <% end %>
   <% c.with_header do %>

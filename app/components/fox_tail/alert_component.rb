@@ -4,8 +4,6 @@ class FoxTail::AlertComponent < FoxTail::DismissibleComponent
   SEVERITY_ICONS = { success: "check-circle", warning: "exclamation-triangle", error: "exclamation-circle" }.freeze
   DEFAULT_SEVERITY_ICON = "information-circle"
 
-  attr_reader :id
-
   renders_one :header, lambda { |text_or_options = {}, options = {}, &block|
     if block
       options = text_or_options
@@ -81,6 +79,13 @@ class FoxTail::AlertComponent < FoxTail::DismissibleComponent
 
   def use_stimulus?
     super && dismissible?
+  end
+
+  def before_render
+    super
+
+    html_attributes[:class] = root_classes
+    html_attributes[:role] = :alert
   end
 
   private

@@ -1,16 +1,24 @@
 # frozen_string_literal: true
 
 class FoxTail::TriggerBaseComponent < FoxTail::BaseComponent
+  include FoxTail::Concerns::Identifiable
   include FoxTail::Concerns::HasStimulusController
 
-  attr_reader :id, :selector, :block
+  attr_reader :selector, :block
 
   has_option :trigger_type
 
-  def initialize(id, selector, html_attributes = {}, &block)
+  def initialize(id_or_selector, selector_or_attributes = {}, html_attributes = {}, &block)
+    if selector_or_attributes.is_a? Hash
+      html_attributes = selector_or_attributes
+      selector_or_attributes = id_or_selector
+    else
+      __id_argument_deprecated_warning
+      html_attributes[:id] = id_or_selector
+    end
+
     super(html_attributes)
-    @id = id
-    @selector = selector
+    @selector = selector_or_attributes
     @block = block
   end
 
@@ -21,7 +29,7 @@ class FoxTail::TriggerBaseComponent < FoxTail::BaseComponent
   def before_render
     super
 
-    html_attributes[:id] = id
+    generate_unique_id
     html_attributes[:class] = html_class
   end
 

@@ -1,5 +1,5 @@
 <div class="ml-64">
-  <%= render(FoxTail::PopoverComponent.new(:"#{placement}_popover", placement: placement)) do |c| %>
+  <%= render(FoxTail::PopoverComponent.new(placement: placement)) do |c| %>
     <% c.with_trigger do |trigger| %>
       <%= render FoxTail::ButtonComponent.new(trigger.html_attributes) do %>
         Hover over me

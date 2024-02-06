@@ -1,5 +1,5 @@
 <div class="ml-44">
-  <%= render(FoxTail::TooltipComponent.new(:"#{placement}_tooltip", placement: placement)) do |c| %>
+  <%= render(FoxTail::TooltipComponent.new(placement: placement)) do |c| %>
     <% c.with_trigger do |trigger| %>
       <%= render FoxTail::ButtonComponent.new(trigger.html_attributes).with_content("Hover over me") %>
     <% end %>

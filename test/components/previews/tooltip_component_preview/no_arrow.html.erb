@@ -1,4 +1,4 @@
-<%= render(FoxTail::TooltipComponent.new(:no_arrow_tooltip, arrow: false)) do |c| %>
+<%= render(FoxTail::TooltipComponent.new(arrow: false)) do |c| %>
   <% c.with_trigger do |trigger| %>
     <%= render FoxTail::ButtonComponent.new(trigger.html_attributes).with_content("Hover over me") %>
   <% end %>

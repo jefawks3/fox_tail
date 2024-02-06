@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class FoxTail::ModalComponent < FoxTail::BaseComponent
+  include FoxTail::Concerns::Identifiable
   include FoxTail::Concerns::HasStimulusController
 
   renders_one :trigger, lambda { |options = {}|
-    self.class.trigger_component.new options.delete(:id), "##{tag_id}", options
+    self.class.trigger_component.new "##{id}", options
   }
 
   has_option :placement, default: :center
@@ -15,7 +16,8 @@ class FoxTail::ModalComponent < FoxTail::BaseComponent
   has_option :open, type: :boolean, default: false
 
   def tag_id
-    html_attributes[:id] ||= :"modal_#{SecureRandom.hex(4)}"
+    FoxTail.deprecator.deprecation_warning :tag_id, "use `id` instead"
+    id
   end
 
   def close_action(event: :click)
@@ -33,6 +35,7 @@ class FoxTail::ModalComponent < FoxTail::BaseComponent
   def before_render
     super
 
+    generate_unique_id
     html_attributes[:class] = root_classes
     html_attributes[:tabindex] = -1
     html_attributes[:aria] ||= {}

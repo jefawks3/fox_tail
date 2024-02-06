@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class FoxTail::PopoverComponent < FoxTail::BaseComponent
+  include FoxTail::Concerns::Identifiable
   include FoxTail::Concerns::HasStimulusController
-
-  attr_reader :id
 
   renders_one :header, lambda { |text_or_attributes = {}, attributes = {}, &block|
     attributes = text_or_attributes if block
@@ -14,7 +13,8 @@ class FoxTail::PopoverComponent < FoxTail::BaseComponent
   renders_one :trigger, lambda { |attributes = {}|
     attributes[:trigger_type] = trigger_type
     attributes[:delay] = delay
-    FoxTail::PopoverTriggerComponent.new trigger_id, "##{id}", attributes
+    attributes[:id] = trigger_id
+    FoxTail::PopoverTriggerComponent.new "##{id}", attributes
   }
 
   has_option :variant, default: :default
@@ -27,9 +27,15 @@ class FoxTail::PopoverComponent < FoxTail::BaseComponent
   has_option :trigger_id
   has_option :trigger_type, default: :hover
 
-  def initialize(id, html_attributes = {})
+  def initialize(id_or_attributes = {}, html_attributes = {})
+    if id_or_attributes.is_a? Hash
+      html_attributes = id_or_attributes
+    else
+      __id_argument_deprecated_warning
+      html_attributes[:id] = id_or_attributes
+    end
+
     super(html_attributes)
-    @id = id
   end
 
   def trigger_id
@@ -39,7 +45,7 @@ class FoxTail::PopoverComponent < FoxTail::BaseComponent
   def before_render
     super
 
-    html_attributes[:id] = id
+    generate_unique_id
     html_attributes[:role] ||= :tooltip
     html_attributes[:class] = classnames theme.apply(:root, self), theme.apply("root/hidden", self), html_class
     stimulus_controller.merge! html_attributes, stimulus_controller_options if use_stimulus?

@@ -1,4 +1,4 @@
-<%= render(FoxTail::DropdownComponent.new(:icon_button_trigger_dropdown)) do |c| %>
+<%= render(FoxTail::DropdownComponent.new) do |c| %>
   <% c.with_trigger do |trigger| %>
     <%= render FoxTail::IconButtonComponent.new("ellipsis-vertical", trigger.html_attributes.merge(variant: :outline)).with_content("Dropdown") %>
   <% end %>

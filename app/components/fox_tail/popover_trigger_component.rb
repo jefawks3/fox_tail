@@ -3,9 +3,9 @@
 class FoxTail::PopoverTriggerComponent < FoxTail::TriggerBaseComponent
   has_option :delay, default: 300
 
-  def initialize(id, selector, html_attributes = {})
+  def initialize(id_or_selector, selector_or_attributes = {}, html_attributes = {})
     super
-    with_trigger_type :hover unless trigger_type?
+    options[:trigger_type] = :hover unless trigger_type?
   end
 
 

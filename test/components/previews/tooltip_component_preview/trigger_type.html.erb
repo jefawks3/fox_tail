@@ -1,4 +1,4 @@
-<%= render(FoxTail::TooltipComponent.new(:"on_#{trigger_type}_tooltip")) do |c| %>
+<%= render(FoxTail::TooltipComponent.new) do |c| %>
   <% c.with_trigger(trigger_type: trigger_type) do |trigger| %>
     <%= render FoxTail::ButtonComponent.new(trigger.html_attributes) do %>
       <%= trigger_type === :click ? "Click me" : "Hover over me" %>

@@ -17,4 +17,8 @@ module FoxTail
   def self.root
     Pathname.new File.expand_path("..", __dir__)
   end
+
+  def self.deprecator
+    @deprecator ||= ActiveSupport::Deprecation.new("1.0", "FoxTail")
+  end
 end
