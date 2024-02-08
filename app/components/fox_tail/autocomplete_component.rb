@@ -27,7 +27,7 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
     options[:name] = name if name?
     options[:value] = text
     options[:type] = :search
-    options[:placeholder] = retrieve_placeholder
+    options[:placeholder] = retrieve_placeholder if placeholder?
 
     if use_stimulus?
       options[:data] ||= {}
