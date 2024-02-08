@@ -1,0 +1,4 @@
+loader:
+  base: hidden
+dropdown:
+  base: border border-gray-300 dark:border-gray-600

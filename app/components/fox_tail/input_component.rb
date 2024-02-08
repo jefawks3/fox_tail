@@ -28,6 +28,10 @@ class FoxTail::InputComponent < FoxTail::InputBaseComponent
       as: :right_svg,
       renders: lambda { |icon, attributes = {}| render_svg :right, icon, attributes }
     },
+    spinner: {
+      as: :right_spinner,
+      renders: lambda { |attributes = {}| render_spinner :right, attributes }
+    },
     image: {
       as: :right_image,
       renders: lambda { |icon, attributes = {}| render_image :right, icon, attributes }
@@ -101,6 +105,11 @@ class FoxTail::InputComponent < FoxTail::InputBaseComponent
   def render_svg(position, path, attributes)
     attributes[:class] = visual_classes position, attributes[:class]
     FoxTail::InlineSvgComponent.new path, attributes
+  end
+
+  def render_spinner(position, attributes)
+    attributes[:class] = visual_classes position, attributes[:class]
+    FoxTail::SpinnerComponent.new attributes
   end
 
   def render_image(position, path, attributes)

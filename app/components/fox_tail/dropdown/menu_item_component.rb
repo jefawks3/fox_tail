@@ -32,9 +32,19 @@ class FoxTail::Dropdown::MenuItemComponent < FoxTail::ClickableComponent
   }
 
   has_option :color, default: :default
+  has_option :autocomplete_value
+  has_option :autocomplete_text
 
   def visuals?
     left_visual? || right_visual?
+  end
+
+  def before_render
+    super
+
+    if self.class.use_stimulus? && options.key?(:autocomplete_value)
+      FoxTail::AutocompleteComponent.append_option_action autocomplete_value, autocomplete_text, html_attributes
+    end
   end
 
   def call

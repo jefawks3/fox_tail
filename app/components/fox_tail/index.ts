@@ -1,4 +1,5 @@
 export { default as AccordionController } from './accordion_controller';
+export { default as AutocompleteController } from './autocomplete_controller';
 export { default as CarouselController } from './carousel_controller';
 export { default as ClickableController } from './clickable_controller';
 export { default as CollapsibleController } from './collapsible_controller';

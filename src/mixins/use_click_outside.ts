@@ -35,20 +35,12 @@ export default (controller: Controller, options?: Options) => {
     };
 
     const [observeEvents, unobserveEvents] = useEventListeners(
+        controller,
         window,
         events,
         handleClickOutside,
         true,
     );
-
-    const controllerDisconnect = controller.disconnect.bind(controller);
-
-    Object.assign(controller, {
-        disconnect() {
-            unobserveEvents();
-            controllerDisconnect();
-        },
-    });
 
     return [observeEvents, unobserveEvents] as const;
 };

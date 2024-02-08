@@ -26,6 +26,7 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
   has_option :offset, default: 10
   has_option :shift
   has_option :ignore_click_outside
+  has_option :disable_click_outside, type: :boolean, default: :false
   has_option :trigger_id
   has_option :trigger_type, default: :click
   has_option :delay, default: 300
@@ -68,6 +69,7 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
       offset: offset,
       shift: shift,
       ignore_click_outside: ignore_click_outside,
+      disable_click_outside: disable_click_outside?,
       hidden_classes: theme.apply("root/hidden", self),
       visible_classes: theme.apply("root/visible", self),
       trigger_type: trigger_type,
@@ -104,6 +106,7 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
       attributes[:data][value_key(:offset)] = options[:offset]
       attributes[:data][value_key(:shift)] = options[:shift]
       attributes[:data][value_key(:ignore_click_outside)] = options[:ignore_click_outside]
+      attributes[:data][value_key(:disable_click_outside)] = options[:disable_click_outside]
       attributes[:data][outlet_key(trigger_identifier)] = "##{options[:trigger_id]}"
       attributes[:data][classes_key(:hidden)] = options[:hidden_classes]
       attributes[:data][classes_key(:visible)] = options[:visible_classes]

@@ -8,9 +8,9 @@ root:
   right_visual?:
     true:
       size:
-        sm:
+        sm: pr-9
         base: pr-10
-        lg:
+        lg: pr-11
 container:
   base: relative w-full
 visual/container:

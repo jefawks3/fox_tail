@@ -23,6 +23,10 @@ export default class extends Controller {
             default: 10,
         },
         ignoreClickOutside: String,
+        disableClickOutside: {
+            type: Boolean,
+            default: false,
+        },
         delay: {
             type: Number,
             default: 300,
@@ -35,6 +39,7 @@ export default class extends Controller {
     declare readonly offsetValue: number;
     declare readonly hasIgnoreClickOutside: boolean;
     declare readonly ignoreClickOutsideValue: string;
+    declare readonly disableClickOutsideValue: boolean;
     declare readonly delayValue: number;
     declare readonly visibleClasses: string[];
     declare readonly hiddenClasses: string[];
@@ -66,8 +71,12 @@ export default class extends Controller {
             ],
         });
 
-        [this.observeClickOutside, this.unobserveClickOutside] =
+        const [observeClickOutside, unobserveClickOutside] =
             useClickOutside(this);
+
+        this.observeClickOutside = () =>
+            !this.disableClickOutsideValue && observeClickOutside();
+        this.unobserveClickOutside = unobserveClickOutside;
     }
 
     show(): void {

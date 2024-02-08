@@ -4,6 +4,12 @@ module FoxTail::Concerns::Formable
   include ActionView::ModelNaming
   extend ActiveSupport::Concern
 
+  FORM_OPTIONS = %i[
+    object_name method_name namespace object
+    skip_default_ids allow_method_names_outside_object
+    value_array object_index
+  ].freeze
+
   included do
     has_option :object_name
     has_option :method_name
@@ -152,5 +158,9 @@ module FoxTail::Concerns::Formable
   def object_errors?(method = method_name)
     object = convert_to_model self.object
     object.present? && method.present? && object.errors[method.to_sym].present?
+  end
+
+  def objectify_options(options)
+    options.merge self.options.slice(*FORM_OPTIONS)
   end
 end

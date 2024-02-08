@@ -3,6 +3,10 @@ import * as Components from '../app/components/fox_tail';
 
 export default (application: Application): void => {
     application.register('fox-tail--accordion', Components.AccordionController);
+    application.register(
+        'fox-tail--autocomplete',
+        Components.AutocompleteController,
+    );
     application.register('fox-tail--carousel', Components.CarouselController);
     application.register('fox-tail--clickable', Components.ClickableController);
     application.register(
