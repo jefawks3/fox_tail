@@ -22,6 +22,11 @@
       <%= f.text_field :phone %>
       <%= f.error_list :phone %>
     </div>
+    <div>
+      <%= f.label :client, class: "mb-2" %>
+      <%= f.autocomplete_field :client_id, "/clients" %>
+      <%= f.error_list :client %>
+    </div>
     <hr />
     <%= f.fields_for model.address do |a| %>
       <div>

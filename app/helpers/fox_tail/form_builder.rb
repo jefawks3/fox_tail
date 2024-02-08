@@ -91,6 +91,11 @@ class FoxTail::FormBuilder < ActionView::Helpers::FormBuilder
     @template.render FoxTail::InputComponent.new(options), &block
   end
 
+  def autocomplete_field(method, url, options = {}, &block)
+    options = objectify_component_options method, options
+    @template.render FoxTail::AutocompleteComponent.new(url, options), &block
+  end
+
   def range_field(method, options = {}, &block)
     options = objectify_component_options method, options
     @template.render FoxTail::RangeComponent.new(options), &block
