@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class FoxTail::Dropdown::RadioItemComponent < FoxTail::Dropdown::InputItemComponent
-  has_option :include_hidden, type: :boolean, default: false
   include_options_from FoxTail::RadioButtonComponent
 
   def input_classes
