@@ -9,6 +9,7 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
     add_default_name_and_id attributes: attributes
     attributes[:value] = value
     attributes[:type] = :hidden
+    attributes[:name] = name
 
     if use_stimulus?
       attributes[:data] ||= {}
@@ -18,13 +19,14 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
     tag :input, attributes
   }
 
-  renders_one :input, lambda { |options = {}|
+  renders_one :input, lambda { |options = {}, &block|
     options = objectify_options options
+    options.merge! fox_tail_input_options
     options[:class] = classnames theme.apply(:input, self), options[:class], html_class
     options[:autocomplete] ||= "off"
     options[:spellcheck] = false unless options.key?(:spellcheck)
     options[:id] = input_id
-    options[:name] = name if name?
+    options[:name] = "#{name}_text" if name?
     options[:value] = text
     options[:type] = :search
     options[:placeholder] = retrieve_placeholder if placeholder?
@@ -42,7 +44,7 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
                                      stimulus_controller.target_key(raw: true) => :loader
       end
 
-      render component
+      render component, &block
     end
   }
 
@@ -66,6 +68,8 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
   has_option :value
   has_option :text
   has_option :error_message
+
+  include_options_from FoxTail::InputComponent
 
   def initialize(url, html_attributes = {})
     super(html_attributes)
