@@ -4,7 +4,9 @@
   <% else %>
     <% @clients.each do |client| %>
       <% menu.with_item(autocomplete_value: client.id, autocomplete_text: client.name, class: 'gap-2') do |item| %>
-        <%= render FoxTail::AvatarComponent.new icon: :user, rounded: true, size: :sm %>
+        <div class="flex items-center justify-center">
+          <%= render FoxTail::AvatarComponent.new icon: :user, rounded: true, size: :sm %>
+        </div>
         <div class="text-left">
           <div class="font-semibold truncate whitespace-nowrap"><%= client.name %></div>
           <div class="text-xs font-light truncate whitespace-nowrap"><%= client.email %></div>
