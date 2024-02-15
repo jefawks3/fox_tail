@@ -1,0 +1,8 @@
+root:
+  base: flex flex-row flex-wrap items-center gap-2 lg:gap-3
+clear_text:
+  base: font-normal
+  size:
+    base: text-xs
+    sm: text-sm
+
