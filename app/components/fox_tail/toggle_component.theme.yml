@@ -4,6 +4,7 @@ container:
   base: relative inline-flex items-center cursor-pointer
 toggle:
   base: >-
+    shrink-0 grow-0
     peer-focus:outline-none peer-focus:ring-4
     rounded-full bg-gray-200  dark:bg-gray-700
     peer-checked:after:translate-x-full peer-checked:after:border-white 
