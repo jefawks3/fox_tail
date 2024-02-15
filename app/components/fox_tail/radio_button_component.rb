@@ -25,6 +25,7 @@ class FoxTail::RadioButtonComponent < FoxTail::BaseComponent
     add_default_name_and_id_for_value value
     html_attributes[:type] = :radio
     html_attributes[:class] = classnames theme.apply(:root, self), html_class
+    html_attributes[:value] = value
     html_attributes[:checked] = checked?
   end
 
