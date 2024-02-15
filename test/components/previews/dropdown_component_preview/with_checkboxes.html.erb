@@ -1,0 +1,12 @@
+<%= render(FoxTail::DropdownComponent.new) do |c| %>
+  <% c.with_trigger do |trigger| %>
+    <%= render FoxTail::ButtonComponent.new(trigger.html_attributes).with_content("Dropdown") %>
+  <% end %>
+  <%
+    c.with_menu do |menu|
+      menu.with_checkbox(id: :state_pending, name: "state[]", checked_value: :pending, include_hidden: false).with_content "Pending"
+      menu.with_checkbox(id: :state_active, name: "state[]", checked_value: :active, include_hidden: false).with_content "Active"
+      menu.with_checkbox(id: :state_inactive, name: "state[]", checked_value: :inactive, include_hidden: false).with_content "Inactive"
+    end
+  %>
+<% end %>

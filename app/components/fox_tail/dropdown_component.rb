@@ -26,7 +26,7 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
   has_option :offset, default: 10
   has_option :shift
   has_option :ignore_click_outside
-  has_option :disable_click_outside, type: :boolean, default: :false
+  has_option :disable_click_outside, type: :boolean, default: false
   has_option :trigger_id
   has_option :trigger_type, default: :click
   has_option :delay, default: 300

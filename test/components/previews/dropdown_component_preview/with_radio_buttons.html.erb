@@ -1,0 +1,25 @@
+<%= render(FoxTail::DropdownComponent.new class: 'w-60') do |c| %>
+  <% c.with_trigger do |trigger| %>
+    <%= render FoxTail::ButtonComponent.new(trigger.html_attributes).with_content("Dropdown") %>
+  <% end %>
+  <% c.with_menu do |menu| %>
+    <% menu.with_radio(id: :account_type_individual, name: :account_type, value: :individual, checked: true) do %>
+      <div>Individual</div>
+      <%= render FoxTail::HelperTextComponent.new class: "text-xs" do %>
+        Some helpful instructions about the account type goes here.
+      <% end %>
+    <% end %>
+    <% menu.with_radio(id: :account_type_company, name: :account_type, value: :company) do %>
+      <div>Corporation</div>
+      <%= render FoxTail::HelperTextComponent.new class: "text-xs" do %>
+        Some helpful instructions about the account type goes here.
+      <% end %>
+    <% end %>
+    <% menu.with_radio(id: :account_type_non_profit, name: :account_type, value: :non_profit) do %>
+      <div>Non Profit</div>
+      <%= render FoxTail::HelperTextComponent.new class: "text-xs" do %>
+        Some helpful instructions about the account type goes here.
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

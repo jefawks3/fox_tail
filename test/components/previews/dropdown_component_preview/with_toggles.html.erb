@@ -1,0 +1,12 @@
+<%= render(FoxTail::DropdownComponent.new class: 'w-70') do |c| %>
+  <% c.with_trigger do |trigger| %>
+    <%= render FoxTail::ButtonComponent.new(trigger.html_attributes).with_content("Dropdown") %>
+  <% end %>
+  <%
+    c.with_menu do |menu|
+      menu.with_toggle(name: :enable_notifications).with_content "Enable Notification"
+      menu.with_toggle(name: :enable_otp).with_content "Enable 2FA Authentication"
+      menu.with_toggle(name: :subscribe).with_content "Subscribe to Newsletter"
+    end
+  %>
+<% end %>

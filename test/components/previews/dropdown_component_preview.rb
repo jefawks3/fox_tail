@@ -34,6 +34,18 @@ class DropdownComponentPreview < ViewComponent::Preview
     render_with_template
   end
 
+  def with_checkboxes
+    render_with_template
+  end
+
+  def with_radio_buttons
+    render_with_template
+  end
+
+  def with_toggles
+    render_with_template
+  end
+
   def with_custom_content
     render_with_template
   end

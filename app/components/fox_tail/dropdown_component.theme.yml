@@ -37,6 +37,15 @@ menu:
     root/disabled:
       base: opacity-50
     visual:
-      base: w-2.5 h-2.5
+      base: w-2.5 h-2.5 shrink-0
       side:
         end: ml-auto
+  input_item:
+    root:
+      base: flex gap-2 w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600
+    input_container:
+      base: flex items-start mt-0.5 shrink-0 grow-1
+    label_container:
+      base: flex-1 flex-nowrap
+    label:
+      base: block w-full
