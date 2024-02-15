@@ -2,6 +2,7 @@
 
 class FoxTail::SelectComponent < FoxTail::InputBaseComponent
   include FoxTail::Concerns::Placeholderable
+  include FoxTail::Concerns::Choosable
 
   has_option :disabled, type: :boolean, default: false
   has_option :value
@@ -44,6 +45,8 @@ class FoxTail::SelectComponent < FoxTail::InputBaseComponent
     elsif include_blank?
       with_prompt "", disabled: false, selected: value_from_object.nil?
     end
+
+    add_choices
   end
 
   def call
@@ -61,6 +64,19 @@ class FoxTail::SelectComponent < FoxTail::InputBaseComponent
 
   def can_disable?
     true
+  end
+
+  def add_choice(value, label, options = {})
+    with_select_option(value, options).with_content(label)
+  end
+
+  def add_choice_group(label, choices)
+    with_select_group label do |group|
+      choices.each do |choice|
+        text, value, options = extract_choice_values choice
+        group.with_group_option(value, options).with_content(text)
+      end
+    end
   end
 
   private
