@@ -10,11 +10,13 @@ class BadgeComponentPreview < ViewComponent::Preview
   # @param color "The theme color of the badge"
   # @param icon "The Heroicon to add to the badge"
   # @param pill toggle "Display the badge as a pill"
+  # @param chip toggle "Display the badge as a chip (dismissible)"
   # @param border toggle "Add a border to the badge"
   # @param url "Convert the badge to a link"
-  def playground(size: :base, color: :default, icon: nil, pill: false, border: false, url: nil, text: "Badge")
+  def playground(size: :base, color: :default, icon: nil, pill: false, chip: false, border: false, url: nil, text: "Badge")
     render(FoxTail::BadgeComponent.new(size: size, color: color, pill: pill, border: border, url: url)) do |c|
       c.with_icon icon if icon.present?
+      c.with_dismiss_icon if chip
       text
     end
   end
@@ -318,5 +320,89 @@ class BadgeComponentPreview < ViewComponent::Preview
     render(FoxTail::BadgeComponent.new(color: :error, url: "#").with_content("Badge"))
   end
   
+  # @!endgroup
+
+  # @!group As Chip
+
+  # @label Neutral (Default)
+  def chip_neutral
+    render FoxTail::BadgeComponent.new(color: :neutral, size: :sm) do |badge|
+      badge.with_dismiss_icon
+      "Badge"
+    end
+  end
+
+  # @label Dark
+  def chip_dark
+    render FoxTail::BadgeComponent.new(color: :dark, size: :sm) do |badge|
+      badge.with_dismiss_icon
+      "Badge"
+    end
+  end
+
+  # @label Light
+  def chip_light
+    render FoxTail::BadgeComponent.new(color: :light, size: :sm) do |badge|
+      badge.with_dismiss_icon
+      "Badge"
+    end
+  end
+
+  # @label Blue
+  def chip_blue
+    render FoxTail::BadgeComponent.new(color: :blue, size: :sm) do |badge|
+      badge.with_dismiss_icon
+      "Badge"
+    end
+  end
+  
+  # @label Red
+  def chip_red
+    render FoxTail::BadgeComponent.new(color: :red, size: :sm) do |badge|
+      badge.with_dismiss_icon
+      "Badge"
+    end
+  end
+
+  # @label Green
+  def chip_green
+    render FoxTail::BadgeComponent.new(color: :green, size: :sm) do |badge|
+      badge.with_dismiss_icon
+      "Badge"
+    end
+  end
+
+  # @label Yellow
+  def chip_yellow
+    render FoxTail::BadgeComponent.new(color: :yellow, size: :sm) do |badge|
+      badge.with_dismiss_icon
+      "Badge"
+    end
+  end
+
+  # @label Indigo
+  def chip_indigo
+    render FoxTail::BadgeComponent.new(color: :indigo, size: :sm) do |badge|
+      badge.with_dismiss_icon
+      "Badge"
+    end
+  end
+
+  # @label Purple
+  def chip_purple
+    render FoxTail::BadgeComponent.new(color: :purple, size: :sm) do |badge|
+      badge.with_dismiss_icon
+      "Badge"
+    end
+  end
+
+  # @label Pink
+  def chip_pink
+    render FoxTail::BadgeComponent.new(color: :pink, size: :sm) do |badge|
+      badge.with_dismiss_icon
+      "Badge"
+    end
+  end
+
   # @!endgroup
 end
