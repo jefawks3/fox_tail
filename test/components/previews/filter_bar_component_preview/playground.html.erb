@@ -1,0 +1,92 @@
+<%= render FoxTail::FilterBarComponent.new do |filter_bar| %>
+  <% filter_bar.with_hidden_field :submit_type, submit_type %>
+  <% filter_bar.with_hidden_field :filter_toggle_type, filter_toggle_type %>
+  <% filter_bar.with_static_keyword_filter :q, class: 'w-40 md:w-60 lg:w-60' %>
+  <% filter_bar.with_autocomplete_filter(
+    :client_id,
+    "/clients",
+    text: params[:client_id].present? && Client.find(params[:client_id]).name,
+    placeholder: "All Clients",
+    class: "w-full lg:w-52"
+  ) do |filter| %>
+    <% filter.with_input do |input| %>
+      <% input.with_left_icon :user_group %>
+    <% end %>
+  <% end %>
+  <% filter_bar.with_select_filter :state do |filter| %>
+    <% filter.with_prompt "All States", disabled: false %>
+    <% filter.with_select_option("pending").with_content("Pending") %>
+    <% filter.with_select_option("active").with_content("Active") %>
+    <% filter.with_select_option("disabled").with_content("Disabled") %>
+  <% end %>
+  <% filter_bar.with_dropdown_filter "Account Type" do |filter| %>
+    <% filter.with_menu do |menu| %>
+      <% menu.with_checkbox(
+        id: :account_type_individual,
+        name: "account_type[]",
+        checked_value: :individual,
+        checked: params[:account_type]&.include?("individual"),
+        include_hidden: false
+      ) do %>
+        Individual
+      <% end %>
+      <% menu.with_checkbox(
+        id: :account_type_enterprise,
+        name: "account_type[]",
+        checked_value: :enterprise,
+        checked: params[:account_type]&.include?("enterprise"),
+        include_hidden: false
+      ) do %>
+        Enterprise
+      <% end %>
+      <% menu.with_checkbox(
+        id: :account_type_non_profit,
+        name: "account_type[]",
+        checked_value: :non_profit,
+        checked: params[:account_type]&.include?("non_profit"),
+        include_hidden: false
+      ) do %>
+        Non Profit
+      <% end %>
+    <% end %>
+  <% end %>
+  <% filter_bar.with_dropdown_filter "Role" do |filter| %>
+    <% filter.with_menu do |menu| %>
+      <% menu.with_radio(
+        id: :role_all,
+        name: "role",
+        value: "",
+        checked: params[:role].blank?
+      ) do %>
+        All Roles
+      <% end %>
+      <% menu.with_radio(
+        id: :role_user,
+        name: "role",
+        value: :user,
+        checked: params[:role].to_s == "user"
+      ) do %>
+        Users
+      <% end %>
+      <% menu.with_radio(
+        id: :role_admin,
+        name: "role",
+        value: :admin,
+        checked: params[:role].to_s == "admin"
+      ) do %>
+        Admins
+      <% end %>
+    <% end %>
+  <% end %>
+  <% filtered_params = params.compact_blank.keys & %w[client_id state account_type role] %>
+  <% if filter_toggle_type == :icon %>
+    <% filter_bar.with_filter_icon_button_trigger indicator: filtered_params.any? %>
+  <% else %>
+    <% filter_bar.with_filter_button_trigger indicator: filtered_params.any? && filtered_params.size %>
+  <% end %>
+  <% if submit_type == :icon %>
+    <% filter_bar.with_submit_icon_button_content("Go") %>
+  <% else %>
+    <% filter_bar.with_submit_button_content("Go") %>
+  <% end %>
+<% end %>

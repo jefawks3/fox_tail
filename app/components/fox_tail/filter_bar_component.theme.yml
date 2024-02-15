@@ -1,0 +1,28 @@
+root:
+  base: flex flex-wrap lg:inline-flex lg:flex-row lg:items-center gap-2 lg:gap-3
+filter:
+  base: w-full lg:w-32
+  size:
+    sm: h-10
+    base: h-11
+    lg: h-16
+filters:
+  base: w-full lg:w-auto flex lg:flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-3
+static_filters:
+  base: flex flex-col items-center gap-2 lg:gap-3
+controls:
+  base: flex flex-row items-center gap-2 lg:gap-3 ml-auto lg:ml-0 lg:order-last
+dropdown_filter:
+  base: w-full lg:w-fit
+  button:
+    base: whitespace-nowrap truncate
+icon_button_filter:
+  base: flex items-center justify-center
+  size:
+    sm: w-10 lg:w-10
+    base: w-11 lg:w-11
+    lg: w-16 lg:w-16
+button_filter:
+  base: w-auto lg:w-auto flex items-center
+filter_toggle:
+  base: lg:hidden

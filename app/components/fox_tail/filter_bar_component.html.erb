@@ -1,0 +1,26 @@
+<%= form_tag url, html_attributes do %>
+  <% hidden_fields.each do |input| %>
+    <%= input %>
+  <% end %>
+  <% if static_filters? %>
+    <%= content_tag :div, class: theme.apply(:static_filters, self) do %>
+      <% static_filters.each do |filter| %>
+        <%= filter %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= content_tag :div, class: theme.apply(:controls, self) do %>
+    <%= content if content? %>
+    <%= filter_toggle %>
+    <% submit_buttons.each do |submit_button| %>
+      <%= submit_button %>
+    <% end %>
+  <% end %>
+  <% if filters? %>
+    <%= render FoxTail::CollapsibleComponent.new(id: collapsible_id, class: theme.apply(:filters, self)) do %>
+      <% filters.each do |filter| %>
+        <%= filter %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
