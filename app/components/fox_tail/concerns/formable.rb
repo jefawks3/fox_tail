@@ -85,7 +85,7 @@ module FoxTail::Concerns::Formable
 
   def add_default_name_and_id_for_value(value, attributes: html_attributes)
     add_default_name attributes: attributes
-    attributes[:id] = tag_id_for_value value, attributes: attributes
+    attributes[:id] = tag_id_for_value value, attributes: attributes unless attributes.key? :id
   end
 
   def tag_id_for_value(value, attributes = html_attributes)
