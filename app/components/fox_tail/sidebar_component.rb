@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FoxTail::SidebarComponent < FoxTail::DrawerComponent
+class FoxTail::SidebarComponent < FoxTail::BaseComponent
   renders_one :header
 
   renders_many :menus, lambda { |options = {}|
@@ -21,10 +21,12 @@ class FoxTail::SidebarComponent < FoxTail::DrawerComponent
     super
 
     with_divider if !divider && dividers?
+
+    html_attributes[:class] = classnames theme.apply(:root, self), html_class
   end
 
   def call
-    super do
+    content_tag :div, html_attributes do
       concat header if header?
       concat render_menus if menus?
     end
