@@ -25,9 +25,10 @@ class FoxTail::InlineSvgComponent < FoxTail::BaseComponent
   def call
     doc = Nokogiri::XML.parse content? ? content : asset_contents
     sanitized_html_attributes.each { |k, v| doc.child[k.to_s] = v }
-    doc.child[:class] = html_class
-    yield doc if block_given?
-    doc.child.to_s.html_safe
+    node = doc.at_css "svg"
+    node[:class] = html_class
+    yield node if block_given?
+    node.to_s.html_safe
   rescue FoxTail::AssetNotFound => e
     raise e if raise_error?
 
