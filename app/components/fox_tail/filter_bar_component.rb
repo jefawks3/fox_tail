@@ -117,7 +117,7 @@ class FoxTail::FilterBarComponent < FoxTail::BaseComponent
     super
 
     with_submit_button.with_content(t('.submit')) unless submit_buttons?
-    filter_icon_button_trigger unless filter_toggle?
+    with_filter_icon_button_trigger unless filter_toggle?
 
     html_attributes[:class] = classnames theme.apply(:root, self), html_class
     html_attributes[:method] ||= :get
