@@ -4,7 +4,7 @@ import DropdownController from './dropdown_controller';
 
 import debounce from '../../../src/utilities/debounce';
 import useEventListeners from '../../../src/mixins/use_event_listeners';
-import { safeCallMethod } from '../../../dist/cjs/src/utilities/reflection';
+import { safeCallMethod } from '../../../src/utilities/reflection';
 
 export default class extends Controller {
     static targets = ['input', 'value', 'loader', 'dropdown'];
