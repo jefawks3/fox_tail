@@ -26,6 +26,18 @@ export default class extends Controller {
         return !this.isLink;
     }
 
+    disable() {
+        this.stateValue = 'disabled';
+    }
+
+    activate() {
+        this.stateValue = 'active';
+    }
+
+    loading() {
+        this.stateValue = 'loading';
+    }
+
     connect() {
         super.connect();
         this.element.addEventListener('click', this.handleClick.bind(this));
