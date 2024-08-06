@@ -1,10 +1,11 @@
 root:
   size:
-    xs: w-4 h-4
-    sm: w-6 h-6
-    base: w-8 h-8
-    lg: w-10 h-10
-    xl: w-20 h-20
+    xs: w-2 h-2
+    sm: w-3 h-3
+    base: w-4 h-4
+    lg: w-6 h-6
+    xl: w-9 h-9
+    xxl: w-14 h-14
   color:
     neutral: &default text-gray-500 dark:text-gray-400
     dark: text-gray-800 dark:text-gray-900
@@ -20,4 +21,32 @@ root:
     indigo: text-indigo-500 dark:text-indigo-700
     purple: text-purple-500 dark:text-purple-700
     pink: text-pink-500 dark:text-pink-700
+    default: *default
+container:
+  base: inline-flex justify-center items-center
+  size:
+    xs: w-4 h-4
+    sm: w-6 h-6
+    base: w-8 h-8
+    lg: w-12 h-12
+    xl: w-16 h-16
+    xxl: w-24 h-24
+  shape:
+    circle: rounded-full
+    square: rounded-sm
+  color:
+    neutral: &default bg-gray-100 dark:bg-gray-700
+    dark: bg-gray-900
+    light: bg-white dark:bg-gray-800
+    info: bg-blue-100 dark:bg-blue-900
+    success: bg-green-100 dark:bg-green-900
+    warning: bg-yellow-100 dark:bg-yellow-900
+    error: bg-red-100 dark:bg-red-900
+    blue: bg-blue-100 dark:bg-blue-900
+    red: bg-red-100 dark:bg-red-900
+    yellow: bg-yellow-100 dark:bg-yellow-900
+    green: bg-green-100 dark:bg-green-900
+    indigo: bg-indigo-100 dark:bg-indigo-900
+    purple: bg-purple-100 dark:bg-purple-900
+    pink: bg-pink-100 dark:bg-pink-900
     default: *default
