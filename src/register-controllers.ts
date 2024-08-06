@@ -36,10 +36,19 @@ export default (application: Application): void => {
         Components.DropdownTriggerController,
     );
     application.register('fox-tail--fab', Components.FABController);
+    application.register('fox-tail--form', Components.FormController);
     application.register('fox-tail--modal', Components.ModalController);
     application.register(
         'fox-tail--modal-trigger',
         Components.ModalTriggerController,
+    );
+    application.register(
+        'fox-tail--password-input',
+        Components.PasswordInputController,
+    );
+    application.register(
+        'fox-tail--password-input-trigger',
+        Components.PasswordInputTriggerController,
     );
     application.register('fox-tail--popover', Components.PopoverController);
     application.register(
