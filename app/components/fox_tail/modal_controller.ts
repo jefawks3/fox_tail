@@ -45,6 +45,7 @@ export default class ModalController extends Controller {
 
     private _open = false;
     private _visible = false;
+    private _preventClose = false;
     private _attachKeyboard = () => {};
     private _detachKeyboard = () => {};
     private _attachClickOutside = () => {};
@@ -62,6 +63,10 @@ export default class ModalController extends Controller {
 
     get isActive(): boolean {
         return modals.peak() === this;
+    }
+
+    get canClose(): boolean {
+        return this._open && !this._preventClose;
     }
 
     connect() {
@@ -108,6 +113,14 @@ export default class ModalController extends Controller {
         }
     }
 
+    preventClose() {
+        this._preventClose = true;
+    }
+
+    allowClose() {
+        this._preventClose = false;
+    }
+
     show(): void {
         if (this._open || this.onShow()) {
             return;
@@ -121,7 +134,7 @@ export default class ModalController extends Controller {
     }
 
     hide(): void {
-        if (!this._open || this.onHide()) {
+        if (!this.canClose || this.onHide()) {
             return;
         }
 
