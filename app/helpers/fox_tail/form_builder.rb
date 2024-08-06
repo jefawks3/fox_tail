@@ -13,6 +13,12 @@ class FoxTail::FormBuilder < ActionView::Helpers::FormBuilder
     @template.render component, &block
   end
 
+  def show_password_button(method, options = {}, &block)
+    options = objectify_component_options method, options
+    component = FoxTail::ShowPasswordComponent.new options
+    @template.render component, &block
+  end
+
   def help_text(method, text = nil, options = {}, &block)
     if text.is_a?(Hash)
       options = text
@@ -35,7 +41,8 @@ class FoxTail::FormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def password_field(method, options = {}, &block)
-    input_field method, options.merge(type: :password), &block
+    options = objectify_component_options method, options
+    @template.render FoxTail::PasswordInputComponent.new(options), &block
   end
 
   def color_field(method, options = {}, &block)
