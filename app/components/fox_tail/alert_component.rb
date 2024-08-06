@@ -84,6 +84,8 @@ class FoxTail::AlertComponent < FoxTail::DismissibleComponent
   def before_render
     super
 
+    with_dismiss_icon unless !dismissible? || dismiss_icon
+
     html_attributes[:class] = root_classes
     html_attributes[:role] = :alert
   end
