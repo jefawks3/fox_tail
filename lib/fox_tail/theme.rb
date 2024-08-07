@@ -14,7 +14,9 @@ module FoxTail
     def merge!(theme)
       theme = Theme.load_file theme if theme.is_a? String
       theme = theme.base_theme if theme.is_a? Theme
+      extended = theme.delete("_extend") || {}
       base_theme.deep_merge! theme
+      extend_theme base_theme, extended
       self
     end
 
@@ -105,6 +107,19 @@ module FoxTail
         object.send attribute
       end
     end
+
+    def extend_theme(base_theme, other_theme)
+      base_theme.merge!(other_theme) do |_, this_val, other_val|
+        if this_val.is_a?(Hash) && other_val.is_a?(Hash)
+          extend_theme(this_val, other_val)
+        elsif this_val.is_a?(String) && other_val.is_a?(String)
+          [this_val, other_val].join(" ")
+        else
+          raise ExtendThemeTypeMismatch, "Types must match when extending themes."
+        end
+      end
+    end
+
 
     class << self
       # Load the theme from a YAML file

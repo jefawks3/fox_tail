@@ -65,4 +65,50 @@ class FoxTail::ThemeTest < ActiveSupport::TestCase
     assert_instance_of FoxTail::Theme, actual
     assert_equal expected, actual.send(:base_theme)
   end
+
+  def test_extends_theme
+    theme = FoxTail::Theme.load_file file_fixture("theme.yml").to_s
+    theme.merge! file_fixture("extend_theme.yml").to_s
+    expected = {
+      "root" => {
+        "base" => "p-3 text-white font-bold",
+        "size" => {
+          "sm" => "text-sm",
+          "base" => "text-base",
+          "lg" => "text-lg"
+        },
+        "rounded" => "rounded",
+        "bottom" => {
+          "true" => "border-b",
+          "false" => "border-t"
+        },
+        "variant" => {
+          "default" => {
+            "base" => "text-red-900",
+            "bottom" => "border-red-900"
+          }
+        }
+      },
+      "sub_theme" => {
+        "root" => {
+          "base" => "p-4 sub-theme extended"
+        }
+      },
+      "variant" => {
+        "default" => {
+          "top" => "border-top"
+        }
+      }
+    }.freeze
+
+    assert_equal expected, theme.send(:base_theme)
+  end
+
+  def test_raises_error_when_extend_type_mismatch
+    theme = FoxTail::Theme.load_file file_fixture("theme.yml").to_s
+
+    assert_raises FoxTail::ExtendThemeTypeMismatch do
+      theme.merge! "_extend" => { "root" => { "base" => { "foo" => "bar" } } }
+    end
+  end
 end

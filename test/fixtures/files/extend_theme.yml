@@ -1,0 +1,9 @@
+_extend:
+  root:
+    base: font-bold
+  variant:
+    default:
+      top: border-top
+  sub_theme:
+    root:
+      base: extended

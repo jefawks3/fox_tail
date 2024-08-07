@@ -34,4 +34,6 @@ module FoxTail
       super(component, msg)
     end
   end
+
+  class ExtendThemeTypeMismatch < Error; end
 end
