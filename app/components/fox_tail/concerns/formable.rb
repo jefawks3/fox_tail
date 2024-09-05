@@ -19,6 +19,7 @@ module FoxTail::Concerns::Formable
     has_option :allow_method_names_outside_object, type: :boolean, default: false
     has_option :value_array, type: :boolean, default: false
     has_option :object_index
+    has_option :errors_for
   end
 
   def initialize(*)
@@ -147,17 +148,20 @@ module FoxTail::Concerns::Formable
   end
 
   def translator(value: nil, scope: nil, default: "")
-    FoxTail::Translator.new object,
-                                             object_name,
-                                             method_name,
-                                             value: value,
-                                             scope: scope,
-                                             default: default
+    FoxTail::Translator.new object, object_name, method_name, value: value, scope: scope, default: default
   end
 
-  def object_errors?(method = method_name)
+  def object_errors_for
+    (Array(method_name) + Array(options[:errors_for])).compact_blank.uniq
+  end
+
+  def object_errors?(methods = object_errors_for)
+    return false if methods.blank?
+
     object = convert_to_model self.object
-    object.present? && method.present? && object.errors[method.to_sym].present?
+    return false unless object.present?
+
+    methods.any? { |m| object.errors[m].present? }
   end
 
   def objectify_options(options)
