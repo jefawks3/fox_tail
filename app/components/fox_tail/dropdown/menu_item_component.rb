@@ -58,7 +58,6 @@ class FoxTail::Dropdown::MenuItemComponent < FoxTail::ClickableComponent
   private
 
   def render_icon(icon, options, side)
-    options[:variant] ||= :mini
     options[:"aria-hidden"] = true
     options[:class] = classnames theme.apply(:visual, self, side: side), options[:class]
     FoxTail::IconBaseComponent.new icon, options
