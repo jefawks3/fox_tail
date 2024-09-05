@@ -3,8 +3,6 @@
 class FoxTail::InputErrorListComponent < FoxTail::BaseComponent
   include FoxTail::Concerns::Formable
 
-  has_option :aliases
-
   renders_many :messages, lambda { |text_or_attributes = {}, attributes = {}, &block|
     if block
       attributes = text_or_attributes
@@ -14,6 +12,19 @@ class FoxTail::InputErrorListComponent < FoxTail::BaseComponent
     attributes[:class] = classnames theme.apply(:message, self), attributes[:class]
     content_tag :li, text_or_attributes, attributes
   }
+
+  def initialize(html_attributes = {})
+    if (aliases = html_attributes.delete(:aliases)).present?
+      html_attributes[:errors_for] = Array(html_attributes[:errors_for]) + Array(aliases)
+
+      FoxTail.deprecator.allow ["aliases"] do
+        callstack = Array(caller_locations[slot ? 7 : 4])
+        FoxTail.deprecator.warn "The `aliases` option has been deprecated. Use `errors_for` instead.", callstack
+      end
+    end
+
+    super(html_attributes)
+  end
 
   def render?
     messages? || error_messages.present?
@@ -40,8 +51,7 @@ class FoxTail::InputErrorListComponent < FoxTail::BaseComponent
 
   def retrieve_errors
     object = convert_to_model self.object
-    attributes = (Array(method_name) + Array(aliases)).compact_blank.uniq
-    messages = attributes.each_with_object([]) do |attr, results|
+    messages = object_errors_for.each_with_object([]) do |attr, results|
       results.concat object.errors[attr] if object.errors[attr].present?
     end
 
