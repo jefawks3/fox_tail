@@ -1,5 +1,5 @@
 root:
   base: text-sm text-gray-500 dark:text-gray-400
   state:
-    valid: text-green-600 dark:text-green-500
-    invalid: text-red-600 dark:text-red-500
+    valid: text-success-600 dark:text-success-500
+    invalid: text-danger-600 dark:text-danger-500

@@ -16,7 +16,11 @@ entry:
   visual/icon:
     base: w-2.5 h-2.5
     color:
-      blue: &default text-blue-800 dark:text-blue-300
+      primary: &default text-primary-800 dark:text-primary-300
+      info: text-info-800 dark:text-info-300
+      success: text-success-800 dark:text-success-300
+      warning: text-warning-800 dark:text-warning-300
+      danger: text-danger-800 dark:text-danger-300
       default: *default
   visual/image:
     base: absolute inset-0 object-cover rounded-full
@@ -26,7 +30,11 @@ entry:
       true: -left-3
       false: relative
     color:
-      blue: &default bg-blue-100 dark:bg-blue-900
+      primary: &default bg-primary-100 dark:bg-primary-900
+      info: bg-info-100 dark:bg-info-900
+      success: bg-success-100 dark:bg-success-900
+      warning: bg-warning-100 dark:bg-warning-900
+      danger: bg-danger-100 dark:bg-danger-900
       default: *default
   container/timeline:
     base: flex items-center

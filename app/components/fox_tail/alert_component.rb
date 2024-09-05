@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FoxTail::AlertComponent < FoxTail::DismissibleComponent
-  SEVERITY_ICONS = { success: "check-circle", warning: "exclamation-triangle", error: "exclamation-circle" }.freeze
+  SEVERITY_ICONS = { success: "check-circle", warning: "exclamation-triangle", danger: "exclamation-circle" }.freeze
   DEFAULT_SEVERITY_ICON = "information-circle"
 
   renders_one :header, lambda { |text_or_options = {}, options = {}, &block|

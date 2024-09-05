@@ -4,7 +4,7 @@ root:
     relative
     before:absolute before:top-0 before:left-0 before:-translate-x-full
     before:content-["*"] before:pr-0.5
-    before:text-blue-700 dark:before:text-blue-500
+    before:text-primary-700 dark:before:text-primary-500
   state:
-    invalid: text-red-700 dark:text-red-500
-    valid: text-green-700 dark:text-green-500
+    invalid: text-danger-700 dark:text-danger-500
+    valid: text-success-700 dark:text-success-500

@@ -33,9 +33,9 @@ tab:
   root/selected:
     base: pointer-events-none
     variant:
-      default: rounded-t-lg text-blue-600 dark:text-blue-500 bg-gray-100 dark:bg-gray-800
-      underline: text-blue-600 dark:text-blue-500 border-blue-600 dark:border-blue-500
-      pills: text-white bg-blue-600 dark:text-white dark:bg-blue-600
+      default: rounded-t-lg text-primary-600 dark:text-primary-500 bg-gray-100 dark:bg-gray-800
+      underline: text-primary-600 dark:text-primary-500 border-primary-600 dark:border-primary-500
+      pills: text-white bg-primary-600 dark:text-white dark:bg-primary-600
       full_width: text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700
   visual:
     base: w-4 h-4

@@ -12,17 +12,11 @@ dot:
     neutral: &default bg-gray-400
     dark: bg-gray-700
     light: bg-gray-200
-    red: bg-red-400
-    blue: bg-blue-400
-    green: bg-green-400
-    yellow: bg-yellow-400
-    indigo: bg-indigo-400
-    purple: bg-purple-400
-    pink: bg-pink-400
-    info: bg-blue-700
-    success: bg-green-700
-    error: bg-red-700
-    warning: bg-yellow-700
+    primary: bg-primary-400
+    info: bg-info-700
+    success: bg-success-700
+    danger: bg-danger-700
+    warning: bg-warning-700
     default: *default
 dot/animation:
   base: absolute animate-ping opacity-75 w-full h-full

@@ -1,2 +1,2 @@
 root:
-  base: list-none font-medium text-sm text-red-900 dark:text-red-500
+  base: list-none font-medium text-sm text-danger-900 dark:text-danger-500

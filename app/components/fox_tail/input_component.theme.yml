@@ -35,5 +35,5 @@ visual:
     base: w-4 h-4
     lg: w-5 h-5
   state:
-    valid: text-green-900 dark:text-green-500
-    invalid: text-red-900 dark:text-red-500
+    valid: text-success-900 dark:text-success-500
+    invalid: text-danger-900 dark:text-danger-500

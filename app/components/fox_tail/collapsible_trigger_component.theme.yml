@@ -1,5 +1,6 @@
 root:
   base: group
   collapsed: collapsed
+  expanded: expanded
 root/collapsed:
   base: collapsed

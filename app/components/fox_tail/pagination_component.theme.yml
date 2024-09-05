@@ -27,10 +27,10 @@ page:
     base: !concat [*item_base, " px-4"]
     current_page?:
       false: text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800
-      true: text-blue-600 dark:text-white bg-blue-50 dark:bg-gray-700
+      true: text-primary-600 dark:text-white bg-primary-50 dark:bg-gray-700
   root/active:
     current_page?:
-      true: hover:text-blue-700 hover:bg-blue-100
+      true: hover:text-primary-700 hover:bg-primary-100
       false: hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-white
 ellipse:
   base: !concat [*item_base, " px-3 text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800"]

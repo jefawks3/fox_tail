@@ -8,11 +8,9 @@ root:
     base: w-4 h-4
     lg: w-6 h-6
   color:
-    blue: &default text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600
-    red: text-red-600 focus:ring-red-500 dark:focus:ring-red-600
-    green: text-green-600 focus:ring-green-500 dark:focus:ring-green-600
-    yellow: text-yellow-600 focus:ring-yellow-500 dark:focus:ring-yellow-600
-    indigo: text-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600
-    purple: text-purple-600 focus:ring-purple-500 dark:focus:ring-purple-600
-    pink: text-pink-600 focus:ring-pink-500 dark:focus:ring-pink-600
-    default: *default
+    primary: &primary text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600
+    info: text-info-600 focus:ring-info-500 dark:focus:ring-info-600
+    success: text-success-600 focus:ring-success-500 dark:focus:ring-success-600
+    warning: text-warning-600 focus:ring-warning-500 dark:focus:ring-warning-600
+    danger: text-danger-600 focus:ring-danger-500 dark:focus:ring-danger-600
+    default: *primary

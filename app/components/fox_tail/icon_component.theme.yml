@@ -10,17 +10,11 @@ root:
     neutral: &default text-gray-500 dark:text-gray-400
     dark: text-gray-800 dark:text-gray-900
     light: text-gray-300 dark:text-gray-500
-    info: text-blue-800 dark:text-blue-200
-    success: text-green-800 dark:text-green-200
-    warning: text-yellow-800 dark:text-yellow-200
-    error: text-red-800 dark:text-red-200
-    blue: text-blue-500 dark:text-blue-700
-    red: text-red-500 dark:text-red-700
-    yellow: text-yellow-500 dark:text-yellow-700
-    green: text-green-500 dark:text-green-700
-    indigo: text-indigo-500 dark:text-indigo-700
-    purple: text-purple-500 dark:text-purple-700
-    pink: text-pink-500 dark:text-pink-700
+    primary: text-primary-500 dark:text-primary-700
+    info: text-info-800 dark:text-info-200
+    success: text-success-800 dark:text-success-200
+    warning: text-warning-800 dark:text-warning-200
+    danger: text-danger-800 dark:text-danger-200
     default: *default
 container:
   base: inline-flex justify-center items-center
@@ -38,15 +32,9 @@ container:
     neutral: &default bg-gray-100 dark:bg-gray-700
     dark: bg-gray-900
     light: bg-white dark:bg-gray-800
-    info: bg-blue-100 dark:bg-blue-900
-    success: bg-green-100 dark:bg-green-900
-    warning: bg-yellow-100 dark:bg-yellow-900
-    error: bg-red-100 dark:bg-red-900
-    blue: bg-blue-100 dark:bg-blue-900
-    red: bg-red-100 dark:bg-red-900
-    yellow: bg-yellow-100 dark:bg-yellow-900
-    green: bg-green-100 dark:bg-green-900
-    indigo: bg-indigo-100 dark:bg-indigo-900
-    purple: bg-purple-100 dark:bg-purple-900
-    pink: bg-pink-100 dark:bg-pink-900
+    primary: bg-primary-100 dark:bg-primary-900
+    info: bg-info-100 dark:bg-info-900
+    success: bg-success-100 dark:bg-success-900
+    warning: bg-warning-100 dark:bg-warning-900
+    danger: bg-danger-100 dark:bg-danger-900
     default: *default

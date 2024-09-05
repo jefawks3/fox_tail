@@ -19,40 +19,30 @@ container/visual:
     true:
       base: w-8 h-8 rounded-lg
       color:
-        blue: &default text-blue-500 bg-blue-100 dark:bg-blue-800 dark:text-blue-200
-        red: &red text-red-500 bg-red-100 dark:bg-red-800 dark:text-red-200
-        green: &green text-green-500 bg-green-100 dark:bg-green-800 dark:text-green-200
-        yellow: &yellow text-yellow-500 bg-yellow-100 dark:bg-yellow-800 dark:text-yellow-200
-        indigo: text-indigo-500 bg-indigo-100 dark:bg-indigo-800 dark:text-indigo-200
-        pink: text-pink-500 bg-pink-100 dark:bg-pink-800 dark:text-pink-200
-        purple: text-purple-500 bg-purple-100 dark:bg-purple-800 dark:text-purple-200
-        success: *green
-        error: *red
-        warning: *yellow
+        primary: &default text-primary-500 bg-primary-100 dark:bg-primary-800 dark:text-primary-200
+        info: text-info-500 bg-info-100 dark:bg-info-800 dark:text-info-200
+        success: text-success-500 bg-success-100 dark:bg-success-800 dark:text-success-200
+        warning: text-warning-500 bg-warning-100 dark:bg-warning-800 dark:text-warning-200
+        danger: text-danger-500 bg-danger-100 dark:bg-danger-800 dark:text-danger-200
         default: *default
 visual:
   base: w-5 h-5
   fill:
     false:
       color:
-        blue: &default text-blue-600 dark:text-blue-500
-        red: &red text-red-600 dark:text-red-500
-        green: &green text-green-600 dark:text-green-500
-        yellow: &yellow text-yellow-600 dark:text-yellow-500
-        indigo: text-indigo-600 dark:text-indigo-500
-        pink: text-pink-600 dark:text-pink-500
-        purple: text-purple-600 dark:text-purple-500
-        success: *green
-        error: *red
-        warning: *yellow
+        primary: &default text-primary-600 dark:text-primary-500
+        info: text-info-600 dark:text-info-500
+        success: text-success-600 dark:text-success-500
+        warning: text-warning-600 dark:text-warning-500
+        danger: text-danger-600 dark:text-danger-500
         default: *default
 visual/image:
   base: w-8 h-8 rounded-full shadow-lg
 action:
   base: >-
     rounded-lg p-1.5 font-medium text-sm 
-    text-blue-600 dark:text-blue-500
-    hover:bg-blue-100 dark:hover:bg-gray-700
+    text-primary-600 dark:text-primary-500
+    hover:bg-primary-100 dark:hover:bg-gray-700
 dismiss/button:
   base: >-
     -mx-1.5 -my-1.5 p-1.5 rounded-lg

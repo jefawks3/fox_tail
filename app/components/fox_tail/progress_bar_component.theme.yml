@@ -14,11 +14,9 @@ bar:
     transition transition-[width] ease-linear
   color:
     dark: bg-gray-600 dark:bg-gray-300
-    blue: &blue bg-blue-600 dark:bg-blue-500
-    red: bg-red-600 dark:bg-red-500
-    green: bg-green-600 dark:bg-green-500
-    yellow: bg-yellow-600 dark:bg-yellow-500
-    indigo: bg-indigo-600 dark:bg-indigo-500
-    purple: bg-purple-600 dark:bg-purple-500
-    pink: bg-pink-600 dark:bg-pink-500
-    default: *blue
+    primary: &primary bg-primary-600 dark:bg-primary-500
+    info: bg-info-600 dark:bg-info-500
+    success: bg-success-600 dark:bg-success-500
+    warning: bg-warning-600 dark:bg-warning-500
+    danger: bg-danger-600 dark:bg-danger-500
+    default: *primary

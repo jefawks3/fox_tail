@@ -16,7 +16,7 @@ root:
         neutral: >-
           text-gray-900 bg-white dark:bg-gray-800 dark:text-gray-400 
           border border-gray-200 dark:border-gray-600 
-          hover:bg-gray-100 hover:text-blue-700 dark:hover:text-white dark:hover:bg-gray-700
+          hover:bg-gray-100 hover:text-primary-700 dark:hover:text-white dark:hover:bg-gray-700
           focus:ring-gray-200 dark:focus:ring-gray-700
         dark: >-
           text-white bg-gray-800 dark:bg-gray-800
@@ -27,36 +27,28 @@ root:
           border border-gray-300 dark:border-gray-600 
           hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:border-gray-600
           focus:ring-gray-200 dark:focus:ring-gray-700
-        blue: &default >-
-          text-white bg-blue-700 dark:bg-blue-600
-          hover:bg-blue-800 dark:hover:bg-blue-700
-          focus:ring-blue-300 dark:focus:ring-blue-800
-        red: &red >-
-          text-white bg-red-700 dark:bg-red-600
-          hover:bg-red-800 dark:hover:bg-red-700
-          focus:ring-red-300 dark:focus:ring-red-800
-        green: &green >-
-          text-white bg-green-700 dark:bg-green-600
-          hover:bg-green-800 dark:hover:bg-green-700
-          focus:ring-green-300 dark:focus:ring-green-800
-        yellow: &yellow text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-yellow-300 dark:focus:ring-yellow-900
-        indigo: >-
-          text-white bg-indigo-700 dark:bg-indigo-600
-          hover:bg-indigo-800 dark:hover:bg-indigo-700
-          focus:ring-indigo-300 dark:focus:ring-indigo-800
-        purple: >-
-          text-white bg-purple-700 dark:bg-purple-600
-          hover:bg-purple-800 dark:hover:bg-purple-700
-          focus:ring-purple-300 dark:focus:ring-purple-800
-        pink: >-
-          text-white bg-pink-700 dark:bg-pink-600
-          hover:bg-pink-800 dark:hover:bg-pink-700
-          focus:ring-pink-300 dark:focus:ring-pink-800
-        info: *default
-        success: *green
-        warning: *yellow
-        error: *red
-        default: *default
+        primary: &primary >-
+          text-white bg-primary-700 dark:bg-primary-600
+          hover:bg-primary-800 dark:hover:bg-primary-700
+          focus:ring-primary-300 dark:focus:ring-primary-800
+        info: >-
+          text-white bg-info-700 dark:bg-info-600
+          hover:bg-info-800 dark:hover:bg-info-700
+          focus:ring-info-300 dark:focus:ring-info-800
+        success: >-
+          text-white bg-success-700 dark:bg-success-600
+          hover:bg-success-800 dark:hover:bg-success-700
+          focus:ring-success-300 dark:focus:ring-success-800
+        warning: >-
+          text-white bg-warning-700 dark:bg-warning-600
+          hover:bg-warning-800 dark:hover:bg-warning-700
+          focus:ring-warning-300 dark:focus:ring-warning-800
+        danger: &danger >-
+          text-white bg-danger-700 dark:bg-danger-600
+          hover:bg-danger-800 dark:hover:bg-danger-700
+          focus:ring-danger-300 dark:focus:ring-danger-800
+        error: *danger
+        default: *primary
     outline:
       base: border
       color:
@@ -72,39 +64,27 @@ root:
           text-gray-400 border-gray-200 dark:text-white dark:border-gray-200
           hover:text-gray-400 hover:bg-gray-200 dark:hover:text-gray-900 dark:hover:bg-white
           focus:ring-gray-200 dark:focus:ring-gray-200
-        blue: &default >-
-          text-blue-700 border-blue-700 dark:text-blue-500 dark:border-blue-500
-          hover:text-white hover:bg-blue-800 dark:hover:text-white dark:hover:bg-blue-500 
-          focus:ring-blue-300 dark:focus:ring-blue-800
-        red: &red >-
-          text-red-700 border-red-700 dark:text-red-500 dark:border-red-500
-          hover:text-white hover:bg-red-800 dark:hover:text-white dark:hover:bg-red-500 
-          focus:ring-red-300 dark:focus:ring-red-800
-        green: &green >-
-          text-green-700 border-green-700 dark:text-green-500 dark:border-green-500
-          hover:text-white hover:bg-green-800 dark:hover:text-white dark:hover:bg-green-500 
-          focus:ring-green-300 dark:focus:ring-green-800
-        yellow: &yellow >-
-          text-yellow-700 border-yellow-700 dark:text-yellow-500 dark:border-yellow-500
-          hover:text-white hover:bg-yellow-800 dark:hover:text-white dark:hover:bg-yellow-500 
-          focus:ring-yellow-300 dark:focus:ring-yellow-800
-        indigo: >-
-          text-indigo-700 border-indigo-700 dark:text-indigo-500 dark:border-indigo-500
-          hover:text-white hover:bg-indigo-800 dark:hover:text-white dark:hover:bg-indigo-500 
-          focus:ring-indigo-300 dark:focus:ring-indigo-800
-        purple: >-
-          text-purple-700 border-purple-700 dark:text-purple-500 dark:border-purple-500
-          hover:text-white hover:bg-purple-800 dark:hover:text-white dark:hover:bg-purple-500 
-          focus:ring-purple-300 dark:focus:ring-purple-800
-        pink: >-
-          text-pink-700 border-pink-700 dark:text-pink-500 dark:border-pink-500
-          hover:text-white hover:bg-pink-800 dark:hover:text-white dark:hover:bg-pink-500 
-          focus:ring-pink-300 dark:focus:ring-pink-800
-        info: *default
-        success: *green
-        warning: *yellow
-        error: *red
-        default: *default
+        primary: &primary >-
+          text-primary-700 border-primary-700 dark:text-primary-500 dark:border-primary-500
+          hover:text-white hover:bg-primary-800 dark:hover:text-white dark:hover:bg-primary-500 
+          focus:ring-primary-300 dark:focus:ring-primary-800
+        info: >-
+          text-info-700 border-info-700 dark:text-info-500 dark:border-info-500
+          hover:text-white hover:bg-info-800 dark:hover:text-white dark:hover:bg-info-500 
+          focus:ring-info-300 dark:focus:ring-info-800
+        success: >-
+          text-success-700 border-success-700 dark:text-success-500 dark:border-success-500
+          hover:text-white hover:bg-success-800 dark:hover:text-white dark:hover:bg-success-500 
+          focus:ring-success-300 dark:focus:ring-success-800
+        warning: >-
+          text-warning-700 border-warning-700 dark:text-warning-500 dark:border-warning-500
+          hover:text-white hover:bg-warning-800 dark:hover:text-white dark:hover:bg-warning-500 
+          focus:ring-warning-300 dark:focus:ring-warning-800
+        danger: >-
+          text-danger-700 border-danger-700 dark:text-danger-500 dark:border-danger-500
+          hover:text-white hover:bg-danger-800 dark:hover:text-white dark:hover:bg-danger-500 
+          focus:ring-danger-300 dark:focus:ring-danger-800
+        default: *primary
 root/disabled:
   base: pointer-events-none cursor-not-allowed opacity-50
 indicator:
