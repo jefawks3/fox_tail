@@ -107,7 +107,6 @@ class FoxTail::ButtonComponent < FoxTail::ButtonBaseComponent
   private
 
   def icon_component(side, icon, options)
-    options[:variant] ||= :mini
     options[:"aria-hidden"] = true
     options[:class] = visual_classes side, options[:class]
     options[stimulus_controller.target_key(raw: true)] = "active" if controlled?
