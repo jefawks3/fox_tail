@@ -139,17 +139,9 @@ class FoxTail::FormBuilder < ActionView::Helpers::FormBuilder
   def select(method, choices = nil, options = {}, html_options = {}, &block)
     options = objectify_component_options(method, options.merge(html_options))
     options[:placeholder] = options.delete(:placeholder) || options.delete(:prompt)
-    choices = choices.to_a if choices.is_a? Range
+    options[:choices] = choices
 
     @template.render FoxTail::SelectComponent.new(options) do |select|
-      if choices.present?
-        choices.each do |choice|
-          choice_options = option_html_attributes choice
-          text, value = option_text_and_value choice
-          select.with_select_option(value, choice_options).with_content(text)
-        end
-      end
-
       @template.capture select, &block if block
     end
   end
