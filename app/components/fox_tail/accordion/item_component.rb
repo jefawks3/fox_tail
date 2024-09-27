@@ -9,7 +9,6 @@ class FoxTail::Accordion::ItemComponent < FoxTail::BaseComponent
     icon: {
       renders: lambda { |icon, options = {}|
         options[:class] = classnames theme.classname("icon.base"), options[:class]
-        options[:variant] ||= :mini
         FoxTail::IconBaseComponent.new icon, options
       },
       as: :icon

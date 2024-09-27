@@ -18,7 +18,6 @@ class FoxTail::AlertComponent < FoxTail::DismissibleComponent
   renders_one :icon, lambda { |options = {}|
     name = options.delete(:icon) || severity_icon_name
     options[:class] = classnames theme.apply(:icon, self), options[:class]
-    options[:variant] ||= :mini
     FoxTail::IconBaseComponent.new name, options
   }
 

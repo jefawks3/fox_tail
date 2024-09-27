@@ -2,7 +2,6 @@
 
 class FoxTail::BadgeComponent < FoxTail::BaseComponent
   renders_one :icon, lambda { |icon, options = {}|
-    options[:variant] ||= :mini
     options[:"aria-hidden"] = true
     options[:class] = classnames theme.apply(:icon, self), options[:class]
     FoxTail::IconBaseComponent.new icon, options

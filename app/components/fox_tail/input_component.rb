@@ -98,7 +98,6 @@ class FoxTail::InputComponent < FoxTail::InputBaseComponent
 
   def render_icon(position, icon, attributes)
     attributes[:class] = visual_classes position, attributes[:class]
-    attributes[:variant] ||= :mini
     FoxTail::IconBaseComponent.new icon, attributes
   end
 
