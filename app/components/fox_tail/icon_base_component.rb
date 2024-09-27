@@ -1,33 +1,45 @@
 # frozen_string_literal: true
 
 class FoxTail::IconBaseComponent < FoxTail::InlineSvgComponent
-  VARIANT_SIZES = { micro: 16, mini: 20, solid: 24, outline: 24 }.freeze
-  SOLID_ONLY_VARIANTS = %i[micro mini].freeze
-
   attr_reader :name
 
-  has_option :variant, default: :solid
+  has_option :variant
+  has_option :icon_set
+
+  def variant
+    options[:variant] ||= default_icon_variant
+  end
 
   def initialize(name, html_attributes = {})
     @name = name.to_s.gsub("_", "-")
     super nil, html_attributes
   end
 
+  def icon_set
+    @icon_set ||= begin
+                    name = options.fetch(:icon_set, default_icon_set).to_sym
+                    icon_set = icon_sets.fetch name
+                    raise FoxTail::InvalidIconSet.new(name) unless icon_set
+
+                    icon_set.new name
+                  end
+  end
+
   def path
-    FoxTail.root.join("app/assets/vendor/heroicons", icon_size.to_s, icon_style.to_s, icon_filename).to_s
+    @path ||= icon_set.path(name, variant: variant).to_s
   end
 
-  def icon_size
-    VARIANT_SIZES[variant.to_sym]
+  private
+
+  def icon_sets
+    FoxTail::Base.fox_tail_config.icon_sets
   end
 
-  def icon_style
-    return :solid if SOLID_ONLY_VARIANTS.include? variant.to_sym
-
-    variant
+  def default_icon_set
+    FoxTail::Base.fox_tail_config.default_icon_set
   end
 
-  def icon_filename
-    "#{name}.svg"
+  def default_icon_variant
+    FoxTail::Base.fox_tail_config.default_icon_variant
   end
 end

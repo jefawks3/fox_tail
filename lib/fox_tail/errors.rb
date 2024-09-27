@@ -36,4 +36,23 @@ module FoxTail
   end
 
   class ExtendThemeTypeMismatch < Error; end
+
+  class InvalidIconSet < Error
+    attr_reader :name
+
+    def initialize(name, msg = nil)
+      @name = name
+      super(msg || "The icon set '#{name}' has not been registered. Make sure to add it to your FoxTail configuration.")
+    end
+  end
+
+  class InvalidIconSetVariant < Error
+    attr_reader :icon_set, :variant
+
+    def initialize(icon_set, variant, msg = nil)
+      @icon_set = icon_set
+      @variant = variant
+      super(msg || "Unknown variant #{variant} for #{icon_set} icon set.")
+    end
+  end
 end

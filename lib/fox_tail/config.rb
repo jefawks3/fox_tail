@@ -14,7 +14,10 @@ module FoxTail
                                                    stimulus_merger: StimulusMerger.new,
                                                    use_stimulus: true,
                                                    raise_on_asset_not_found: true,
-                                                   color_theme: {}
+                                                   color_theme: {},
+                                                   icon_sets: {},
+                                                   default_icon_set: nil,
+                                                   default_icon_variant: :solid
                                                  })
       end
 

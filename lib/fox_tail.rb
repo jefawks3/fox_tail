@@ -14,6 +14,14 @@ module FoxTail
   autoload :Translator
   autoload :StimulusController
 
+  module IconSets
+    extend ActiveSupport::Autoload
+
+    autoload :Base
+    autoload :FlowbiteIconSet
+    autoload :HeroIconSet
+  end
+
   def self.root
     Pathname.new File.expand_path("..", __dir__)
   end
