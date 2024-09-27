@@ -12,9 +12,9 @@ container/content:
   base: text-sm font-normal
   dividers?: pl-3
 container/actions:
-  base: flex items-center ml-auto gap-2
+  base: flex items-center ml-auto gap-2 shrink-0 grow-0 ml-auto
 container/visual:
-  base: inline-flex items-center justify-center
+  base: inline-flex items-center justify-center shrink-0 grow-0
   fill:
     true:
       base: w-8 h-8 rounded-lg
