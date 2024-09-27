@@ -12,14 +12,15 @@ class FoxTail::AvatarComponent < FoxTail::BaseComponent
   has_option :text
   has_option :size, default: :base
   has_option :rounded, type: :boolean, default: false
+  has_option :border, default: false
 
-  has_option :border, default: false do |value|
-    if value.is_a?(TrueClass)
+  def border
+    if options[:border].is_a?(TrueClass)
       :default
-    elsif !value
+    elsif !options[:border]
       :none
     else
-      value.to_sym
+      options[:border].to_sym
     end
   end
 
