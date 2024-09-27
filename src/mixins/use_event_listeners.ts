@@ -11,26 +11,44 @@ type EventOptions = boolean | UseEventListenersOptions;
 
 export default (
     controller: Controller,
-    target: EventTarget,
+    target: EventTarget | EventTarget[],
     events: EventName,
     callback: EventListenerOrEventListenerObject,
     options?: EventOptions,
 ) => {
-    const eventArray = typeof events === 'string' ? [events] : events;
+    const eventArray = Array.isArray(events) ? events : [events];
+    const targets = Array.isArray(target) ? target : [target];
+
     const { attached, ...eventOptions } = Object.assign(
         { attached: false },
         typeof options === 'boolean' ? { capture: options } : options,
     );
 
     const attachListeners = (): void => {
+        controller.application.logDebugActivity(
+            controller.identifier,
+            'attachListeners',
+            { targets, events: eventArray, options: eventOptions },
+        );
+
         eventArray.forEach((eventName) =>
-            target.addEventListener(eventName, callback, eventOptions),
+            targets.forEach((t) =>
+                t.addEventListener(eventName, callback, eventOptions),
+            ),
         );
     };
 
     const detachListeners = (): void => {
+        controller.application.logDebugActivity(
+            controller.identifier,
+            'detachListeners',
+            { targets, events: eventArray, options: eventOptions },
+        );
+
         eventArray.forEach((eventName) =>
-            target.removeEventListener(eventName, callback),
+            targets.forEach((t) =>
+                t.removeEventListener(eventName, callback, eventOptions),
+            ),
         );
     };
 

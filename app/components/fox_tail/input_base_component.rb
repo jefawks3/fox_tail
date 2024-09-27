@@ -3,21 +3,26 @@
 class FoxTail::InputBaseComponent < FoxTail::BaseComponent
   include FoxTail::Concerns::Formable
   include FoxTail::Concerns::Placeholderable
+  include FoxTail::Concerns::HasStimulusController
 
   has_option :size, default: :base
   has_option :state
-
-  def initialize(*)
-    super
-
-    update_state_from_object!
-  end
+  has_option :controlled, type: :boolean, default: false
 
   def before_render
     super
 
     add_default_name_and_id
+    update_state_from_object!
     html_attributes[:placeholder] = retrieve_placeholder if placeholder?
+  end
+
+  def use_stimulus?
+    super && controlled?
+  end
+
+  def stimulus_controller_options
+    {}
   end
 
   protected
@@ -35,10 +40,16 @@ class FoxTail::InputBaseComponent < FoxTail::BaseComponent
 
     options[:state] = if object_errors?
                         :invalid
-                      elsif html_attributes[:value].present?
-                        :valid
                       else
                         :none
                       end
   end
+
+  class << self
+    def stimulus_controller_name
+      "form-field"
+    end
+  end
+
+  class StimulusController < FoxTail::StimulusController; end
 end

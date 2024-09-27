@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class FoxTail::DropzoneComponent < FoxTail::BaseComponent
+  include FoxTail::Concerns::Formable
+  include FoxTail::Concerns::HasStimulusController
+
   DEFAULT_ICON = "cloud-arrow-up"
 
   renders_one :icon, lambda { |icon, attributes = {}|
@@ -24,11 +27,22 @@ class FoxTail::DropzoneComponent < FoxTail::BaseComponent
     content_tag :p, text, attributes
   }
 
+  def use_stimulus?
+    super && controlled?
+  end
+
+  def stimulus_controller_options
+    {}
+  end
+
   def before_render
     super
 
     with_icon DEFAULT_ICON, variant: :outline unless icon?
     with_title I18n.t("components.fox_tail.dropzone.title_html").html_safe unless title?
+
+    add_default_name_and_id
+
     html_attributes[:type] = :file
     html_attributes[:class] = theme.apply(:root, self)
   end
@@ -42,4 +56,12 @@ class FoxTail::DropzoneComponent < FoxTail::BaseComponent
   def inner_container_attributes
     { class: theme.apply(:inner_container, self) }
   end
+
+  class << self
+    def stimulus_controller_name
+      "form-field"
+    end
+  end
+
+  class StimulusController < FoxTail::StimulusController; end
 end

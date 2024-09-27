@@ -1,9 +1,17 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller<HTMLFormElement> {
-    static targets = ['listener'];
+    static values = {
+        enabled: {
+            type: Boolean,
+            default: true,
+        },
+    };
 
     declare readonly listenerTargets: HTMLElement[];
+    declare enabledValue: boolean;
+
+    private _valid: boolean = true;
 
     get useTurbo() {
         return (
@@ -13,11 +21,13 @@ export default class extends Controller<HTMLFormElement> {
         );
     }
 
-    get allListeners(): HTMLElement[] {
-        return [this.element, ...this.listenerTargets];
+    get isValid(): boolean {
+        return this._valid;
     }
 
     connect() {
+        this._valid = this.element.checkValidity();
+
         if (this.useTurbo) {
             this.element.addEventListener(
                 'turbo:submit-start',
@@ -59,14 +69,44 @@ export default class extends Controller<HTMLFormElement> {
         this.element.submit();
     }
 
+    requestSubmit() {
+        this.element.requestSubmit();
+    }
+
+    enable() {
+        this.enabledValue = true;
+    }
+
+    disable() {
+        this.enabledValue = false;
+    }
+
+    validate() {
+        this.updateValidity(this.element.checkValidity());
+    }
+
+    reportValidity() {
+        this.updateValidity(this.element.reportValidity());
+    }
+
+    reset() {
+        this.element.reset();
+        this.dispatch('reset');
+    }
+
+    enabledValueChanged() {
+        const eventName = this.enabledValue ? 'enabled' : 'disabled';
+        this.dispatch(eventName);
+    }
+
     private handleSubmit(event: Event) {
-        if (this.onSubmit()) {
+        if (!this.enabledValue || this.onSubmit()) {
             event.preventDefault();
         }
     }
 
     private handleTurboSubmitStarted(event: any) {
-        if (this.onSubmit()) {
+        if (!this.enabledValue || this.onSubmit()) {
             event.detail.formSubmission.stop();
         }
     }
@@ -75,27 +115,24 @@ export default class extends Controller<HTMLFormElement> {
         const { success, fetchResponse, error } = event.detail;
 
         if (success) {
+            this.onSuccess(fetchResponse.response);
             this.onFinished(true, fetchResponse.response, null);
         } else {
+            this.onFailed(error);
             this.onFinished(false, null, error);
         }
     }
 
     private onSubmit(): boolean {
-        const targets = this.listenerTargets;
+        return this.dispatch('submit', { cancelable: true }).defaultPrevented;
+    }
 
-        for (let i = 0; i < targets.length; i++) {
-            if (
-                this.dispatch('submit', {
-                    target: targets[i],
-                    cancelable: true,
-                }).defaultPrevented
-            ) {
-                return true;
-            }
-        }
+    private onSuccess(response: Response) {
+        this.dispatch('success', { detail: { response } });
+    }
 
-        return false;
+    private onFailed(error: Error) {
+        this.dispatch('failed', { detail: { error } });
     }
 
     private onFinished(
@@ -103,13 +140,16 @@ export default class extends Controller<HTMLFormElement> {
         response: Response | null,
         error: Error | null,
     ) {
-        const targets = this.listenerTargets;
+        this.dispatch('finished', { detail: { success, response, error } });
+    }
 
-        for (let i = 0; i < targets.length; i++) {
-            this.dispatch('finished', {
-                target: targets[i],
-                detail: { success, response, error },
-            });
+    private updateValidity(valid: boolean): void {
+        if (this._valid == valid) {
+            return;
         }
+
+        this._valid = valid;
+        const eventName = valid ? 'valid' : 'invalid';
+        this.dispatch(eventName);
     }
 }

@@ -27,6 +27,10 @@ export default class extends Controller {
         this.updateBar();
     }
 
+    updateDirectUploadProgress(event: CustomEvent) {
+        this.progressValue = event.detail.loaded / event.detail.total;
+    }
+
     private updateAriaAttributes() {
         this.element.setAttribute(
             'aria-valuenow',

@@ -2,11 +2,13 @@
 
 class FoxTail::RadioButtonComponent < FoxTail::BaseComponent
   include FoxTail::Concerns::Formable
+  include FoxTail::Concerns::HasStimulusController
 
   has_option :color, default: :default
   has_option :size, default: :base
   has_option :value
   has_option :checked, as: :boolean, default: false
+  has_option :controlled, type: :boolean, default: false
 
   def value
     options[:value] ||= value_from_object
@@ -17,6 +19,14 @@ class FoxTail::RadioButtonComponent < FoxTail::BaseComponent
     return false unless object.present?
 
     value.to_s == value_from_object.to_s
+  end
+
+  def use_stimulus?
+    super && controlled?
+  end
+
+  def stimulus_controller_options
+    {}
   end
 
   def before_render
@@ -32,4 +42,12 @@ class FoxTail::RadioButtonComponent < FoxTail::BaseComponent
   def call
     tag :input, html_attributes
   end
+
+  class << self
+    def stimulus_controller_name
+      "form-field"
+    end
+  end
+
+  class StimulusController < FoxTail::StimulusController; end
 end

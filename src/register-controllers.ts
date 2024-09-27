@@ -37,6 +37,11 @@ export default (application: Application): void => {
     );
     application.register('fox-tail--fab', Components.FABController);
     application.register('fox-tail--form', Components.FormController);
+    application.register(
+        'fox-tail--form-field',
+        Components.FormInputController,
+    );
+    application.register('fox-tail--listener', Components.ListenerController);
     application.register('fox-tail--modal', Components.ModalController);
     application.register(
         'fox-tail--modal-trigger',
@@ -58,6 +63,10 @@ export default (application: Application): void => {
     application.register(
         'fox-tail--progress-bar',
         Components.ProgressBarController,
+    );
+    application.register(
+        'fox-tail--proxy-events',
+        Components.ProxyEventsController,
     );
     application.register('fox-tail--tab', Components.TabController);
     application.register(
