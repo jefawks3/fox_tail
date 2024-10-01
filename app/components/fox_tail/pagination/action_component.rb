@@ -28,6 +28,7 @@ class FoxTail::Pagination::ActionComponent < FoxTail::ClickableComponent
   has_option :action
   has_option :size
   has_option :show_label, type: :boolean, default: true
+  has_option :icon
 
   def left?
     %i[first previous].include? action
@@ -35,6 +36,12 @@ class FoxTail::Pagination::ActionComponent < FoxTail::ClickableComponent
 
   def right?
     !left?
+  end
+
+  def before_render
+    super
+
+    with_icon icon if !visual? && icon?
   end
 
   def call

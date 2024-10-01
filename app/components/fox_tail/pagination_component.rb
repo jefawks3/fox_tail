@@ -4,38 +4,38 @@ class FoxTail::PaginationComponent < FoxTail::BaseComponent
   attr_reader :url, :current_page, :total_pages
 
   renders_one :first_button, lambda { |options = {}|
+    options = action_options options
     options[:action] = :first
-    options[:size] = size
     options[:disabled] = first_page?
-    options[:theme] = theme.theme :action
     options[:url] = page_url first_page
+    options[:icon] = :chevron_double_left if show_icon? && !options[:icon].present?
     FoxTail::Pagination::ActionComponent.new options
   }
 
   renders_one :previous_button, lambda { |options = {}|
+    options = action_options options
     options[:action] = :previous
-    options[:size] = size
     options[:disabled] = !previous_page?
-    options[:theme] = theme.theme :action
     options[:url] = page_url previous_page
+    options[:icon] = :chevron_left if show_icon? && !options[:icon].present?
     FoxTail::Pagination::ActionComponent.new options
   }
 
   renders_one :next_button, lambda { |options = {}|
+    options = action_options options
     options[:action] = :next
-    options[:size] = size
     options[:disabled] = !next_page?
-    options[:theme] = theme.theme :action
     options[:url] = page_url next_page
+    options[:icon] = :chevron_right if show_icon? && !options[:icon].present?
     FoxTail::Pagination::ActionComponent.new options
   }
 
   renders_one :last_button, lambda { |options = {}|
+    options = action_options options
     options[:action] = :last
-    options[:size] = size
     options[:disabled] = last_page?
-    options[:theme] = theme.theme :action
     options[:url] = page_url last_page
+    options[:icon] = :chevron_double_right if show_icon? && !options[:icon].present?
     FoxTail::Pagination::ActionComponent.new options
   }
 
@@ -50,6 +50,14 @@ class FoxTail::PaginationComponent < FoxTail::BaseComponent
     super(html_attributes)
     @current_page = current_page
     @total_pages = total_pages
+  end
+
+  def show_label?
+    %i[text with_icons].include? variant.to_sym
+  end
+
+  def show_icon?
+    %i[with_icons icons].include? variant.to_sym
   end
 
   def url
@@ -127,5 +135,15 @@ class FoxTail::PaginationComponent < FoxTail::BaseComponent
     html_attributes[:class] = classnames theme.apply(:root, self), html_class
     with_previous_button unless previous_button?
     with_next_button unless next_button?
+  end
+
+  private
+
+  def action_options(options)
+    options = options.dup
+    options[:size] = size
+    options[:theme] = theme.theme :action
+    options[:show_label] = show_label? unless options.key? :show_label
+    options
   end
 end
