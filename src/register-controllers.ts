@@ -41,6 +41,7 @@ export default (application: Application): void => {
         'fox-tail--form-field',
         Components.FormInputController,
     );
+    application.register('fox-tail--history', Components.HistoryController);
     application.register('fox-tail--listener', Components.ListenerController);
     application.register('fox-tail--modal', Components.ModalController);
     application.register(
@@ -69,6 +70,10 @@ export default (application: Application): void => {
         Components.ProxyEventsController,
     );
     application.register('fox-tail--tab', Components.TabController);
+    application.register(
+        'fox-tail--search-filtering',
+        Components.SearchFilteringController,
+    );
     application.register(
         'fox-tail--textarea-auto-resize',
         Components.TextareaAutoResizeController,
