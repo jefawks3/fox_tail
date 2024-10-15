@@ -24,6 +24,6 @@ item:
           focus:outline-none focus:ring-2 focus:ring-primary-700 dark:focus:ring-gray-500
           focus:text-primary-700 dark:focus:text-white
   visual:
-    base: w-3 h-3
+    base: w-3 h-3 shrink-0
   badge:
     base: ml-auto
