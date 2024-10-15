@@ -20,9 +20,9 @@ class FoxTail::FilterBarComponent < FoxTail::BaseComponent
       as: :static_select_filter,
       renders: lambda { |name, options = {}| select_filter_component name, options }
     },
-    dropdown: {
-      as: :static_dropdown_filter,
-      renders: lambda { |label, options = {}| dropdown_filter_component label, options }
+    button: {
+      as: :static_button_filter,
+      renders: lambda { |options = {}| button_filter_component options  }
     }
   }
 
@@ -39,9 +39,9 @@ class FoxTail::FilterBarComponent < FoxTail::BaseComponent
       as: :select_filter,
       renders: lambda { |name, options = {}| select_filter_component name, options }
     },
-    dropdown: {
-      as: :dropdown_filter,
-      renders: lambda { |label, options = {}| dropdown_filter_component label, options }
+    button: {
+      as: :button_filter,
+      renders: lambda { |options = {}| button_filter_component options  }
     }
   }
 
@@ -141,23 +141,12 @@ class FoxTail::FilterBarComponent < FoxTail::BaseComponent
     FoxTail::SelectComponent.new options
   end
 
-  def dropdown_filter_component(label, options = {})
-    icon = options.delete(:icon) { :chevron_down }
-    dropdown_classes = options.delete(:dropdown_class)
-    button_options = options.extract!(:size, :color, :class).reverse_merge(color: :neutral)
-    button_options[:class] = filter_classnames :dropdown, options
-    button_options[:size] = size
+  def button_filter_component(options = {})
+    options[:color] ||= :neutral
+    options[:size] = size
+    options[:class] = filter_classnames :button, options
 
-    component = FoxTail::DropdownComponent.new options.merge(class: dropdown_classes)
-
-    component.with_trigger(button_options) do |trigger|
-      render(FoxTail::ButtonComponent.new(trigger.html_attributes)) do |button|
-        button.with_right_icon icon
-        content_tag :span, label, class: theme.apply("dropdown_filter.button", self)
-      end
-    end
-
-    component
+    FoxTail::ButtonComponent.new(options)
   end
 
   def filter_trigger_component(options = {})
