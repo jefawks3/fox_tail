@@ -1,6 +1,17 @@
 # frozen_string_literal: true
 
 class FoxTail::Dropdown::MenuComponent < FoxTail::BaseComponent
+  renders_one :header, lambda { |title_or_options = {}, options = {}, &block|
+    if block
+      options = title_or_options
+      title_or_options = capture(&block)
+    end
+
+    options[:class] = classnames theme.apply(:header, self), options[:class]
+
+    content_tag :div, title_or_options, options
+  }
+
   renders_many :items, types: {
     item: {
       as: :item,
@@ -43,12 +54,21 @@ class FoxTail::Dropdown::MenuComponent < FoxTail::BaseComponent
   end
 
   def call
-    content_tag :ul, html_attributes do
-      items.each { |item| concat content_tag(:li, item) }
+    content_tag :div, html_attributes do
+      concat header if header?
+      concat render_list
     end
   end
 
   def objectify_options(options)
     super.merge name: name, value: value, multiple: multiple?
+  end
+
+  private
+
+  def render_list
+    content_tag :ul, class: theme.apply(:list, self) do
+      items.each { |item| concat content_tag(:li, item) }
+    end
   end
 end

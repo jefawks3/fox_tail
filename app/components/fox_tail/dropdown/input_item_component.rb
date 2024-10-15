@@ -22,6 +22,7 @@ class FoxTail::Dropdown::InputItemComponent < FoxTail::BaseComponent
   def before_render
     super
 
+    html_attributes[:id] = "#{id}_menu_item" if id.present?
     html_attributes[:class] = classnames theme.apply(:root, self), html_class
   end
 

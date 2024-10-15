@@ -21,6 +21,11 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
     FoxTail::Dropdown::MenuComponent.new options
   }
 
+  renders_one :footer, lambda { |options = {}, &block|
+    attributes = options.merge class: classnames(theme.apply(:footer, self), options[:class])
+    content_tag :div, attributes, &block
+  }
+
   has_option :divider, default: true, type: :boolean
   has_option :placement, default: "bottom"
   has_option :offset, default: 10
@@ -30,6 +35,7 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
   has_option :trigger_id
   has_option :trigger_type, default: :click
   has_option :delay, default: 300
+  has_option :scroll, type: :boolean, default: false
 
   def initialize(id_or_attributes = {}, html_attributes = {})
     if id_or_attributes.is_a? Hash
@@ -82,6 +88,13 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
   def render_dropdown
     content_tag :div, html_attributes do
       concat header if header?
+      concat render_dropdown_body
+      concat footer if footer?
+    end
+  end
+
+  def render_dropdown_body
+    content_tag :div, class: theme.apply(:body, self) do
       menus.each { |menu| concat menu } if menus?
       concat content if content?
     end
