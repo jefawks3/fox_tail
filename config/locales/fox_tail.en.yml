@@ -3,6 +3,8 @@ en:
     fox_tail:
       dismiss: Dismiss
       close: Close
+      breadcrumb:
+        label: Breadcrumbs
       dropzone:
         title_html: <span class="font-semibold">Click to upload</span> or drag and drop.
       pagination:
