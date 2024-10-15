@@ -11,7 +11,7 @@
   <% end %>
   <%= content_tag :div, class: theme.apply(:controls, self) do %>
     <%= content if content? %>
-    <%= filter_toggle %>
+    <%= filter_toggle if filters? %>
     <% submit_buttons.each do |submit_button| %>
       <%= submit_button %>
     <% end %>
