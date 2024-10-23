@@ -15,6 +15,7 @@ AllCops:
     - node_modules/**/*
     - src/**/*
     - dist/**/*
+    - vendor/**/*
 
 Style/FrozenStringLiteralComment:
   Enabled: true
