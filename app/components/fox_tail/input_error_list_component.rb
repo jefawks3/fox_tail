@@ -23,7 +23,7 @@ class FoxTail::InputErrorListComponent < FoxTail::BaseComponent
       end
     end
 
-    super(html_attributes)
+    super
   end
 
   def render?
@@ -46,7 +46,7 @@ class FoxTail::InputErrorListComponent < FoxTail::BaseComponent
   private
 
   def error_messages
-    @error_messages ||= object? && method_name? ? retrieve_errors : []
+    @error_messages ||= (object? && method_name?) ? retrieve_errors : []
   end
 
   def retrieve_errors

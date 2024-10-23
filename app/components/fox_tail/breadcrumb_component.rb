@@ -110,7 +110,7 @@ class FoxTail::BreadcrumbComponent < FoxTail::BaseComponent
     attributes = {}
 
     if index == items.length - 1
-      attributes[:aria] = { current: :page }
+      attributes[:aria] = {current: :page}
       item.with_html_class theme.apply("item/current", self)
     end
 

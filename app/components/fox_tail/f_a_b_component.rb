@@ -27,7 +27,7 @@ class FoxTail::FABComponent < FoxTail::BaseComponent
   has_option :trigger_type, default: :hover
 
   def initialize(html_attributes = {})
-    super(html_attributes)
+    super
 
     html_attributes[:id] ||= :"fab_#{SecureRandom.hex(4)}"
     options[:item_placement] = calculate_item_placement if item_placement == :auto
@@ -48,9 +48,9 @@ class FoxTail::FABComponent < FoxTail::BaseComponent
     with_icon "plus" unless icon?
 
     html_attributes[:class] = classnames theme.apply(:root, self),
-                                         placement.is_a?(String) && placement,
-                                         theme.apply("root/hidden", self),
-                                         html_class
+      placement.is_a?(String) && placement,
+      theme.apply("root/hidden", self),
+      html_class
   end
 
   def call
@@ -65,7 +65,7 @@ class FoxTail::FABComponent < FoxTail::BaseComponent
     {
       trigger_type: trigger_type,
       visible_classes: theme.apply("root/visible", self),
-      hidden_classes: theme.apply("root/hidden", self),
+      hidden_classes: theme.apply("root/hidden", self)
     }
   end
 
@@ -81,10 +81,10 @@ class FoxTail::FABComponent < FoxTail::BaseComponent
 
   def merge_item_options(options)
     options.merge label_style: label_style,
-                  pill: rounded?,
-                  placement: placement,
-                  label_placement: label_placement,
-                  theme: theme.theme(:item)
+      pill: rounded?,
+      placement: placement,
+      label_placement: label_placement,
+      theme: theme.theme(:item)
   end
 
   def calculate_item_placement
@@ -104,7 +104,7 @@ class FoxTail::FABComponent < FoxTail::BaseComponent
   end
 
   def render_items
-    attributes = { }
+    attributes = {}
     attributes[:class] = classnames theme.apply(:menu, self)
     attributes[:data] = {}
     attributes[:data][stimulus_controller.target_key] = :menu if use_stimulus?
@@ -122,7 +122,7 @@ class FoxTail::FABComponent < FoxTail::BaseComponent
 
   class StimulusController < FoxTail::StimulusController
     def attributes(options = {})
-      attributes = super options
+      attributes = super
       attributes[:data][value_key(:trigger_type)] = options[:trigger_type]
       attributes[:data][classes_key(:visible)] = options[:visible_classes]
       attributes[:data][classes_key(:hidden)] = options[:hidden_classes]

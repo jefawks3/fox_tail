@@ -19,7 +19,7 @@ class FoxTail::DrawerComponent < FoxTail::BaseComponent
 
         if use_stimulus?
           options[:data][:action] = stimulus_merger.merge_actions options[:data][:action],
-                                                                  stimulus_controller.action(:hide)
+            stimulus_controller.action(:hide)
         end
 
         content_tag :button, options do
@@ -48,8 +48,8 @@ class FoxTail::DrawerComponent < FoxTail::BaseComponent
     super
 
     html_attributes[:class] = classnames theme.apply(:root, self),
-                                         open? ? visible_classes : hidden_classes,
-                                         html_class
+      open? ? visible_classes : hidden_classes,
+      html_class
 
     html_attributes[:tab_index] ||= -1
     html_attributes[:aria] ||= {}
@@ -104,7 +104,7 @@ class FoxTail::DrawerComponent < FoxTail::BaseComponent
 
   class StimulusController < FoxTail::StimulusController
     def attributes(options = {})
-      attributes = super options
+      attributes = super
       attributes[:data][value_key(:backdrop)] = options[:backdrop]
       attributes[:data][value_key(:body_scrolling)] = options[:body_scrolling]
       attributes[:data][value_key(:open)] = options[:open]

@@ -5,8 +5,8 @@ class FoxTail::Sidebar::MenuItemComponent < FoxTail::ClickableComponent
     icon: {
       as: :left_icon,
       renders: lambda { |icon, options = {}|
-        options[:class] = classnames theme.apply(:visual, self, { position: :left, type: :svg }),
-                                     options[:class]
+        options[:class] = classnames theme.apply(:visual, self, {position: :left, type: :svg}),
+          options[:class]
 
         FoxTail::IconBaseComponent.new icon, options
       }
@@ -14,8 +14,8 @@ class FoxTail::Sidebar::MenuItemComponent < FoxTail::ClickableComponent
     svg: {
       as: :left_svg,
       renders: lambda { |path, options = {}|
-        options[:class] = classnames theme.apply(:visual, self, { position: :left, type: :svg }),
-                                     options[:class]
+        options[:class] = classnames theme.apply(:visual, self, {position: :left, type: :svg}),
+          options[:class]
 
         FoxTail::InlineSvgComponent.new path, options
       }
@@ -23,8 +23,8 @@ class FoxTail::Sidebar::MenuItemComponent < FoxTail::ClickableComponent
     image: {
       as: :left_image,
       renders: lambda { |source, options = {}|
-        options[:class] = classnames theme.apply(:visual, self, { position: :left, type: :image }),
-                                     options[:class]
+        options[:class] = classnames theme.apply(:visual, self, {position: :left, type: :image}),
+          options[:class]
 
         image_tag source, options
       }
@@ -35,8 +35,8 @@ class FoxTail::Sidebar::MenuItemComponent < FoxTail::ClickableComponent
     icon: {
       as: :right_icon,
       renders: lambda { |icon, options = {}|
-        options[:class] = classnames theme.apply(:visual, self, { position: :right, type: :icon }),
-                                     options[:class]
+        options[:class] = classnames theme.apply(:visual, self, {position: :right, type: :icon}),
+          options[:class]
 
         FoxTail::IconBaseComponent.new icon, options
       }
@@ -44,8 +44,8 @@ class FoxTail::Sidebar::MenuItemComponent < FoxTail::ClickableComponent
     svg: {
       as: :right_svg,
       renders: lambda { |path, options = {}|
-        options[:class] = classnames theme.apply(:visual, self, { position: :right, type: :svg }),
-                                     options[:class]
+        options[:class] = classnames theme.apply(:visual, self, {position: :right, type: :svg}),
+          options[:class]
 
         FoxTail::InlineSvgComponent.new path, options
       }
@@ -53,16 +53,16 @@ class FoxTail::Sidebar::MenuItemComponent < FoxTail::ClickableComponent
     image: {
       as: :right_image,
       renders: lambda { |source, options = {}|
-        options[:class] = classnames theme.apply(:visual, self, { position: :right, type: :image }),
-                                     options[:class]
+        options[:class] = classnames theme.apply(:visual, self, {position: :right, type: :image}),
+          options[:class]
         image_tag source, options
       }
     },
     badge: {
       as: :badge,
       renders: lambda { |options = {}|
-        options[:class] = classnames theme.apply(:visual, self, { position: :right, type: :badge }),
-                                     options[:class]
+        options[:class] = classnames theme.apply(:visual, self, {position: :right, type: :badge}),
+          options[:class]
 
         FoxTail::BadgeComponent.new options
       }
@@ -80,7 +80,7 @@ class FoxTail::Sidebar::MenuItemComponent < FoxTail::ClickableComponent
   has_option :selected, type: :boolean, default: false
 
   def initialize(html_attributes = {})
-    super(html_attributes)
+    super
 
     options[:id] ||= "menu_item_#{SecureRandom.alphanumeric 16}"
     options[:menu_id] ||= "#{options[:id]}_menu"
@@ -99,13 +99,13 @@ class FoxTail::Sidebar::MenuItemComponent < FoxTail::ClickableComponent
   end
 
   def call
-     content_tag :li do
-       if menu?
-         concat render_collapsible_trigger
-         concat render_menu
-       else
-         render_item
-       end
+    content_tag :li do
+      if menu?
+        concat render_collapsible_trigger
+        concat render_menu
+      else
+        render_item
+      end
     end
   end
 

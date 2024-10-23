@@ -71,7 +71,7 @@ class IconComponentPreview < ViewComponent::Preview
   end
 
   def error
-    render(FoxTail::IconComponent.new("shield-check", color: :error))
+    render(FoxTail::IconComponent.new("shield-check", color: :danger))
   end
 
   # @!endgroup
@@ -146,5 +146,4 @@ class IconComponentPreview < ViewComponent::Preview
   end
 
   # @!endgroup
-
 end

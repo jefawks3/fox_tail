@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class FoxTail::ConfigTest < ActiveSupport::TestCase
   def test_default_classname_merger

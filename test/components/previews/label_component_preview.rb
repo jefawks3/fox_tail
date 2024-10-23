@@ -3,7 +3,6 @@
 # @logical_path forms
 # @component FoxTail::LabelComponent
 class LabelComponentPreview < ViewComponent::Preview
-
   # @param required toggle "Visually show that the field is required"
   # @param state select { choices: [normal,valid,invalid] }
   def playground(required: false, state: :normal)

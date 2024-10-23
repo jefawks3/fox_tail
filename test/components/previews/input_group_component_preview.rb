@@ -31,7 +31,7 @@ class InputGroupComponentPreview < ViewComponent::Preview
 
   # @param size select {choices: [sm,base,lg]}
   def dropdown(size: :base)
-    render_with_template locals: { size: size }
+    render_with_template locals: {size: size}
   end
 
   # @param size select {choices: [sm,base,lg]}

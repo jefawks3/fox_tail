@@ -8,14 +8,14 @@ class FoxTail::DropdownTriggerComponent < FoxTail::TriggerBaseComponent
     super
 
     html_attributes[:class] = classnames theme.apply(:root, self),
-                                         theme.apply("root/#{open? ? :open : :close}", self),
-                                         html_class
+      theme.apply("root/#{open? ? :open : :close}", self),
+      html_class
   end
 
   def stimulus_controller_options
     super.merge delay: delay,
-                open_classes: theme.apply("root/open", self),
-                closed_classes: theme.apply("root/closed", self)
+      open_classes: theme.apply("root/open", self),
+      closed_classes: theme.apply("root/closed", self)
   end
 
   class StimulusController < FoxTail::StimulusController
@@ -36,7 +36,7 @@ class FoxTail::DropdownTriggerComponent < FoxTail::TriggerBaseComponent
 
     def attributes(options = {})
       trigger_type = options[:trigger_type]&.to_sym
-      attributes = super options
+      attributes = super
       attributes[:data][value_key(:delay)] = options[:delay]
       attributes[:data][outlet_key(dropdown_identifier)] = options[:selector]
       attributes[:data][classes_key(:open)] = options[:open_classes]

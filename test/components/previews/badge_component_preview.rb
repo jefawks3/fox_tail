@@ -77,7 +77,7 @@ class BadgeComponentPreview < ViewComponent::Preview
   end
 
   def error
-    render(FoxTail::BadgeComponent.new(color: :error).with_content("Badge"))
+    render(FoxTail::BadgeComponent.new(color: :danger).with_content("Badge"))
   end
 
   # @!endgroup
@@ -151,7 +151,7 @@ class BadgeComponentPreview < ViewComponent::Preview
 
   # @label Error
   def pill_error
-    render(FoxTail::BadgeComponent.new(color: :error, pill: true).with_content("Badge"))
+    render(FoxTail::BadgeComponent.new(color: :danger, pill: true).with_content("Badge"))
   end
 
   # @!endgroup
@@ -225,11 +225,11 @@ class BadgeComponentPreview < ViewComponent::Preview
 
   # @label Error
   def border_error
-    render(FoxTail::BadgeComponent.new(color: :error, border: true).with_content("Badge"))
+    render(FoxTail::BadgeComponent.new(color: :danger, border: true).with_content("Badge"))
   end
-  
+
   # @!endgroup
-  
+
   # @!group With Icon
 
   def default_with_icon
@@ -247,7 +247,7 @@ class BadgeComponentPreview < ViewComponent::Preview
   end
 
   # @!endgroup
-  
+
   # @!group As Link
 
   # @label Neutral (Default)
@@ -317,9 +317,9 @@ class BadgeComponentPreview < ViewComponent::Preview
 
   # @label Error
   def url_error
-    render(FoxTail::BadgeComponent.new(color: :error, url: "#").with_content("Badge"))
+    render(FoxTail::BadgeComponent.new(color: :danger, url: "#").with_content("Badge"))
   end
-  
+
   # @!endgroup
 
   # @!group As Chip
@@ -355,7 +355,7 @@ class BadgeComponentPreview < ViewComponent::Preview
       "Badge"
     end
   end
-  
+
   # @label Red
   def chip_red
     render FoxTail::BadgeComponent.new(color: :red, size: :sm) do |badge|

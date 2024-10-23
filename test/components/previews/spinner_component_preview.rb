@@ -3,7 +3,6 @@
 # @logical_path components
 # @component FoxTail::SpinnerComponent
 class SpinnerComponentPreview < ViewComponent::Preview
-
   # @param color select { choices: [default,blue,red,green,yellow,indigo,purple,pink] }
   # @param size select { choices: [xs,sm,base,lg,xl] }
   def playground(color: :default, size: :base)

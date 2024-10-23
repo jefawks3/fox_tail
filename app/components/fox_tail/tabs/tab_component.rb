@@ -10,21 +10,21 @@ class FoxTail::Tabs::TabComponent < FoxTail::ClickableComponent
     icon: {
       as: :left_icon,
       renders: lambda { |icon, options = {}|
-        options[:class] = classnames theme.apply(:visual, self, { position: :left }), options[:class]
+        options[:class] = classnames theme.apply(:visual, self, {position: :left}), options[:class]
         FoxTail::IconBaseComponent.new icon, options
       }
     },
     svg: {
       as: :left_svg,
       renders: lambda { |path, options = {}|
-        options[:class] = classnames theme.apply(:visual, self, { position: :left }), options[:class]
+        options[:class] = classnames theme.apply(:visual, self, {position: :left}), options[:class]
         FoxTail::InlineSvgComponent.new path, options
       }
     },
     image: {
       as: :left_image,
       renders: lambda { |source, options = {}|
-        options[:class] = classnames theme.apply(:visual, self, { position: :left }), options[:class]
+        options[:class] = classnames theme.apply(:visual, self, {position: :left}), options[:class]
         image_tag source, options
       }
     }
@@ -34,21 +34,21 @@ class FoxTail::Tabs::TabComponent < FoxTail::ClickableComponent
     icon: {
       as: :right_icon,
       renders: lambda { |icon, options = {}|
-        options[:class] = classnames theme.apply(:visual, self, { position: :right }), options[:class]
+        options[:class] = classnames theme.apply(:visual, self, {position: :right}), options[:class]
         FoxTail::IconBaseComponent.new icon, options
       }
     },
     svg: {
       as: :right_svg,
       renders: lambda { |path, options = {}|
-        options[:class] = classnames theme.apply(:visual, self, { position: :right }), options[:class]
+        options[:class] = classnames theme.apply(:visual, self, {position: :right}), options[:class]
         FoxTail::InlineSvgComponent.new path, options
       }
     },
     image: {
       as: :right_image,
       renders: lambda { |source, options = {}|
-        options[:class] = classnames theme.apply(:visual, self, { position: :right }), options[:class]
+        options[:class] = classnames theme.apply(:visual, self, {position: :right}), options[:class]
         image_tag source, options
       }
     }
@@ -85,7 +85,7 @@ class FoxTail::Tabs::TabComponent < FoxTail::ClickableComponent
       active_classes: active_classes,
       selected_classes: selected_classes,
       siblings: tabs_id? ? "##{tabs_id} [data-controller~='fox_tail--tab']" : nil,
-      panel: panel_id? ? "##{panel_id}" : nil,
+      panel: panel_id? ? "##{panel_id}" : nil
     }
   end
 

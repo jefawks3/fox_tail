@@ -42,23 +42,23 @@ class FoxTail::ClickableComponent < FoxTail::BaseComponent
   end
 
   def stimulus_controller_options
-    { state: stimulus_state, active_classes: active_classes, disabled_classes: disabled_classes }
+    {state: stimulus_state, active_classes: active_classes, disabled_classes: disabled_classes}
   end
 
   protected
 
   def root_classes
     classnames theme.apply(:root, self),
-               theme.apply("root/#{disabled? ? :disabled : :active}", self),
-               block_given? && yield,
-               html_class
+      theme.apply("root/#{disabled? ? :disabled : :active}", self),
+      block_given? && yield,
+      html_class
   end
 
   def active_classes
     classnames theme.apply(:root, self),
-               theme.apply("root/active", self),
-               block_given? && yield,
-               html_class
+      theme.apply("root/active", self),
+      block_given? && yield,
+      html_class
   end
 
   def disabled_classes
@@ -87,7 +87,7 @@ class FoxTail::ClickableComponent < FoxTail::BaseComponent
     def attributes(options = {})
       {
         data: {
-          controller: identifier,
+          :controller => identifier,
           value_key(:state) => options[:state] || :active,
           classes_key(:active) => options[:active_classes],
           classes_key(:disabled) => options[:disabled_classes]

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails/generators'
+require "rails/generators"
 
 module FoxTail
   class ThemesGenerator < Rails::Generators::Base
@@ -9,9 +9,9 @@ module FoxTail
     source_root FoxTail.root.join("app/components/fox_tail").to_s
 
     class_option :components,
-                 aliases: "-c",
-                 type: :array,
-                 desc: "Select specific controllers to generate (i.e., Accordion, Modal, Tooltip, etc.)."
+      aliases: "-c",
+      type: :array,
+      desc: "Select specific controllers to generate (i.e., Accordion, Modal, Tooltip, etc.)."
 
     def copy_themes
       if options.components.present?

@@ -15,13 +15,11 @@ class FoxTail::Stepper::StepComponent < FoxTail::BaseComponent
     svg: {
       as: :svg,
       renders: lambda { |path, options = {}|
-
       }
     },
     image: {
       as: :image,
       renders: lambda { |source, options = {}|
-
       }
     }
   }

@@ -13,7 +13,7 @@ class FilterSummaryPreview < ViewComponent::Preview
 
     render FoxTail::FilterSummaryComponent.new(size: size, color: color) do |summary|
       summary.with_filter(:q).with_content("Keyword: <strong>#{q}</strong>".html_safe) if q.present?
-      summary.with_filter(:states) { "State: <strong>#{states.to_sentence(two_words_connector: ' or ', last_word_connector: ', or')}".html_safe } if states.present?
+      summary.with_filter(:states) { "State: <strong>#{states.to_sentence(two_words_connector: " or ", last_word_connector: ", or")}".html_safe } if states.present?
 
       if clear_style == "link"
         summary.with_clear_link_content("Clear")

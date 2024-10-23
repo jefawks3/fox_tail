@@ -1,13 +1,27 @@
+require:
+  - standard
+  - rubocop-md
+  - rubocop-rails
+  - rubocop-capybara
+  - rubocop-minitest
+inherit_gem:
+  standard: config/base.yml
+
 AllCops:
-  TargetRubyVersion: 2.6
+  NewCops: enable
+  TargetRailsVersion: 5.2
+  Exclude:
+    - .idea/**/*
+    - node_modules/**/*
+    - src/**/*
+    - dist/**/*
 
-Style/StringLiterals:
+Style/FrozenStringLiteralComment:
   Enabled: true
-  EnforcedStyle: double_quotes
 
-Style/StringLiteralsInInterpolation:
-  Enabled: true
-  EnforcedStyle: double_quotes
+Rails:
+  Enabled: true # enable rubocop-rails cops
 
-Layout/LineLength:
-  Max: 120
+Rails/OutputSafety:
+  Exclude:
+    - test/components/previews/**/*

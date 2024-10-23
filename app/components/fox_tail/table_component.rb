@@ -43,6 +43,6 @@ class FoxTail::TableComponent < FoxTail::BaseComponent
   private
 
   def section_options
-    self.options.slice :highlight, :hover, :border
+    options.slice :highlight, :hover, :border
   end
 end

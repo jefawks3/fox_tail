@@ -3,7 +3,6 @@
 # @component FoxTail::AvatarComponent
 # @logical_path components
 class AvatarComponentPreview < ViewComponent::Preview
-
   # @param image "The image asset path or URI to display for the avatar."
   # @param icon "The heroicon to use for the avatar when image is empty"
   # @param text "The placeholder text to use when image & icon are empty"

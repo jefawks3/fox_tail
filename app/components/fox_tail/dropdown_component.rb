@@ -57,8 +57,8 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
 
     generate_unique_id
     html_attributes[:class] = classnames theme.apply(:root, self),
-                                         theme.apply("root/hidden", self),
-                                         html_class
+      theme.apply("root/hidden", self),
+      html_class
   end
 
   def call
@@ -114,7 +114,7 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
 
     def attributes(options = {})
       trigger_type = options[:trigger_type]&.to_sym
-      attributes = super options
+      attributes = super
       attributes[:data][value_key(:placement)] = options[:placement]
       attributes[:data][value_key(:offset)] = options[:offset]
       attributes[:data][value_key(:shift)] = options[:shift]

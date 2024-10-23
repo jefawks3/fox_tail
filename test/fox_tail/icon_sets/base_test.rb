@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module FoxTail
   module IconSets
-    class BaseTest < Minitest::Test
+    class BaseTest < ActiveSupport::TestCase
       def subject
         FoxTail::IconSets::Base.new "test-icons"
       end

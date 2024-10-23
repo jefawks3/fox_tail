@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class FoxTail::ToastComponent < FoxTail::DismissibleComponent
-
   renders_one :header, lambda { |text, options = {}|
     options[:class] = classnames theme.apply(:header, self), options[:class]
     content_tag :span, text, options
@@ -28,8 +27,8 @@ class FoxTail::ToastComponent < FoxTail::DismissibleComponent
       as: :image,
       renders: lambda { |source, options = {}|
         options[:class] = classnames theme.apply("visual", self),
-                                     theme.apply("visual/image", self),
-                                     options[:class]
+          theme.apply("visual/image", self),
+          options[:class]
 
         image_tag source, options
       }
@@ -78,7 +77,7 @@ class FoxTail::ToastComponent < FoxTail::DismissibleComponent
 
     attributes[:data] ||= {}
     attributes[:data][:action] = stimulus_merger.merge_actions attributes[:data][:action],
-                                                               stimulus_controller.action("dismiss")
+      stimulus_controller.action("dismiss")
   end
 
   def render_visual(content, options, &block)
@@ -89,8 +88,8 @@ class FoxTail::ToastComponent < FoxTail::DismissibleComponent
 
     options[:"aria-hidden"] = true
     options[:class] = classnames theme.apply(:visual, self, visual_options),
-                                 theme.apply("visual/icon", self, visual_options),
-                                 options[:class]
+      theme.apply("visual/icon", self, visual_options),
+      options[:class]
 
     content_tag :div, class: container_classes do
       concat block.call(options)

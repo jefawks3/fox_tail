@@ -3,7 +3,6 @@
 # @component FoxTail::ButtonGroupComponent
 # @logical_path components
 class ButtonGroupComponentPreview < ViewComponent::Preview
-
   # @param size select { choices: [xs,sm,base,lg,xl] } "The button group size"
   # @param pill toggle "Display the group as a pill"
   # @param button_one_text

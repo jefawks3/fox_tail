@@ -21,24 +21,24 @@ class FoxTail::InputGroupComponent < FoxTail::BaseComponent
     select: {
       as: :select,
       renders: lambda { |method_or_options = {}, options = {}|
-        if method_or_options.is_a? Hash
-          options = method_or_options
-        else
-          options[:method_name] = method_or_options
-        end
-
-        FoxTail::SelectComponent.new objectify_options(options) }
+                 if method_or_options.is_a? Hash
+                   options = method_or_options
+                 else
+                   options[:method_name] = method_or_options
+                 end
+                 FoxTail::SelectComponent.new objectify_options(options)
+               }
     },
     button: {
       as: :button,
       renders: lambda { |method_or_options = {}, options = {}|
-        if method_or_options.is_a? Hash
-          options = method_or_options
-        else
-          options[:method_name] = method_or_options
-        end
-
-        FoxTail::ButtonComponent.new objectify_options(options) }
+                 if method_or_options.is_a? Hash
+                   options = method_or_options
+                 else
+                   options[:method_name] = method_or_options
+                 end
+                 FoxTail::ButtonComponent.new objectify_options(options)
+               }
     },
     icon_button: {
       as: :icon_button,
@@ -66,8 +66,8 @@ class FoxTail::InputGroupComponent < FoxTail::BaseComponent
       as: :icon,
       renders: lambda { |icon, options = {}|
         options[:class] = classnames theme.apply("addon/visual", self),
-                                     theme.apply("addon/icon", self),
-                                     options[:class]
+          theme.apply("addon/icon", self),
+          options[:class]
 
         addon_component { render FoxTail::IconBaseComponent.new icon, options }
       }
@@ -76,8 +76,8 @@ class FoxTail::InputGroupComponent < FoxTail::BaseComponent
       as: :svg,
       renders: lambda { |path, options = {}|
         options[:class] = classnames theme.apply("addon/visual", self),
-                                     theme.apply("addon/svg", self),
-                                     options[:class]
+          theme.apply("addon/svg", self),
+          options[:class]
 
         addon_component { render FoxTail::InlineSvgComponent.new(path, options) }
       }
@@ -87,8 +87,8 @@ class FoxTail::InputGroupComponent < FoxTail::BaseComponent
       renders: lambda { |path, options = {}|
         image_options = options.extract! :fill
         options[:class] = classnames classnames theme.apply("addon/visual", self),
-                                                theme.apply("addon/image", self, image_options),
-                                                options[:class]
+          theme.apply("addon/image", self, image_options),
+          options[:class]
 
         addon_component(image_options) { image_tag path, options }
       }
@@ -133,7 +133,7 @@ class FoxTail::InputGroupComponent < FoxTail::BaseComponent
   end
 
   def addon_component(options = {}, &block)
-    FoxTail::WrapperComponent.new class: theme.apply(:addon, self, { fill: options[:fill] }) do |wrapper|
+    FoxTail::WrapperComponent.new class: theme.apply(:addon, self, {fill: options[:fill]}) do |wrapper|
       content_tag :div, wrapper.options do
         capture wrapper, &block
       end
@@ -141,7 +141,7 @@ class FoxTail::InputGroupComponent < FoxTail::BaseComponent
   end
 
   def render_item(item, index)
-    item.with_html_class theme.apply(:item, self, { position: item_position(index) })
+    item.with_html_class theme.apply(:item, self, {position: item_position(index)})
     item
   end
 end

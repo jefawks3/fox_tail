@@ -30,7 +30,7 @@ class FoxTail::AccordionComponent < FoxTail::BaseComponent
       html_attributes[:id] = id_or_attributes
     end
 
-    super html_attributes
+    super(html_attributes)
   end
 
   def render?
@@ -51,12 +51,12 @@ class FoxTail::AccordionComponent < FoxTail::BaseComponent
   end
 
   def stimulus_controller_options
-    { always_open: always_open }
+    {always_open: always_open}
   end
 
   class StimulusController < FoxTail::StimulusController
     def attributes(options = {})
-      attributes = super options
+      attributes = super
       attributes[:data][value_key(:always_open)] = options[:always_open]
       attributes
     end

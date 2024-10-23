@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "lib/fox_tail/version"
 
 Gem::Specification.new do |spec|
@@ -21,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir["LICENSE", "README.md", "app/**/*", "config/**/*", "lib/**/*"]
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "railties", ">= 4.1.0"
+  spec.add_dependency "railties", ">= 5.2.0"
   spec.add_dependency "tailwind_merge", "~> 0.7"
   spec.add_runtime_dependency "view_component", "~> 3.0"
 end

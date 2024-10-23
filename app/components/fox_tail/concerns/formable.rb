@@ -42,7 +42,7 @@ module FoxTail::Concerns::Formable
   end
 
   def name_and_id_index
-    if self.options.key? :object_index
+    if options.key? :object_index
       object_index.presence || ""
     elsif @generate_indexed_names
       @auto_index || ""
@@ -123,11 +123,11 @@ module FoxTail::Concerns::Formable
     end
   end
 
-  def field_id(method, *suffixes, namespace: self.namespace, index: self.object_index)
+  def field_id(method, *suffixes, namespace: self.namespace, index: object_index)
     view_context.field_id(object_name, method, *suffixes, namespace: namespace.presence, index: index.presence).presence
   end
 
-  def field_name(method, *methods, multiple: false, index: self.object_index)
+  def field_name(method, *methods, multiple: false, index: object_index)
     view_context.field_name(object_name, method, *methods, index: index.presence, multiple: !!multiple).presence
   end
 
@@ -159,7 +159,7 @@ module FoxTail::Concerns::Formable
     return false if methods.blank?
 
     object = convert_to_model self.object
-    return false unless object.present?
+    return false if object.blank?
 
     methods.any? { |m| object.errors[m].present? }
   end

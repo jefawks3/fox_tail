@@ -16,7 +16,7 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
       attributes[:data][stimulus_controller.target_key] = :value
     end
 
-    tag :input, attributes
+    tag.input(attributes)
   }
 
   renders_one :input, lambda { |options = {}, &block|
@@ -40,8 +40,8 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
       component = FoxTail::InputComponent.new stimulus_merger.merge_attributes(trigger.html_attributes, options)
 
       if use_stimulus?
-        component.with_right_spinner class: theme.apply(:loader, self),
-                                     stimulus_controller.target_key(raw: true) => :loader
+        component.with_right_spinner :class => theme.apply(:loader, self),
+          stimulus_controller.target_key(raw: true) => :loader
       end
 
       render component, &block
@@ -111,7 +111,7 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
   def stimulus_controller_options
     {
       url: @url,
-      param: param,
+      param: param
     }
   end
 
@@ -139,7 +139,7 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
 
   class StimulusController < FoxTail::StimulusController
     def attributes(options = {})
-      attributes = super(options)
+      attributes = super
       attributes[:data][value_key(:url)] = options[:url]
       attributes[:data][value_key(:param)] = options[:param]
       attributes

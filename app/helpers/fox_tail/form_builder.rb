@@ -27,7 +27,7 @@ class FoxTail::FormBuilder < ActionView::Helpers::FormBuilder
 
     options = objectify_component_options method, options
     component = FoxTail::HelperTextComponent.new options
-    component.with_content text unless text.blank?
+    component.with_content text if text.present?
     @template.render component, &block
   end
 

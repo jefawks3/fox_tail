@@ -61,20 +61,24 @@ class FoxTail::ButtonBaseComponent < FoxTail::ClickableComponent
     return nil unless object_name? && html_attributes[:type]&.to_sym == :submit
 
     object = convert_to_model self.object
-    key    = object ? (object.persisted? ? :update : :create) : :submit
+    key = if object
+      object.persisted? ? :update : :create
+    else
+      :submit
+    end
 
     model = if object.respond_to?(:model_name)
-              object.model_name.human
-            else
-              object_name.to_s.humanize
-            end
+      object.model_name.human
+    else
+      object_name.to_s.humanize
+    end
 
     defaults = []
     defaults << if object.respond_to?(:model_name) && object_name.to_s == model.downcase
-                  :"helpers.submit.#{object.model_name.i18n_key}.#{key}"
-                else
-                  :"helpers.submit.#{object_name}.#{key}"
-                end
+      :"helpers.submit.#{object.model_name.i18n_key}.#{key}"
+    else
+      :"helpers.submit.#{object_name}.#{key}"
+    end
 
     defaults << :"helpers.submit.#{key}"
     defaults << "#{key.to_s.humanize} #{model}"

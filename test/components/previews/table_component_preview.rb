@@ -3,7 +3,6 @@
 # @logical_path components
 # @component FoxTail::TableComponent
 class TableComponentPreview < ViewComponent::Preview
-
   def default
     render FoxTail::TableComponent.new do |t|
       t.with_header do |h|

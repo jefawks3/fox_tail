@@ -6,8 +6,8 @@ class FoxTail::AvatarStackComponent < FoxTail::BaseComponent
     options[:rounded] = rounded
     options[:border] = true unless options.key? :border
     options[:class] = classnames theme.apply(:content, self),
-                                 theme.apply(:avatar, self),
-                                 options[:class]
+      theme.apply(:avatar, self),
+      options[:class]
 
     FoxTail::AvatarComponent.new options
   }
@@ -20,8 +20,8 @@ class FoxTail::AvatarStackComponent < FoxTail::BaseComponent
     options[:rounded] = rounded
     options[:border] = true unless options.key? :border
     options[:class] = classnames theme.apply(:content, self),
-                                 theme.apply(:counter, self),
-                                 options[:class]
+      theme.apply(:counter, self),
+      options[:class]
 
     if url.present?
       link_to url, class: theme.apply("counter/link", self) do

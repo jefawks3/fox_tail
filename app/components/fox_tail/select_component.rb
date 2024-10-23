@@ -24,7 +24,7 @@ class FoxTail::SelectComponent < FoxTail::InputBaseComponent
     group: {
       as: :select_group,
       renders: lambda { |label, options = {}|
-        options[:selected_value] = self.value
+        options[:selected_value] = value
         FoxTail::Select::OptionGroupComponent.new label, options
       }
     }
@@ -82,7 +82,7 @@ class FoxTail::SelectComponent < FoxTail::InputBaseComponent
   private
 
   def render_hidden
-    tag :input, disabled: disabled?, name: html_attributes[:name], type: :hidden, value: "", autocomplete: :off
+    tag.input(disabled: disabled?, name: html_attributes[:name], type: :hidden, value: "", autocomplete: :off)
   end
 
   def render_select

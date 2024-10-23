@@ -17,7 +17,7 @@ module FoxTail
 
     def attributes(_options = {})
       {
-        data: { controller: identifier }
+        data: {controller: identifier}
       }
     end
 
@@ -47,7 +47,7 @@ module FoxTail
 
     def action(method_name, event: nil)
       action = "#{identifier}##{method_name}"
-      event && event.to_sym != :click ? "#{event}->#{action}" : action
+      (event && event.to_sym != :click) ? "#{event}->#{action}" : action
     end
 
     def action_param_key(name, raw: false)
@@ -62,7 +62,7 @@ module FoxTail
       return nil if actions.blank?
 
       formatted_actions = actions.each_with_object([]) do |(method_name, events), results|
-        Array(events).each { |event| results.push( action(method_name, event: event)) }
+        Array(events).each { |event| results.push(action(method_name, event: event)) }
       end
 
       stimulus_merger.merge_actions(*formatted_actions)

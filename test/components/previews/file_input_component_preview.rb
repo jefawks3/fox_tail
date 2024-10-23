@@ -3,7 +3,6 @@
 # @logical_path forms
 # @component FoxTail::FileInputComponent
 class FileInputComponentPreview < ViewComponent::Preview
-
   # @param size select {choices: [sm,base,lg]}
   # @param state select {choices: [default,valid,invalid]}
   # @param disabled toggle

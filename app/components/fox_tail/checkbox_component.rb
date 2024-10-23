@@ -62,8 +62,8 @@ class FoxTail::CheckboxComponent < FoxTail::BaseComponent
 
   def call
     capture do
-      concat tag(:input, hidden_attributes) if include_hidden?
-      concat tag(:input, html_attributes)
+      concat tag.input(hidden_attributes) if include_hidden?
+      concat tag.input(html_attributes)
     end
   end
 
@@ -71,7 +71,7 @@ class FoxTail::CheckboxComponent < FoxTail::BaseComponent
 
   def hidden_attributes
     html_attributes.slice(:name, :disabled, :form)
-                   .merge!(type: :hidden, value: unchecked_value, autocomplete: "off")
+      .merge!(type: :hidden, value: unchecked_value, autocomplete: "off")
   end
 
   class << self

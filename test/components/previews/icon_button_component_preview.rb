@@ -3,7 +3,6 @@
 # @component FoxTail::IconButtonComponent
 # @logical_path components
 class IconButtonComponentPreview < ViewComponent::Preview
-
   # @param icon "The Heroicon to use"
   # @param color "The theme color to use"
   # @param variant select { choices: [solid,outline] } "The button style"

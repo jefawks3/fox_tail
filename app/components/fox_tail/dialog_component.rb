@@ -20,7 +20,7 @@ class FoxTail::DialogComponent < FoxTail::SurfaceComponent
 
   def initialize(html_attributes = {})
     html_attributes[:border] = false unless html_attributes.key? :border
-    super(html_attributes)
+    super
   end
 
   def hover?

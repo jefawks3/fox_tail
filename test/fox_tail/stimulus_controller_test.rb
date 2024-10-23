@@ -3,7 +3,7 @@
 require "test_helper"
 require "minitest/mock"
 
-class FoxTail::StimulusControllerTest < Minitest::Test
+class FoxTail::StimulusControllerTest < ActiveSupport::TestCase
   def setup
     @controller = FoxTail::StimulusController.new :test_controller
   end
@@ -25,7 +25,7 @@ class FoxTail::StimulusControllerTest < Minitest::Test
   end
 
   def test_attributes
-    assert_equal({ data: { controller: "test-controller" } }, @controller.attributes)
+    assert_equal({data: {controller: "test-controller"}}, @controller.attributes)
   end
 
   def test_target_key
@@ -73,27 +73,28 @@ class FoxTail::StimulusControllerTest < Minitest::Test
   end
 
   def test_build_actions
-    actual = @controller.build_actions( { show: [:click, :focus], hide: [:blur] })
+    actual = @controller.build_actions({show: [:click, :focus], hide: [:blur]})
+
     assert_equal "test-controller#show focus->test-controller#show blur->test-controller#hide", actual
   end
 
   def test_merge
-    attributes = { data: { controller: "foo-bar", foo_bar_some_value: true, action: "foo-bar#show" } }
+    attributes = {data: {controller: "foo-bar", foo_bar_some_value: true, action: "foo-bar#show"}}
     mock = Minitest::Mock.new
-    mock.expect :merge_attributes!, {}, [attributes, { data: { controller: "test-controller" } }]
+    mock.expect :merge_attributes!, {}, [attributes, {data: {controller: "test-controller"}}]
 
     FoxTail::Config.current.stub :stimulus_merger, mock do
       @controller.merge attributes
     end
 
     assert_mock mock
-    refute_same attributes, @controller.merge(attributes)
+    assert_not_same attributes, @controller.merge(attributes)
   end
 
   def test_merge!
-    attributes = { data: { controller: "foo-bar", foo_bar_some_value: true, action: "foo-bar#show" } }
+    attributes = {data: {controller: "foo-bar", foo_bar_some_value: true, action: "foo-bar#show"}}
     mock = Minitest::Mock.new
-    mock.expect :merge_attributes!, {}, [attributes, { data: { controller: "test-controller" } }]
+    mock.expect :merge_attributes!, {}, [attributes, {data: {controller: "test-controller"}}]
 
     FoxTail::Config.current.stub :stimulus_merger, mock do
       @controller.merge! attributes

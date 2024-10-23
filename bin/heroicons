@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'faraday'
-require 'tempfile'
-require 'zip'
-require 'fileutils'
+require "faraday"
+require "tempfile"
+require "zip"
+require "fileutils"
 require "nokogiri"
 
 ROOT_DIR = File.expand_path "..", __dir__
@@ -17,10 +17,10 @@ def fetch(url, redirect = 0)
   if response.status == 302
     if redirect > 10
       puts "Unable to download Heroicons - Too many redirects!"
-      exit! -100
+      exit!(-100)
     end
 
-    fetch response.headers['location'], redirect = 1
+    fetch response.headers["location"], 1
   else
     response
   end
@@ -30,7 +30,7 @@ response = fetch "https://github.com/tailwindlabs/heroicons/archive/refs/heads/m
 
 if response.status != 200
   puts "Unable to download heroicons [Status: #{response.status}]"
-  exit! -1
+  exit!(-1)
 end
 
 FileUtils.rm_rf TEMP_DIR if Dir.exist? TEMP_DIR
@@ -42,24 +42,24 @@ File.write zipfile_path, response.body
 
 Zip::File.open zipfile_path do |zip|
   zip.each do |file|
-    if file.file? && file.name && file.name.match(/^heroicons-master\/src\//)
-      relative_path = Pathname.new(file.name).relative_path_from("heroicons-master/src").to_s
-      temp_path = File.join TEMP_DIR, relative_path
-      destination_file = File.join DESTINATION_DIR, relative_path
+    next unless file.file? && file.name && file.name.match(%r{^heroicons-master/src/})
 
-      # Create Temp file
-      FileUtils.mkdir_p File.dirname(temp_path)
-      file.extract temp_path
+    relative_path = Pathname.new(file.name).relative_path_from("heroicons-master/src").to_s
+    temp_path = File.join TEMP_DIR, relative_path
+    destination_file = File.join DESTINATION_DIR, relative_path
 
-      # Modify SVG
-      svg_doc = Nokogiri::XML.parse File.read(temp_path)
-      svg_doc.css("[fill]").each { |node| node.attribute("fill").value = "currentColor" unless node.name == "svg" }
-      svg_doc.css("[stroke]").each { |node| node.attribute("stroke").value = "currentColor" unless node.name ==  "svg" }
+    # Create Temp file
+    FileUtils.mkdir_p File.dirname(temp_path)
+    file.extract temp_path
 
-      # Save SVG
-      FileUtils.rm_f destination_file if File.exist? destination_file
-      FileUtils.mkdir_p File.dirname(destination_file)
-      File.write destination_file, svg_doc.to_xml
-    end
+    # Modify SVG
+    svg_doc = Nokogiri::XML.parse File.read(temp_path)
+    svg_doc.css("[fill]").each { |node| node.attribute("fill").value = "currentColor" unless node.name == "svg" }
+    svg_doc.css("[stroke]").each { |node| node.attribute("stroke").value = "currentColor" unless node.name == "svg" }
+
+    # Save SVG
+    FileUtils.rm_f destination_file if File.exist? destination_file
+    FileUtils.mkdir_p File.dirname(destination_file)
+    File.write destination_file, svg_doc.to_xml
   end
 end

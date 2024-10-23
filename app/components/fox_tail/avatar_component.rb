@@ -65,10 +65,10 @@ class FoxTail::AvatarComponent < FoxTail::BaseComponent
     icon_classes = theme.apply :icon, self
     label = html_attributes[:alt]
     icon_name, icon_variant = if icon.is_a? Hash
-                                [icon[:name], icon[:variant]]
-                              else
-                                [icon, :solid]
-                              end
+      [icon[:name], icon[:variant]]
+    else
+      [icon, :solid]
+    end
 
     content_tag :div, html_attributes.except(:alt).merge(class: root_classes) do
       concat render(FoxTail::IconBaseComponent.new(icon_name, variant: icon_variant, class: icon_classes))

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class FoxTail::HrComponent < FoxTail::BaseComponent
-
   has_option :size, default: :base
   has_option :shape, default: :none
   has_option :trimmed, default: false, type: :boolean
@@ -13,11 +12,11 @@ class FoxTail::HrComponent < FoxTail::BaseComponent
   def call
     content_tag :div, class: wrapper_classes do
       if content? && shape == :none
-        concat tag(:hr, class: hr_classes)
+        concat tag.hr(class: hr_classes)
         concat content_tag(:div, content, class: content_classes)
-        concat tag(:hr, class: hr_classes)
+        concat tag.hr(class: hr_classes)
       else
-        tag :hr, class: hr_classes
+        tag.hr(class: hr_classes)
       end
     end
   end

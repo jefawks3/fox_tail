@@ -4,7 +4,6 @@
 # @component FoxTail::ColorThemeTrigger
 # @logical_path components
 class ColorThemeTriggerComponentPreview < ViewComponent::Preview
-
   def toggle
     render_with_template
   end

@@ -7,7 +7,7 @@ class FoxTail::DismissibleTriggerComponent < FoxTail::TriggerBaseComponent
 
   class StimulusController < FoxTail::StimulusController
     def attributes(options = {})
-      attributes = super options
+      attributes = super
       attributes[:data][outlet_key(:dismissible)] = options[:selector]
       attributes[:data][:action] = action(:dismiss) if options[:trigger_type] == :click
       attributes

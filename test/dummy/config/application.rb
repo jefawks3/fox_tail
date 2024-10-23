@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "boot"
 
 require "rails/all"
@@ -40,7 +42,7 @@ module Dummy
     # Lookbook
     config.lookbook.project_name = "Fox Tail UI"
     config.lookbook.project_logo = FoxTail.root.join("foxtail.svg").read
-    config.lookbook.preview_display_options = { theme: %w[light dark] }
+    config.lookbook.preview_display_options = {theme: %w[light dark]}
     config.lookbook.page_collection_label = "Docs"
     config.lookbook.page_paths << FoxTail.root.join("docs").to_s
     config.lookbook.page_route = "docs"

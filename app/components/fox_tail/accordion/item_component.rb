@@ -29,7 +29,6 @@ class FoxTail::Accordion::ItemComponent < FoxTail::BaseComponent
     }
   }
 
-
   renders_one :arrow, types: {
     icon: {
       renders: lambda { |options = {}|
@@ -128,8 +127,8 @@ class FoxTail::Accordion::ItemComponent < FoxTail::BaseComponent
     render(FoxTail::CollapsibleComponent.new(
       id: body_id,
       open: open?,
-      data: { FoxTail::AccordionComponent.stimulus_controller.target_key => :collapsible },
-      aria: { labelledby: id }
+      data: {FoxTail::AccordionComponent.stimulus_controller.target_key => :collapsible},
+      aria: {labelledby: id}
     )) do
       content_tag :div, content, class: body_classes
     end

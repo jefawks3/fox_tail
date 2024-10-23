@@ -98,8 +98,8 @@ class FoxTail::ModalComponent < FoxTail::BaseComponent
   private
 
   def content_attributes
-    attributes = { class: theme.apply(:content, self) }
-    attributes[:data] = { stimulus_controller.target_key => :content } if use_stimulus?
+    attributes = {class: theme.apply(:content, self)}
+    attributes[:data] = {stimulus_controller.target_key => :content} if use_stimulus?
     attributes
   end
 
@@ -126,7 +126,7 @@ class FoxTail::ModalComponent < FoxTail::BaseComponent
 
   class StimulusController < FoxTail::StimulusController
     def attributes(options = {})
-      attributes = super options
+      attributes = super
       attributes[:data][value_key(:static)] = options[:static]
       attributes[:data][value_key(:closeable)] = options[:closeable]
       attributes[:data][value_key(:open)] = options[:open]

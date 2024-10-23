@@ -6,7 +6,7 @@ class FoxTail::SpinnerComponent < FoxTail::InlineSvgComponent
 
   def initialize(html_attributes = {})
     path = html_attributes.delete(:path) { self.class.spinner_path }
-    super path, html_attributes
+    super(path, html_attributes)
   end
 
   def before_render

@@ -16,7 +16,6 @@ test/dummy/tmp/
 
 node_modules/
 
-Gemfile.lock
 fox_tail-*.gem
 
 .DS_store

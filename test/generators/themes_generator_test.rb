@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
-require 'test_helper'
-require 'generators/fox_tail/themes_generator'
+require "test_helper"
+require "generators/fox_tail/themes_generator"
 
 class ThemesGeneratorTest < Rails::Generators::TestCase
   tests FoxTail::ThemesGenerator
   destination File.expand_path("../../../tmp/generators", __FILE__)
   setup :prepare_destination
 
-  def test_copy_all
+  def test_copy_all # rubocop:disable Minitest/MultipleAssertions
     run_generator
+
     assert_file "app/components/fox_tail/accordion_component.theme.yml"
     assert_file "app/components/fox_tail/alert_component.theme.yml"
     assert_file "app/components/fox_tail/avatar_component.theme.yml"
@@ -58,8 +59,9 @@ class ThemesGeneratorTest < Rails::Generators::TestCase
     assert_file "app/components/fox_tail/tooltip_component.theme.yml"
   end
 
-  def test_selected_components
+  def test_selected_components # rubocop:disable Minitest/MultipleAssertions
     run_generator %w[-c alert avatar modal]
+
     assert_no_file "app/components/fox_tail/accordion_component.theme.yml"
     assert_file "app/components/fox_tail/alert_component.theme.yml"
     assert_file "app/components/fox_tail/avatar_component.theme.yml"

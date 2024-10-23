@@ -3,7 +3,6 @@
 # @logical_path forms
 # @component FoxTail::CheckboxComponent
 class CheckboxComponentPreview < ViewComponent::Preview
-
   # @param size select {choices: [sm,base,lg]}
   # @param color select {choices: [default,blue,red,green,yellow,indigo,purple,pink]}
   # @param checked toggle

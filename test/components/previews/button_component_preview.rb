@@ -3,7 +3,6 @@
 # @component FoxTail::ButtonComponent
 # @logical_path components
 class ButtonComponentPreview < ViewComponent::Preview
-
   # @param color "The theme color of the button"
   # @param variant select { choices: [solid,outline] } "The theme variant of the button"
   # @param pill toggle "Display as a pill button"
@@ -84,7 +83,7 @@ class ButtonComponentPreview < ViewComponent::Preview
 
   # @label Error
   def error
-    render(FoxTail::ButtonComponent.new(color: :error, variant: :solid).with_content("Button"))
+    render(FoxTail::ButtonComponent.new(color: :danger, variant: :solid).with_content("Button"))
   end
 
   # @!endgroup
@@ -158,7 +157,7 @@ class ButtonComponentPreview < ViewComponent::Preview
 
   # @label Error
   def outline_error
-    render(FoxTail::ButtonComponent.new(color: :error, variant: :outline).with_content("Button"))
+    render(FoxTail::ButtonComponent.new(color: :danger, variant: :outline).with_content("Button"))
   end
 
   # @!endgroup
@@ -232,7 +231,7 @@ class ButtonComponentPreview < ViewComponent::Preview
 
   # @label Error
   def pill_error
-    render(FoxTail::ButtonComponent.new(color: :error, pill: true).with_content("Button"))
+    render(FoxTail::ButtonComponent.new(color: :danger, pill: true).with_content("Button"))
   end
 
   # @!endgroup

@@ -14,7 +14,7 @@ module FoxTail
     end
 
     def translate
-      return default_value unless method.present?
+      return default_value if method.blank?
 
       defaults = []
 

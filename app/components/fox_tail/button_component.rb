@@ -66,7 +66,7 @@ class FoxTail::ButtonComponent < FoxTail::ButtonBaseComponent
               :span,
               loading_label,
               class: !loading? && theme.classname("hidden"),
-              data: { stimulus_controller.target_key => "loading" }
+              data: {stimulus_controller.target_key => "loading"}
             )
           )
           concat(
@@ -74,7 +74,7 @@ class FoxTail::ButtonComponent < FoxTail::ButtonBaseComponent
               :span,
               content,
               class: loading? && theme.classname("hidden"),
-              data: { stimulus_controller.target_key => "active" }
+              data: {stimulus_controller.target_key => "active"}
             )
           )
         else
@@ -95,13 +95,13 @@ class FoxTail::ButtonComponent < FoxTail::ButtonBaseComponent
   end
 
   def loader_classes(additional_classes = nil)
-    classnames theme.apply(:visual, self, { position: :left, loader: true }),
-               controlled? && !loading? && theme.classname("hidden"),
-               additional_classes
+    classnames theme.apply(:visual, self, {position: :left, loader: true}),
+      controlled? && !loading? && theme.classname("hidden"),
+      additional_classes
   end
 
   def visual_classes(side, addition_classes = nil)
-    classnames theme.apply(:visual, self, { position: side }), addition_classes
+    classnames theme.apply(:visual, self, {position: side}), addition_classes
   end
 
   private

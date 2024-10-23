@@ -3,7 +3,6 @@
 # @component FoxTail::DotIndicatorComponent
 # @logical_path components
 class DotIndicatorComponentPreview < ViewComponent::Preview
-
   # @param color "The theme color of the dot"
   # @param size select {choices: [xs,sm,base,lg,xl]}
   # @param animated toggle "Add a pulsing animation."
@@ -55,7 +54,7 @@ class DotIndicatorComponentPreview < ViewComponent::Preview
   end
 
   def error
-    render(FoxTail::DotIndicatorComponent.new(color: :error))
+    render(FoxTail::DotIndicatorComponent.new(color: :danger))
   end
 
   def success
@@ -121,8 +120,8 @@ class DotIndicatorComponentPreview < ViewComponent::Preview
   end
 
   # @label Error
-  def error_animated
-    render(FoxTail::DotIndicatorComponent.new(color: :error, animated: true))
+  def danger_animated
+    render(FoxTail::DotIndicatorComponent.new(color: :danger, animated: true))
   end
 
   # @label Success
@@ -161,5 +160,4 @@ class DotIndicatorComponentPreview < ViewComponent::Preview
   end
 
   # @!endgroup
-
 end

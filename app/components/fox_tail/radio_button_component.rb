@@ -16,7 +16,7 @@ class FoxTail::RadioButtonComponent < FoxTail::BaseComponent
 
   def checked?
     return !!options[:checked] if options.key? :checked
-    return false unless object.present?
+    return false if object.blank?
 
     value.to_s == value_from_object.to_s
   end
@@ -40,7 +40,7 @@ class FoxTail::RadioButtonComponent < FoxTail::BaseComponent
   end
 
   def call
-    tag :input, html_attributes
+    tag.input(html_attributes)
   end
 
   class << self

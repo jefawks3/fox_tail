@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FoxTail::FAB::ItemComponent < FoxTail::IconButtonComponent
-  DEFAULT_OPTIONS = { color: :light, variant: :solid }.freeze
+  DEFAULT_OPTIONS = {color: :light, variant: :solid}.freeze
 
   has_option :placement, default: :top
   has_option :label_placement, default: :left
@@ -14,7 +14,7 @@ class FoxTail::FAB::ItemComponent < FoxTail::IconButtonComponent
       html_attributes.reverse_merge! DEFAULT_OPTIONS
     end
 
-    super icon_or_attributes, html_attributes
+    super
   end
 
   def before_render

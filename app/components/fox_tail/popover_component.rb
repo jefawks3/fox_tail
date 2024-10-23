@@ -100,7 +100,7 @@ class FoxTail::PopoverComponent < FoxTail::BaseComponent
 
     def attributes(options = {})
       trigger_type = options[:trigger_type]&.to_sym
-      attributes = super options
+      attributes = super
       attributes[:data][value_key(:placement)] = options[:placement]
       attributes[:data][value_key(:offset)] = options[:offset]
       attributes[:data][value_key(:shift)] = options[:shift]

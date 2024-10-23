@@ -39,10 +39,10 @@ class FoxTail::InputBaseComponent < FoxTail::BaseComponent
     return unless object? && !options.key(:state)
 
     options[:state] = if object_errors?
-                        :invalid
-                      else
-                        :none
-                      end
+      :invalid
+    else
+      :none
+    end
   end
 
   class << self

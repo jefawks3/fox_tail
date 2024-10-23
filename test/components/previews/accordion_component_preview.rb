@@ -4,7 +4,6 @@
 # @component FoxTail::Accordion::ItemComponent
 # @logical_path components
 class AccordionComponentPreview < ViewComponent::Preview
-
   # @param flush toggle "Remove background color & rounded borders"
   # @param always_open toggle "Keep items open"
   # @param icon "Heroicon to display to the left of the text"

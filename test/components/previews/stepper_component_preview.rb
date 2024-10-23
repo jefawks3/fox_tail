@@ -3,7 +3,6 @@
 # @logical_path components
 # @component FoxTail::StepperComponent
 class StepperComponentPreview < ViewComponent::Preview
-
   # @!group Default
   def default_with_labels
     render FoxTail::StepperComponent.new(variant: :default) do |c|

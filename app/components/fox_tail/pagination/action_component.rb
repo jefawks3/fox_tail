@@ -22,7 +22,7 @@ class FoxTail::Pagination::ActionComponent < FoxTail::ClickableComponent
         options[:class] = classnames theme.apply(:visual, self), options[:class]
         image_tag source, options
       }
-    },
+    }
   }
 
   has_option :action

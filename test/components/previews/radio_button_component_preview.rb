@@ -3,7 +3,6 @@
 # @logical_path forms
 # @component FoxTail::RadioButtonComponent
 class RadioButtonComponentPreview < ViewComponent::Preview
-
   # @param checked toggle
   # @param disabled toggle
   # @param size select { choices: [sm,base,lg] }

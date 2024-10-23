@@ -7,8 +7,8 @@ class FoxTail::ModalTriggerComponent < FoxTail::TriggerBaseComponent
     end
 
     def attributes(options = {})
-      attributes = super options
-      attributes[:data][outlet_key(self.modal_identifier)] = options[:selector]
+      attributes = super
+      attributes[:data][outlet_key(modal_identifier)] = options[:selector]
       attributes[:data][:action] = action options.fetch(:action, :show), event: options.fetch(:trigger_type, :click)
       attributes
     end

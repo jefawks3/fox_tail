@@ -11,15 +11,15 @@ class FoxTail::CollapsibleTriggerComponent < FoxTail::TriggerBaseComponent
     super
 
     html_attributes[:class] = classnames theme.classname("root.base"),
-                                         open? && theme.classname("root.expanded"),
-                                         !open? && theme.classname("root.collapsed"),
-                                         html_class
+      open? && theme.classname("root.expanded"),
+      !open? && theme.classname("root.collapsed"),
+      html_class
   end
 
   def stimulus_controller_options
     super.merge open: open?,
-                collapsed_classes: theme.classname("root.collapsed"),
-                expanded_classes: theme.classname("root.expanded")
+      collapsed_classes: theme.classname("root.collapsed"),
+      expanded_classes: theme.classname("root.expanded")
   end
 
   class StimulusController < FoxTail::StimulusController
@@ -35,12 +35,12 @@ class FoxTail::CollapsibleTriggerComponent < FoxTail::TriggerBaseComponent
 
     def attributes(options = {})
       trigger_type = TRIGGER_TYPES[options[:trigger_type]&.to_sym]
-      attributes = super options
+      attributes = super
       attributes[:data][classes_key(:collapsed)] = options[:collapsed_classes]
       attributes[:data][classes_key(:expanded)] = options[:expanded_classes]
       attributes[:data][outlet_key(collapsible_identifier)] = options[:selector]
       attributes[:data][:action] = build_actions(trigger_type)
-      attributes[:aria] = { expanded: options[:opened], controls: extract_controls(options[:collapsible_selector]) }
+      attributes[:aria] = {expanded: options[:opened], controls: extract_controls(options[:collapsible_selector])}
       attributes
     end
 

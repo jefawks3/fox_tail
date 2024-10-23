@@ -3,7 +3,6 @@
 # @logical_path components
 # @component FoxTail::ToastComponent
 class ToastComponentPreview < ViewComponent::Preview
-
   # @!group Style
 
   def basic

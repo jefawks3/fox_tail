@@ -3,7 +3,6 @@
 # @logical_path forms
 # @component FoxTail::InputComponent
 class InputComponentPreview < ViewComponent::Preview
-
   # @param size select {choices: [sm,base,lg]}
   # @param state select {choices: [default,valid,invalid]}
   # @param readonly toggle
@@ -50,7 +49,6 @@ class InputComponentPreview < ViewComponent::Preview
   end
 
   # @!endgroup
-
 
   # @!group Readonly
 

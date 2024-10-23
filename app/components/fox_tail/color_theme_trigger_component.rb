@@ -4,7 +4,7 @@ class FoxTail::ColorThemeTriggerComponent < FoxTail::TriggerBaseComponent
   has_option :action
 
   def initialize(html_attributes = {})
-    super html_attributes.delete(:id), nil, html_attributes
+    super(html_attributes.delete(:id), nil, html_attributes)
   end
 
   def stimulus_controller_options
@@ -21,7 +21,7 @@ class FoxTail::ColorThemeTriggerComponent < FoxTail::TriggerBaseComponent
     def attributes(options = {})
       controller_options = options.extract! :key, :storage, :default_theme, :domain
       controller_options.reverse_merge! FoxTail::Base.fox_tail_config.color_theme
-      attributes = super options
+      attributes = super
       attributes[:data][value_key(:key)] = controller_options[:key]
       attributes[:data][value_key(:storage)] = controller_options[:storage]
       attributes[:data][value_key(:default_theme)] = controller_options[:default_theme]

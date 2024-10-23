@@ -3,7 +3,6 @@
 # @logical_path components
 # @component FoxTail::ListGroupComponent
 class ListGroupComponentPreview < ViewComponent::Preview
-
   def default
     render FoxTail::ListGroupComponent.new class: "w-48" do |l|
       l.with_item(static: true).with_content "Profile"

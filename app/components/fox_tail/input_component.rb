@@ -89,11 +89,11 @@ class FoxTail::InputComponent < FoxTail::InputBaseComponent
   end
 
   def input_content
-    tag :input, sanitized_html_attributes
+    tag.input(sanitized_html_attributes)
   end
 
   def visual_classes(position, classes)
-    classnames theme.apply(:visual, self, { position: position }), classes
+    classnames theme.apply(:visual, self, {position: position}), classes
   end
 
   def render_icon(position, icon, attributes)
@@ -117,6 +117,6 @@ class FoxTail::InputComponent < FoxTail::InputBaseComponent
   end
 
   def render_visual(position, visual)
-    content_tag :div, visual, class: theme.apply(:"visual/container", self, { position: position })
+    content_tag :div, visual, class: theme.apply(:"visual/container", self, {position: position})
   end
 end

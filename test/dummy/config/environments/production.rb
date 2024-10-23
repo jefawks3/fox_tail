@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
@@ -13,13 +15,13 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
   config.require_master_key = false
-  config.secret_key_base = '79c6bf1b2b05ddf3392a269d196a48f484adb5ef0ddfef9a43dbeeb6a5c4adae684127f7a63b4a0dac49d110c4c5ad12de870210bcc20db1757b942f0ef07cfc'
+  config.secret_key_base = "79c6bf1b2b05ddf3392a269d196a48f484adb5ef0ddfef9a43dbeeb6a5c4adae684127f7a63b4a0dac49d110c4c5ad12de870210bcc20db1757b942f0ef07cfc"
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
@@ -48,7 +50,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -78,9 +80,9 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
   # Do not dump schema after migrations.

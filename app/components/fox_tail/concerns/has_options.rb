@@ -22,13 +22,13 @@ module FoxTail::Concerns::HasOptions
 
   class_methods do
     def default_options
-      registered_options.reject { |_,v| v[:default].nil? }.transform_values { |v| v[:default] }
+      registered_options.reject { |_, v| v[:default].nil? }.transform_values { |v| v[:default] }
     end
 
     def has_option(name, as: name, default: nil, type: nil)
       raise FoxTail::ReservedOption.new(self, as) if RESERVED_OPTIONS.include?(as.to_s)
 
-      register_option name, { name: name, as: as, default: default, type: type }
+      register_option name, {name: name, as: as, default: default, type: type}
     end
 
     def include_options_from(klass, only: nil, except: nil)
@@ -38,7 +38,7 @@ module FoxTail::Concerns::HasOptions
       except = Array(except).map(&:to_sym) if except.present?
 
       klass.registered_options.each do |k, v|
-        if !registered_options.key?(k) && (only.nil? || only.include?(k)) && (except.nil? || !except.include?(k))
+        if !registered_options.key?(k) && (only.nil? || only.include?(k)) && (except.nil? || except.exclude?(k))
           register_option k, v
         end
       end

@@ -21,10 +21,10 @@ class FoxTail::ToggleComponent < FoxTail::CheckboxComponent
   private
 
   def container_attributes
-    { class: classnames(theme.apply(:container, self), html_class) }
+    {class: classnames(theme.apply(:container, self), html_class)}
   end
 
   def toggle_attributes
-    { class: theme.apply(:toggle, self) }
+    {class: theme.apply(:toggle, self)}
   end
 end

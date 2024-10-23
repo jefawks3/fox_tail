@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class FoxTail::PaginationComponent < FoxTail::BaseComponent
-  attr_reader :url, :current_page, :total_pages
+  attr_reader :current_page, :total_pages
 
   renders_one :first_button, lambda { |options = {}|
     options = action_options options
     options[:action] = :first
     options[:disabled] = first_page?
     options[:url] = page_url first_page
-    options[:icon] = :chevron_double_left if show_icon? && !options[:icon].present?
+    options[:icon] = :chevron_double_left if show_icon? && options[:icon].blank?
     FoxTail::Pagination::ActionComponent.new options
   }
 
@@ -17,7 +17,7 @@ class FoxTail::PaginationComponent < FoxTail::BaseComponent
     options[:action] = :previous
     options[:disabled] = !previous_page?
     options[:url] = page_url previous_page
-    options[:icon] = :chevron_left if show_icon? && !options[:icon].present?
+    options[:icon] = :chevron_left if show_icon? && options[:icon].blank?
     FoxTail::Pagination::ActionComponent.new options
   }
 
@@ -26,7 +26,7 @@ class FoxTail::PaginationComponent < FoxTail::BaseComponent
     options[:action] = :next
     options[:disabled] = !next_page?
     options[:url] = page_url next_page
-    options[:icon] = :chevron_right if show_icon? && !options[:icon].present?
+    options[:icon] = :chevron_right if show_icon? && options[:icon].blank?
     FoxTail::Pagination::ActionComponent.new options
   }
 
@@ -35,7 +35,7 @@ class FoxTail::PaginationComponent < FoxTail::BaseComponent
     options[:action] = :last
     options[:disabled] = last_page?
     options[:url] = page_url last_page
-    options[:icon] = :chevron_double_right if show_icon? && !options[:icon].present?
+    options[:icon] = :chevron_double_right if show_icon? && options[:icon].blank?
     FoxTail::Pagination::ActionComponent.new options
   }
 
@@ -103,10 +103,10 @@ class FoxTail::PaginationComponent < FoxTail::BaseComponent
     left_padding = [current_page + padding, last_page].min - current_page
 
     start_page = if right_padding <= left_padding
-                   current_page - right_padding
-                 else
-                   [current_page - (right_padding + (padding - left_padding)), 1].max
-                 end
+      current_page - right_padding
+    else
+      [current_page - (right_padding + (padding - left_padding)), 1].max
+    end
 
     end_page = [last_page, start_page + (padding * 2)].min
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FoxTail::AlertComponent < FoxTail::DismissibleComponent
-  SEVERITY_ICONS = { success: "check-circle", warning: "exclamation-triangle", danger: "exclamation-circle" }.freeze
+  SEVERITY_ICONS = {success: "check-circle", warning: "exclamation-triangle", danger: "exclamation-circle"}.freeze
   DEFAULT_SEVERITY_ICON = "information-circle"
 
   renders_one :header, lambda { |text_or_options = {}, options = {}, &block|
@@ -104,6 +104,6 @@ class FoxTail::AlertComponent < FoxTail::DismissibleComponent
 
     attributes[:data] ||= {}
     attributes[:data][:action] = stimulus_merger.merge_actions attributes[:data][:action],
-                                                               stimulus_controller.action("dismiss")
+      stimulus_controller.action("dismiss")
   end
 end

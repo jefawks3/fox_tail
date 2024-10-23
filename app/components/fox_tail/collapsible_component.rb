@@ -31,8 +31,8 @@ class FoxTail::CollapsibleComponent < FoxTail::BaseComponent
 
     generate_unique_id
     html_attributes[:class] = classnames theme.apply(:root, self),
-                                         !open? && theme.apply("root/collapsed", self),
-                                         html_class
+      !open? && theme.apply("root/collapsed", self),
+      html_class
   end
 
   def call
@@ -51,7 +51,7 @@ class FoxTail::CollapsibleComponent < FoxTail::BaseComponent
 
   class StimulusController < FoxTail::StimulusController
     def attributes(options = {})
-      attributes = super options
+      attributes = super
       attributes[:data][value_key(:collapsed)] = !options[:open]
       attributes[:data][classes_key(:hidden)] = options[:hidden_classes]
       attributes

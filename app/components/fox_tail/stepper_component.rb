@@ -11,7 +11,7 @@ class FoxTail::StepperComponent < FoxTail::BaseComponent
   has_option :variant, default: :default
 
   def initialize(html_attributes = {})
-    super(html_attributes)
+    super
 
     @index = 0
   end

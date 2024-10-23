@@ -22,6 +22,6 @@ class FoxTail::RangeComponent < FoxTail::BaseComponent
   end
 
   def call
-    tag :input, html_attributes
+    tag.input(html_attributes)
   end
 end

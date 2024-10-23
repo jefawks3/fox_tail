@@ -33,8 +33,8 @@ class FoxTail::ShowPasswordComponent < FoxTail::BaseComponent
   def render_content(state, text, icon)
     classes = classnames theme.apply(:container, self), theme.apply("container/#{state}", self)
 
-    content_tag :div, class:  classes do
-      concat render(FoxTail::IconBaseComponent.new(icon, class: theme.apply(:icon, self), 'aria-hidden': true))
+    content_tag :div, class: classes do
+      concat render(FoxTail::IconBaseComponent.new(icon, class: theme.apply(:icon, self), "aria-hidden": true))
       concat content_tag(:span, text)
     end
   end

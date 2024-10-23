@@ -12,17 +12,17 @@ class FoxTail::IconBaseComponent < FoxTail::InlineSvgComponent
 
   def initialize(name, html_attributes = {})
     @name = name.to_s.gsub("_", "-")
-    super nil, html_attributes
+    super(nil, html_attributes)
   end
 
   def icon_set
     @icon_set ||= begin
-                    name = options.fetch(:icon_set, default_icon_set).to_sym
-                    icon_set = icon_sets.fetch name
-                    raise FoxTail::InvalidIconSet.new(name) unless icon_set
+      name = options.fetch(:icon_set, default_icon_set).to_sym
+      icon_set = icon_sets.fetch name
+      raise FoxTail::InvalidIconSet.new(name) unless icon_set
 
-                    icon_set.new name
-                  end
+      icon_set.new name
+    end
   end
 
   def path

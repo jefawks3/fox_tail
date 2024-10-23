@@ -36,7 +36,7 @@ module FoxTail
       lookup_key base_theme, key
     end
 
-    alias [] classname
+    alias_method :[], :classname
 
     def theme(key)
       key = normalize_key key
@@ -119,7 +119,6 @@ module FoxTail
         end
       end
     end
-
 
     class << self
       # Load the theme from a YAML file

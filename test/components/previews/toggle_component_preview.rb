@@ -3,7 +3,6 @@
 # @logical_path forms
 # @component FoxTail::ToggleComponent
 class ToggleComponentPreview < ViewComponent::Preview
-
   # @param color select { choices: [default,blue,red,green,yellow,indigo,purple,pink] }
   # @param size select { choices: [sm,base,lg] }
   # @param disabled toggle

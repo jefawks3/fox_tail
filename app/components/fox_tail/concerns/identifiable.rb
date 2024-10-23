@@ -17,7 +17,7 @@ module FoxTail::Concerns::Identifiable
   private
 
   def __id_argument_deprecated_warning(slot: false)
-    FoxTail.deprecator.allow ['identifiable'] do
+    FoxTail.deprecator.allow ["identifiable"] do
       callstack = Array(caller_locations[slot ? 7 : 4])
       FoxTail.deprecator.warn "first argument `id` is deprecated, use `id:` instead", callstack
     end

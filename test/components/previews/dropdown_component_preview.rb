@@ -4,7 +4,6 @@
 # @component FoxTail::DropdownTriggerComponent
 # @logical_path components
 class DropdownComponentPreview < ViewComponent::Preview
-
   # @param placement select { choices: [top,bottom,left,right,top-start,top-end,bottom-start,bottom-end,right-start,right-end,left-start,left-end] } "Where to place the dropdown"
   # @param offset number "Distance from the trigger"
   # @param shift number "Offset relative to the placement"

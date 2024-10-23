@@ -22,7 +22,7 @@ class FoxTail::FilterBarComponent < FoxTail::BaseComponent
     },
     button: {
       as: :static_button_filter,
-      renders: lambda { |options = {}| button_filter_component options  }
+      renders: lambda { |options = {}| button_filter_component options }
     }
   }
 
@@ -41,7 +41,7 @@ class FoxTail::FilterBarComponent < FoxTail::BaseComponent
     },
     button: {
       as: :button_filter,
-      renders: lambda { |options = {}| button_filter_component options  }
+      renders: lambda { |options = {}| button_filter_component options }
     }
   }
 
@@ -102,7 +102,7 @@ class FoxTail::FilterBarComponent < FoxTail::BaseComponent
   has_option :params
 
   def initialize(html_attributes = {})
-    super(html_attributes)
+    super
   end
 
   def url
@@ -116,7 +116,7 @@ class FoxTail::FilterBarComponent < FoxTail::BaseComponent
   def before_render
     super
 
-    with_submit_button.with_content(t('.submit')) unless submit_buttons?
+    with_submit_button.with_content(t(".submit")) unless submit_buttons?
     with_filter_icon_button_trigger unless filter_toggle?
 
     html_attributes[:class] = classnames theme.apply(:root, self), html_class
@@ -165,18 +165,18 @@ class FoxTail::FilterBarComponent < FoxTail::BaseComponent
 
   def filter_toggle_classnames(type, options)
     classnames theme.apply(:filter, self),
-               theme.apply("#{type}_filter", self),
-               theme.apply(:filter_toggle, self),
-               theme.apply("filter_toggle_#{type}", self),
-               options[:class]
+      theme.apply("#{type}_filter", self),
+      theme.apply(:filter_toggle, self),
+      theme.apply("filter_toggle_#{type}", self),
+      options[:class]
   end
 
   def submit_classnames(type, options)
     classnames theme.apply(:filter, self),
-               theme.apply("#{type}_filter", self),
-               theme.apply(:submit, self),
-               theme.apply("submit_#{type}", self),
-               options[:class]
+      theme.apply("#{type}_filter", self),
+      theme.apply(:submit, self),
+      theme.apply("submit_#{type}", self),
+      options[:class]
   end
 
   def add_default_filter_options(name, type, options)
@@ -189,7 +189,7 @@ class FoxTail::FilterBarComponent < FoxTail::BaseComponent
 
   def render_filter_button_toggle(type, options, block)
     indicator = options.delete :indicator
-    text = options.delete(:text) { t('.filter_toggle') }
+    text = options.delete(:text) { t(".filter_toggle") }
     options[:size] = size
     options[:color] ||= :light
     options[:class] = filter_toggle_classnames type, options

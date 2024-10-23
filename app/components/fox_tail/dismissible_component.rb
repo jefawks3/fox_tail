@@ -35,7 +35,7 @@ class FoxTail::DismissibleComponent < FoxTail::BaseComponent
 
   class StimulusController < FoxTail::StimulusController
     def attributes(options = {})
-      attributes = super options
+      attributes = super
       attributes[:data][value_key(:remove)] = options[:remove]
       attributes[:data][value_key(:auto_close)] = options[:auto_close]
       attributes[:data][value_key(:delay)] = options[:delay]

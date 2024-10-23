@@ -7,13 +7,13 @@ class FoxTail::DrawerTriggerComponent < FoxTail::TriggerBaseComponent
     super
 
     html_attributes[:class] = classnames theme.apply(:root, self),
-                                         theme.apply("root/#{open? ? :open : :close}", self),
-                                         html_class
+      theme.apply("root/#{open? ? :open : :close}", self),
+      html_class
   end
 
   def stimulus_controller_options
     super.merge open_classes: theme.apply("root/open", self),
-                closed_classes: theme.apply("root/closed", self)
+      closed_classes: theme.apply("root/closed", self)
   end
 
   class StimulusController < FoxTail::StimulusController
@@ -22,7 +22,7 @@ class FoxTail::DrawerTriggerComponent < FoxTail::TriggerBaseComponent
     end
 
     def attributes(options = {})
-      attributes = super options
+      attributes = super
       attributes[:data][outlet_key(drawer_identifier)] = options[:selector]
       attributes[:data][classes_key(:open)] = options[:open_classes]
       attributes[:data][classes_key(:closed)] = options[:closed_classes]

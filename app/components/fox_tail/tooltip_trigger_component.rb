@@ -23,7 +23,7 @@ class FoxTail::TooltipTriggerComponent < FoxTail::TriggerBaseComponent
 
     def attributes(options = nil)
       trigger_type = options[:trigger_type]&.to_sym
-      attributes = super options
+      attributes = super
       attributes[:data][outlet_key(tooltip_identifier)] = options[:selector]
       attributes[:data][:action] = build_actions TRIGGER_TYPES[trigger_type]
       attributes

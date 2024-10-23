@@ -3,7 +3,6 @@
 # @logical_path components
 # @component FoxTail::PaginationComponent
 class PaginationComponentPreview < ViewComponent::Preview
-
   # @param page number
   # @param total number
   # @param size select { choices: [sm,base] }

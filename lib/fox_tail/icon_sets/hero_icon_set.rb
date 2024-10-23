@@ -4,8 +4,8 @@ module FoxTail
   module IconSets
     class HeroIconSet < Base
       ROOT_DIR = "app/assets/vendor/heroicons"
-      VARIANTS = { solid: 24, outline: 24, mini: 20, micro: 16 }.freeze
-      VARIANT_STYLES = { mini: :solid, micro: :solid }.freeze
+      VARIANTS = {solid: 24, outline: 24, mini: 20, micro: 16}.freeze
+      VARIANT_STYLES = {mini: :solid, micro: :solid}.freeze
 
       def path(icon, variant: :solid)
         variant = variant.to_sym

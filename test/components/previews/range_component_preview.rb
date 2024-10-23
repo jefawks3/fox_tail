@@ -3,7 +3,6 @@
 # @logical_path forms
 # @component FoxTail::RangeComponent
 class RangeComponentPreview < ViewComponent::Preview
-
   # @param disabled toggle
   # @param size select { choices: [sm,base,lg] }
   def playground(disabled: false, size: :base)

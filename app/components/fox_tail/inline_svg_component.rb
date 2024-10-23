@@ -28,7 +28,7 @@ class FoxTail::InlineSvgComponent < FoxTail::BaseComponent
     node = doc.at_css "svg"
     node[:class] = html_class
     yield node if block_given?
-    node.to_s.html_safe
+    node.to_s.html_safe # rubocop:disable Rails/OutputSafety
   rescue FoxTail::AssetNotFound => e
     raise e if raise_error?
 

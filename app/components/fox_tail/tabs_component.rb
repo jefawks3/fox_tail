@@ -18,7 +18,7 @@ class FoxTail::TabsComponent < FoxTail::BaseComponent
   }
 
   def initialize(html_attributes = {})
-    super(html_attributes)
+    super
 
     self.html_attributes[:id] ||= "tabs-#{SecureRandom.hex(4)}" if controlled?
   end

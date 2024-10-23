@@ -2,7 +2,7 @@
 
 ## What do I need to know to help?
 
-If you are looking to help to with a code contribution our project uses Rails, View Components, Stimulus, Flowbite, and Tailwind CSS. 
+If you are looking to help to with a code contribution our project uses Rails, View Components, Stimulus, Flowbite, and Tailwind CSS.
 If you don't feel ready to make a code contribution yet, no problem!
 
 ## How do I make a contribution?

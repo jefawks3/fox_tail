@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
-class FoxTail::StimulusMergerTest < Minitest::Test
+class FoxTail::StimulusMergerTest < ActiveSupport::TestCase
   def setup
     @merger = FoxTail::StimulusMerger.new
   end
@@ -16,8 +16,8 @@ class FoxTail::StimulusMergerTest < Minitest::Test
   end
 
   def test_merge_attributes!
-    attributes1 = { data: { controller: "foo-bar", foo_bar_value: true, action: "foo-bar#show" } }
-    attributes2 = { data: { controller: "test", test_value: 3, test_foo_bar_class: "test", action: "test#hide" } }
+    attributes1 = {data: {controller: "foo-bar", foo_bar_value: true, action: "foo-bar#show"}}
+    attributes2 = {data: {controller: "test", test_value: 3, test_foo_bar_class: "test", action: "test#hide"}}
     actual = @merger.merge_attributes! attributes1, attributes2
 
     assert_equal(
@@ -37,8 +37,8 @@ class FoxTail::StimulusMergerTest < Minitest::Test
   end
 
   def test_merge_attributes
-    attributes1 = { data: { controller: "foo-bar", foo_bar_value: true, action: "foo-bar#show" } }
-    attributes2 = { data: { controller: "test", test_value: 3, test_foo_bar_class: "test", action: "test#hide" } }
+    attributes1 = {data: {controller: "foo-bar", foo_bar_value: true, action: "foo-bar#show"}}
+    attributes2 = {data: {controller: "test", test_value: 3, test_foo_bar_class: "test", action: "test#hide"}}
     actual = @merger.merge_attributes attributes1, attributes2
 
     assert_equal(
@@ -54,6 +54,6 @@ class FoxTail::StimulusMergerTest < Minitest::Test
       actual
     )
 
-    refute_same attributes1, actual
+    assert_not_same attributes1, actual
   end
 end

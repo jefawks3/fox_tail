@@ -5,8 +5,8 @@ class FoxTail::CarouselComponent < FoxTail::BaseComponent
 
   renders_many :slides, lambda { |options = {}, &block|
     options[:class] = classnames theme.apply(:slide, self),
-                                 hidden_slide_classes,
-                                 options[:class]
+      hidden_slide_classes,
+      options[:class]
 
     if use_stimulus?
       options[:data] ||= {}
@@ -74,7 +74,7 @@ class FoxTail::CarouselComponent < FoxTail::BaseComponent
 
   class StimulusController < FoxTail::StimulusController
     def attributes(options = {})
-      attributes = super(options)
+      attributes = super
       attributes[:data][value_key(:position)] = options[:position]
       attributes[:data][value_key(:interval)] = options[:interval]
       attributes[:data][classes_key(:previous_slide)] = options[:previous_slide_classes]

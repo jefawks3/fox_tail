@@ -3,7 +3,6 @@
 # @label FAB
 # @logical_path components
 class FABComponentPreview < ViewComponent::Preview
-
   def tooltip_labels
     render FoxTail::FABComponent.new do |f|
       f.with_item("share").with_content("Share")

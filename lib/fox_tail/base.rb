@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'view_component'
+require "view_component"
 
 module FoxTail
   class Base < ::ViewComponent::Base

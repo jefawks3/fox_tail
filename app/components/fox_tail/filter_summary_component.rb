@@ -17,7 +17,6 @@ class FoxTail::FilterSummaryComponent < FoxTail::BaseComponent
     end
   }
 
-
   renders_one :clear_button, types: {
     button: {
       as: :clear_button,

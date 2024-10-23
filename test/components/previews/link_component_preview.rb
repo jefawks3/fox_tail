@@ -3,7 +3,6 @@
 # @component FoxTail::LinkComponent
 # @logical_path typography
 class LinkComponentPreview < ViewComponent::Preview
-
   # @param color "The theme color"
   # @param disabled toggle "Disable the link"
   def playground(color: :default, disabled: false)
@@ -66,7 +65,7 @@ class LinkComponentPreview < ViewComponent::Preview
   end
 
   def error
-    render(FoxTail::LinkComponent.new("#", color: :error).with_content("Link"))
+    render(FoxTail::LinkComponent.new("#", color: :danger).with_content("Link"))
   end
 
   # @!endgroup

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
@@ -8,10 +10,8 @@ require "rails/generators/test_case"
 
 ViewComponent::Base.config.view_component_path = "app/components"
 
-# Load fixtures from the engine
-if ActiveSupport::TestCase.respond_to?(:fixture_path=)
-  ActiveSupport::TestCase.fixture_path = File.expand_path("fixtures", __dir__)
-  ActionDispatch::IntegrationTest.fixture_path = ActiveSupport::TestCase.fixture_path
-  ActiveSupport::TestCase.file_fixture_path = ActiveSupport::TestCase.fixture_path + "/files"
-  ActiveSupport::TestCase.fixtures :all
+ActiveSupport.on_load(:active_support_test_case) do
+  self.fixture_paths = [File.expand_path("fixtures", __dir__)]
+  self.file_fixture_path = File.join(File.expand_path("fixtures", __dir__), "files")
+  # fixtures :all
 end

@@ -18,8 +18,8 @@ class FoxTail::DotIndicatorComponent < FoxTail::BaseComponent
 
   def render_animated_dot
     container_classes = classnames theme.apply(:root, self),
-                                   theme.apply(:container, self),
-                                   html_class
+      theme.apply(:container, self),
+      html_class
 
     dot_classes = classnames theme.apply(:root, self), theme.apply(:dot, self)
     animated_classes = classnames dot_classes, theme.apply("dot/animation", self)

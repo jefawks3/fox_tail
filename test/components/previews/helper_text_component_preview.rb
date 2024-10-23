@@ -3,7 +3,6 @@
 # @logical_path forms
 # @component FoxTail::HelperTextComponent
 class HelperTextComponentPreview < ViewComponent::Preview
-
   # @param state select { choices: [normal,valid,invalid] }
   def playground(state: :normal)
     render FoxTail::HelperTextComponent.new(state: state).with_content("A message to help the user.")

@@ -36,7 +36,7 @@ class FoxTail::ProgressBarComponent < FoxTail::BaseComponent
   end
 
   def stimulus_controller_options
-    { value: value, update_label: show_label? && !content? }
+    {value: value, update_label: show_label? && !content?}
   end
 
   private
@@ -49,7 +49,7 @@ class FoxTail::ProgressBarComponent < FoxTail::BaseComponent
   end
 
   def bar_attributes
-    attributes = { class: theme.apply(:bar, self), style: "width: #{value}%" }
+    attributes = {class: theme.apply(:bar, self), style: "width: #{value}%"}
     return attributes unless use_stimulus?
 
     attributes[:data] = {}

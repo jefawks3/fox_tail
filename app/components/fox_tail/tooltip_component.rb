@@ -78,7 +78,7 @@ class FoxTail::TooltipComponent < FoxTail::BaseComponent
     end
 
     def attributes(options = {})
-      attributes = super options
+      attributes = super
       attributes[:data][value_key(:placement)] = options[:placement]
       attributes[:data][value_key(:offset)] = options[:offset]
       attributes[:data][value_key(:shift)] = options[:shift]

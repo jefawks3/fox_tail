@@ -3,7 +3,6 @@
 # @logical_path components
 # @component FoxTail::DrawerComponent
 class DrawerComponentPreview < ViewComponent::Preview
-
   # @param placement select {choices: [left,top,right,bottom]}
   # @param close_icon toggle
   # @param backdrop toggle

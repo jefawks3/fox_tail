@@ -43,11 +43,11 @@ class FoxTail::LabelComponent < FoxTail::BaseComponent
     return unless object? && !options.key(:state)
 
     options[:state] = if object_errors?
-                        :invalid
-                      elsif html_attributes[:value].present?
-                        :valid
-                      else
-                        :none
-                      end
+      :invalid
+    elsif html_attributes[:value].present?
+      :valid
+    else
+      :none
+    end
   end
 end

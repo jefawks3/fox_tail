@@ -3,7 +3,6 @@
 # @logical_path components
 # @component FoxTail::TabsComponent
 class TabsComponentPreview < ViewComponent::Preview
-
   def default
     render FoxTail::TabsComponent.new do |c|
       c.with_tab(selected: true).with_content "Profile"

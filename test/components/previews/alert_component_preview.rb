@@ -3,8 +3,7 @@
 # @component FoxTail::AlertComponent
 # @logical_path components
 class AlertComponentPreview < ViewComponent::Preview
-
-  # @param severity select { choices: [info,success,warning,error,neutral] } "Alert severity"
+  # @param severity select { choices: [info,success,warning,danger,neutral] } "Alert severity"
   # @param show_icon toggle "Show the alert icon"
   # @param show_header toggle "Show the alert header"
   # @param show_buttons toggle "Show the alert button footer"
@@ -46,7 +45,7 @@ class AlertComponentPreview < ViewComponent::Preview
   end
 
   def error
-    render(FoxTail::AlertComponent.new(severity: :error).with_content("A simple error alert"))
+    render(FoxTail::AlertComponent.new(severity: :danger).with_content("A simple error alert"))
   end
 
   def neutral
@@ -82,8 +81,8 @@ class AlertComponentPreview < ViewComponent::Preview
   end
 
   # @label Error
-  def error_with_icon
-    render(FoxTail::AlertComponent.new(severity: :error)) do |c|
+  def danger_with_icon
+    render(FoxTail::AlertComponent.new(severity: :danger)) do |c|
       c.with_icon
       "An error alert with an icon"
     end
@@ -126,8 +125,8 @@ class AlertComponentPreview < ViewComponent::Preview
   end
 
   # @label Error
-  def error_bordered
-    render(FoxTail::AlertComponent.new(severity: :error, border: true)) do |c|
+  def danger_bordered
+    render(FoxTail::AlertComponent.new(severity: :danger, border: true)) do |c|
       c.with_icon
       "An error alert with a border"
     end
@@ -170,8 +169,8 @@ class AlertComponentPreview < ViewComponent::Preview
   end
 
   # @label Error
-  def error_with_accent_border
-    render(FoxTail::AlertComponent.new(severity: :error, border: :accent, rounded: false)) do |c|
+  def danger_with_accent_border
+    render(FoxTail::AlertComponent.new(severity: :danger, border: :accent, rounded: false)) do |c|
       c.with_icon
       "An error alert with a border"
     end
@@ -217,8 +216,8 @@ class AlertComponentPreview < ViewComponent::Preview
   end
 
   # @label Error
-  def error_dismissing
-    render(FoxTail::AlertComponent.new(severity: :error)) do |c|
+  def danger_dismissing
+    render(FoxTail::AlertComponent.new(severity: :danger)) do |c|
       c.with_icon
       c.with_dismiss_icon
       "An error alert with an icon"
@@ -284,8 +283,8 @@ class AlertComponentPreview < ViewComponent::Preview
   end
 
   # @label Success
-  def error_with_additional_context
-    render(FoxTail::AlertComponent.new(severity: :error, border: true)) do |c|
+  def danger_with_additional_context
+    render(FoxTail::AlertComponent.new(severity: :danger, border: true)) do |c|
       c.with_icon
       c.with_dismiss_icon
       c.with_header_content "This is an Error alert"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "active_support/dependencies/autoload"
 
 require "fox_tail/version"

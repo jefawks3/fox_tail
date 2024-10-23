@@ -3,7 +3,6 @@
 # @logical_path forms
 # @component FoxTail::DropzoneComponent
 class DropzoneComponentPreview < ViewComponent::Preview
-
   # @param icon
   # @param title
   # @param helper_text
