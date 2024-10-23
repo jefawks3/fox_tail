@@ -26,6 +26,7 @@ group :development, :test do
   gem "rubocop-md", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-capybara", require: false
+  gem "brakeman"
   gem "rubyzip"
 end
 
