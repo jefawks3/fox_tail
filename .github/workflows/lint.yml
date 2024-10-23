@@ -20,7 +20,7 @@ jobs:
           bundler-cache: true
 
       - name: Lint code for consistent style
-        run: rubocop -f github
+        run: bundle exec rubocop -f github
 
   eslint:
     runs-on: ubuntu-latest
