@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fox_tail (0.2.0)
+    fox_tail (0.2.1)
       railties (>= 5.2.0)
       tailwind_merge (~> 0.7)
       view_component (~> 3.0)
