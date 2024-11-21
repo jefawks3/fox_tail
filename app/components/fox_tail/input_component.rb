@@ -89,7 +89,7 @@ class FoxTail::InputComponent < FoxTail::InputBaseComponent
   end
 
   def input_content
-    tag.input(sanitized_html_attributes)
+    tag.input(**sanitized_html_attributes)
   end
 
   def visual_classes(position, classes)
