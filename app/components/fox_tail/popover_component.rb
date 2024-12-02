@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
 class FoxTail::PopoverComponent < FoxTail::BaseComponent
+  ACTIONS = {
+    hover: {
+      hoverShow: :mouseenter,
+      hoverHide: :mouseleave
+    }
+  }.freeze
+
   include FoxTail::Concerns::Identifiable
-  include FoxTail::Concerns::HasStimulusController
 
   renders_one :header, lambda { |text_or_attributes = {}, attributes = {}, &block|
     attributes = text_or_attributes if block
@@ -27,6 +33,21 @@ class FoxTail::PopoverComponent < FoxTail::BaseComponent
   has_option :trigger_id
   has_option :trigger_type, default: :hover
 
+  stimulated_with [:fox_tail, :popover], as: :popover do |controller|
+    controller.with_value :placement, placement
+    controller.with_value :offset, offset
+    controller.with_value :shift, shift
+    controller.with_value :inline, inline?
+    controller.with_value :delay, delay
+    controller.with_class :visible, theme.apply("root/visible", self)
+    controller.with_class :hidden, theme.apply("root/hidden", self)
+    controller.with_outlet trigger_controller.identifier, "##{trigger_id}"
+
+    ACTIONS[trigger_type]&.each do |method, event|
+      controller.with_action method, on: event
+    end
+  end
+
   def initialize(id_or_attributes = {}, html_attributes = {})
     if id_or_attributes.is_a? Hash
       html_attributes = id_or_attributes
@@ -36,6 +57,10 @@ class FoxTail::PopoverComponent < FoxTail::BaseComponent
     end
 
     super(html_attributes)
+  end
+
+  def trigger_controller
+    stimulated.with [:fox_tail, :popover_trigger]
   end
 
   def trigger_id
@@ -48,7 +73,6 @@ class FoxTail::PopoverComponent < FoxTail::BaseComponent
     generate_unique_id
     html_attributes[:role] ||= :tooltip
     html_attributes[:class] = classnames theme.apply(:root, self), theme.apply("root/hidden", self), html_class
-    stimulus_controller.merge! html_attributes, stimulus_controller_options if use_stimulus?
   end
 
   def call
@@ -56,20 +80,6 @@ class FoxTail::PopoverComponent < FoxTail::BaseComponent
       concat trigger if trigger?
       concat render_popover
     end
-  end
-
-  def stimulus_controller_options
-    {
-      trigger_id: trigger_id,
-      placement: placement,
-      offset: offset,
-      shift: shift,
-      inline: inline?,
-      delay: delay,
-      trigger_type: trigger_type,
-      visible_classes: theme.apply("root/visible", self),
-      hidden_classes: theme.apply("root/hidden", self)
-    }
   end
 
   private
@@ -84,33 +94,5 @@ class FoxTail::PopoverComponent < FoxTail::BaseComponent
 
   def render_arrow
     content_tag :div, nil, class: theme.apply(:arrow, self)
-  end
-
-  class StimulusController < FoxTail::StimulusController
-    TRIGGER_TYPES = {
-      hover: {
-        hoverShow: :mouseenter,
-        hoverHide: :mouseleave
-      }
-    }.freeze
-
-    def trigger_identifier
-      FoxTail::PopoverTriggerComponent.stimulus_controller_identifier
-    end
-
-    def attributes(options = {})
-      trigger_type = options[:trigger_type]&.to_sym
-      attributes = super
-      attributes[:data][value_key(:placement)] = options[:placement]
-      attributes[:data][value_key(:offset)] = options[:offset]
-      attributes[:data][value_key(:shift)] = options[:shift]
-      attributes[:data][value_key(:inline)] = options[:inline]
-      attributes[:data][value_key(:delay)] = options[:delay]
-      attributes[:data][outlet_key(trigger_identifier)] = "##{options[:trigger_id]}"
-      attributes[:data][classes_key(:hidden)] = options[:hidden_classes]
-      attributes[:data][classes_key(:visible)] = options[:visible_classes]
-      attributes[:data][:action] = build_actions TRIGGER_TYPES[trigger_type]
-      attributes
-    end
   end
 end

@@ -299,14 +299,14 @@ class ButtonComponentPreview < ViewComponent::Preview
 
   # @label Basic
   def controlled
-    render(FoxTail::ButtonComponent.new(controlled: true, onclick: "this.setAttribute('data-fox_tail--clickable-state-value', 'disable')")) do |c|
+    render(FoxTail::ButtonComponent.new(controlled: true, onclick: "this.setAttribute('data-fox-tail--clickable-state-value', 'disable')")) do |c|
       c.with_right_icon "arrow-right"
       "Upload"
     end
   end
 
   def loadable
-    render(FoxTail::ButtonComponent.new(controlled: true, loadable: true, onclick: "this.setAttribute('data-fox_tail--clickable-state-value', 'loading')")) do |c|
+    render(FoxTail::ButtonComponent.new(controlled: true, loadable: true, onclick: "this.setAttribute('data-fox-tail--clickable-state-value', 'loading')")) do |c|
       c.with_loading_label.with_content "Uploading..."
       c.with_left_icon "photo"
       c.with_right_icon "arrow-up-tray"

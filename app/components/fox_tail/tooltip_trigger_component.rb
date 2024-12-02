@@ -1,32 +1,24 @@
 # frozen_string_literal: true
 
 class FoxTail::TooltipTriggerComponent < FoxTail::TriggerBaseComponent
-  def trigger_type
-    options[:trigger_type] ||= :hover
-  end
-
-  class StimulusController < FoxTail::StimulusController
-    TRIGGER_TYPES = {
-      hover: {
-        show: %i[mouseenter focus],
-        hide: %i[mouseleave blur]
-      },
-      click: {
-        toggle: :click,
-        hide: %i[focusout blur]
-      }
+  ACTIONS = {
+    hover: {
+      show: :hover_in,
+      hide: :hover_out
+    }.freeze,
+    click: {
+      toggle: :click,
+      hide: %i[focusout blur].freeze
     }.freeze
+  }.freeze
 
-    def tooltip_identifier
-      FoxTail::TooltipComponent.stimulus_controller_identifier
-    end
+  has_option :trigger_type, default: :hover
 
-    def attributes(options = nil)
-      trigger_type = options[:trigger_type]&.to_sym
-      attributes = super
-      attributes[:data][outlet_key(tooltip_identifier)] = options[:selector]
-      attributes[:data][:action] = build_actions TRIGGER_TYPES[trigger_type]
-      attributes
+  def before_render
+    super
+
+    ACTIONS[trigger_type]&.each do |method, event|
+      trigger_controller.with_action method, on: event
     end
   end
 end

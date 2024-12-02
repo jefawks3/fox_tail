@@ -11,7 +11,7 @@ module FoxTail
 
     # Merge Tailwind class names removing any styling conflicts
     def merge(*classes)
-      normalized = classes.flatten.select { |c| c.present? && c.is_a?(String) }
+      normalized = classes.flatten.compact_blank.map(&:to_s)
       return nil if normalized.empty?
 
       @base_merger.merge normalized.join(" ")

@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
 class FoxTail::ProgressBarComponent < FoxTail::BaseComponent
-  include FoxTail::Concerns::HasStimulusController
-
   attr_reader :value
 
   has_option :size, default: :base
   has_option :color, default: :default
   has_option :show_label, type: :boolean, default: false
   has_option :controlled, type: :boolean, default: false
+
+  stimulated_with [:fox_tail, :progress_bar], as: :progress_bar, if: :controlled? do |controller|
+    controller.with_value :progress, value
+    controller.with_value :show_label, show_label?
+  end
 
   def initialize(value, html_attributes = {})
     super(html_attributes)
@@ -31,14 +34,6 @@ class FoxTail::ProgressBarComponent < FoxTail::BaseComponent
     end
   end
 
-  def use_stimulus?
-    controlled? && super
-  end
-
-  def stimulus_controller_options
-    {value: value, update_label: show_label? && !content?}
-  end
-
   private
 
   def label
@@ -50,19 +45,7 @@ class FoxTail::ProgressBarComponent < FoxTail::BaseComponent
 
   def bar_attributes
     attributes = {class: theme.apply(:bar, self), style: "width: #{value}%"}
-    return attributes unless use_stimulus?
-
-    attributes[:data] = {}
-    attributes[:data][stimulus_controller.target_key] = :bar
+    attributes[:data] = {progress_bar_controller.target_attribute_name => :bar} if controlled?
     attributes
-  end
-
-  class StimulusController < FoxTail::StimulusController
-    def attributes(options = {})
-      attributes = super
-      attributes[:data][value_key(:progress)] = options[:value]
-      attributes[:data][value_key(:update_label)] = options[:update_label]
-      attributes
-    end
   end
 end

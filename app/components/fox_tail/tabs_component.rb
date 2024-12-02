@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 class FoxTail::TabsComponent < FoxTail::BaseComponent
+  include FoxTail::Concerns::Identifiable
+
   has_option :variant, default: :default
   has_option :controlled, type: :boolean, default: false
 
   renders_many :tabs, lambda { |options = {}|
-    options[:tabs_id] = tag_id
+    options[:tabs_id] = id
     options[:variant] = variant
     options[:controlled] = controlled?
     options[:theme] = theme.theme :tab
@@ -16,16 +18,6 @@ class FoxTail::TabsComponent < FoxTail::BaseComponent
     options[:role] = :tabpanel
     FoxTail::Tabs::PanelComponent.new id, options
   }
-
-  def initialize(html_attributes = {})
-    super
-
-    self.html_attributes[:id] ||= "tabs-#{SecureRandom.hex(4)}" if controlled?
-  end
-
-  def tag_id
-    html_attributes[:id]
-  end
 
   def render?
     tabs?

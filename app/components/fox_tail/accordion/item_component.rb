@@ -86,7 +86,7 @@ class FoxTail::Accordion::ItemComponent < FoxTail::BaseComponent
     super
 
     generate_unique_id
-    html_attributes[:class] = classnames theme.apply(:root, self), html_class
+    html_attributes.merge_classes! theme.apply(:root, self), html_class
   end
 
   def call
@@ -108,13 +108,8 @@ class FoxTail::Accordion::ItemComponent < FoxTail::BaseComponent
 
   def render_header
     content_tag header_tag, id: id do
-      render(FoxTail::CollapsibleTriggerComponent.new(
-        "##{body_id}",
-        id: trigger_id,
-        open: open?,
-        class: header_classes
-      )) do |trigger|
-        content_tag :button, trigger.html_attributes do
+      render(FoxTail::CollapsibleTriggerComponent.new("##{body_id}", open: open?)) do |trigger|
+        content_tag :button, trigger.html_attributes.merge_classes(header_classes) do
           concat icon if icon?
           concat content_tag(:span, title)
           concat arrow if arrow?
@@ -127,7 +122,7 @@ class FoxTail::Accordion::ItemComponent < FoxTail::BaseComponent
     render(FoxTail::CollapsibleComponent.new(
       id: body_id,
       open: open?,
-      data: {FoxTail::AccordionComponent.stimulus_controller.target_key => :collapsible},
+      data: {fox_tail__accordion_target: :collapsible},
       aria: {labelledby: id}
     )) do
       content_tag :div, content, class: body_classes

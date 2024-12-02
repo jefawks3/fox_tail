@@ -13,11 +13,26 @@ module FoxTail
     end
 
     def merge_controllers(*controllers)
-      controllers.map(&:to_s).reject(&:blank?).uniq.join(" ").presence
+      normalize = controllers.flatten.each_with_object({}) do |controller, result|
+        next if controller.blank?
+
+        controller.split(" ").each { |identifier| result[identifier] = true }
+      end
+
+      normalize.keys.join(" ").presence
     end
 
     def merge_actions(*actions)
-      actions.reject(&:blank?).join(" ").presence
+      actions.flatten.select(&:present?).uniq.join(" ").presence
+    end
+
+    def merge(*hashes, &block)
+      hashes.flatten.compact.each_with_object({}.with_indifferent_access) do |hash, result|
+        hash = hash.deep_dup.with_indifferent_access
+        result[:controller] = merge_controllers(result[:controller], hash.delete(:controller))
+        result[:action] = merge_actions(result[:action], hash.delete(:action))
+        result.merge!(hash, &block)
+      end
     end
 
     private

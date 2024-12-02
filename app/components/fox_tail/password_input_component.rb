@@ -1,17 +1,9 @@
 # frozen_string_literal: true
 
 class FoxTail::PasswordInputComponent < FoxTail::InputComponent
-  include FoxTail::Concerns::HasStimulusController
+  has_option :control_visibility, type: :boolean, default: false
 
-  has_option :controlled, type: :boolean, default: false
-
-  def use_stimulus?
-    super && controlled?
-  end
-
-  def stimulus_controller_options
-    {}
-  end
+  stimulated_with [:fox_tail, :password_input], as: :password_visibility, if: :control_visibility?
 
   def before_render
     super
@@ -19,6 +11,4 @@ class FoxTail::PasswordInputComponent < FoxTail::InputComponent
     html_attributes[:type] = :password
     html_attributes[:spellcheck] = false unless html_attributes.key? :spellcheck
   end
-
-  class StimulusController < FoxTail::StimulusController; end
 end

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class FoxTail::DrawerComponent < FoxTail::BaseComponent
-  include FoxTail::Concerns::HasStimulusController
-
   renders_one :close_button, types: {
     icon: {
       as: :close_icon,
@@ -13,14 +11,12 @@ class FoxTail::DrawerComponent < FoxTail::BaseComponent
           icon_or_options = "x-mark"
         end
 
+        options = FoxTail::HtmlAttributes.new options
+
         options[:class] = classnames theme.apply("close/button", self), options[:class]
-        options[:data] ||= {}
         icon_options[:class] = classnames theme.apply("close/icon", self), icon_options[:class]
 
-        if use_stimulus?
-          options[:data][:action] = stimulus_merger.merge_actions options[:data][:action],
-            stimulus_controller.action(:hide)
-        end
+        options.merge_stimulus_actions! drawer_controller.action(:hide)
 
         content_tag :button, options do
           concat render(FoxTail::IconBaseComponent.new(icon_or_options, icon_options))
@@ -44,12 +40,24 @@ class FoxTail::DrawerComponent < FoxTail::BaseComponent
   has_option :rounded, type: :boolean, default: false
   has_option :tag_name, default: :div
 
+  stimulated_with [:fox_tail, :drawer], as: :drawer do |controller|
+    controller.with_value :backdrop, backdrop?
+    controller.with_value :body_scrolling, body_scrolling?
+    controller.with_value :open, open?
+    controller.with_class :visible, visible_classes
+    controller.with_class :hidden, hidden_classes
+    controller.with_class :backdrop, backdrop_classes
+    controller.with_class :body, body_classes
+  end
+
   def before_render
     super
 
-    html_attributes[:class] = classnames theme.apply(:root, self),
+    html_attributes[:class] = classnames(
+      theme.apply(:root, self),
       open? ? visible_classes : hidden_classes,
       html_class
+    )
 
     html_attributes[:tab_index] ||= -1
     html_attributes[:aria] ||= {}
@@ -63,18 +71,6 @@ class FoxTail::DrawerComponent < FoxTail::BaseComponent
       yield if block_given?
       concat content
     end
-  end
-
-  def stimulus_controller_options
-    {
-      backdrop: backdrop?,
-      body_scrolling: body_scrolling?,
-      open: open?,
-      visible_classes: visible_classes,
-      hidden_classes: hidden_classes,
-      backdrop_classes: backdrop_classes,
-      body_classes: body_classes
-    }
   end
 
   private
@@ -100,19 +96,5 @@ class FoxTail::DrawerComponent < FoxTail::BaseComponent
 
   def body_classes
     theme.apply :body, self
-  end
-
-  class StimulusController < FoxTail::StimulusController
-    def attributes(options = {})
-      attributes = super
-      attributes[:data][value_key(:backdrop)] = options[:backdrop]
-      attributes[:data][value_key(:body_scrolling)] = options[:body_scrolling]
-      attributes[:data][value_key(:open)] = options[:open]
-      attributes[:data][classes_key(:visible)] = options[:visible_classes]
-      attributes[:data][classes_key(:hidden)] = options[:hidden_classes]
-      attributes[:data][classes_key(:backdrop)] = options[:backdrop_classes]
-      attributes[:data][classes_key(:body)] = options[:body_classes]
-      attributes
-    end
   end
 end

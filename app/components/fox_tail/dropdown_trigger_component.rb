@@ -1,48 +1,38 @@
 # frozen_string_literal: true
 
 class FoxTail::DropdownTriggerComponent < FoxTail::TriggerBaseComponent
+  ACTIONS = {
+    hover: {
+      show: :click,
+      hoverShow: :mouseenter,
+      hoverHide: :mouseleave
+    }.freeze,
+    click: {
+      toggle: :click
+    }.freeze,
+  }.freeze
+
+  ACTION_ALIASES = {toggle: :click}.freeze
+
   has_option :delay, default: 300
   has_option :open, default: false, type: :boolean
+  has_option :trigger_type, default: :click
 
   def before_render
     super
 
-    html_attributes[:class] = classnames theme.apply(:root, self),
+    html_attributes[:class] = classnames(
+      theme.apply(:root, self),
       theme.apply("root/#{open? ? :open : :close}", self),
       html_class
-  end
+    )
 
-  def stimulus_controller_options
-    super.merge delay: delay,
-      open_classes: theme.apply("root/open", self),
-      closed_classes: theme.apply("root/closed", self)
-  end
+    trigger_controller.with_value :delay, delay
+    trigger_controller.with_class :open, theme.apply("root/open", self)
+    trigger_controller.with_class :closed, theme.apply("root/closed", self)
 
-  class StimulusController < FoxTail::StimulusController
-    TRIGGER_TYPES = {
-      hover: {
-        show: :click,
-        hoverShow: :mouseenter,
-        hoverHide: :mouseleave
-      },
-      click: {
-        toggle: :click
-      }
-    }.freeze
-
-    def dropdown_identifier
-      FoxTail::DropdownComponent.stimulus_controller_identifier
-    end
-
-    def attributes(options = {})
-      trigger_type = options[:trigger_type]&.to_sym
-      attributes = super
-      attributes[:data][value_key(:delay)] = options[:delay]
-      attributes[:data][outlet_key(dropdown_identifier)] = options[:selector]
-      attributes[:data][classes_key(:open)] = options[:open_classes]
-      attributes[:data][classes_key(:closed)] = options[:closed_classes]
-      attributes[:data][:action] = build_actions(TRIGGER_TYPES[trigger_type])
-      attributes
+    ACTIONS[trigger_type]&.each do |method, event|
+      trigger_controller.with_action method, on: event
     end
   end
 end

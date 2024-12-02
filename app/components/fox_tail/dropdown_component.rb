@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
 class FoxTail::DropdownComponent < FoxTail::BaseComponent
+  ACTIONS = {
+    hover: {
+      hoverShow: :mouseenter,
+      hoverHide: :mouseleave
+    }.freeze
+  }.freeze
+
   include FoxTail::Concerns::Identifiable
-  include FoxTail::Concerns::HasStimulusController
 
   renders_one :trigger, lambda { |options = {}, &block|
     options[:trigger_type] = trigger_type
@@ -37,6 +43,21 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
   has_option :delay, default: 300
   has_option :scroll, type: :boolean, default: false
 
+  stimulated_with [:fox_tail, :dropdown], as: :dropdown do |controller|
+    controller.with_value :placement, placement
+    controller.with_value :offset, offset
+    controller.with_value :shift, shift
+    controller.with_value :ignore_click_outside, ignore_click_outside?
+    controller.with_value :disable_click_outside, disable_click_outside?
+    controller.with_outlet trigger_controller.identifier, "##{trigger_id}"
+    controller.with_class :hidden, theme.apply("root/hidden", self)
+    controller.with_class :visible, theme.apply("root/visible", self)
+
+    ACTIONS[trigger_type&.to_sym]&.each do |method, event|
+      controller.with_action method, on: event
+    end
+  end
+
   def initialize(id_or_attributes = {}, html_attributes = {})
     if id_or_attributes.is_a? Hash
       html_attributes = id_or_attributes
@@ -52,13 +73,20 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
     options[:trigger_id] ||= :"#{id}_trigger"
   end
 
+  def trigger_controller
+    stimulated.with([:fox_tail, :dropdown_trigger])
+  end
+
   def before_render
     super
 
     generate_unique_id
-    html_attributes[:class] = classnames theme.apply(:root, self),
+
+    html_attributes[:class] = classnames(
+      theme.apply(:root, self),
       theme.apply("root/hidden", self),
       html_class
+    )
   end
 
   def call
@@ -66,21 +94,6 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
       concat trigger if trigger?
       concat render_dropdown
     end
-  end
-
-  def stimulus_controller_options
-    {
-      trigger_id: trigger_id,
-      placement: placement,
-      offset: offset,
-      shift: shift,
-      ignore_click_outside: ignore_click_outside,
-      disable_click_outside: disable_click_outside?,
-      hidden_classes: theme.apply("root/hidden", self),
-      visible_classes: theme.apply("root/visible", self),
-      trigger_type: trigger_type,
-      delay: delay
-    }
   end
 
   protected
@@ -97,34 +110,6 @@ class FoxTail::DropdownComponent < FoxTail::BaseComponent
     content_tag :div, class: theme.apply(:body, self) do
       menus.each { |menu| concat menu } if menus?
       concat content if content?
-    end
-  end
-
-  class StimulusController < FoxTail::StimulusController
-    TRIGGER_TYPES = {
-      hover: {
-        hoverShow: :mouseenter,
-        hoverHide: :mouseleave
-      }
-    }.freeze
-
-    def trigger_identifier
-      FoxTail::DropdownTriggerComponent.stimulus_controller_identifier
-    end
-
-    def attributes(options = {})
-      trigger_type = options[:trigger_type]&.to_sym
-      attributes = super
-      attributes[:data][value_key(:placement)] = options[:placement]
-      attributes[:data][value_key(:offset)] = options[:offset]
-      attributes[:data][value_key(:shift)] = options[:shift]
-      attributes[:data][value_key(:ignore_click_outside)] = options[:ignore_click_outside]
-      attributes[:data][value_key(:disable_click_outside)] = options[:disable_click_outside]
-      attributes[:data][outlet_key(trigger_identifier)] = "##{options[:trigger_id]}"
-      attributes[:data][classes_key(:hidden)] = options[:hidden_classes]
-      attributes[:data][classes_key(:visible)] = options[:visible_classes]
-      attributes[:data][:action] = build_actions TRIGGER_TYPES[trigger_type]
-      attributes
     end
   end
 end

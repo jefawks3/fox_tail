@@ -1,49 +1,37 @@
 # frozen_string_literal: true
 
 class FoxTail::ColorThemeTriggerComponent < FoxTail::TriggerBaseComponent
-  has_option :action
+  ACTIONS = {
+    toggle: {toggle: :click}.freeze,
+    set_dark_mode: {setDarkMode: :click}.freeze,
+    set_light_mode: {setLightMode: :click}.freeze,
+    set_preferred: {setPreferred: :click}.freeze
+  }.freeze
+
+  has_option :trigger_type, default: :toggle
+  has_option :key
+  has_option :storage
+  has_option :default_theme
+  has_option :domain
 
   def initialize(html_attributes = {})
-    super(html_attributes.delete(:id), nil, html_attributes)
+    super(nil, self.class.default_options.merge(html_attributes))
   end
 
-  def stimulus_controller_options
-    super.merge action: action
+  def identifier
+    [:fox_tail, :color_theme]
   end
 
-  class << self
-    def stimulus_controller_name
-      :color_theme
-    end
-  end
+  def before_render
+    super
 
-  class StimulusController < FoxTail::StimulusController
-    def attributes(options = {})
-      controller_options = options.extract! :key, :storage, :default_theme, :domain
-      controller_options.reverse_merge! FoxTail::Base.fox_tail_config.color_theme
-      attributes = super
-      attributes[:data][value_key(:key)] = controller_options[:key]
-      attributes[:data][value_key(:storage)] = controller_options[:storage]
-      attributes[:data][value_key(:default_theme)] = controller_options[:default_theme]
-      attributes[:data][value_key(:domain)] = controller_options[:domain]
-      attributes[:data][:action] = action(options[:action], event: options[:trigger_type]) if options[:action].present?
-      attributes
-    end
+    trigger_controller.with_value :key, key if key?
+    trigger_controller.with_value :storage, storage if storage?
+    trigger_controller.with_value :default_theme, default_theme if default_theme?
+    trigger_controller.with_value :domain, domain if domain?
 
-    def toggle_action(event: nil)
-      action :toggle, event: event
-    end
-
-    def set_dark_mode_action(event: nil)
-      action "setDarkMode", event: event
-    end
-
-    def set_light_mode_action(event: nil)
-      action "setLightMode", event: event
-    end
-
-    def set_preferred_action(event: nil)
-      action "setPreferred", event: event
+    ACTIONS[trigger_type&.to_sym]&.each do |method, event|
+      trigger_controller.with_action method, on: event
     end
   end
 end

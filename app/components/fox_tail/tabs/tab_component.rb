@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 class FoxTail::Tabs::TabComponent < FoxTail::ClickableComponent
-  has_option :tabs_id
-  has_option :variant, default: :default
-  has_option :selected, type: :boolean, default: false
-  has_option :panel_id
+  include FoxTail::Concerns::Identifiable
 
   renders_one :left_visual, types: {
     icon: {
@@ -54,6 +51,22 @@ class FoxTail::Tabs::TabComponent < FoxTail::ClickableComponent
     }
   }
 
+  has_option :tabs_id
+  has_option :variant, default: :default
+  has_option :selected, type: :boolean, default: false
+  has_option :panel_id
+
+  stimulated_with [:fox_tail, :tab], as: :tab, if: :controlled? do |controller|
+    controller.with_value :selected, selected?
+    controller.with_class :active, active_classes
+    controller.with_class :selected, selected_classes
+    controller.with_outlet controller.identifier, "##{tabs_id} [data-controller~='fox_tail--tab']" if tabs_id?
+    controller.with_outlet collapsible_controller.identifier, "##{panel_id}" if panel_id?
+    controller.with_action :select
+  end
+
+  stimulated_with [:fox_tail, :collapsible], as: :collapsible, register: false
+
   def visuals?
     left_visual? || right_visual?
   end
@@ -73,10 +86,6 @@ class FoxTail::Tabs::TabComponent < FoxTail::ClickableComponent
       concat content
       concat right_visual if right_visual?
     end
-  end
-
-  def use_stimulus?
-    !disabled? && super
   end
 
   def stimulus_controller_options
@@ -99,24 +108,5 @@ class FoxTail::Tabs::TabComponent < FoxTail::ClickableComponent
 
   def selected_classes
     theme.apply("root/selected", self)
-  end
-
-  class << self
-    def stimulus_controller_name
-      :tab
-    end
-  end
-
-  class StimulusController < FoxTail::StimulusController
-    def attributes(options = {})
-      attributes = super
-      attributes[:data][value_key(:selected)] = options[:selected]
-      attributes[:data][classes_key(:active)] = options[:active_classes]
-      attributes[:data][classes_key(:selected)] = options[:selected_classes]
-      attributes[:data][outlet_key("fox_tail--tab")] = options[:siblings]
-      attributes[:data][outlet_key("fox_tail--collapsible")] = options[:panel]
-      attributes[:data][:action] = action(:select)
-      attributes
-    end
   end
 end

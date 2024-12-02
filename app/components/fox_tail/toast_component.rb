@@ -54,7 +54,6 @@ class FoxTail::ToastComponent < FoxTail::DismissibleComponent
   }
 
   has_option :dividers, type: :boolean, default: false
-  has_option :dismissible, type: :boolean, default: true
   has_option :long_content, type: :boolean, default: false
 
   def before_render
@@ -66,18 +65,14 @@ class FoxTail::ToastComponent < FoxTail::DismissibleComponent
     html_attributes[:role] = :alert
   end
 
-  def use_stimulus?
-    super && (dismissible? || auto_close?)
-  end
-
   private
 
   def dismiss_actions!(attributes)
-    return unless use_stimulus?
-
     attributes[:data] ||= {}
-    attributes[:data][:action] = stimulus_merger.merge_actions attributes[:data][:action],
-      stimulus_controller.action("dismiss")
+    attributes[:data][:action] = stimulus_merger.merge_actions(
+      attributes[:data][:action],
+      dismissible_controller.action("dismiss")
+    )
   end
 
   def render_visual(content, options, &block)
@@ -87,9 +82,11 @@ class FoxTail::ToastComponent < FoxTail::DismissibleComponent
     container_classes = classnames theme.apply("container/visual", self, visual_options)
 
     options[:"aria-hidden"] = true
-    options[:class] = classnames theme.apply(:visual, self, visual_options),
+    options[:class] = classnames(
+      theme.apply(:visual, self, visual_options),
       theme.apply("visual/icon", self, visual_options),
       options[:class]
+    )
 
     content_tag :div, class: container_classes do
       concat block.call(options)

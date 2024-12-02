@@ -1,16 +1,22 @@
 # frozen_string_literal: true
 
 class FoxTail::ModalTriggerComponent < FoxTail::TriggerBaseComponent
-  class StimulusController < FoxTail::StimulusController
-    def modal_identifier
-      FoxTail::ModalComponent.stimulus_controller_identifier
-    end
+  ACTIONS = {
+    click: { show: :click }.freeze,
+    toggle: { toggle: :click }.freeze,
+  }.freeze
 
-    def attributes(options = {})
-      attributes = super
-      attributes[:data][outlet_key(modal_identifier)] = options[:selector]
-      attributes[:data][:action] = action options.fetch(:action, :show), event: options.fetch(:trigger_type, :click)
-      attributes
+  has_option :trigger_type, default: :click
+
+  def modal_controller
+    stimulated.with [:fox_tail, :modal]
+  end
+
+  def before_render
+    super
+
+    ACTIONS[trigger_type]&.each do |method, event|
+      trigger_controller.with_action method, on: event
     end
   end
 end

@@ -35,6 +35,8 @@ class FoxTail::Dropdown::MenuItemComponent < FoxTail::ClickableComponent
   has_option :autocomplete_value
   has_option :autocomplete_text
 
+  stimulated_with [:fox_tail, :autocomplete], as: :autocomplete, register: false
+
   def visuals?
     left_visual? || right_visual?
   end
@@ -42,8 +44,10 @@ class FoxTail::Dropdown::MenuItemComponent < FoxTail::ClickableComponent
   def before_render
     super
 
-    if self.class.use_stimulus? && options.key?(:autocomplete_value)
-      FoxTail::AutocompleteComponent.append_option_action autocomplete_value, autocomplete_text, html_attributes
+    if options.key?(:autocomplete_value)
+      autocomplete_controller.with_param :value, autocomplete_value
+      autocomplete_controller.with_param :text, autocomplete_text
+      autocomplete_controller.with_action :select
     end
   end
 

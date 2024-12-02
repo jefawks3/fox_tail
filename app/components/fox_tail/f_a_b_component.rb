@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FoxTail::FABComponent < FoxTail::BaseComponent
-  include FoxTail::Concerns::HasStimulusController
+  include FoxTail::Concerns::Identifiable
 
   renders_many :items, lambda { |icon_or_options = {}, options = {}|
     if icon_or_options.is_a?(Hash)
@@ -26,10 +26,17 @@ class FoxTail::FABComponent < FoxTail::BaseComponent
   has_option :rounded, type: :boolean, default: true
   has_option :trigger_type, default: :hover
 
+  stimulated_with [:fox_tail, :fab], as: :fab do |controller|
+    controller.with_value :trigger_type, trigger_type
+    controller.with_class :visible, theme.apply("root/visible", self)
+    controller.with_class :hidden, theme.apply("root/hidden", self)
+  end
+
   def initialize(html_attributes = {})
     super
 
-    html_attributes[:id] ||= :"fab_#{SecureRandom.hex(4)}"
+    generate_unique_id
+    
     options[:item_placement] = calculate_item_placement if item_placement == :auto
     options[:label_placement] = calculate_label_placement if label_placement == :auto
   end
@@ -47,10 +54,12 @@ class FoxTail::FABComponent < FoxTail::BaseComponent
 
     with_icon "plus" unless icon?
 
-    html_attributes[:class] = classnames theme.apply(:root, self),
+    html_attributes[:class] = classnames(
+      theme.apply(:root, self),
       placement.is_a?(String) && placement,
       theme.apply("root/hidden", self),
       html_class
+    )
   end
 
   def call
@@ -61,30 +70,24 @@ class FoxTail::FABComponent < FoxTail::BaseComponent
     end
   end
 
-  def stimulus_controller_options
-    {
-      trigger_type: trigger_type,
-      visible_classes: theme.apply("root/visible", self),
-      hidden_classes: theme.apply("root/hidden", self)
-    }
-  end
-
   private
 
   def merge_fab_options(options)
     options = options.merge variant: :solid, size: :fab, pill: rounded?
     options[:class] = classnames theme.apply(:visual, self), options[:class]
     options[:data] ||= {}
-    options[:data][stimulus_controller.target_key] = :button
+    options[:data][fab_controller.target_attribute_name] = :button
     options
   end
 
   def merge_item_options(options)
-    options.merge label_style: label_style,
+    options.merge(
+      label_style: label_style,
       pill: rounded?,
       placement: placement,
       label_placement: label_placement,
       theme: theme.theme(:item)
+    )
   end
 
   def calculate_item_placement
@@ -107,26 +110,10 @@ class FoxTail::FABComponent < FoxTail::BaseComponent
     attributes = {}
     attributes[:class] = classnames theme.apply(:menu, self)
     attributes[:data] = {}
-    attributes[:data][stimulus_controller.target_key] = :menu if use_stimulus?
+    attributes[:data][fab_controller.target_attribute_name] = :menu
 
     content_tag :div, attributes do
       items.each { |item| concat item }
-    end
-  end
-
-  class << self
-    def stimulus_controller_name
-      :fab
-    end
-  end
-
-  class StimulusController < FoxTail::StimulusController
-    def attributes(options = {})
-      attributes = super
-      attributes[:data][value_key(:trigger_type)] = options[:trigger_type]
-      attributes[:data][classes_key(:visible)] = options[:visible_classes]
-      attributes[:data][classes_key(:hidden)] = options[:hidden_classes]
-      attributes
     end
   end
 end

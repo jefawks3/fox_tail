@@ -11,7 +11,7 @@ module FoxTail
 
     initializer "fox_tail.config.icon_sets" do |app|
       app.config.fox_tail.icon_sets[:hero] = FoxTail::IconSets::HeroIconSet
-      app.config.fox_tail.default_icon_set = :hero
+      app.config.fox_tail.default_icon_set ||= :hero
       app.config.fox_tail.icon_sets[:flowbite] = FoxTail::IconSets::FlowbiteIconSet
     end
   end

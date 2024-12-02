@@ -17,17 +17,19 @@ class FoxTail::AlertComponent < FoxTail::DismissibleComponent
 
   renders_one :icon, lambda { |options = {}|
     name = options.delete(:icon) || severity_icon_name
+    options[:icon_set] ||= :hero
     options[:class] = classnames theme.apply(:icon, self), options[:class]
     FoxTail::IconBaseComponent.new name, options
   }
 
   renders_one :dismiss_icon, lambda { |options = {}, &block|
+    options = FoxTail::HtmlAttributes.new options
     content = block ? capture(&block) : I18n.t("components.fox_tail.close")
-    icon_options = options.slice(:icon, :variant).reverse_merge(icon: "x-mark", variant: :solid)
+    icon_options = options.slice(:icon, :variant, :icon_set).reverse_merge(icon: "x-mark", variant: :solid)
     icon_options[:class] = theme.apply "dismiss.icon", self
-    dismiss_actions! options
     options[:class] = classnames theme.apply("dismiss.button", self), options[:class]
     options[:type] = :button
+    options.merge_stimulus_actions! dismissible_controller.action(:dismiss) if dismissible?
 
     content_tag :button, options do
       concat render(FoxTail::IconBaseComponent.new(icon_options[:icon], icon_options.except(:icon)))
@@ -47,10 +49,11 @@ class FoxTail::AlertComponent < FoxTail::DismissibleComponent
     },
     dismiss: {
       renders: lambda { |options = {}|
+        options = FoxTail::HtmlAttributes.new options
         options[:variant] ||= :outline
         options[:color] ||= severity
         options[:size] ||= :xs
-        dismiss_actions! options
+        options.merge_stimulus_actions! dismissible_controller.action(:dismiss) if dismissible?
         FoxTail::ButtonComponent.new options
       },
       as: :dismiss_button
@@ -60,7 +63,6 @@ class FoxTail::AlertComponent < FoxTail::DismissibleComponent
   has_option :severity, default: :info
   has_option :rounded, default: true, type: :boolean
   has_option :border, default: :none
-  has_option :dismissible, default: true, type: :boolean
 
   def border?
     border != :none
@@ -74,10 +76,6 @@ class FoxTail::AlertComponent < FoxTail::DismissibleComponent
     else
       (options[:border] || :none).to_sym
     end
-  end
-
-  def use_stimulus?
-    super && dismissible?
   end
 
   def before_render
@@ -97,13 +95,5 @@ class FoxTail::AlertComponent < FoxTail::DismissibleComponent
 
   def severity_icon_name
     SEVERITY_ICONS.fetch severity.to_sym, DEFAULT_SEVERITY_ICON
-  end
-
-  def dismiss_actions!(attributes)
-    return unless use_stimulus?
-
-    attributes[:data] ||= {}
-    attributes[:data][:action] = stimulus_merger.merge_actions attributes[:data][:action],
-      stimulus_controller.action("dismiss")
   end
 end

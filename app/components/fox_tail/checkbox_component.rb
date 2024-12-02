@@ -2,7 +2,7 @@
 
 class FoxTail::CheckboxComponent < FoxTail::BaseComponent
   include FoxTail::Concerns::Formable
-  include FoxTail::Concerns::HasStimulusController
+  include FoxTail::Concerns::ControllableFormField
 
   has_option :color, default: :default
   has_option :size, default: :base
@@ -12,7 +12,6 @@ class FoxTail::CheckboxComponent < FoxTail::BaseComponent
   has_option :include_hidden, type: :boolean, default: true
   has_option :multiple, type: :boolean, default: false
   has_option :checked, type: :boolean
-  has_option :controlled, type: :boolean, default: false
 
   def value
     options[:value] ||= value_from_object
@@ -37,14 +36,6 @@ class FoxTail::CheckboxComponent < FoxTail::BaseComponent
     end
   end
 
-  def use_stimulus?
-    super && controlled?
-  end
-
-  def stimulus_controller_options
-    {}
-  end
-
   def before_render
     super
 
@@ -62,8 +53,8 @@ class FoxTail::CheckboxComponent < FoxTail::BaseComponent
 
   def call
     capture do
-      concat tag.input(hidden_attributes) if include_hidden?
-      concat tag.input(html_attributes)
+      concat tag.input(**hidden_attributes) if include_hidden?
+      concat tag.input(**html_attributes)
     end
   end
 
@@ -73,12 +64,4 @@ class FoxTail::CheckboxComponent < FoxTail::BaseComponent
     html_attributes.slice(:name, :disabled, :form)
       .merge!(type: :hidden, value: unchecked_value, autocomplete: "off")
   end
-
-  class << self
-    def stimulus_controller_name
-      "form-field"
-    end
-  end
-
-  class StimulusController < FoxTail::StimulusController; end
 end

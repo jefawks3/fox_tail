@@ -2,10 +2,9 @@
 
 class FoxTail::ModalComponent < FoxTail::BaseComponent
   include FoxTail::Concerns::Identifiable
-  include FoxTail::Concerns::HasStimulusController
 
   renders_one :trigger, lambda { |options = {}|
-    self.class.trigger_component.new "##{id}", options
+    FoxTail::ModalTriggerComponent.new "##{id}", options
   }
 
   has_option :placement, default: :center
@@ -15,18 +14,19 @@ class FoxTail::ModalComponent < FoxTail::BaseComponent
   has_option :closeable, type: :boolean, default: true
   has_option :open, type: :boolean, default: false
 
-  def tag_id
-    FoxTail.deprecator.deprecation_warning :tag_id, "use `id` instead"
-    id
+  stimulated_with [:fox_tail, :modal], as: :modal do |controller|
+    controller.with_value :static, static?
+    controller.with_value :closeable, closeable?
+    controller.with_value :open, open?
+    controller.with_class :visible, visible_classes
+    controller.with_class :hidden, hidden_classes
   end
 
   def close_action(event: :click)
-    stimulus_controller.action :hide, event: event
+    modal_controller.action :hide, on: event
   end
 
   def merge_close_action(attributes, event: :click)
-    return attributes unless use_stimulus?
-
     attributes[:data] ||= {}
     attributes[:data][:action] = stimulus_merger.merge_actions attributes[:data][:action], close_action(event: event)
     attributes
@@ -47,16 +47,6 @@ class FoxTail::ModalComponent < FoxTail::BaseComponent
       concat trigger if trigger?
       concat render_modal
     end
-  end
-
-  def stimulus_controller_options
-    {
-      static: static?,
-      closeable: closeable?,
-      open: open?,
-      visible_classes: visible_classes,
-      hidden_classes: hidden_classes
-    }
   end
 
   def close_icon_button_component(icon_or_options = {}, options = {})
@@ -99,7 +89,7 @@ class FoxTail::ModalComponent < FoxTail::BaseComponent
 
   def content_attributes
     attributes = {class: theme.apply(:content, self)}
-    attributes[:data] = {stimulus_controller.target_key => :content} if use_stimulus?
+    attributes[:data] = {modal_controller.target_attribute_name => :content}
     attributes
   end
 
@@ -111,28 +101,6 @@ class FoxTail::ModalComponent < FoxTail::BaseComponent
     content_tag :div, html_attributes do
       concat render_backdrop if backdrop?
       concat content_tag(:div, content, content_attributes)
-    end
-  end
-
-  class << self
-    def stimulus_controller_name
-      :modal
-    end
-
-    def trigger_component
-      FoxTail::ModalTriggerComponent
-    end
-  end
-
-  class StimulusController < FoxTail::StimulusController
-    def attributes(options = {})
-      attributes = super
-      attributes[:data][value_key(:static)] = options[:static]
-      attributes[:data][value_key(:closeable)] = options[:closeable]
-      attributes[:data][value_key(:open)] = options[:open]
-      attributes[:data][classes_key(:visible)] = options[:visible_classes]
-      attributes[:data][classes_key(:hidden)] = options[:hidden_classes]
-      attributes
     end
   end
 end

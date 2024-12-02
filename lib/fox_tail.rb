@@ -11,10 +11,12 @@ module FoxTail
 
   autoload :ClassnameMerger
   autoload :Config
+  autoload :HtmlAttributes
   autoload :Base
   autoload :Theme
   autoload :Translator
-  autoload :StimulusController
+  autoload :StimulusBuilder
+  autoload :StimulusManager
 
   module IconSets
     extend ActiveSupport::Autoload

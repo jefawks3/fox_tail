@@ -36,7 +36,6 @@ module Dummy
 
     # Fox Tail Components
     config.fox_tail.theme_path = FoxTail.root.join("test/dummy/app/components").to_s
-    # config.fox_tail.use_stimulus = false
     config.fox_tail.raise_on_asset_not_found = false
 
     # Lookbook

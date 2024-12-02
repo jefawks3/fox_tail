@@ -1,16 +1,28 @@
 # frozen_string_literal: true
 
 class FoxTail::ClickableComponent < FoxTail::BaseComponent
-  include FoxTail::Concerns::HasStimulusController
-
   has_option :url
   has_option :disabled, default: false, type: :boolean
   has_option :loading, default: false, type: :boolean
   has_option :loadable, default: false, type: :boolean
   has_option :controlled, default: false, type: :boolean
+  has_option :form_controlled
 
-  def use_stimulus?
-    controlled? && self.class.use_stimulus?
+  stimulated_with [:fox_tail, :form], as: :form, register: false
+
+  stimulated_with [:fox_tail, :clickable], as: :clickable, if: :controlled? do |controller|
+    controller.register_controller
+    controller.with_value :state, stimulus_state
+    controller.with_class :active, active_classes
+    controller.with_class :disabled, disabled_classes
+
+    if form_controlled == :loading && loadable?
+      controller.with_action :loading, on: form_controller.event(:submit)
+      controller.with_action :activate, on: form_controller.event(:finished)
+    elsif form_controlled == :disable
+      controller.with_action :disable, on: form_controller.event(:submit)
+      controller.with_action :activate, on: form_controller.event(:finished)
+    end
   end
 
   def link?
@@ -39,10 +51,6 @@ class FoxTail::ClickableComponent < FoxTail::BaseComponent
   def call(&block)
     captured_content = block ? capture(&block) : content
     content_tag root_tag_name, captured_content, html_attributes
-  end
-
-  def stimulus_controller_options
-    {state: stimulus_state, active_classes: active_classes, disabled_classes: disabled_classes}
   end
 
   protected
@@ -74,25 +82,6 @@ class FoxTail::ClickableComponent < FoxTail::BaseComponent
       :disabled
     else
       :active
-    end
-  end
-
-  class << self
-    def stimulus_controller_name
-      :clickable
-    end
-  end
-
-  class StimulusController < FoxTail::StimulusController
-    def attributes(options = {})
-      {
-        data: {
-          :controller => identifier,
-          value_key(:state) => options[:state] || :active,
-          classes_key(:active) => options[:active_classes],
-          classes_key(:disabled) => options[:disabled_classes]
-        }
-      }
     end
   end
 end

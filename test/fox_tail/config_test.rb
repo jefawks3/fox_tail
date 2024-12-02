@@ -11,10 +11,6 @@ class FoxTail::ConfigTest < ActiveSupport::TestCase
     assert_kind_of FoxTail::StimulusMerger, FoxTail::Config.defaults.stimulus_merger
   end
 
-  def test_default_use_stimulus_true
-    assert FoxTail::Config.defaults.use_stimulus
-  end
-
   def test_default_raise_on_asset_not_found_true
     assert FoxTail::Config.defaults.raise_on_asset_not_found
   end

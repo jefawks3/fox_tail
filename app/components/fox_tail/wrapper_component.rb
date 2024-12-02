@@ -23,6 +23,6 @@ class FoxTail::WrapperComponent < FoxTail::BaseComponent
   end
 
   def call
-    block ? capture(self, &block) : content
+    block ? view_context.capture(self, &block) : content
   end
 end

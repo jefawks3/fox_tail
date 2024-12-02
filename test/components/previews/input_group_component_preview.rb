@@ -10,7 +10,7 @@ class InputGroupComponentPreview < ViewComponent::Preview
       c.with_input(type: :search, placeholder: "Search for ...") do |input|
         input.with_left_icon("magnifying-glass")
       end
-      c.with_icon_button("magnifying-glass", color: :green, variant: :solid, type: :submit) do
+      c.with_icon_button("magnifying-glass", color: :success, variant: :solid, type: :submit) do
         "Search"
       end
     end
@@ -22,7 +22,7 @@ class InputGroupComponentPreview < ViewComponent::Preview
       c.with_input(type: :search, placeholder: "Search for ...") do |input|
         input.with_left_icon("magnifying-glass")
       end
-      c.with_button(color: :green, variant: :solid, type: :submit) do |btn|
+      c.with_button(color: :success, variant: :solid, type: :submit) do |btn|
         btn.with_right_icon "chevron-right"
         "Search"
       end

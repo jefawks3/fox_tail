@@ -9,7 +9,7 @@ class FoxTail::FileInputComponent < FoxTail::InputBaseComponent
   end
 
   def call
-    tag.input(html_attributes)
+    tag.input(**html_attributes)
   end
 
   protected

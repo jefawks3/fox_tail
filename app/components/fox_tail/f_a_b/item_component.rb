@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class FoxTail::FAB::ItemComponent < FoxTail::IconButtonComponent
+  include FoxTail::Concerns::Identifiable
+
   DEFAULT_OPTIONS = {color: :light, variant: :solid}.freeze
 
   has_option :placement, default: :top
@@ -22,20 +24,15 @@ class FoxTail::FAB::ItemComponent < FoxTail::IconButtonComponent
 
     html_attributes[:class] = classnames theme.apply(:root, self), html_class
 
-    if label_style == :tooltip && self.class.use_stimulus?
-      trigger_component = FoxTail::TooltipTriggerComponent.new tag_id, "##{tooltip_id}", trigger_type: :hover
-      options = trigger_component.stimulus_controller_options
-      attributes = FoxTail::TooltipTriggerComponent.stimulus_controller.attributes options
-      stimulus_merger.merge_attributes! html_attributes, attributes
+    if label_style == :tooltip
+      trigger_component = FoxTail::TooltipTriggerComponent.new("##{tooltip_id}", id: id, trigger_type: :hover)
+      trigger_component.before_render
+      html_attributes.merge! trigger_component.html_attributes
     end
   end
 
-  def tag_id
-    html_attributes[:id] ||= :"fab_item_#{SecureRandom.hex(4)}"
-  end
-
   def tooltip_id
-    :"tooltip_#{tag_id}"
+    :"#{id}_tooltip"
   end
 
   def size
@@ -55,6 +52,6 @@ class FoxTail::FAB::ItemComponent < FoxTail::IconButtonComponent
   private
 
   def render_tooltip
-    render FoxTail::TooltipComponent.new(tooltip_id, placement: label_placement, trigger_id: tag_id).with_content(content)
+    render FoxTail::TooltipComponent.new(id: tooltip_id, placement: label_placement, trigger_id: id).with_content(content)
   end
 end

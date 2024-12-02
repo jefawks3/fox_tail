@@ -3,20 +3,17 @@
 class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
   include FoxTail::Concerns::Formable
   include FoxTail::Concerns::Placeholderable
-  include FoxTail::Concerns::HasStimulusController
+  include FoxTail::Concerns::ControllableFormField
 
   renders_one :hidden_input, lambda { |attributes = {}|
     add_default_name_and_id attributes: attributes
     attributes[:value] = value
     attributes[:type] = :hidden
     attributes[:name] = name
+    attributes[:data] ||= {}
+    attributes[:data][autocomplete_controller.target_attribute_name] = :value
 
-    if use_stimulus?
-      attributes[:data] ||= {}
-      attributes[:data][stimulus_controller.target_key] = :value
-    end
-
-    tag.input(attributes)
+    tag.input(**attributes)
   }
 
   renders_one :input, lambda { |options = {}, &block|
@@ -30,19 +27,16 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
     options[:value] = text
     options[:type] = :search
     options[:placeholder] = retrieve_placeholder if placeholder?
-
-    if use_stimulus?
-      options[:data] ||= {}
-      options[:data][stimulus_controller.target_key] = :input
-    end
+    options[:data] ||= {}
+    options[:data][autocomplete_controller.target_attribute_name] = :input
 
     FoxTail::DropdownTriggerComponent.new nil do |trigger|
-      component = FoxTail::InputComponent.new stimulus_merger.merge_attributes(trigger.html_attributes, options)
+      component = FoxTail::InputComponent.new trigger.html_attributes.merge(options)
 
-      if use_stimulus?
-        component.with_right_spinner :class => theme.apply(:loader, self),
-          stimulus_controller.target_key(raw: true) => :loader
-      end
+      component.with_right_spinner(
+        class: theme.apply(:loader, self),
+        data: {autocomplete_controller.target_attribute_name => :loader}
+      )
 
       render component, &block
     end
@@ -53,11 +47,8 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
     options[:trigger_id] = input_id
     options[:offset] ||= 0
     options[:disable_click_outside] = true
-
-    if use_stimulus?
-      options[:data] ||= {}
-      options[:data][stimulus_controller.target_key] = :dropdown
-    end
+    options[:data] ||= {}
+    options[:data][autocomplete_controller.target_attribute_name] = :dropdown
 
     FoxTail::DropdownComponent.new options
   }
@@ -70,6 +61,11 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
   has_option :error_message
 
   include_options_from FoxTail::InputComponent
+
+  stimulated_with [:fox_tail, :autocomplete], as: :autocomplete do |controller|
+    controller.with_value :url, @url
+    controller.with_value :param, param
+  end
 
   def initialize(url, html_attributes = {})
     super(html_attributes)
@@ -108,13 +104,6 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
     end
   end
 
-  def stimulus_controller_options
-    {
-      url: @url,
-      param: param
-    }
-  end
-
   def render_search_results(options = {}, &block)
     raise ArgumentError, "block not given" unless block
 
@@ -124,25 +113,5 @@ class FoxTail::AutocompleteComponent < FoxTail::BaseComponent
   def render_search_results_in(view_context, options = {}, &block)
     set_original_view_context view_context
     render_search_results options, &block
-  end
-
-  class << self
-    def append_option_action(value, text = nil, attributes = {})
-      actions = stimulus_merger.merge_actions attributes.dig(:data, :action), stimulus_controller.action(:select)
-      attributes[:data] ||= {}
-      attributes[:data][:action] = actions
-      attributes[:data][stimulus_controller.action_param_key(:value)] = value
-      attributes[:data][stimulus_controller.action_param_key(:text)] = text
-      attributes
-    end
-  end
-
-  class StimulusController < FoxTail::StimulusController
-    def attributes(options = {})
-      attributes = super
-      attributes[:data][value_key(:url)] = options[:url]
-      attributes[:data][value_key(:param)] = options[:param]
-      attributes
-    end
   end
 end

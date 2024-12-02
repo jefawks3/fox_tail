@@ -3,17 +3,18 @@
 class FoxTail::BaseComponent < FoxTail::Base
   include FoxTail::Concerns::HasTheme
   include FoxTail::Concerns::HasOptions
+  include FoxTail::Concerns::Stimulated
 
   attr_reader :html_attributes
 
   has_option :class, as: :html_class
 
-  delegate :classname_merger, :use_stimulus?, :stimulus_merger, to: :class
+  delegate :classname_merger, :stimulus_merger, to: :class
 
   def initialize(html_attributes = {})
     super
 
-    html_attributes = ActiveSupport::HashWithIndifferentAccess.new html_attributes
+    html_attributes = FoxTail::HtmlAttributes.new html_attributes
     theme = html_attributes.delete :theme
     self.theme.merge! theme if theme.present?
     extract_options! html_attributes
@@ -47,10 +48,6 @@ class FoxTail::BaseComponent < FoxTail::Base
   class << self
     def classname_merger
       FoxTail::Base.fox_tail_config.classname_merger
-    end
-
-    def use_stimulus?
-      !!FoxTail::Base.fox_tail_config.use_stimulus
     end
 
     def stimulus_merger

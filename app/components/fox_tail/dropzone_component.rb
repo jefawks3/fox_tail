@@ -2,7 +2,7 @@
 
 class FoxTail::DropzoneComponent < FoxTail::BaseComponent
   include FoxTail::Concerns::Formable
-  include FoxTail::Concerns::HasStimulusController
+  include FoxTail::Concerns::ControllableFormField
 
   DEFAULT_ICON = "cloud-arrow-up"
 
@@ -27,14 +27,6 @@ class FoxTail::DropzoneComponent < FoxTail::BaseComponent
     content_tag :p, text, attributes
   }
 
-  def use_stimulus?
-    super && controlled?
-  end
-
-  def stimulus_controller_options
-    {}
-  end
-
   def before_render
     super
 
@@ -56,12 +48,4 @@ class FoxTail::DropzoneComponent < FoxTail::BaseComponent
   def inner_container_attributes
     {class: theme.apply(:inner_container, self)}
   end
-
-  class << self
-    def stimulus_controller_name
-      "form-field"
-    end
-  end
-
-  class StimulusController < FoxTail::StimulusController; end
 end

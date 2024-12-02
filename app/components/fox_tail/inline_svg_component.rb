@@ -24,9 +24,9 @@ class FoxTail::InlineSvgComponent < FoxTail::BaseComponent
 
   def call
     doc = Nokogiri::XML.parse content? ? content : asset_contents
-    sanitized_html_attributes.each { |k, v| doc.child[k.to_s] = v }
     node = doc.at_css "svg"
     node[:class] = html_class
+    html_attributes.to_attributes.each { |k, v| node[k.to_s] = v if v.present? }
     yield node if block_given?
     node.to_s.html_safe # rubocop:disable Rails/OutputSafety
   rescue FoxTail::AssetNotFound => e
@@ -39,10 +39,25 @@ class FoxTail::InlineSvgComponent < FoxTail::BaseComponent
   private
 
   def find_asset_path
-    if (manifest_file = Rails.application.assets_manifest.assets[path])
-      File.join(Rails.application.assets_manifest.directory, manifest_file)
-    else
-      Rails.application.assets.find_asset(path)&.filename
+    find_by_application_asset_manifest || find_by_application_assets
+  end
+
+  def find_by_application_asset_manifest
+    return unless Rails.application.respond_to?(:asset_manifest)
+
+    manifest_file = Rails.application.assets_manifest.assets[path]
+    return unless manifest_file
+
+    File.join(Rails.application.assets_manifest.directory, manifest_file)
+  end
+
+  def find_by_application_assets
+    return unless Rails.application.config.respond_to?(:assets)
+
+    if Rails.application.config.assets.respond_to?(:resolve)
+      Rails.application.config.assets.resolve(path)
+    elsif Rails.application.config.assets.respond_to?(:find_asset)
+      Rails.application.config.assets.find_asset(path)&.filename
     end
   end
 
