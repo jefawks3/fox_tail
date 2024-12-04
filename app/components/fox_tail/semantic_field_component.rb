@@ -261,7 +261,7 @@ class FoxTail::SemanticFieldComponent < FoxTail::BaseComponent
   private
 
   def create_input_component(klass, options)
-    options = extract_options_for(klass).merge(options)
+    options = html_attributes.merge(extract_options_for(klass), options)
     options[:id] = id if id.present?
     options[:class] = classnames theme.apply(:input, self), options[:class]
     klass.new options

@@ -7,6 +7,7 @@ class FoxTail::RangeComponent < FoxTail::BaseComponent
   has_option :size, default: :base
   has_option :in, as: :range
   has_option :within, as: :within_range
+  has_option :required, type: :boolean, default: false
 
   def before_render
     super
@@ -15,6 +16,7 @@ class FoxTail::RangeComponent < FoxTail::BaseComponent
     html_attributes[:type] = :range
     html_attributes[:value] ||= value_before_type_cast
     html_attributes[:disabled] = disabled?
+    html_attributes[:required] = required?
     html_attributes[:class] = classnames theme.apply(:root, self), html_class
 
     range = self.range || within_range

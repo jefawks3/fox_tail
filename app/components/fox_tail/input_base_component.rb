@@ -7,6 +7,7 @@ class FoxTail::InputBaseComponent < FoxTail::BaseComponent
 
   has_option :size, default: :base
   has_option :state
+  has_option :required, type: :boolean, default: false
 
   def before_render
     super
@@ -14,6 +15,7 @@ class FoxTail::InputBaseComponent < FoxTail::BaseComponent
     add_default_name_and_id
     update_state_from_object!
     html_attributes[:placeholder] = retrieve_placeholder if placeholder?
+    html_attributes[:required] = required?
   end
 
   protected

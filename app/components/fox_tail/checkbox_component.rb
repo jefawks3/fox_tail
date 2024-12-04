@@ -12,6 +12,7 @@ class FoxTail::CheckboxComponent < FoxTail::BaseComponent
   has_option :include_hidden, type: :boolean, default: true
   has_option :multiple, type: :boolean, default: false
   has_option :checked, type: :boolean
+  has_option :required, type: :boolean, default: false
 
   def value
     options[:value] ||= value_from_object
@@ -49,6 +50,7 @@ class FoxTail::CheckboxComponent < FoxTail::BaseComponent
     html_attributes[:class] = classnames theme.apply(:root, self), html_class
     html_attributes[:value] = checked_value
     html_attributes[:checked] = checked?
+    html_attributes[:required] = required?
   end
 
   def call

@@ -8,6 +8,7 @@ class FoxTail::RadioButtonComponent < FoxTail::BaseComponent
   has_option :size, default: :base
   has_option :value
   has_option :checked, as: :boolean, default: false
+  has_option :required, type: :boolean, default: false
 
   def value
     options[:value] ||= value_from_object
@@ -28,6 +29,7 @@ class FoxTail::RadioButtonComponent < FoxTail::BaseComponent
     html_attributes[:class] = classnames theme.apply(:root, self), html_class
     html_attributes[:value] = value
     html_attributes[:checked] = checked?
+    html_attributes[:required] = required?
   end
 
   def call
