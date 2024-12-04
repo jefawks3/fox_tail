@@ -17,6 +17,7 @@ module FoxTail
   autoload :Translator
   autoload :StimulusBuilder
   autoload :StimulusManager
+  autoload :TagHelper
 
   module IconSets
     extend ActiveSupport::Autoload
