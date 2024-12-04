@@ -164,7 +164,11 @@ module FoxTail::Concerns::Formable
     methods.any? { |m| object.errors[m].present? }
   end
 
+  def form_options
+    options.slice(*FORM_OPTIONS)
+  end
+
   def objectify_options(options)
-    options.merge self.options.slice(*FORM_OPTIONS)
+    options.merge(form_options)
   end
 end

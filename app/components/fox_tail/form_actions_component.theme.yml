@@ -1,0 +1,2 @@
+root:
+  base: "flex flex-row items-center gap-4"

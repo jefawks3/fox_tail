@@ -1,0 +1,30 @@
+<%= content_tag :div, class: classnames(theme.apply(:root, self), html_class) do %>
+  <% if variant == :inline %>
+    <%= content_tag :div, class: theme.apply(:inline_container, self) do %>
+      <%= input %>
+      <%= content %>
+      <%= label %>
+    <% end %>
+    <%= help_text %>
+  <% else %>
+    <% if action? %>
+      <%= content_tag :div, class: theme.apply(:header, self) do %>
+        <%= label %>
+        <%= action %>
+      <% end %>
+    <% else %>
+      <%= label %>
+    <% end %>
+    <%= input %>
+    <%= content %>
+    <% if link? %>
+      <%= content_tag :div, class: theme.apply(:footer, self) do %>
+        <%= help_text %>
+        <%= link %>
+      <% end %>
+    <% else %>
+      <%= help_text %>
+    <% end %>
+  <% end %>
+  <%= error_list %>
+<% end %>

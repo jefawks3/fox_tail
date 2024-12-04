@@ -1,0 +1,12 @@
+root:
+  base: "space-y-2"
+inline_container:
+  base: "flex items-center gap-2"
+header:
+  base: "flex flex-row items-center gap-4"
+header/action:
+  base: "ml-auto"
+footer:
+  base: "flex flex-row items-center gap-4"
+footer/link:
+  base: "ml-auto text-sm"
