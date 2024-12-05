@@ -1,3 +1,8 @@
+# ***!!! NOT PRODUCTION READY !!!***
+
+*I'm still working on this GEM and working out how different UI components interact with each other.
+**During this time, there maybe a lot of breaking changes.***
+
 # FoxTail
 Rails View Components built with Flowbite and Tailwind CSS
 
