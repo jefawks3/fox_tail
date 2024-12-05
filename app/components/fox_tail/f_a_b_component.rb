@@ -36,7 +36,7 @@ class FoxTail::FABComponent < FoxTail::BaseComponent
     super
 
     generate_unique_id
-    
+
     options[:item_placement] = calculate_item_placement if item_placement == :auto
     options[:label_placement] = calculate_label_placement if label_placement == :auto
   end

@@ -33,7 +33,6 @@ class HtmlAttributesTest < ActiveSupport::TestCase
     attributes = FoxTail::HtmlAttributes.new(data: {controller: "fox-tail--progress-bar"})
     merged = attributes.merge_stimulus_controllers("fox-tail--form-item", "foo-bar", ["fox-tail--progress-bar"])
 
-
     assert_not_same attributes, merged
     assert_equal "fox-tail--progress-bar fox-tail--form-item foo-bar", merged.dig(:data, :controller)
   end
@@ -88,7 +87,7 @@ class HtmlAttributesTest < ActiveSupport::TestCase
           "controller" => "fox-tail--progress-bar foo-bar",
           "fox_tail__progress_bar_val_value" => 50,
           "action" => "hover->fox-tail--progress-bar:update foo-bar#update",
-          "foo_bar_out_outlet" => ".foo-bar-outlet",
+          "foo_bar_out_outlet" => ".foo-bar-outlet"
         },
         "aria" => {
           "visible" => true
@@ -127,7 +126,7 @@ class HtmlAttributesTest < ActiveSupport::TestCase
           "controller" => "fox-tail--progress-bar foo-bar",
           "fox_tail__progress_bar_val_value" => 50,
           "action" => "hover->fox-tail--progress-bar:update foo-bar#update",
-          "foo_bar_out_outlet" => ".foo-bar-outlet",
+          "foo_bar_out_outlet" => ".foo-bar-outlet"
         },
         "aria" => {
           "visible" => true

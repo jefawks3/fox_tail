@@ -246,11 +246,11 @@ class FoxTail::SemanticFieldComponent < FoxTail::BaseComponent
     with_input unless input?
   end
 
-  def with_input(*, &)
+  def with_input(*args, &block)
     if respond_to?("with_#{input_type}_field")
-      send("with_#{input_type}_field", *, &)
+      send("with_#{input_type}_field", *args, &block)
     else
-      send("with_#{input_type}", *, &)
+      send("with_#{input_type}", *args, &block)
     end
   end
 
@@ -264,6 +264,6 @@ class FoxTail::SemanticFieldComponent < FoxTail::BaseComponent
     options = html_attributes.merge(extract_options_for(klass), options)
     options[:id] = id if id.present?
     options[:class] = classnames theme.apply(:input, self), options[:class]
-    klass.new options
+    klass.new(options)
   end
 end

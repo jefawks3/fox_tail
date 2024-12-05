@@ -2,8 +2,8 @@
 
 class FoxTail::ModalTriggerComponent < FoxTail::TriggerBaseComponent
   ACTIONS = {
-    click: { show: :click }.freeze,
-    toggle: { toggle: :click }.freeze,
+    click: {show: :click}.freeze,
+    toggle: {toggle: :click}.freeze
   }.freeze
 
   has_option :trigger_type, default: :click

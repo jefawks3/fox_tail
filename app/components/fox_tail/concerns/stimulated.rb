@@ -27,7 +27,6 @@ module FoxTail::Concerns::Stimulated
     @stimulated ||= FoxTail::StimulusManager.new(html_attributes)
   end
 
-
   class_methods do
     def stimulated_with(identifier, options = {}, &block)
       stimulus_controller = StimulusController.new(identifier, options, block)

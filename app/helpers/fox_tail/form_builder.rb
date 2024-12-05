@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class FoxTail::FormBuilder < ActionView::Helpers::FormBuilder
-  def controlled? = false
+  def controlled?
+    false
+  end
 
   def body(options = {}, &block)
     @template.render FoxTail::FormBodyComponent.new(options), &block
@@ -86,13 +88,13 @@ class FoxTail::FormBuilder < ActionView::Helpers::FormBuilder
   end
 
   alias_method :phone_field, :telephone_field
-  
+
   def semantic_telephone_field(method, options = {}, &block)
     semantic_field method, options.merge(as: :telephone_field), &block
   end
 
   alias_method :semantic_phone_field, :semantic_telephone_field
-  
+
   def date_field(method, options = {}, &block)
     input_field method, options.merge(type: :date), &block
   end
@@ -106,7 +108,7 @@ class FoxTail::FormBuilder < ActionView::Helpers::FormBuilder
   end
 
   alias_method :datetime_local_field, :datetime_field
-  
+
   def semantic_datetime_field(method, options = {}, &block)
     semantic_field method, options.merge(as: :datetime_field), &block
   end

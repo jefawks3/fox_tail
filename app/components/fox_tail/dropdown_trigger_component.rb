@@ -9,7 +9,7 @@ class FoxTail::DropdownTriggerComponent < FoxTail::TriggerBaseComponent
     }.freeze,
     click: {
       toggle: :click
-    }.freeze,
+    }.freeze
   }.freeze
 
   ACTION_ALIASES = {toggle: :click}.freeze
