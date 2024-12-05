@@ -9,6 +9,7 @@ inherit_gem:
 
 AllCops:
   NewCops: enable
+  TargetRubyVersion: 2.7
   TargetRailsVersion: 5.2
   Exclude:
     - .idea/**/*
